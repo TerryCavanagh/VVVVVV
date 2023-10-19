@@ -52,7 +52,7 @@
     <string english="language" translation="dil" explanation="menu option"/>
     <string english="Language" translation="Dil" explanation="title" max="20"/>
     <string english="Change the language." translation="Dili değiştir." explanation="" max="38*2"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="Oyun içinde bir metin kutusu görüntülenirken dil değiştirilemez." explanation="" max="38*3"/>
     <string english="clear main game data" translation="ana oyun verilerini temizle" explanation="menu option"/>
     <string english="clear custom level data" translation="özel bölüm verilerini temizle" explanation="menu option"/>
     <string english="Clear Data" translation="Verileri Temizle" explanation="title" max="20"/>
@@ -209,11 +209,11 @@
     <string english="Toggle the in-game timer outside of time trials." translation="Zamanla yarış modları dışında|oyun içi zamanlayıcıyı aç/kapat." explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Oyun İçi Zamanlayıcı AÇIK" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Oyun İçi Zamanlayıcı KAPALI" explanation="" max="38*2"/>
-    <string english="english sprites" translation="" explanation="menu option"/>
-    <string english="English Sprites" translation="" explanation="title" max="20"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3"/>
-    <string english="Sprites are currently translated" translation="" explanation="" max="38*2"/>
-    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2"/>
+    <string english="english sprites" translation="ingilizce hareketli kelimeler" explanation="menu option"/>
+    <string english="English Sprites" translation="İngilizce Hareketli Kelimeler" explanation="title" max="20"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="Dil seçiminden bağımsız olarak hareketli kelimeleri orijinal dilinde (İngilizce) göster" explanation="" max="38*3"/>
+    <string english="Sprites are currently translated" translation="Hareketli kelimelerin çevirileri gösteriliyor" explanation="" max="38*2"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="Hareketli kelimeler İNGİLİZCE gösteriliyor" explanation="" max="38*2"/>
     <string english="interact button" translation="etkileşim düğmesi" explanation="menu option"/>
     <string english="Interact Button" translation="Etkileşim Düğmesi" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Etkileşim için ENTER tuşunun mu|E tuşunun mu kullanılacağını seç." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
@@ -423,8 +423,8 @@
     <string english="start from beginning" translation="baştan başla" explanation="menu option"/>
     <string english="delete save" translation="kaydı sil" explanation="menu option"/>
     <string english="back to levels" translation="bölümlere dön" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="Bölüm Düzenleyici klavye ve fare gerektirdiği için şu an için Steam Deck'te desteklenmiyor." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="Bölüm Düzenleyici klavye ve fare gerektirdiği için şu an için bu cihazda desteklenmiyor." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation=".vvvvvv dosyalarını &quot;levels&quot; klasörüne kopyalayarak oyuncuların hazırladığı yeni bölümleri yükleyebilirsin." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="&quot;levels&quot; klasörünün yolunu göstermek istediğinden emin misin? Bu işlem, yayın yapıyorsan hassas bilgilerin görünmesine neden olabilir." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="&quot;levels&quot; klasörünün yolu:" explanation="" max="40"/>
@@ -667,7 +667,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area}, {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="Bölüm Tamamlandı!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="Oyun Tamamlandı!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="You have rescued a crew member!" translation="Bir ekip üyesi kurtardın!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
@@ -777,33 +777,33 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Error parsing {path}: {error}" translation="{path} işlenemedi: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename} dosyasının boyutları {width} x {height} değerlerinin tam katı değil!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="HATA: Dil klasörüne yazılamadı! Normal kayıt dosyalarının yanında &quot;lang&quot; adlı bir klasör olmadığından emin ol." explanation="" max="38*5"/>
-    <string english="Localisation" translation="" explanation=""/>
-    <string english="Localisation Project Led by" translation="" explanation=""/>
-    <string english="Translations by" translation="" explanation=""/>
-    <string english="Translators" translation="" explanation=""/>
-    <string english="Pan-European Font Design by" translation="" explanation=""/>
-    <string english="Fonts by" translation="" explanation=""/>
-    <string english="Other Fonts by" translation="" explanation=""/>
-    <string english="Catalan" translation="" explanation=""/>
-    <string english="Welsh" translation="" explanation=""/>
-    <string english="German" translation="" explanation=""/>
-    <string english="Esperanto" translation="" explanation=""/>
-    <string english="Spanish" translation="" explanation=""/>
-    <string english="French" translation="" explanation=""/>
-    <string english="Irish" translation="" explanation=""/>
-    <string english="Italian" translation="" explanation=""/>
-    <string english="Japanese" translation="" explanation=""/>
-    <string english="Korean" translation="" explanation=""/>
-    <string english="Dutch" translation="" explanation=""/>
-    <string english="Polish" translation="" explanation=""/>
-    <string english="Brazilian Portuguese" translation="" explanation=""/>
-    <string english="European Portuguese" translation="" explanation=""/>
-    <string english="Russian" translation="" explanation=""/>
-    <string english="Silesian" translation="" explanation=""/>
-    <string english="Turkish" translation="" explanation=""/>
-    <string english="Ukrainian" translation="" explanation=""/>
-    <string english="Chinese (Simplified)" translation="" explanation=""/>
-    <string english="Chinese (Traditional)" translation="" explanation=""/>
+    <string english="Localisation" translation="Yerelleştirme" explanation=""/>
+    <string english="Localisation Project Led by" translation="Yerelleştirme Proje Lideri" explanation=""/>
+    <string english="Translations by" translation="Çevirmenler" explanation=""/>
+    <string english="Translators" translation="Çevirmenler" explanation=""/>
+    <string english="Pan-European Font Design by" translation="Pan-European Yazı Tipi Tasarımı" explanation=""/>
+    <string english="Fonts by" translation="Yazı Tipleri" explanation=""/>
+    <string english="Other Fonts by" translation="Diğer Yazı Tipleri" explanation=""/>
+    <string english="Catalan" translation="Katalanca" explanation=""/>
+    <string english="Welsh" translation="Galce" explanation=""/>
+    <string english="German" translation="Almanca" explanation=""/>
+    <string english="Esperanto" translation="Esperanto" explanation=""/>
+    <string english="Spanish" translation="Ispanyolca" explanation=""/>
+    <string english="French" translation="Fransizca" explanation=""/>
+    <string english="Irish" translation="Irlandaca" explanation=""/>
+    <string english="Italian" translation="Italyanca" explanation=""/>
+    <string english="Japanese" translation="Japonca" explanation=""/>
+    <string english="Korean" translation="Korece" explanation=""/>
+    <string english="Dutch" translation="Felemenkçe" explanation=""/>
+    <string english="Polish" translation="Lehçe" explanation=""/>
+    <string english="Brazilian Portuguese" translation="Brezilya Portekizcesi" explanation=""/>
+    <string english="European Portuguese" translation="Portekizce" explanation=""/>
+    <string english="Russian" translation="Rusça" explanation=""/>
+    <string english="Silesian" translation="Silezyaca" explanation=""/>
+    <string english="Turkish" translation="Türkçe" explanation=""/>
+    <string english="Ukrainian" translation="Ukraynaca" explanation=""/>
+    <string english="Chinese (Simplified)" translation="Basitlestirilmis Çince" explanation=""/>
+    <string english="Chinese (Traditional)" translation="Geleneksel Çince" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
