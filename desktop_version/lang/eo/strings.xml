@@ -777,33 +777,33 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="Error parsing {path}: {error}" translation="Eraro dum analizado de {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Dimensioj de {filename} ne estas ekzaktaj obloj de {width} oble {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERARO: Ne eblis skribi en lingvo-dosierujo! Certigu, ke ne estas dosierujo &quot;lang&quot; apud la normalaj konservaĵoj." explanation="" max="38*5"/>
-    <string english="Localisation" translation="" explanation=""/>
-    <string english="Localisation Project Led by" translation="" explanation=""/>
-    <string english="Translations by" translation="" explanation=""/>
-    <string english="Translators" translation="" explanation=""/>
-    <string english="Pan-European Font Design by" translation="" explanation=""/>
-    <string english="Fonts by" translation="" explanation=""/>
-    <string english="Other Fonts by" translation="" explanation=""/>
-    <string english="Catalan" translation="" explanation=""/>
-    <string english="Welsh" translation="" explanation=""/>
-    <string english="German" translation="" explanation=""/>
-    <string english="Esperanto" translation="" explanation=""/>
-    <string english="Spanish" translation="" explanation=""/>
-    <string english="French" translation="" explanation=""/>
-    <string english="Irish" translation="" explanation=""/>
-    <string english="Italian" translation="" explanation=""/>
-    <string english="Japanese" translation="" explanation=""/>
-    <string english="Korean" translation="" explanation=""/>
-    <string english="Dutch" translation="" explanation=""/>
-    <string english="Polish" translation="" explanation=""/>
-    <string english="Brazilian Portuguese" translation="" explanation=""/>
-    <string english="European Portuguese" translation="" explanation=""/>
-    <string english="Russian" translation="" explanation=""/>
-    <string english="Silesian" translation="" explanation=""/>
-    <string english="Turkish" translation="" explanation=""/>
-    <string english="Ukrainian" translation="" explanation=""/>
-    <string english="Chinese (Simplified)" translation="" explanation=""/>
-    <string english="Chinese (Traditional)" translation="" explanation=""/>
+    <string english="Localisation" translation="Tradukado" explanation=""/>
+    <string english="Localisation Project Led by" translation="Ĉefo de traduka projekto" explanation=""/>
+    <string english="Translations by" translation="Tradukis" explanation=""/>
+    <string english="Translators" translation="Tradukistoj" explanation=""/>
+    <string english="Pan-European Font Design by" translation="Tuteŭropan tiparon desegnis" explanation=""/>
+    <string english="Fonts by" translation="Tiparoj de" explanation=""/>
+    <string english="Other Fonts by" translation="Aliaj tiparoj de" explanation=""/>
+    <string english="Catalan" translation="Katalunen" explanation=""/>
+    <string english="Welsh" translation="Kimren" explanation=""/>
+    <string english="German" translation="Germanen" explanation=""/>
+    <string english="Esperanto" translation="Esperanten" explanation=""/>
+    <string english="Spanish" translation="Hispanen" explanation=""/>
+    <string english="French" translation="Francen" explanation=""/>
+    <string english="Irish" translation="Irlanden" explanation=""/>
+    <string english="Italian" translation="Italen" explanation=""/>
+    <string english="Japanese" translation="Japanen" explanation=""/>
+    <string english="Korean" translation="Koreen" explanation=""/>
+    <string english="Dutch" translation="Nederlanden" explanation=""/>
+    <string english="Polish" translation="Polen" explanation=""/>
+    <string english="Brazilian Portuguese" translation="Portugalen (Brazilo)" explanation=""/>
+    <string english="European Portuguese" translation="Portugalen (Eŭropo)" explanation=""/>
+    <string english="Russian" translation="Rusen" explanation=""/>
+    <string english="Silesian" translation="Silezien" explanation=""/>
+    <string english="Turkish" translation="Turken" explanation=""/>
+    <string english="Ukrainian" translation="Ukrainen" explanation=""/>
+    <string english="Chinese (Simplified)" translation="Ĉinen (simpligite)" explanation=""/>
+    <string english="Chinese (Traditional)" translation="Ĉinen (tradicie)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
