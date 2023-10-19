@@ -869,7 +869,7 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="Há! Ní bhfaighidh aon duine an ceann seo go deo!" pad="1"/>
     </cutscene>
     <cutscene id="terminal_warp_1" explanation="">
-        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="...An lá faoi dheireadh cuireadh an ruaig orm síos an halla ag ciúb ollmhór ar a raibh an focal &quot;AVOID&quot;."/>
+        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="...An lá faoi dheireadh cuireadh an ruaig orm síos an halla ag ciúb ollmhór ar a raibh an focal &quot;FAINIC&quot;."/>
         <dialogue speaker="gray" english="These security measures go too far!" translation="Téann na bearta slándála seo thar fóir!"/>
     </cutscene>
     <cutscene id="terminal_warp_2" explanation="">

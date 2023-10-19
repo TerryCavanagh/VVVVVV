@@ -870,7 +870,7 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="Ha! Niemand krijgt deze ooit te pakken." pad="1"/>
     </cutscene>
     <cutscene id="terminal_warp_1" explanation="">
-        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="...Laatst werd ik in de gang achtervolgd door een gigantische kubus met het woord ONTWIJKEN erop."/>
+        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="...Laatst werd ik in de gang achtervolgd door een gigantische kubus met het woord ONTWIJK erop."/>
         <dialogue speaker="gray" english="These security measures go too far!" translation="Die beveiligingsmaatregelen gaan te ver!"/>
     </cutscene>
     <cutscene id="terminal_warp_2" explanation="">

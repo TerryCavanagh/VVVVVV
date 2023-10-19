@@ -209,11 +209,11 @@
     <string english="Toggle the in-game timer outside of time trials." translation="Baskuligi la enludan tempomontron ekster tempoprovoj." explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Enluda tempomontro estas ŜALTA" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Enluda tempomontro estas MALŜALTA" explanation="" max="38*2"/>
-    <string english="english sprites" translation="" explanation="menu option"/>
-    <string english="English Sprites" translation="" explanation="title" max="20"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3"/>
-    <string english="Sprites are currently translated" translation="" explanation="" max="38*2"/>
-    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2"/>
+    <string english="english sprites" translation="anglalingvaj grafikoj" explanation="menu option"/>
+    <string english="English Sprites" translation="Anglaj grafikoj" explanation="title" max="20"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="Montri la originalajn anglalingvajn vorto-malamikojn sendistinge de la lingva agordo." explanation="" max="38*3"/>
+    <string english="Sprites are currently translated" translation="Grafikoj estas nune tradukitaj" explanation="" max="38*2"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="Grafikoj estas nune ĈIAM ANGLALINGVAJ" explanation="" max="38*2"/>
     <string english="interact button" translation="interaga butono" explanation="menu option"/>
     <string english="Interact Button" translation="Interaga butono" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Baskuligi ĉu interagi al invitoj per aŭ ENTER aŭ E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
@@ -667,7 +667,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2},{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec},{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=",99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area}, {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="Fino de nivelo!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="Fino de ludo!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="You have rescued a crew member!" translation="Vi savis skipanon!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
