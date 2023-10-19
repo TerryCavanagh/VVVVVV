@@ -52,7 +52,7 @@
     <string english="language" translation="lingua" explanation="menu option"/>
     <string english="Language" translation="Lingua" explanation="title" max="20"/>
     <string english="Change the language." translation="Cambia la lingua." explanation="" max="38*2"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="Impossibile cambiare lingua mentre una finestra di dialogo è mostrata sullo schermo." explanation="" max="38*3"/>
     <string english="clear main game data" translation="cancella dati gioco principale" explanation="menu option"/>
     <string english="clear custom level data" translation="cancella dati livelli personalizzati" explanation="menu option"/>
     <string english="Clear Data" translation="Cancella dati" explanation="title" max="20"/>
@@ -209,11 +209,11 @@
     <string english="Toggle the in-game timer outside of time trials." translation="Attiva o disattiva il timer nel gioco al di fuori delle prove a tempo." explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Timer nel gioco: NO" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Timer nel gioco: SÌ" explanation="" max="38*2"/>
-    <string english="english sprites" translation="" explanation="menu option"/>
-    <string english="English Sprites" translation="" explanation="title" max="20"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3"/>
-    <string english="Sprites are currently translated" translation="" explanation="" max="38*2"/>
-    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2"/>
+    <string english="english sprites" translation="sprite inglesi" explanation="menu option"/>
+    <string english="English Sprites" translation="Sprite inglesi" explanation="title" max="20"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="Mostra le parole nemiche in inglese indipendentemente dalla lingua impostata." explanation="" max="38*3"/>
+    <string english="Sprites are currently translated" translation="Gli sprite sono tradotti al momento" explanation="" max="38*2"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="Gli sprite sono SEMPRE IN INGLESE al momento" explanation="" max="38*2"/>
     <string english="interact button" translation="pulsante interagisci" explanation="menu option"/>
     <string english="Interact Button" translation="Pulsante Interagisci" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Scegli se interagire con i messaggi utilizzando INVIO o E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
@@ -423,8 +423,8 @@
     <string english="start from beginning" translation="comincia dall&apos;inizio" explanation="menu option"/>
     <string english="delete save" translation="elimina salvataggio" explanation="menu option"/>
     <string english="back to levels" translation="torna ai livelli" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="L'editor di livelli non è al momento supportato su Steam Deck, dato che richiede l'uso di tastiera e mouse." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="L'editor di livelli non è al momento supportato su questo dispositivo, dato che richiede l'uso di tastiera e mouse." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Per installare nuovi livelli giocatore, copia i file .vvvvvv nella cartella dei livelli." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Vuoi davvero mostrare il percorso dei livelli? Potrebbe rivelare informazioni sensibili durante lo streaming." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Il percorso dei livelli è:" explanation="" max="40"/>
@@ -667,7 +667,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2},{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec},{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=",99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area}, {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="Livello completato" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="Gioco completato" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="You have rescued a crew member!" translation="Hai salvato un membro dell&apos;equipaggio!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
@@ -777,33 +777,33 @@ Hai trovato il laboratorio segreto!" explanation="" max="34*4"/>
     <string english="Error parsing {path}: {error}" translation="Errore di lettura {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Le dimensioni di {filename} non sono un multiplo esatto di {width} x {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERRORE: impossibile scrivere sulla cartella lingua! Assicurati che non ci sia una cartella &quot;lang&quot; insieme ai normali salvataggi." explanation="" max="38*5"/>
-    <string english="Localisation" translation="" explanation=""/>
-    <string english="Localisation Project Led by" translation="" explanation=""/>
-    <string english="Translations by" translation="" explanation=""/>
-    <string english="Translators" translation="" explanation=""/>
-    <string english="Pan-European Font Design by" translation="" explanation=""/>
-    <string english="Fonts by" translation="" explanation=""/>
-    <string english="Other Fonts by" translation="" explanation=""/>
-    <string english="Catalan" translation="" explanation=""/>
-    <string english="Welsh" translation="" explanation=""/>
-    <string english="German" translation="" explanation=""/>
-    <string english="Esperanto" translation="" explanation=""/>
-    <string english="Spanish" translation="" explanation=""/>
-    <string english="French" translation="" explanation=""/>
-    <string english="Irish" translation="" explanation=""/>
-    <string english="Italian" translation="" explanation=""/>
-    <string english="Japanese" translation="" explanation=""/>
-    <string english="Korean" translation="" explanation=""/>
-    <string english="Dutch" translation="" explanation=""/>
-    <string english="Polish" translation="" explanation=""/>
-    <string english="Brazilian Portuguese" translation="" explanation=""/>
-    <string english="European Portuguese" translation="" explanation=""/>
-    <string english="Russian" translation="" explanation=""/>
-    <string english="Silesian" translation="" explanation=""/>
-    <string english="Turkish" translation="" explanation=""/>
-    <string english="Ukrainian" translation="" explanation=""/>
-    <string english="Chinese (Simplified)" translation="" explanation=""/>
-    <string english="Chinese (Traditional)" translation="" explanation=""/>
+    <string english="Localisation" translation="Localizzazione" explanation=""/>
+    <string english="Localisation Project Led by" translation="Direzione del progetto di localizzazione" explanation=""/>
+    <string english="Translations by" translation="Traduzioni" explanation=""/>
+    <string english="Translators" translation="Traduttori" explanation=""/>
+    <string english="Pan-European Font Design by" translation="Progettazione del font pan-europeo" explanation=""/>
+    <string english="Fonts by" translation="Font" explanation=""/>
+    <string english="Other Fonts by" translation="Altri font" explanation=""/>
+    <string english="Catalan" translation="Catalano" explanation=""/>
+    <string english="Welsh" translation="Gallese" explanation=""/>
+    <string english="German" translation="Tedesco" explanation=""/>
+    <string english="Esperanto" translation="Esperanto" explanation=""/>
+    <string english="Spanish" translation="Spagnolo" explanation=""/>
+    <string english="French" translation="Francese" explanation=""/>
+    <string english="Irish" translation="Irlandese" explanation=""/>
+    <string english="Italian" translation="Italiano" explanation=""/>
+    <string english="Japanese" translation="Giapponese" explanation=""/>
+    <string english="Korean" translation="Coreano" explanation=""/>
+    <string english="Dutch" translation="Olandese" explanation=""/>
+    <string english="Polish" translation="Polacco" explanation=""/>
+    <string english="Brazilian Portuguese" translation="Portoghese brasiliano" explanation=""/>
+    <string english="European Portuguese" translation="Portoghese europeo" explanation=""/>
+    <string english="Russian" translation="Russo" explanation=""/>
+    <string english="Silesian" translation="Silesiano" explanation=""/>
+    <string english="Turkish" translation="Turco" explanation=""/>
+    <string english="Ukrainian" translation="Ucraino" explanation=""/>
+    <string english="Chinese (Simplified)" translation="Cinese (semplificato)" explanation=""/>
+    <string english="Chinese (Traditional)" translation="Cinese (tradizionale)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
