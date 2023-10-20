@@ -210,7 +210,7 @@
     <string english="In-Game Timer is ON" translation="Ігровий таймер УВІМКНЕНО" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Ігровий таймер ВИМК." explanation="" max="38*2"/>
     <string english="english sprites" translation="вороги англійською" explanation="menu option"/>
-    <string english="English Sprites" translation="вороги англійською" explanation="title" max="20"/>
+    <string english="English Sprites" translation="Вороги англійською" explanation="title" max="20"/>
     <string english="Show the original English word enemies regardless of your language setting." translation="Показувати оригінальні ворожі слова англійською, незалежно від обраної мови." explanation="" max="38*3"/>
     <string english="Sprites are currently translated" translation="Зараз ворогів перекладено" explanation="" max="38*2"/>
     <string english="Sprites are currently ALWAYS ENGLISH" translation="Зараз вороги ЗАВЖДИ АНГЛІЙСЬКОЮ" explanation="" max="38*2"/>
