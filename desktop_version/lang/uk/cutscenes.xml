@@ -301,7 +301,7 @@
     <cutscene id="int1yellow_4" explanation="the split paths merge, and Vitellary sees a checkpoint">
         <dialogue speaker="yellow" english="Ohh! What was that?" translation="Ох! Що то було?"/>
         <dialogue speaker="player" english="What was what?" translation="Що — то?"/>
-        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="Ота велика… Ч-штука! Цікаво, що вона робить?"/>
+        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="Ота велика... Ч-штука! Цікаво, що вона робить?"/>
         <dialogue speaker="player" english="Em... I don&apos;t really know how to answer that question..." translation="Е-е... Не знаю, як відповісти на це запитання..."/>
         <dialogue speaker="player" english="It&apos;s probably best not to acknowledge that it&apos;s there at all." translation="Мабуть, краще навіть не зважати на неї."/>
         <dialogue speaker="yellow" english="Maybe we should take it back to the ship to study it?" translation="Може, заберемо її на корабель, щоб дослідити?"/>
