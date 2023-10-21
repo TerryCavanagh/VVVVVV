@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spritesmask sprite_w="32" sprite_h="32">
+    <sprite x="4" y="2" w="4"/> <!-- STOP -->
+    <sprite x="4" y="5" w="2"/> <!-- TRUTH -->
+    <sprite x="3" y="5"/>       <!-- LIES -->
+    <sprite x="2" y="5"/>       <!-- LIES receiver -->
+    <sprite x="3" y="4"/>       <!-- OBEY -->
+</spritesmask>
