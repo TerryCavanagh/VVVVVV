@@ -6,8 +6,8 @@
     <nativename>日本語</nativename>
 
     <!-- English translation by X -->
-    <credit>???(Nicalis)による翻訳
-KabanFriendsによる追加翻訳/校正</credit>
+    <credit>初版翻訳: Nicalis. Inc
+追加翻訳/校正: KabanFriends</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
     <action_hint>スペース, Z または V を押して決定</action_hint>

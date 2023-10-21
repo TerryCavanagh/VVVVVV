@@ -7,7 +7,7 @@
     <string english="Press M to mute in game" translation="Mキーで全サウンドをON/OFF" explanation="pause screen" max="40" max_local="40"/>
     <string english="Press N to mute music only" translation="Nキーで音楽をON/OFF" explanation="pause screen" max="40" max_local="40"/>
     <string english="MAKE AND PLAY EDITION" translation="MAKE AND PLAY EDITION" explanation="" max="27" max_local="27"/>
-    <string english="[MMMMMM Mod Installed]" translation="[MMMMMM Mod 導入済み]" explanation="" max="32" max_local="32"/>
+    <string english="[MMMMMM Mod Installed]" translation="[MMMMMM 導入済み]" explanation="" max="32" max_local="32"/>
     <string english="play" translation="ゲームスタート" explanation="main menu option"/>
     <string english="levels" translation="カスタムステージ" explanation="main menu option"/>
     <string english="options" translation="ゲーム設定" explanation="main menu option"/>
@@ -72,7 +72,7 @@
     <string english="yes, delete save" translation="はい、セーブデータを削除します" explanation="menu option"/>
     <string english="soundtrack" translation="サウンドトラック" explanation="menu option"/>
     <string english="Soundtrack" translation="サウンドトラック設定" explanation="title" max="20" max_local="20"/>
-    <string english="Toggle between MMMMMM and PPPPPP." translation="MMMMMMとPPPPPPを切り替える。" explanation="" max="38*2" max_local="38*1"/>
+    <string english="Toggle between MMMMMM and PPPPPP." translation="ゲーム内で再生するサウンドトラックを切り替える。" explanation="" max="38*2" max_local="38*1"/>
     <string english="Current soundtrack: PPPPPP" translation="現在のサウンドトラック: PPPPPP" explanation="" max="38*3" max_local="38*2"/>
     <string english="Current soundtrack: MMMMMM" translation="現在のサウンドトラック: MMMMMM" explanation="" max="38*3" max_local="38*2"/>
     <string english="toggle fullscreen" translation="フルスクリーン" explanation="menu option"/>
@@ -189,8 +189,8 @@ Escキーを押すと表示を終了する。" explanation="" max="38*6" max_loc
     <string english="Find translations that don&apos;t fit within their defined bounds." translation="既定のボックス内に収まらないテキストを全て表示する。" explanation="" max="38*6" max_local="38*5"/>
     <string english="No text overflows found!" translation="オーバーフローしているテキストはありません!" explanation="limits check. no strings go outside their max bounds" max="38*6" max_local="38*5"/>
     <string english="No text overflows left!" translation="オーバーフローの確認が完了しました。" explanation="limits check. we have seen all strings that go outside their max bounds" max="38*6" max_local="38*5"/>
-    <string english="Note that this detection isn&apos;t perfect." translation="注: このテストでは正確にオーバーフローが確認できていない
-可能性があります。" explanation="limits check" max="38*6" max_local="38*5"/>
+    <string english="Note that this detection isn&apos;t perfect." translation="注: この自動検知による確認は正確ではない可能性があります。
+" explanation="limits check" max="38*6" max_local="38*5"/>
     <string english="sync language files" translation="追加分のテキストを同期する" explanation="menu option"/>
     <string english="Sync language files" translation="追加分のテキストの同期" explanation="title, translation maintenance menu" max="20" max_local="20"/>
     <string english="sync" translation="同期する" explanation="menu option, verb"/>
@@ -224,11 +224,11 @@ Escキーを押すと表示を終了する。" explanation="" max="38*6" max_loc
     <string english="Toggle the in-game timer outside of time trials." translation="タイムトライアル以外でも、ゲーム画面上にタイマーを表示する。" explanation="" max="38*3" max_local="38*2"/>
     <string english="In-Game Timer is ON" translation="現在の設定: ON" explanation="" max="38*2" max_local="38*1"/>
     <string english="In-Game Timer is OFF" translation="現在の設定: OFF" explanation="" max="38*2" max_local="38*1"/>
-    <string english="english sprites" translation="" explanation="menu option"/>
-    <string english="English Sprites" translation="" explanation="title" max="20" max_local="20"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3" max_local="38*2"/>
-    <string english="Sprites are currently translated" translation="" explanation="" max="38*2" max_local="38*1"/>
-    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2" max_local="38*1"/>
+    <string english="english sprites" translation="敵スプライトを英語で表示" explanation="menu option"/>
+    <string english="English Sprites" translation="敵スプライトの英語表記" explanation="title" max="20" max_local="20"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="言語設定を無視して、文字の付いた敵を常に英語で表示する。" explanation="" max="38*3" max_local="38*2"/>
+    <string english="Sprites are currently translated" translation="現在の設定: OFF(日本語表記)" explanation="" max="38*2" max_local="38*1"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="現在の設定: ON(英語表記)" explanation="" max="38*2" max_local="38*1"/>
     <string english="interact button" translation="「使用」キーの変更" explanation="menu option"/>
     <string english="Interact Button" translation="「使用」キー" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" max_local="20"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="ターミナルの使用や会話に使うキーを、ENTERまたはEに割り当てる。" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3" max_local="38*2"/>
@@ -249,7 +249,7 @@ Escキーを押すと表示を終了する。" explanation="" max="38*6" max_loc
     <string english="Room name background is OPAQUE" translation="現在の設定: 不透明" explanation="" max="38*2" max_local="38*1"/>
     <string english="speedrun options" translation="RTA用設定" explanation="menu option"/>
     <string english="Speedrunner Options" translation="RTA用設定" explanation="title" max="20" max_local="20"/>
-    <string english="Access some advanced settings that might be of interest to speedrunners." translation="RTAスピードランに役に立つ設定を変更する。" explanation="description for speedrunner options" max="38*5" max_local="38*4"/>
+    <string english="Access some advanced settings that might be of interest to speedrunners." translation="RTA/スピードランで役に立つ設定を変更する。" explanation="description for speedrunner options" max="38*5" max_local="38*4"/>
     <string english="glitchrunner mode" translation="バグ有りモード" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
     <string english="Glitchrunner Mode" translation="バグ有りモード" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" max_local="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="古いバージョンに存在したバグの有無を切り替える。" explanation="glitchrunner mode" max="38*3" max_local="38*2"/>
@@ -454,12 +454,14 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="start from beginning" translation="最初から始める" explanation="menu option"/>
     <string english="delete save" translation="セーブデータを削除" explanation="menu option"/>
     <string english="back to levels" translation="ステージ一覧に戻る" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="ステージエディターはキーボードとマウスが必要なため、Steam Deckには対応していません。" explanation="" max="38*5" max_local="38*4"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="ステージエディターはキーボードとマウスが必要なため、お使いのデバイスには対応していません。" explanation="" max="38*5" max_local="38*4"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="ステージエディターはキーボードとマウスが必要なため、
+Steam Deckには対応していません。" explanation="" max="38*5" max_local="38*4"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="ステージエディターはキーボードとマウスが必要なため、
+お使いのデバイスには対応していません。" explanation="" max="38*5" max_local="38*4"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="ステージフォルダーに.vvvvvvファイルをコピーすると、
 カスタムステージをインストールできます。" explanation="" max="38*5" max_local="38*4"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="ステージフォルダーの場所を表示してもよろしいですか?
-ゲームを生配信中の場合、機密情報が表示される可能性があります。" explanation="" max="38*4" max_local="38*3"/>
+ゲームを生配信している場合、個人情報が公開されてしまう可能性があります。" explanation="" max="38*4" max_local="38*3"/>
     <string english="The levels path is:" translation="ステージフォルダーの場所:" explanation="" max="40" max_local="40"/>
     <string english="[ Press ACTION to Start ]" translation="[ ACTION を押してスタート ]" explanation="***OUTDATED***" max="38*2" max_local="38*1"/>
     <string english="[ Press {button} to Start ]" translation="[ {button} を押してスタート ]" explanation="title screen. Expect `ACTION`" max="38*2" max_local="38*1"/>
@@ -495,8 +497,8 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="[ QUIT ]" translation="[ やめる ]" explanation="in-game menu" max="40" max_local="40"/>
     <string english="[ GRAVITRON ]" translation="[ グラビトロン ]" explanation="in-game menu" max="40" max_local="40"/>
     <string english="NO SIGNAL" translation="受信不可" explanation="map screen. So like a TV/computer monitor" max="29" max_local="29"/>
-    <string english="Press ACTION to warp to the ship." translation="ACTION を押して船にワープ" explanation="***OUTDATED***" max="38*7" max_local="38*5"/>
-    <string english="Press {button} to warp to the ship." translation="{button} を押して船にワープ" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7" max_local="38*5"/>
+    <string english="Press ACTION to warp to the ship." translation="[ ACTION を押して船にワープ ]" explanation="***OUTDATED***" max="38*7" max_local="38*5"/>
+    <string english="Press {button} to warp to the ship." translation="[ {button} を押して船にワープ ]" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7" max_local="38*5"/>
     <string english="Missing..." translation="行方不明…" case="1" explanation="this male crew member is missing" max="15" max_local="15"/>
     <string english="Missing..." translation="行方不明…" case="2" explanation="this female crew member is missing" max="15" max_local="15"/>
     <string english="Missing..." translation="行方不明…" case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15" max_local="15"/>
@@ -512,7 +514,7 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="Game saved ok!" translation="セーブ完了!" explanation="in-game menu" max="38*2" max_local="38*1"/>
     <string english="[Press ACTION to save your game]" translation="[ ACTION を押してセーブ ]" explanation="***OUTDATED***" max="40" max_local="40"/>
     <string english="[Press {button} to save your game]" translation="[ {button} を押してセーブ ]" explanation="in-game menu. Expect `ACTION`" max="40" max_local="40"/>
-    <string english="(Note: The game is autosaved at every teleporter.)" translation="(※各テレポーターでゲームは自動セーブされます。)" explanation="in-game menu" max="38*3" max_local="38*2"/>
+    <string english="(Note: The game is autosaved at every teleporter.)" translation="(各テレポーターでゲームは自動セーブされます)" explanation="in-game menu" max="38*3" max_local="38*2"/>
     <string english="Last Save:" translation="最後のセーブ:" explanation="in-game menu" max="40" max_local="40"/>
     <string english="Return to main menu?" translation="メインメニューに戻りますか?" explanation="in-game menu" max="38*4" max_local="38*3"/>
     <string english="Do you want to quit? You will lose any unsaved progress." translation="ゲームをやめますか?
@@ -615,7 +617,7 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="Click on the last corner" translation="2つ目の角をクリックしてください" explanation="" max="39*3" max_local="39*2"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** VVVVVV スクリプト エディター ****" explanation="supposed to look like a Commodore 64 screen" max="36" max_local="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="ESCキーを押して終了" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36" max_local="36"/>
-    <string english="NO SCRIPT IDS FOUND" translation="スクリプトIDが見つかりません" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36" max_local="36"/>
+    <string english="NO SCRIPT IDS FOUND" translation="スクリプトがありません" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36" max_local="36"/>
     <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="ターミナルまたはスクリプトボックスを設置して
 スクリプトを作成してください" explanation="Commodore 64-style script editor" max="36*5" max_local="36*4"/>
     <string english="CURRENT SCRIPT: {name}" translation="スクリプト: {name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20" max_local="20"/>
@@ -648,7 +650,7 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="O: Crewmates" translation="O: クルー" explanation="editor tool. Crewmate that can be rescued" max="32" max_local="32"/>
     <string english="P: Start Point" translation="P: スタート地点" explanation="editor tool" max="32" max_local="32"/>
     <string english="START" translation="スタート" explanation="start point in level editor" max="10" max_local="10"/>
-    <string english="SPACE ^  SHIFT ^" translation="スペース↑ SHIFT↑" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32" max_local="32"/>
+    <string english="SPACE ^  SHIFT ^" translation="スペース↑ シフト↑" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32" max_local="32"/>
     <string english="F1: Change Tileset" translation="F1: タイルセットを変更" explanation="editor shortcut, switch to different tileset" max="25" max_local="25"/>
     <string english="F2: Change Colour" translation="F2: カラーを変更" explanation="editor shortcut, switch to different tileset color/variant" max="25" max_local="25"/>
     <string english="F3: Change Enemies" translation="F3: 敵の種類を変更" explanation="editor shortcut, change enemy appearance" max="25" max_local="25"/>
@@ -692,17 +694,17 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="ERROR: No checkpoint to spawn at" translation="エラー: スタートできるチェックポイントがありません" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3" max_local="38*2"/>
     <string english="ERROR: Max number of trinkets is 100" translation="エラー: トリンケットは最大100個までです" explanation="editor, user tried to place another trinket" max="38*3" max_local="38*2"/>
     <string english="ERROR: Max number of crewmates is 100" translation="エラー: クルーは最大100人までです" explanation="editor, user tried to place another crewmate" max="38*3" max_local="38*2"/>
-    <string english="Level quits to menu" translation="** ここでタイトル画面に戻る **" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3" max_local="38*2"/>
-    <string english="Level completed" translation="** ここでステージ終了 **" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3" max_local="38*2"/>
-    <string english="Rolled credits" translation="** ここでスタッフロール **" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3" max_local="38*2"/>
-    <string english="Time trial completed" translation="** ここでタイムトライアル終了 **" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3" max_local="38*2"/>
+    <string english="Level quits to menu" translation="** タイトル画面に戻る **" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3" max_local="38*2"/>
+    <string english="Level completed" translation="** ステージ終了 **" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3" max_local="38*2"/>
+    <string english="Rolled credits" translation="** スタッフロール **" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3" max_local="38*2"/>
+    <string english="Time trial completed" translation="** タイムトライアル終了 **" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3" max_local="38*2"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area} / {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="ステージ コンプリート!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="Game Complete!" translation="ゲーム コンプリート!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="You have rescued a crew member!" translation="遭難中のクルーを
@@ -822,9 +824,9 @@ You have found the secret lab!" translation="よくやった!
     <string english="FLIP MODE COMPLETE" translation="[反転モードコンプリート]" explanation="achievement/trophy title" max="38*2" max_local="38*1"/>
     <string english="Complete the game in flip mode" translation="反転モードでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Win with less than 50 deaths" translation="50回以下のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
-    <string english="Win with less than 100 deaths" translation="100回以下のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
-    <string english="Win with less than 250 deaths" translation="250回以下のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
-    <string english="Win with less than 500 deaths" translation="500回以下のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
+    <string english="Win with less than 100 deaths" translation="100回未満のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
+    <string english="Win with less than 250 deaths" translation="250回未満のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
+    <string english="Win with less than 500 deaths" translation="500回未満のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Last 5 seconds on the Super Gravitron" translation="スーパーグラビトロンで5秒生き残る" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Last 10 seconds on the Super Gravitron" translation="スーパーグラビトロンで10秒生き残る" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Last 15 seconds on the Super Gravitron" translation="スーパーグラビトロンで15秒生き残る" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
@@ -832,7 +834,7 @@ You have found the secret lab!" translation="よくやった!
     <string english="Last 30 seconds on the Super Gravitron" translation="スーパーグラビトロンで30秒生き残る" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Last 1 minute on the Super Gravitron" translation="スーパーグラビトロンで1分生き残る" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="MASTER OF THE UNIVERSE" translation="[宇宙の支配者]" explanation="achievement/trophy title - no death mode complete" max="38*2" max_local="38*1"/>
-    <string english="Complete the game in no death mode" translation="ノーミスモードでゲームをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
+    <string english="Complete the game in no death mode" translation="ノーミスモードでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Something went wrong, but we forgot the error message." translation="何らかのエラーが発生しましたが、
 エラーメッセージを設定し忘れたらしいです。" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6" max_local="38*5"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="{path} を開けません: 存在しないディレクトリーです" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6" max_local="38*5"/>
@@ -840,34 +842,35 @@ You have found the secret lab!" translation="よくやった!
     <string english="Error parsing {path}: {error}" translation="{path} をロードできません: {error}" explanation="we tried to parse the level file, but failed" max="38*6" max_local="38*5"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="画像{filename}が、サイズ{width}×{height}の倍数になっていません!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6" max_local="38*5"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="エラー: 言語フォルダーに書き込めません!
-セーブファイルと同じ場所に「lang」ディレクトリーがないことを確認してください。" explanation="" max="38*5" max_local="38*4"/>
-    <string english="Localisation" translation="" explanation=""/>
-    <string english="Localisation Project Led by" translation="" explanation=""/>
-    <string english="Translations by" translation="" explanation=""/>
-    <string english="Translators" translation="" explanation=""/>
-    <string english="Pan-European Font Design by" translation="" explanation=""/>
-    <string english="Fonts by" translation="" explanation=""/>
-    <string english="Other Fonts by" translation="" explanation=""/>
-    <string english="Catalan" translation="" explanation=""/>
-    <string english="Welsh" translation="" explanation=""/>
-    <string english="German" translation="" explanation=""/>
-    <string english="Esperanto" translation="" explanation=""/>
-    <string english="Spanish" translation="" explanation=""/>
-    <string english="French" translation="" explanation=""/>
-    <string english="Irish" translation="" explanation=""/>
-    <string english="Italian" translation="" explanation=""/>
-    <string english="Japanese" translation="" explanation=""/>
-    <string english="Korean" translation="" explanation=""/>
-    <string english="Dutch" translation="" explanation=""/>
-    <string english="Polish" translation="" explanation=""/>
-    <string english="Brazilian Portuguese" translation="" explanation=""/>
-    <string english="European Portuguese" translation="" explanation=""/>
-    <string english="Russian" translation="" explanation=""/>
-    <string english="Silesian" translation="" explanation=""/>
-    <string english="Turkish" translation="" explanation=""/>
-    <string english="Ukrainian" translation="" explanation=""/>
-    <string english="Chinese (Simplified)" translation="" explanation=""/>
-    <string english="Chinese (Traditional)" translation="" explanation=""/>
+セーブファイルと同じ場所に「lang」ディレクトリーが
+ないことを確認してください。" explanation="" max="38*5" max_local="38*4"/>
+    <string english="Localisation" translation="ローカライズ" explanation=""/>
+    <string english="Localisation Project Led by" translation="ローカライズ プロジェクト主任" explanation=""/>
+    <string english="Translations by" translation="翻訳" explanation=""/>
+    <string english="Translators" translation="翻訳" explanation=""/>
+    <string english="Pan-European Font Design by" translation="欧米フォントデザイン" explanation=""/>
+    <string english="Fonts by" translation="フォントデザイン" explanation=""/>
+    <string english="Other Fonts by" translation="他言語フォントデザイン" explanation=""/>
+    <string english="Catalan" translation="カタロニア語" explanation=""/>
+    <string english="Welsh" translation="ウェールズ語" explanation=""/>
+    <string english="German" translation="ドイツ語" explanation=""/>
+    <string english="Esperanto" translation="エスペラント語" explanation=""/>
+    <string english="Spanish" translation="スペイン語" explanation=""/>
+    <string english="French" translation="フランス語" explanation=""/>
+    <string english="Irish" translation="アイルランド語" explanation=""/>
+    <string english="Italian" translation="イタリア語" explanation=""/>
+    <string english="Japanese" translation="日本語" explanation=""/>
+    <string english="Korean" translation="韓国語" explanation=""/>
+    <string english="Dutch" translation="オランダ語" explanation=""/>
+    <string english="Polish" translation="ポーランド語" explanation=""/>
+    <string english="Brazilian Portuguese" translation="ポルトガル語 (BR)" explanation=""/>
+    <string english="European Portuguese" translation="ポルトガル語 (PT)" explanation=""/>
+    <string english="Russian" translation="ロシア語" explanation=""/>
+    <string english="Silesian" translation="シレジア語" explanation=""/>
+    <string english="Turkish" translation="トルコ語" explanation=""/>
+    <string english="Ukrainian" translation="ウクライナ語" explanation=""/>
+    <string english="Chinese (Simplified)" translation="中国語 (簡体字)" explanation=""/>
+    <string english="Chinese (Traditional)" translation="中国語 (繁体字)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
