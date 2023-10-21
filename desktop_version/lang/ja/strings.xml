@@ -823,7 +823,7 @@ You have found the secret lab!" translation="よくやった!
     <string english="Complete the game" translation="ストーリーをクリア" case="1" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="FLIP MODE COMPLETE" translation="[反転モードコンプリート]" explanation="achievement/trophy title" max="38*2" max_local="38*1"/>
     <string english="Complete the game in flip mode" translation="反転モードでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
-    <string english="Win with less than 50 deaths" translation="50回以下のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
+    <string english="Win with less than 50 deaths" translation="50回未満のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Win with less than 100 deaths" translation="100回未満のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Win with less than 250 deaths" translation="250回未満のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="Win with less than 500 deaths" translation="500回未満のミスでストーリーをクリア" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
