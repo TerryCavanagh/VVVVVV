@@ -1218,7 +1218,7 @@ Pipe Dream" tt="1" pad="1"/>
 これならば誰にも取れるまい。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_warp_1" explanation="">
-        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="…先日「AVOID」と書かれた
+        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="…先日「ヨケロ」と書かれた
 立方体に追いかけられた。
 しかも廊下でな。"/>
         <dialogue speaker="gray" english="These security measures go too far!" translation="セキュリティ対策だとしても

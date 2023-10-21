@@ -8,14 +8,14 @@
     <roomname x="1" y="17" english="Rascasse" translation="ミノカサコ゛" explanation="This is a type of fish with lots of thorny spikes on its back"/>
     <roomname x="1" y="18" english="Keep Going" translation="マヨワス゛ ススメ" explanation="Literally just &apos;Keep Going&apos;, through the room"/>
     <roomname x="1" y="19" english="Shuffled Hallway" translation="コ゛チャコ゛チャ ツウロ" explanation="Just describes how the room looks. &apos;Shuffled&apos; as in offset."/>
-    <roomname x="2" y="0" english="Kids His Age Bounce" translation="ヒ゜ョンヒ゜ョンキッス゛" explanation="An old saying for when e.g. a small child falls out of a tree. A trampoline joke in this case."/>
+    <roomname x="2" y="0" english="Kids His Age Bounce" translation="トヒ゛ハネル コト゛モタチ" explanation="An old saying for when e.g. a small child falls out of a tree. A trampoline joke in this case."/>
     <roomname x="2" y="1" english="Playing Foosball" translation="アソホ゛ウ テーフ゛ルサッカー" explanation="This room resembles a Foosball table - https://en.wikipedia.org/wiki/Table_football"/>
     <roomname x="2" y="4" english="Philadelphia Experiment" translation="フィラテ゛ルフィア ケイカク" explanation="There is a teleporter in this room. The Philadelphia Experiment is the name of 80&apos;s film about teleportation."/>
     <roomname x="2" y="16" english="Get Ready To Bounce" translation="シュッハ゜ツ シ゛ュンヒ゛" explanation="The first room in the Lab zone. In the next room, you immediately come into contact with a gravity line, and flip back up."/>
     <roomname x="2" y="17" english="It&apos;s Perfectly Safe" translation="セ゛ッタイ アンセ゛ン" explanation="The second room in the lab zone. Don&apos;t worry, it&apos;s perfectly safe."/>
     <roomname x="2" y="18" english="Young Man, It&apos;s Worth the Challenge" translation="イト゛ム カチ アリ ワコウト゛ ヨ" explanation="Not a reference to anything in particular - Bennett explains that this is just something that his high school chemistry teacher used to say to students. He thinks the teacher was probably misquoting George Bernard Shaw, who said &apos;Life is not meant to be easy, my child - but take courage: it can be delightful.&apos;."/>
     <roomname x="2" y="19" english="Double-slit Experiment" translation="タ゛フ゛ルスリット シ゛ッケン" explanation="(Many of the rooms in the Lab stage have science themed names.)"/>
-    <roomname x="3" y="0" english="Merge" translation="イッシャセン" explanation="A wide section connecting to a narrower section - merge as in traffic"/>
+    <roomname x="3" y="0" english="Merge" translation="タンセン" explanation="A wide section connecting to a narrower section - merge as in traffic"/>
     <roomname x="3" y="1" english="A Difficult Chord" translation="ケ゛キムス゛ コート゛" explanation="This room resembles a guitar chord"/>
     <roomname x="3" y="4" english="Why So Blue?" translation="ソンナニ アオクナッテ ト゛ウシタンタ゛イ" explanation="The crewmate Victoria is found here. Victoria is always sad! She&apos;s feeling blue."/>
     <roomname x="3" y="16" english="Brought to you by the letter G" translation="G ノテイキョーテ゛ オオクリシマシタ" explanation="Reference to Seseme Street - also, this room resembles the letter G"/>
@@ -84,7 +84,7 @@
     <roomname x="14" y="1" english="This is how it is" translation="トト゛ノツマリハ コーユー コト" explanation="literally as in, this is how the mechanic of this stage works - also an expression as in &apos;this is the way things are&apos;"/>
     <roomname x="14" y="2" english="That&apos;s Why I Have To Kill You" translation="・・・タ゛カラ アナタヲ コロスノヨ" explanation="The follows the room named &apos;I love you&apos;. &apos;I love you, that&apos;s why I have to kill you&apos; is kind of a slasher horror trope."/>
     <roomname x="14" y="3" english="Atmospheric Filtering Unit" translation="タイキ フィルター ユニット" explanation="An early room, looks a bit like an air filter"/>
-    <roomname x="14" y="4" english="It&apos;s a Secret to Nobody" translation="ミンナカ゛ シッテル ナイショタ゛ヨ" explanation="A reference to the infamous Zelda quote &apos;It&apos;s a secret to everybody&apos;. This room contains the first trinket."/>
+    <roomname x="14" y="4" english="It&apos;s a Secret to Nobody" translation="ミンナ シッテル ナイショタ゛ヨ" explanation="A reference to the infamous Zelda quote &apos;It&apos;s a secret to everybody&apos;. This room contains the first trinket."/>
     <roomname x="14" y="5" english="Conundrum" translation="ナンモン ハ゜ス゛ル" explanation="Conundrum as in puzzle, riddle, problem to be solved"/>
     <roomname x="14" y="6" english="Boo! Think Fast!" translation="ホラ イソイテ゛!" explanation="Contains a challenge that you need to react very quickly to. You might say &apos;Boo, think fast&apos; if you threw something at someone, expecting them to catch it."/>
     <roomname x="14" y="7" english="The Sensible Room" translation="キノキイタ ヘヤ" explanation="Early corridor room containing no challenges. Sensible as in the opposite of Foolish - you might call someone sensible in english if they are excessively cautious."/>
@@ -116,15 +116,15 @@
     <roomname x="16" y="7" english="The Tomb of Mad Carew" translation="マット゛・カリューノ ハカ" explanation="A very obscure reference to the C64 game Dizzy"/>
     <roomname x="16" y="8" english="Parabolica" translation="ホウフ゛ツセン" explanation="This room contains a section of wall in the shape of a parabolic arch."/>
     <roomname x="16" y="9" english="$eeing Dollar $ign$" translation="オカネニ $$ メカ゛ $$ クラム" explanation="This is a green room that resembles a dollar sign shape"/>
-    <roomname x="16" y="10" english="What Lies Beneath?" translation="コノシタニ オタカラカ゛ッ!" explanation="The room below this contains enemies in the shape of the word &apos;Lies&apos;. So there&apos;s a double meaning here - as in, a question, &apos;what is below this room&apos;, and that the word LIES is literally beneath this room."/>
-    <roomname x="16" y="11" english="Spikes Do!" translation="ショウタイハ トケ゛テ゛シタ" explanation="This rooms is below the room named &apos;What lies Beneath?&apos;, and answers the question: Spikes do!"/>
+    <roomname x="16" y="10" english="What Lies Beneath?" translation="コノ シタニ イッタイナニカ゛?" explanation="The room below this contains enemies in the shape of the word &apos;Lies&apos;. So there&apos;s a double meaning here - as in, a question, &apos;what is below this room&apos;, and that the word LIES is literally beneath this room."/>
+    <roomname x="16" y="11" english="Spikes Do!" translation="ソレハ トケ゛タ゛ッタ" explanation="This rooms is below the room named &apos;What lies Beneath?&apos;, and answers the question: Spikes do!"/>
     <roomname x="16" y="12" english="Ha Ha Ha Not Really" translation="ハッハッハ・・・ ソンナワケナイ" explanation="This is a difficult room that follows one called &apos;Plain Sailing from here on&apos;. It&apos;s taunting the player. "/>
     <roomname x="16" y="13" english="Plain Sailing from Here On" translation="ココカラ ラクチン" explanation="This room is at the end of a long section, and promises &apos;Plain Sailing&apos; afterwards, as in, no further challenges. This is a lie"/>
     <roomname x="17" y="0" english="As we go up, we go down" translation="ウエニ アカ゛レト゛ シタヘト クタ゛リ" explanation="Named after the 1995 song by Guided by Voices"/>
     <roomname x="17" y="1" english="Maze With No Entrance" translation="イリク゛チ ナキ メイロ" explanation="This room is a maze which has no entrance, due to the nature of the warping mechanic."/>
     <roomname x="17" y="2" english="The Brown Gate" translation="チャイロイ トヒ゛ラ" explanation="I think this is an Ultima 7 reference? A literal translation is fine here"/>
     <roomname x="17" y="3" english="Edge Games" translation="エッシ゛ ケ゛ームス゛" explanation="Contains a trinket that you get by navigating around the edge of the screen. The use of the word EDGE is deliberate, refering to the trademark of a notoriously litigious individual who sued an indie developer around the time VVVVVV was made"/>
-    <roomname x="17" y="7" english="Brass Sent Us Under The Top" translation="ショーコーニ メイレイサレタノテ゛" explanation="The enemies in this room look like little army guys"/>
+    <roomname x="17" y="7" english="Brass Sent Us Under The Top" translation="タイチョーノ コ゛メイレイ" explanation="The enemies in this room look like little army guys"/>
     <roomname x="17" y="8" english="The Warning" translation="WARNING!!" explanation="This room has lots of checkpoints in it. It&apos;s beside the game&apos;s most difficult challenge, the Veni, Vidi, Vici section. The checkpoints don&apos;t really do anything, but they&apos;re a warning of the challenge ahead."/>
     <roomname x="17" y="9" english="Just Pick Yourself Down" translation="シタヲムイテ アルコウ" explanation="A two part room name. From the expression &apos;If you fall down, just pick yourself up&apos;."/>
     <roomname x="17" y="10" english="If You Fall Up" translation="キフ゛ンカ゛ アカ゛ッタ トキハ" explanation="A two part room name. From the expression &apos;If you fall down, just pick yourself up&apos;."/>
