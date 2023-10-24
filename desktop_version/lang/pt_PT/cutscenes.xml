@@ -929,8 +929,8 @@ A transmitir" tt="1" centertext="1" pad="2"/>
 
 The Super-Gravitron is intended for entertainment purposes only." translation="-= AVISO =-
 
-O Supergravitrão dever ser usado exclusivamente para fins de entretenimento." centertext="1" pad="1"/>
-        <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="Quem se atrever a usar o Supergravitrão para fins didáticos, poderá ser forçado a ir para o cantinho dos malcomportados."/>
+O Supergravitão dever ser usado exclusivamente para fins de entretenimento." centertext="1" pad="1"/>
+        <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="Quem se atrever a usar o Supergravitão para fins didáticos, poderá ser forçado a ir para o cantinho dos malcomportados."/>
     </cutscene>
     <cutscene id="terminal_shipcomputer" explanation="">
         <dialogue speaker="gray" english="-= D.S.S. SOULEYE =-
@@ -944,6 +944,6 @@ Controlos de Navegação da Nave" centertext="1" pad="1"/>
         <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="...ah, já tinha encontrado este."/>
     </cutscene>
     <cutscene id="disableaccessibility" explanation="">
-        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="Desativa a invencibilidade e/ou câmara lenta antes de entrar no Supergravitrão."/>
+        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="Desativa a invencibilidade e/ou câmara lenta antes de entrar no Supergravitão."/>
     </cutscene>
 </cutscenes>
