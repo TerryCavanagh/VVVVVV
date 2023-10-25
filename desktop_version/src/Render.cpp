@@ -1588,9 +1588,10 @@ static void menurender(void)
                 label_len = SDL_max(label_len, font::len(0, label));
                 font::print(0, 32, 65+sp*3, label, tr, tg, tb);
 
-                font::print(0, label_len+48, 65+sp, game.timetstring(game.besttimes[id_trial]), tr, tg, tb);
-
                 char buffer[SCREEN_WIDTH_CHARS + 1];
+                help.format_time(buffer, sizeof(buffer), game.besttimes[id_trial], game.bestframes[id_trial], true);
+                font::print(0, label_len+48, 65+sp, buffer, tr, tg, tb);
+
                 vformat_buf(
                     buffer, sizeof(buffer),
                     loc::gettext("{n_trinkets}/{max_trinkets}"),
