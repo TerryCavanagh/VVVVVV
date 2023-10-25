@@ -23,6 +23,9 @@ Steamworks support is included and the DLL is loaded dynamically, you do not
 need the SDK headers and there is no special Steam or non-Steam version. The
 current implementation has been tested with Steamworks SDK v1.46.
 
+To build the Make and Play edition of the game, uncomment `#define MAKEANDPLAY`
+in `MakeAndPlay.h`.
+
 To generate the projects on Windows:
 ```
 # Put your SDL2 folders somewhere nice!
@@ -59,11 +62,10 @@ each time Xcode updates.
 
 Including data.zip
 ------------
-You'll need the data.zip file from VVVVVV to actually run the game! It's
-available to download separately for free in the
-[Make and Play](https://thelettervsixtim.es/makeandplay/)
-edition of the game. Put this file next to your executable and the game should
-run.
+You'll need the data.zip file from VVVVVV to actually run the game! You can grab
+it from your copy of the game, or you can download it for free from the [Make
+and Play](https://thelettervsixtim.es/makeandplay/) page. Put this file next to
+your executable and the game should run.
 
 This is intended for personal use only - our license doesn't allow you to
 actually distribute this data.zip file with your own forks without getting
