@@ -181,6 +181,11 @@ void vlog_open_console(void)
     }
 
     check_color_support();
+
+    if (!SetConsoleOutputCP(CP_UTF8))
+    {
+        vlog_warn("Could not set code page for console output to UTF-8.");
+    }
 }
 #endif /* _WIN32 */
 
