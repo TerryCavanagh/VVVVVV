@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SDL.h>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -174,12 +175,6 @@ struct MenuStackFrame
 {
     int option;
     enum Menu::MenuName name;
-};
-
-struct CustomLevelStat
-{
-    std::string name;
-    int score; //0 - not played, 1 - finished, 2 - all trinkets, 3 - finished, all trinkets
 };
 
 
@@ -526,7 +521,8 @@ public:
     void updatecustomlevelstats(std::string clevel, int cscore);
     void deletecustomlevelstats(void);
 
-    std::vector<CustomLevelStat> customlevelstats;
+    // name -> score. 0 - not played, 1 - finished, 2 - all trinkets, 3 - finished, all trinkets
+    std::map<std::string, int> customlevelstats;
 
 
     std::vector<SDL_GameControllerButton> controllerButton_map;

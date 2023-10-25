@@ -423,29 +423,9 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
     {
         clevel = clevel.substr(7);
     }
-    int tvar=-1;
-    for(size_t j=0; j<customlevelstats.size(); j++)
+    if (customlevelstats.count(clevel) == 0 || cscore > customlevelstats[clevel])
     {
-        if(clevel==customlevelstats[j].name)
-        {
-            tvar=j;
-            break;
-        }
-    }
-    if(tvar>=0)
-    {
-        // We have an existing entry
-        // Don't update it unless it's a higher score
-        if (cscore > customlevelstats[tvar].score)
-        {
-            customlevelstats[tvar].score=cscore;
-        }
-    }
-    else
-    {
-        //add a new entry
-        CustomLevelStat levelstat = {clevel, cscore};
-        customlevelstats.push_back(levelstat);
+        customlevelstats[clevel] = cscore;
     }
     savecustomlevelstats();
 }
@@ -526,21 +506,40 @@ void Game::loadcustomlevelstats(void)
 
         if (SDL_strcmp(pKey, "stats") == 0)
         {
+            bool file_has_duplicates = false;
+
             for (tinyxml2::XMLElement* stat_el = pElem->FirstChildElement(); stat_el; stat_el = stat_el->NextSiblingElement())
             {
-                CustomLevelStat stat = {};
+                int score = 0;
+                std::string name;
 
                 if (stat_el->GetText() != NULL)
                 {
-                    stat.score = help.Int(stat_el->GetText());
+                    score = help.Int(stat_el->GetText());
                 }
 
                 if (stat_el->Attribute("name"))
                 {
-                    stat.name = stat_el->Attribute("name");
+                    name = stat_el->Attribute("name");
                 }
 
-                customlevelstats.push_back(stat);
+                int existing = customlevelstats.count(name);
+                if (existing > 0)
+                {
+                    file_has_duplicates = true;
+                }
+
+                if (existing == 0 || score > customlevelstats[name])
+                {
+                    customlevelstats[name] = score;
+                }
+            }
+
+            if (file_has_duplicates)
+            {
+                /* This might be really inflated, so simply save the map we have now,
+                 * so we don't have to keep loading a 90 MB file. */
+                savecustomlevelstats();
             }
 
             return;
@@ -590,8 +589,13 @@ void Game::loadcustomlevelstats(void)
     // If the two arrays happen to differ in length, just go with the smallest one
     for (size_t i = 0; i < SDL_min(customlevelnames.size(), customlevelscores.size()); i++)
     {
-        CustomLevelStat stat = {customlevelnames[i], customlevelscores[i]};
-        customlevelstats.push_back(stat);
+        const std::string& name = customlevelnames[i];
+        const int score = customlevelscores[i];
+
+        if (customlevelstats.count(name) == 0 || score > customlevelstats[name])
+        {
+            customlevelstats[name] = score;
+        }
     }
 }
 
@@ -622,29 +626,25 @@ void Game::savecustomlevelstats(void)
     xml::update_tag(msgs, "numcustomlevelstats", numcustomlevelstats);
 
     std::string customlevelscorestr;
-    for(int i = 0; i < numcustomlevelstats; i++ )
+    std::string customlevelstatsstr;
+    std::map<std::string, int>::iterator iter;
+    for (iter = customlevelstats.begin(); iter != customlevelstats.end(); iter++)
     {
-        customlevelscorestr += help.String(customlevelstats[i].score) + ",";
+        customlevelscorestr += help.String(iter->second) + ",";
+        customlevelstatsstr += iter->first + "|";
     }
     xml::update_tag(msgs, "customlevelscore", customlevelscorestr.c_str());
-
-    std::string customlevelstatsstr;
-    for(int i = 0; i < numcustomlevelstats; i++ )
-    {
-        customlevelstatsstr += customlevelstats[i].name + "|";
-    }
     xml::update_tag(msgs, "customlevelstats", customlevelstatsstr.c_str());
 
     // New system
     tinyxml2::XMLElement* msg = xml::update_element_delete_contents(msgs, "stats");
     tinyxml2::XMLElement* stat_el;
-    for (size_t i = 0; i < customlevelstats.size(); i++)
+    for (iter = customlevelstats.begin(); iter != customlevelstats.end(); iter++)
     {
         stat_el = doc.NewElement("stat");
-        CustomLevelStat& stat = customlevelstats[i];
 
-        stat_el->SetAttribute("name", stat.name.c_str());
-        stat_el->LinkEndChild(doc.NewText(help.String(stat.score).c_str()));
+        stat_el->SetAttribute("name", iter->first.c_str());
+        stat_el->LinkEndChild(doc.NewText(help.String(iter->second).c_str()));
 
         msg->LinkEndChild(stat_el);
     }
@@ -6228,49 +6228,37 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             {
                 if(i>=levelpage*8 && i< (levelpage*8)+8)
                 {
-                    //This is, er, suboptimal. Whatever, life optimisation and all that
-                    int tvar=-1;
-                    for(size_t j=0; j<customlevelstats.size(); j++)
+                    const std::string filename = cl.ListOfMetaData[i].filename.substr(7);
+                    int score = 0;
+                    if (customlevelstats.count(filename) > 0)
                     {
-                        if(cl.ListOfMetaData[i].filename.substr(7) == customlevelstats[j].name)
-                        {
-                            tvar=j;
-                            break;
-                        }
+                        score = customlevelstats[filename];
                     }
                     const char* prefix;
-                    if(tvar>=0)
+                    switch (score)
                     {
-                        switch (customlevelstats[tvar].score)
-                        {
-                        case 0:
-                        {
-                            static const char tmp[] = "   ";
-                            prefix = tmp;
-                            break;
-                        }
-                        case 1:
-                        {
-                            static const char tmp[] = " * ";
-                            prefix = tmp;
-                            break;
-                        }
-                        case 3:
-                        {
-                            static const char tmp[] = "** ";
-                            prefix = tmp;
-                            break;
-                        }
-                        default:
-                            SDL_assert(0 && "Unhandled menu text prefix!");
-                            prefix = "";
-                            break;
-                        }
-                    }
-                    else
+                    case 0:
                     {
                         static const char tmp[] = "   ";
                         prefix = tmp;
+                        break;
+                    }
+                    case 1:
+                    {
+                        static const char tmp[] = " * ";
+                        prefix = tmp;
+                        break;
+                    }
+                    case 3:
+                    {
+                        static const char tmp[] = "** ";
+                        prefix = tmp;
+                        break;
+                    }
+                    default:
+                        SDL_assert(0 && "Unhandled menu text prefix!");
+                        prefix = "";
+                        break;
                     }
                     char text[MENU_TEXT_BYTES];
                     SDL_snprintf(text, sizeof(text), "%s%s", prefix, cl.ListOfMetaData[i].title.c_str());
