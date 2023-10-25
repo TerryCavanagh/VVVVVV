@@ -504,10 +504,6 @@ void Game::loadcustomlevelstats(void)
 
     customlevelstats.clear();
 
-    // Old system
-    std::vector<std::string> customlevelnames;
-    std::vector<int> customlevelscores;
-
     tinyxml2::XMLElement* pElem;
     tinyxml2::XMLElement* firstElement;
 
@@ -553,6 +549,9 @@ void Game::loadcustomlevelstats(void)
 
 
     // Since we're still here, we must be on the old system
+    std::vector<std::string> customlevelnames;
+    std::vector<int> customlevelscores;
+
     for (pElem = firstElement; pElem; pElem=pElem->NextSiblingElement())
     {
         const char* pKey = pElem->Value();
