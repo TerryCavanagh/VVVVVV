@@ -223,7 +223,11 @@ void vlog_open_console(void)
 
     if (!SetConsoleOutputCP(CP_UTF8))
     {
-        vlog_warn("Could not set code page for console output to UTF-8.");
+        vlog_warn(
+            "Could not set code page for console output to UTF-8: "
+            "SetConsoleOutputCP() failed with %d",
+            GetLastError()
+        );
     }
 }
 #endif /* _WIN32 */
