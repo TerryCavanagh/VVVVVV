@@ -144,43 +144,50 @@ void UpdateFilter(void)
     }
 }
 
-void ApplyFilter(SDL_Surface* src, SDL_Surface* dest)
+void ApplyFilter(SDL_Surface** src, SDL_Surface** dest)
 {
-    if (src == NULL)
-    {
-        src = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
-    }
-    if (dest == NULL)
-    {
-        dest = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
-    }
     if (src == NULL || dest == NULL)
     {
+        SDL_assert(0 && "NULL src or dest!");
         return;
     }
 
-    const int result = SDL_RenderReadPixels(gameScreen.m_renderer, NULL, 0, src->pixels, src->pitch);
+    if (*src == NULL)
+    {
+        *src = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
+    }
+    if (*dest == NULL)
+    {
+        *dest = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
+    }
+    if (*src == NULL || *dest == NULL)
+    {
+        WHINE_ONCE_ARGS(("Could not create temporary surfaces: %s", SDL_GetError()));
+        return;
+    }
+
+    const int result = SDL_RenderReadPixels(gameScreen.m_renderer, NULL, 0, (*src)->pixels, (*src)->pitch);
     if (result != 0)
     {
-        SDL_FreeSurface(src);
+        SDL_FreeSurface(*src);
         WHINE_ONCE_ARGS(("Could not read pixels from renderer: %s", SDL_GetError()));
         return;
     }
 
     const int red_offset = rand() % 4;
 
-    for (int x = 0; x < src->w; x++)
+    for (int x = 0; x < (*src)->w; x++)
     {
-        for (int y = 0; y < src->h; y++)
+        for (int y = 0; y < (*src)->h; y++)
         {
             const int sampley = (y + (int) graphics.lerp(oldscrollamount, scrollamount)) % 240;
 
-            const SDL_Color pixel = ReadPixel(src, x, sampley);
+            const SDL_Color pixel = ReadPixel(*src, x, sampley);
 
             Uint8 green = pixel.g;
             Uint8 blue = pixel.b;
 
-            const SDL_Color pixel_offset = ReadPixel(src, SDL_min(x + red_offset, 319), sampley);
+            const SDL_Color pixel_offset = ReadPixel(*src, SDL_min(x + red_offset, 319), sampley);
             Uint8 red = pixel_offset.r;
 
             double mult;
@@ -216,9 +223,9 @@ void ApplyFilter(SDL_Surface* src, SDL_Surface* dest)
             blue = SDL_max(blue - (distX + distY), 0);
 
             const SDL_Color color = {red, green, blue, pixel.a};
-            DrawPixel(dest, x, y, color);
+            DrawPixel(*dest, x, y, color);
         }
     }
 
-    SDL_UpdateTexture(graphics.gameTexture, NULL, dest->pixels, dest->pitch);
+    SDL_UpdateTexture(graphics.gameTexture, NULL, (*dest)->pixels, (*dest)->pitch);
 }

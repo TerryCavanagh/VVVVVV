@@ -3244,7 +3244,7 @@ void Graphics::screenshake(void)
 {
     if (gameScreen.badSignalEffect)
     {
-        ApplyFilter(tempFilterSrc, tempFilterDest);
+        ApplyFilter(&tempFilterSrc, &tempFilterDest);
     }
 
     set_render_target(tempShakeTexture);
@@ -3282,7 +3282,7 @@ void Graphics::render(void)
 {
     if (gameScreen.badSignalEffect)
     {
-        ApplyFilter(tempFilterSrc, tempFilterDest);
+        ApplyFilter(&tempFilterSrc, &tempFilterDest);
     }
 
     set_render_target(NULL);
