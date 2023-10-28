@@ -423,7 +423,7 @@
     <string english="start from beginning" translation="comenzar desde el principio" explanation="menu option"/>
     <string english="delete save" translation="eliminar guardado" explanation="menu option"/>
     <string english="back to levels" translation="volver a los niveles" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="No es posible cambiar el idioma mientras se muestra un cuadro de texto en el juego." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="El editor de nivel no está disponible en Steam Deck, ya que es necesario usar un teclado y un ratón." explanation="" max="38*5"/>
     <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="El editor de nivel no está disponible en este dispositivo, ya que es necesario usa un teclado y un ratón." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Para instalar nuevos niveles de jugador, copia los archivos .vvvvvv en la carpeta levels." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="¿Seguro que quieres mostrar la ruta de los niveles? Esto podría revelar información delicada si estás transmitiendo en directo." explanation="" max="38*4"/>
