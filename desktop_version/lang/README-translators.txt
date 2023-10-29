@@ -22,7 +22,7 @@ To create a new language, simply copy the `en` folder, and start by filling out 
 
 The game uses XML files for storing the translations. If you prefer, there is an .xlsm file which can be used as an editor. This can load in all the XML files, and then save changes back as XML.
 
-If you're an official translator, you should have received a version of this spreadsheet. If not, a blank version can be found here: https://github.com/Dav999-v/TranslationEditor
+If you're an official translator, you should have received a version of this spreadsheet. If not, a blank version can be found here: https://github.com/Daaaav/TranslationEditor
 
 
 
