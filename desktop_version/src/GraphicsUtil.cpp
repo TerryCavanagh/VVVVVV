@@ -97,18 +97,27 @@ void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_Color c
 
     const SDL_PixelFormat* fmt = surface->format;
     const int bpp = fmt->BytesPerPixel;
-    Uint32* pixel = (Uint32*) ((Uint8*) surface->pixels + y * surface->pitch + x * bpp);
+    Uint8* pixel = (Uint8*) surface->pixels + y * surface->pitch + x * bpp;
+    Uint32* pixel32 = (Uint32*) pixel;
 
     switch (bpp)
     {
     case 1:
     case 2:
+        SDL_assert(0 && "Colors other than 24- or 32- bit unsupported!");
+        break;
+
     case 3:
-        SDL_assert(0 && "Non-32-bit colors not supported!");
-        return;
+    {
+        const Uint32 single = SDL_MapRGB(fmt, color.r, color.g, color.b);
+        pixel[0] = (single & 0xFF0000) >> 16;
+        pixel[1] = (single & 0x00FF00) >> 8;
+        pixel[2] = (single & 0x0000FF) >> 0;
+        break;
+    }
 
     case 4:
-        *pixel = SDL_MapRGBA(fmt, color.r, color.g, color.b, color.a);
+        *pixel32 = SDL_MapRGBA(fmt, color.r, color.g, color.b, color.a);
     }
 }
 
@@ -131,18 +140,26 @@ SDL_Color ReadPixel(const SDL_Surface* surface, const int x, const int y)
 
     const SDL_PixelFormat* fmt = surface->format;
     const int bpp = surface->format->BytesPerPixel;
-    const Uint32* pixel = (Uint32*) ((Uint8*) surface->pixels + y * surface->pitch + x * bpp);
+    const Uint8* pixel = (Uint8*) surface->pixels + y * surface->pitch + x * bpp;
+    const Uint32* pixel32 = (Uint32*) pixel;
 
     switch (bpp)
     {
     case 1:
     case 2:
-    case 3:
-        SDL_assert(0 && "Non-32-bit colors not supported!");
+        SDL_assert(0 && "Colors other than 24- or 32- bit unsupported!");
         break;
 
+    case 3:
+    {
+        const Uint32 single = (pixel[0] << 16) | (pixel[1] << 8) | (pixel[2] << 0);
+        SDL_GetRGB(single, fmt, &color.r, &color.g, &color.b);
+        color.a = 255;
+        break;
+    }
+
     case 4:
-        SDL_GetRGBA(*pixel, fmt, &color.r, &color.g, &color.b, &color.a);
+        SDL_GetRGBA(*pixel32, fmt, &color.r, &color.g, &color.b, &color.a);
     }
 
     return color;
@@ -310,6 +327,21 @@ bool TakeScreenshot(SDL_Surface** surface)
             ("Could not read pixels from renderer: %s", SDL_GetError())
         );
         return false;
+    }
+
+    /* Need to manually vertically reverse pixels in Flip Mode. */
+    if (graphics.flipmode)
+    {
+        for (int x = 0; x < (*surface)->w; x++)
+        {
+            for (int y = 0; y < (*surface)->h / 2; y++)
+            {
+                const SDL_Color upper = ReadPixel(*surface, x, y);
+                const SDL_Color lower = ReadPixel(*surface, x, (*surface)->h - 1 - y);
+                DrawPixel(*surface, x, y, lower);
+                DrawPixel(*surface, x, (*surface)->h - 1 - y, upper);
+            }
+        }
     }
 
     return true;
