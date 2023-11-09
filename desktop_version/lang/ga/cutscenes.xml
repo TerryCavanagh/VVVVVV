@@ -301,7 +301,7 @@
     <cutscene id="int1yellow_4" explanation="the split paths merge, and Vitellary sees a checkpoint">
         <dialogue speaker="yellow" english="Ohh! What was that?" translation="Ó! Céard a bhí ann?"/>
         <dialogue speaker="player" english="What was what?" translation="Céard a bhí ann?"/>
-        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="An rud... C mór sin! Meas tú céard a dhéanann sé?"/>
+        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="An ... S mór sin! Meas tú céard a dhéanann sé?"/>
         <dialogue speaker="player" english="Em... I don&apos;t really know how to answer that question..." translation="Em... Níl mé cinnte cén chaoi an cheist sin a fhreagairt..."/>
         <dialogue speaker="player" english="It&apos;s probably best not to acknowledge that it&apos;s there at all." translation="Is fearr gan aird ar bith a thabhairt air."/>
         <dialogue speaker="yellow" english="Maybe we should take it back to the ship to study it?" translation="B&apos;fhéidir go mba cheart dúinn é a thabhairt ar ais go dtí an long lena staidéar?"/>
