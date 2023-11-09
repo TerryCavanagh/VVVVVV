@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spritesmask sprite_w="32" sprite_h="32">
+    <sprite x="8" y="1" w="2"/> <!-- Checkpoints -->
     <sprite x="4" y="2" w="4"/> <!-- STOP -->
     <sprite x="4" y="3" w="4"/> <!-- YES -->
     <sprite x="3" y="4"/>       <!-- OBEY -->
