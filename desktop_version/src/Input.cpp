@@ -1852,8 +1852,14 @@ static void menuactionpress(void)
             }
             game.savestatsandsettings_menu();
             break;
-
         case 6:
+            /* Rumble */
+            music.playef(Sound_VIRIDIAN);
+            game.rumble = !game.rumble;
+            key.controllerRumble(0xFFFF,250);
+            game.savestatsandsettings_menu();
+            break;
+        case 7:
             music.playef(Sound_VIRIDIAN);
             game.returnmenu();
             map.nexttowercolour();

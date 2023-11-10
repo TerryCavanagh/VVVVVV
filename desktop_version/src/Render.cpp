@@ -648,8 +648,11 @@ static void menurender(void)
     }
     case Menu::controller:
     {
+        if (game.currentmenuoption != 6)
+        {
         font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Game Pad"), tr, tg, tb);
         font::print_wrap(PR_CEN, -1, 55, loc::gettext("Change controller options."), tr, tg, tb);
+        }
 
         int spacing = font::height(0);
         spacing = SDL_max(spacing, 10);
@@ -704,6 +707,20 @@ static void menurender(void)
                 BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Interact)
             );
             font::print(PR_CEN | PR_BRIGHTNESS(game.separate_interact ? 255 : 128), -1, 75+spacing*4, buffer_a, tr, tg, tb);
+            break;
+        }
+        case 6:
+        {
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Rumble"), tr, tg, tb);
+            int next_y = font::print_wrap(PR_CEN, -1, 55, loc::gettext("Turn gamepad rumble on or off."), tr, tg, tb);
+            if (game.rumble == true)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Rumble is ON."), tr, tg, tb);
+            }
+            else
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Rumble is OFF."), tr / 2, tg / 2, tb / 2);
+            }
             break;
         }
         }

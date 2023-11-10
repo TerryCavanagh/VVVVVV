@@ -561,7 +561,8 @@ int main(int argc, char *argv[])
         SDL_INIT_VIDEO |
         SDL_INIT_AUDIO |
         SDL_INIT_JOYSTICK |
-        SDL_INIT_GAMECONTROLLER
+        SDL_INIT_GAMECONTROLLER |
+        SDL_INIT_HAPTIC
     );
     if (SDL_IsTextInputActive() == SDL_TRUE)
     {

@@ -143,11 +143,16 @@
     <string english="bind menu" translation="agordi menubutonon" explanation="menu option"/>
     <string english="bind restart" translation="agordi rekomencbutonon" explanation="menu option. In-game death key to restart at checkpoint"/>
     <string english="bind interact" translation="agordi interagbutonon" explanation="menu option"/>
+    <string english="toggle rumble" translation="baskuligi vibradon" explanation="menu option, controller rumble (vibration) feature"/>
     <string english="Flip is bound to: " translation="Renversiĝo agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="ENTER agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menuo agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Rekomenco agordita al: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Interago agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Rumble" translation="Vibrado" explanation="title" max="20"/>
+    <string english="Turn gamepad rumble on or off." translation="Ebligi aŭ malebligi regilan vibradon." explanation="" max="38*3"/>
+    <string english="Rumble is ON." translation="Vibrado estas ŜALTA." explanation="" max="38*2"/>
+    <string english="Rumble is OFF." translation="Vibrado estas MALŜALTA." explanation="" max="38*2"/>
     <string english="ERROR: No language files found." translation="ERARO: Neniuj lingvodosieroj troviĝis." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Lingvodosierujo:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Deponeja lingvodosierujo:" explanation="Language folder from the Git repository" max="39"/>

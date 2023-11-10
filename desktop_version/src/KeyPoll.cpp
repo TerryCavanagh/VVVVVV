@@ -544,3 +544,26 @@ bool KeyPoll::controllerWantsDown(void)
 {
     return buttonmap[SDL_CONTROLLER_BUTTON_DPAD_DOWN] || yVel > 0;
 }
+
+int KeyPoll::controllerRumble(Uint16 intensity, Uint32 duration_ms)
+{
+    int result = -1;
+    if (game.rumble)
+    {
+        std::map<SDL_JoystickID, SDL_GameController*>::iterator it;
+        for (it = controllers.begin(); it != controllers.end(); it++)
+        {
+            int thisController = SDL_GameControllerRumble(it->second,intensity,intensity,duration_ms);
+            if (result != 0)
+            {
+                result = thisController;
+            }
+        }
+    }
+    return result; // Returns -1 if rumble is off/no controller supported rumble, 0 if any controller succeeded
+}
+
+int KeyPoll::controllerRumbleStop(void)
+{
+    return controllerRumble(0,0);
+}

@@ -61,6 +61,8 @@ public:
     bool controllerWantsRight(bool includeVert);
     bool controllerWantsUp(void);
     bool controllerWantsDown(void);
+    int controllerRumble(Uint16 intensity, Uint32 duration_ms);
+    int controllerRumbleStop(void);
 
     int leftbutton, rightbutton, middlebutton;
     int mousex;

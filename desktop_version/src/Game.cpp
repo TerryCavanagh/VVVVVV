@@ -383,6 +383,7 @@ void Game::init(void)
     disableaudiopause = false;
     disabletemporaryaudiopause = true;
     inputdelay = false;
+    rumble = false;
 
     old_skip_message_timer = 0;
     skip_message_timer = 0;
@@ -4537,6 +4538,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             inputdelay = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "rumble") == 0)
+        {
+            rumble = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "glitchrunnermode") == 0)
         {
             GlitchrunnerMode_set(GlitchrunnerMode_string_to_enum(pText));
@@ -4825,6 +4831,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
 
     xml::update_tag(dataNode, "inputdelay", (int) inputdelay);
 
+    xml::update_tag(dataNode, "rumble", (int) rumble);
+
     xml::update_tag(
         dataNode,
         "glitchrunnermode",
@@ -5058,7 +5066,8 @@ void Game::deathsequence(void)
         }
         deathcounts++;
         music.playef(Sound_CRY);
-        if (INBOUNDS_VEC(i, obj.entities) && !noflashingmode)
+        key.controllerRumble(0xDFFF,200);
+        if (INBOUNDS_VEC(i, obj.entities))
         {
             obj.entities[i].invis = true;
         }
@@ -6576,6 +6585,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("bind menu"));
         option(loc::gettext("bind restart"));
         option(loc::gettext("bind interact"), separate_interact);
+        option(loc::gettext("toggle rumble"));
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 10;
