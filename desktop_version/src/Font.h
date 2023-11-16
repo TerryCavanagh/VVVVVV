@@ -45,7 +45,7 @@
 #define PR_FONT_IDX(idx) ((SDL_clamp(idx, 0, 28) + 3) << 3) /* use given font index */
 #define PR_BRIGHTNESS(value) /* use this brightness 0-255 for the text (accounts for button glyphs correctly) */\
     (((~SDL_clamp((int)(value), 0, 255) & 0xff) << 8))
-#define PR_BOR8 (1 << 16) /* draw a black border around the text, filling in the corners (for the map legend) */
+#define PR_FULLBOR (1 << 16) /* draw a black border around the text, filling in the corners (for the map legend) */
 #define PR_BOR (1 << 17) /* draw a black border around the text (was bprint/bigbprint) */
 #define PR_LEFT (0 << 18) /* default, left-align text/place at x coordinate */
 #define PR_CEN (1 << 18) /* center-align text relative to X (X is center) or to screen if X == -1 */
