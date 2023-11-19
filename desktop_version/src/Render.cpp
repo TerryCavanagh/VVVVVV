@@ -2622,7 +2622,13 @@ static void rendermapcursor(const bool flashing)
 
     if (!flashing || ((map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0) || game.noflashingmode))
     {
-        graphics.draw_rect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
+        int margin = (data.zoom == 4) ? 2 : 1;
+        graphics.draw_rect(
+            40 + ((game.roomx - 100) * 12 * data.zoom) + margin + data.xoff,
+            21 + ((game.roomy - 100) * 9 * data.zoom) + margin + data.yoff,
+            (12 * data.zoom) - (2 * margin), (9 * data.zoom) - (2 * margin),
+            16, 245 - (help.glow), 245 - (help.glow)
+        );
     }
     else if (map.cursorstate == 1 && int(map.cursordelay / 4) % 2 == 0)
     {
