@@ -429,7 +429,7 @@
     <string english="- Press {button} to advance text -" translation="" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press TAB to toggle movement]" translation="" explanation="Tab toggles whether the game is paused or not" max="39"/>
+    <string english="[Press TAB to toggle gameplay]" translation="" explanation="Tab toggles whether the game is paused or not" max="39"/>
     <string english="Current Time" translation="" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="" explanation="" max="38*2"/>
