@@ -98,7 +98,7 @@ namespace level_debugger
         {
             SDL_Rect bounding_box = {
                 obj.entities[i].xp + obj.entities[i].cx,
-                obj.entities[i].yp + obj.entities[i].cy,
+                obj.entities[i].yp + obj.entities[i].cy - map.ypos,
                 obj.entities[i].w,
                 obj.entities[i].h
             };
@@ -160,7 +160,7 @@ namespace level_debugger
             {
                 SDL_Rect bounding_box = {
                     obj.blocks[i].rect.x,
-                    obj.blocks[i].rect.y,
+                    obj.blocks[i].rect.y - map.ypos,
                     obj.blocks[i].rect.w,
                     obj.blocks[i].rect.h
                 };
@@ -262,7 +262,7 @@ namespace level_debugger
         {
             SDL_Rect bounding_box = {
                 obj.entities[i].xp + obj.entities[i].cx,
-                obj.entities[i].yp + obj.entities[i].cy,
+                obj.entities[i].yp + obj.entities[i].cy - map.ypos,
                 obj.entities[i].w,
                 obj.entities[i].h
             };
@@ -292,7 +292,7 @@ namespace level_debugger
         {
             SDL_Rect bounding_box = {
                 obj.blocks[i].rect.x,
-                obj.blocks[i].rect.y,
+                obj.blocks[i].rect.y - map.ypos,
                 obj.blocks[i].rect.w,
                 obj.blocks[i].rect.h
             };
@@ -440,6 +440,6 @@ namespace level_debugger
             }
         }
 
-        font::print(PR_BOR, 5, 14, loc::gettext("[Press TAB to toggle movement]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        font::print(PR_BOR, 5, 14, loc::gettext("[Press TAB to toggle gameplay]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 }
