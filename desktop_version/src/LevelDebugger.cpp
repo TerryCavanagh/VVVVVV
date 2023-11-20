@@ -440,6 +440,14 @@ namespace level_debugger
             }
         }
 
-        font::print(PR_BOR, 5, 14, loc::gettext("[Press TAB to toggle gameplay]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(
+            buffer, sizeof(buffer),
+            loc::gettext("[Press {button} to toggle gameplay]"),
+            "button:str",
+            "TAB"
+        );
+
+        font::print(PR_BOR, 5, 14, buffer, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 }
