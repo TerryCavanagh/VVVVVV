@@ -52,7 +52,7 @@
     <string english="language" translation="gŏdka" explanation="menu option"/>
     <string english="Language" translation="Gŏdka" explanation="title" max="20"/>
     <string english="Change the language." translation="Pōmiyń gŏdka szpila." explanation="" max="38*2"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="Niy idzie pomiynić gŏdki, kej we szpilu pokŏzuje sie plac tekstowy." explanation="" max="38*3"/>
     <string english="clear main game data" translation="wypucuj dane bazowe" explanation="menu option"/>
     <string english="clear custom level data" translation="wypucuj dane ô poziōmach ekstra" explanation="menu option"/>
     <string english="Clear Data" translation="Wypucuj Dane" explanation="title" max="20"/>
@@ -209,11 +209,11 @@
     <string english="Toggle the in-game timer outside of time trials." translation="Przepnij rachownik czasu we szpilu poza prōbami czasowymi." explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Zygŏr w Szpilu je ZAŁŌNCZŌNY" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Zygŏr w Szpilu je WYŁŌNCZŌNY" explanation="" max="38*2"/>
-    <string english="english sprites" translation="" explanation="menu option"/>
-    <string english="English Sprites" translation="" explanation="title" max="20"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3"/>
-    <string english="Sprites are currently translated" translation="" explanation="" max="38*2"/>
-    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2"/>
+    <string english="english sprites" translation="angelske ôbrŏzki" explanation="menu option"/>
+    <string english="English Sprites" translation="Angelske Ôbrŏzki" explanation="title" max="20"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="Pokŏzuj słownych niyprzŏcieli po angelsku bez ôglōndu na na nasztalowano gŏdka." explanation="" max="38*3"/>
+    <string english="Sprites are currently translated" translation="Ôbrŏzki sōm terŏźnie przekłŏdane" explanation="" max="38*2"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="Ôbrŏzki sōm terŏźnie ZŎWDY PO ANGELSKU" explanation="" max="38*2"/>
     <string english="interact button" translation="knefel interakcyji" explanation="menu option"/>
     <string english="Interact Button" translation="Knefel Interakcyji" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Pōmiyń to, abo interakcyjo|robi sie bez ENTER abo E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
@@ -423,8 +423,8 @@
     <string english="start from beginning" translation="sztartnij ôd poczōntku" explanation="menu option"/>
     <string english="delete save" translation="wyciep zachowany szpil" explanation="menu option"/>
     <string english="back to levels" translation="idź nazŏd do poziōmōw" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="Edytor poziōmōw niyma do chycynio na Steam Decku, kej trza do ônygo tastatury i myszy." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="Edytor poziōmōw niyma do chycynio na tym urzōndzyniu, kej trza do ônygo tastatury i myszy." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Coby zainsztalować nowe poziōmy ekstra, przekopiuj pliki .vvvvvv do folderu z poziōmami." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Chcesz na zicher pokŏzać ściyżka do poziōmōw? To poradzi pokŏzać wrażliwe dane, kej streamujesz." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Ściyżka do poziōmōw:" explanation="" max="40"/>
@@ -507,16 +507,16 @@
     <string english="Press {button} to activate terminals" translation="Uaktywnij terminale: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Wlyź w interakcyjo: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="- Press {button} to skip -" translation="- Pōmiń: {button} -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
-    <string english="Passion for Exploring" translation="Passion for Exploring|(Pasjo Ôdkrywanio)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pushing Onwards" translation="Pushing Onwards|(Pociskōmy Dalij)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Positive Force" translation="Positive Force|(Pozytywno Moc)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Presenting VVVVVV" translation="Presenting VVVVVV|(Prezyntujymy VVVVVV)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Potential for Anything" translation="Potential for Anything|(Potyncjoł na Wszyjsko)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Predestined Fate" translation="Predestined Fate|(Porynczōny Los)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pipe Dream" translation="Pipe Dream|(Pomarzić Idzie)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Popular Potpourri" translation="Popular Potpourri|(Popularne Potpourri)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pressure Cooker" translation="Pressure Cooker|(Pod Presōm)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="ecroF evitisoP" translation="ecroF evitisoP|(coM onwytyzoP)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Passion for Exploring" translation="(Pasjo Ôdkrywanio)|Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pushing Onwards" translation="(Pociskōmy Dalij)|Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Positive Force" translation="(Pozytywno Moc)|Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Presenting VVVVVV" translation="(Prezyntujymy VVVVVV)|Presenting VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Potential for Anything" translation="(Potyncjoł na Wszyjsko)|Potential for Anything" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Predestined Fate" translation="(Porynczōny Los)|Predestined Fate" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pipe Dream" translation="(Pomarzić Idzie)|Pipe Dream" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Popular Potpourri" translation="(Popularne Potpourri)|Popular Potpourri" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pressure Cooker" translation="(Pod Presōm)|Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="(coM onwytyzoP)|ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Sztalowania mapy" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="edytuj skrypty" explanation="level editor menu option"/>
     <string english="change music" translation="pomiyń śpiywka" explanation="level editor menu option"/>
@@ -667,7 +667,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area}, {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="Poziōm je Fertich!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="Szpil je Fertich!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="You have rescued a crew member!" translation="Człōnek ekipy uratowany!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
@@ -755,9 +755,9 @@ You have found the secret lab!" translation="Winszujymy!" explanation="" max="34
     <string english="Complete the game" translation="Skōńcz szpil" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="SZPIL JE FERTICH NA ÔPY" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Skōńcz szpil w Trybie Na Ôpy" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 50 deaths" translation="Wygrej z mynij co 50 wpadkami" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 100 deaths" translation="Wygrej z mynij co 100 wpadek" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 250 deaths" translation="Wygrej z mynij co 250 wpadek" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 50 deaths" translation="Wygrej ze mynij co 50 wpadkami" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 100 deaths" translation="Wygrej ze mynij co 100 wpadek" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 250 deaths" translation="Wygrej ze mynij co 250 wpadek" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 500 deaths" translation="Wygrej ze mynij co 500 wpadek" explanation="achievement/trophy description" max="38*2"/>
     <string english="Last 5 seconds on the Super Gravitron" translation="Przeżyj 5 sek. na Super Grawitrōnie" explanation="achievement/trophy description" max="38*2"/>
     <string english="Last 10 seconds on the Super Gravitron" translation="Przeżyj 10 sek. na Super Grawitrōnie" explanation="achievement/trophy description" max="38*2"/>
@@ -766,40 +766,40 @@ You have found the secret lab!" translation="Winszujymy!" explanation="" max="34
     <string english="Last 30 seconds on the Super Gravitron" translation="Przeżyj 30 sek. na Super Grawitrōnie" explanation="achievement/trophy description" max="38*2"/>
     <string english="Last 1 minute on the Super Gravitron" translation="Przeżyj 1 minuta na Super Grawitrōnie" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="CYSŎRZ WSZECHŚWIATA" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
-    <string english="Complete the game in no death mode" translation="Skōńcz szpil w trybie bez wpadek" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game in no death mode" translation="Skōńcz szpil w Trybie Bez Wpadek" explanation="achievement/trophy description" max="38*2"/>
     <string english="Something went wrong, but we forgot the error message." translation="Cosik poszło felernie...|Ale przepōmnieli my dopisać po jakimu." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Niy podarziło sie wlyź do {path}: folderu niy ma" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="Level {path} not found" translation="Niy wysznupano ściyżki {path}" explanation="" max="38*6"/>
     <string english="Error parsing {path}: {error}" translation="Feler czytanio {path}: {feler}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Miary {filename} niy som wielakrotnōściami {width} na {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="Feler: Niy zachowano do folderu ôd gŏdki! Bydź zicher, co niy ma folderu &quot;lang&quot; kole regularnych zapisōw." explanation="" max="38*5"/>
-    <string english="Localisation" translation="" explanation=""/>
-    <string english="Localisation Project Led by" translation="" explanation=""/>
-    <string english="Translations by" translation="" explanation=""/>
-    <string english="Translators" translation="" explanation=""/>
-    <string english="Pan-European Font Design by" translation="" explanation=""/>
-    <string english="Fonts by" translation="" explanation=""/>
-    <string english="Other Fonts by" translation="" explanation=""/>
-    <string english="Catalan" translation="" explanation=""/>
-    <string english="Welsh" translation="" explanation=""/>
-    <string english="German" translation="" explanation=""/>
-    <string english="Esperanto" translation="" explanation=""/>
-    <string english="Spanish" translation="" explanation=""/>
-    <string english="French" translation="" explanation=""/>
-    <string english="Irish" translation="" explanation=""/>
-    <string english="Italian" translation="" explanation=""/>
-    <string english="Japanese" translation="" explanation=""/>
-    <string english="Korean" translation="" explanation=""/>
-    <string english="Dutch" translation="" explanation=""/>
-    <string english="Polish" translation="" explanation=""/>
-    <string english="Brazilian Portuguese" translation="" explanation=""/>
-    <string english="European Portuguese" translation="" explanation=""/>
-    <string english="Russian" translation="" explanation=""/>
-    <string english="Silesian" translation="" explanation=""/>
-    <string english="Turkish" translation="" explanation=""/>
-    <string english="Ukrainian" translation="" explanation=""/>
-    <string english="Chinese (Simplified)" translation="" explanation=""/>
-    <string english="Chinese (Traditional)" translation="" explanation=""/>
+    <string english="Localisation" translation="Lokalizacyjo" explanation=""/>
+    <string english="Localisation Project Led by" translation="Projektym lokalizacyji regiyrowoł" explanation=""/>
+    <string english="Translations by" translation="Przekłŏdali" explanation=""/>
+    <string english="Translators" translation="Przekłŏdocze" explanation=""/>
+    <string english="Pan-European Font Design by" translation="Design Pan-Europyjskij Czciōnki" explanation=""/>
+    <string english="Fonts by" translation="Czciōnki" explanation=""/>
+    <string english="Other Fonts by" translation="Inksze czciōnki" explanation=""/>
+    <string english="Catalan" translation="gŏdka katalońsko" explanation=""/>
+    <string english="Welsh" translation="gŏdka walijsko" explanation=""/>
+    <string english="German" translation="gŏdka niymiecko" explanation=""/>
+    <string english="Esperanto" translation="gŏdka esperanto" explanation=""/>
+    <string english="Spanish" translation="gŏdka hiszpańsko" explanation=""/>
+    <string english="French" translation="gŏdka francusko" explanation=""/>
+    <string english="Irish" translation="gŏdka irlandzko" explanation=""/>
+    <string english="Italian" translation="gŏdka italjyńsko" explanation=""/>
+    <string english="Japanese" translation="gŏdka japōńsko" explanation=""/>
+    <string english="Korean" translation="gŏdka koryōńsko" explanation=""/>
+    <string english="Dutch" translation="gŏdka holyndersko" explanation=""/>
+    <string english="Polish" translation="gŏdka polsko" explanation=""/>
+    <string english="Brazilian Portuguese" translation="gŏdka brazylijsko" explanation=""/>
+    <string english="European Portuguese" translation="gŏdka portugalsko" explanation=""/>
+    <string english="Russian" translation="gŏdka rusko" explanation=""/>
+    <string english="Silesian" translation="gŏdka ślōnsko" explanation=""/>
+    <string english="Turkish" translation="gŏdka turecko" explanation=""/>
+    <string english="Ukrainian" translation="gŏdka ukraińsko" explanation=""/>
+    <string english="Chinese (Simplified)" translation="gŏdka chińsko leko" explanation=""/>
+    <string english="Chinese (Traditional)" translation="gŏdka chińsko tradycyjno" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
