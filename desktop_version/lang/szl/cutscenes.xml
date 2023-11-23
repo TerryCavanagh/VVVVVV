@@ -301,7 +301,7 @@
     <cutscene id="int1yellow_4" explanation="the split paths merge, and Vitellary sees a checkpoint">
         <dialogue speaker="yellow" english="Ohh! What was that?" translation="Ôch! Co to było?"/>
         <dialogue speaker="player" english="What was what?" translation="Co to było?"/>
-        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="To je wielge... C coś! Dziwuja sie jak to fōnguje?"/>
+        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="To je wielge... P coś! Dziwuja sie jak to fōnguje?"/>
         <dialogue speaker="player" english="Em... I don&apos;t really know how to answer that question..." translation="Ech... Richtich niy wiym co ôdpedzieć na tyn problym..."/>
         <dialogue speaker="player" english="It&apos;s probably best not to acknowledge that it&apos;s there at all." translation="Bodej nojlepij bydzie, coby niy uznŏwać, co ôn ôgōlnie je."/>
         <dialogue speaker="yellow" english="Maybe we should take it back to the ship to study it?" translation="Bodej trza coby my to wziyni nazŏd na szif do zbadanio."/>
@@ -788,8 +788,8 @@ Wysznupuj dinksy, coby ôdbloknōńć śpiywki!" centertext="1" padtowidth="264"
 Pushing Onwards" translation="DOLSZE ÔDBLOKNIYŃCIE:
 5 Dinksōw
 
-Pushing Onwards
-(Pociskōmy Dalij)" tt="1" pad="1"/>
+Pociskōmy Dalij
+(Pushing Onwards)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock2" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -798,8 +798,8 @@ Pushing Onwards
 Positive Force" translation="DOLSZE ÔDBLOKNIYŃCIE:
 8 Dinksōw
 
-Positive Force
-(Pozytywno Moc)" tt="1" pad="1"/>
+Pozytywno Moc
+(Positive Force)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock3" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -808,8 +808,8 @@ Positive Force
 Presenting VVVVVV" translation="DOLSZE ÔDBLOKNIYŃCIE:
 10 Dinksōw
 
-Presenting VVVVVV
-(Prezyntujymy VVVVVV)" tt="1" pad="1"/>
+Prezyntujymy VVVVVV
+(Presenting VVVVVV)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock4" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -818,8 +818,8 @@ Presenting VVVVVV
 Potential for Anything" translation="DOLSZE ÔDBLOKNIYŃCIE:
 12 Dinksōw
 
-Potential for Anything
-(Potyncjoł na Wszyjsko)" tt="1" pad="1"/>
+Potyncjoł na Wszyjsko
+(Potential for Anything)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock41" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -828,8 +828,8 @@ Potential for Anything
 Pressure Cooker" translation="DOLSZE ÔDBLOKNIYŃCIE:
 14 Dinksōw
 
-Pressure Cooker
-(Pod Presōm)" tt="1" pad="1"/>
+Pod Presōm
+(Pressure Cooker)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock5" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -838,8 +838,8 @@ Pressure Cooker
 Predestined Fate" translation="DOLSZE ÔDBLOKNIYŃCIE:
 16 Dinksōw
 
-Predestined Fate
-(Porynczōny Los)" tt="1" pad="1"/>
+Porynczōny Los
+(Predestined Fate)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock6" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -848,8 +848,8 @@ Predestined Fate
 Popular Potpourri" translation="DOLSZE ÔDBLOKNIYŃCIE:
 18 Dinksōw
 
-Popular Potpourri
-(Popularne Potpourri)" tt="1" pad="1"/>
+Popularne Potpourri
+(Popular Potpourri)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock7" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -858,8 +858,8 @@ Popular Potpourri
 Pipe Dream" translation="DOLSZE ÔDBLOKNIYŃCIE:
 20 Dinksōw
 
-Pipe Dream
-(Pomarzić Idzie)" tt="1" pad="1"/>
+Pomarzić Idzie
+(Pipe Dream)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= DZIYNNIK ÔSOBISTY =-" padtowidth="280"/>

@@ -301,7 +301,7 @@
     <cutscene id="int1yellow_4" explanation="the split paths merge, and Vitellary sees a checkpoint">
         <dialogue speaker="yellow" english="Ohh! What was that?" translation="Oo! Co to było?"/>
         <dialogue speaker="player" english="What was what?" translation="Co co było?"/>
-        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="To duże... C! Ciekawe, co robi?"/>
+        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="To duże... P! Ciekawe, co robi?"/>
         <dialogue speaker="player" english="Em... I don&apos;t really know how to answer that question..." translation="Ymm... nie bardzo wiem, jak to opisać."/>
         <dialogue speaker="player" english="It&apos;s probably best not to acknowledge that it&apos;s there at all." translation="Lepiej udawać, że go tu w ogóle nie ma."/>
         <dialogue speaker="yellow" english="Maybe we should take it back to the ship to study it?" translation="Może powinniśmy go wziąć na pokład i przestudiować?"/>
@@ -663,11 +663,11 @@
 
 READY _" translation="* GENERATOR STABILNOŚCI WYMIAROWEJ *
 
-        [ Obecnie Generuje ]
+     [ Obecnie Generuje ]
         Maksymalna Stabilność
 
-             [ Status ]
-               Online
+            [ Status ]
+              Online
 
 GOTOWE _" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Aha! To stąd biorą się zakłócenia!"/>
@@ -786,8 +786,8 @@ Zdobywaj drobiazgi, by odblokować nowe piosenki!" centertext="1" padtowidth="26
 Pushing Onwards" translation="NASTĘPNE ODBLOKOWANIE:
 5 Drobiazgów
 
-Pushing Onwards
-(Pchamy Naprzód)" tt="1" pad="1"/>
+Pchamy Naprzód
+(Pushing Onwards)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock2" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -796,8 +796,8 @@ Pushing Onwards
 Positive Force" translation="NASTĘPNE ODBLOKOWANIE:
 8 Drobiazgów
 
-Positive Force
-(Pozytywna Siła)" tt="1" pad="1"/>
+Pozytywna Siła
+(Positive Force)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock3" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -806,8 +806,8 @@ Positive Force
 Presenting VVVVVV" translation="NASTĘPNE ODBLOKOWANIE:
 10 Drobiazgów
 
-Presenting VVVVVV
-(Prezentujemy VVVVVV)" tt="1" pad="1"/>
+Prezentujemy VVVVVV
+(Presenting VVVVVV)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock4" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -817,8 +817,8 @@ Potential for Anything" translation="NASTĘPNE ODBLOKOWANIE:
 
 12 Drobiazgów
 
-Potential for Anything
-(Potencjał na Wszystko)" tt="1" pad="1"/>
+Potencjał na Wszystko
+(Potential for Anything)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock41" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -827,8 +827,8 @@ Potential for Anything
 Pressure Cooker" translation="NASTĘPNE ODBLOKOWANIE:
 14 Drobiazgów
 
-Pressure Cooker
-(Pod Ciśnieniem)" tt="1" pad="1"/>
+Pod Ciśnieniem
+(Pressure Cooker)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock5" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -837,8 +837,8 @@ Pressure Cooker
 Predestined Fate" translation="NASTĘPNE ODBLOKOWANIE:
 16 Drobiazgów
 
-Predestined Fate
-(Przeznaczenie Narzucone)" tt="1" pad="1"/>
+Przeznaczenie Narzucone
+(Predestined Fate)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock6" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -847,8 +847,8 @@ Predestined Fate
 Popular Potpourri" translation="NASTĘPNE ODBLOKOWANIE:
 18 Drobiazgów
 
-Popular Potpourri
-(Popularne Potpourri)" tt="1" pad="1"/>
+Popularne Potpourri
+(Popular Potpourri)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock7" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -858,8 +858,8 @@ Pipe Dream" translation="NASTĘPNE ODBLOKOWANIE:
 
 20 Drobiazgów
 
-Pipe Dream
-(Pomarzyć Można)" tt="1" pad="1"/>
+Pomarzyć Można
+(Pipe Dream)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= DZIENNIK OSOBISTY =-" padtowidth="280"/>
