@@ -17,6 +17,7 @@
 #include "Font.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "LevelDebugger.h"
 #include "Localization.h"
 #include "LocalizationStorage.h"
 #include "KeyPoll.h"
@@ -108,53 +109,31 @@ static bool GetButtonFromString(const char *pText, SDL_GameControllerButton *but
     return false;
 }
 
-static const char* get_summary(
+// Unfortunate forward-declare... My hands are pretty tied
+static void loadthissummary(
+    const char* filename,
+    struct Game::Summary* summary,
+    tinyxml2::XMLDocument& doc
+);
+
+static struct Game::Summary get_summary(
     const char* filename,
     const char* savename,
     tinyxml2::XMLDocument& doc
 ) {
     tinyxml2::XMLHandle hDoc(&doc);
-    tinyxml2::XMLElement* pElem;
-    bool success;
-    const char* retval = "";
+    struct Game::Summary summary;
+    SDL_zero(summary);
 
-    success = FILESYSTEM_loadTiXml2Document(filename, doc);
-    if (!success)
+    if (!FILESYSTEM_loadTiXml2Document(filename, doc))
     {
         vlog_info("%s not found", savename);
-        goto end;
+        return summary;
     }
 
-    if (doc.Error())
-    {
-        vlog_error("Error parsing %s: %s", savename, doc.ErrorStr());
-        goto end;
-    }
+    loadthissummary(savename, &summary, doc);
 
-    for (pElem = hDoc
-        .FirstChildElement()
-        .FirstChildElement("Data")
-        .FirstChildElement()
-        .ToElement();
-    pElem != NULL;
-    pElem = pElem->NextSiblingElement())
-    {
-        const char* pKey = pElem->Value();
-        const char* pText = pElem->GetText();
-
-        if (pText == NULL)
-        {
-            pText = "";
-        }
-
-        if (SDL_strcmp(pKey, "summary") == 0)
-        {
-            retval = pText;
-        }
-    }
-
-end:
-    return retval;
+    return summary;
 }
 
 void Game::init(void)
@@ -247,8 +226,6 @@ void Game::init(void)
 
     SDL_memset(crewstats, false, sizeof(crewstats));
     SDL_memset(ndmresultcrewstats, false, sizeof(ndmresultcrewstats));
-    SDL_memset(tele_crewstats, false, sizeof(tele_crewstats));
-    SDL_memset(quick_crewstats, false, sizeof(quick_crewstats));
     SDL_memset(besttimes, -1, sizeof(besttimes));
     SDL_memset(bestframes, -1, sizeof(bestframes));
     SDL_memset(besttrinkets, -1, sizeof(besttrinkets));
@@ -257,13 +234,6 @@ void Game::init(void)
 
     crewstats[0] = true;
     lastsaved = 0;
-
-    tele_gametime = "00:00";
-    tele_trinkets = 0;
-    tele_currentarea = "Error! Error!";
-    quick_gametime = "00:00";
-    quick_trinkets = 0;
-    quick_currentarea = "Error! Error!";
 
     //Menu stuff initiliased here:
     SDL_memset(unlock, false, sizeof(unlock));
@@ -289,7 +259,6 @@ void Game::init(void)
     gamesaved = false;
     gamesavefailed = false;
     savetime = "00:00";
-    savearea = "nowhere";
     savetrinkets = 0;
 
     intimetrial = false;
@@ -312,6 +281,10 @@ void Game::init(void)
     totalflips = 0;
     hardestroom = "Welcome Aboard";
     hardestroomdeaths = 0;
+    hardestroom_x = 13;
+    hardestroom_y = 5;
+    hardestroom_specialname = false;
+    hardestroom_finalstretch = false;
     currentroomdeaths=0;
 
     inertia = 1.1f;
@@ -339,11 +312,11 @@ void Game::init(void)
     saveFilePath = FILESYSTEM_getUserSaveDirectory();
 
     tinyxml2::XMLDocument doc;
-    quicksummary = get_summary("saves/qsave.vvv", "qsave.vvv", doc);
+    last_quicksave = get_summary("saves/qsave.vvv", "qsave.vvv", doc);
 
 
     tinyxml2::XMLDocument docTele;
-    telesummary = get_summary("saves/tsave.vvv", "tsave.vvv", doc);
+    last_telesave = get_summary("saves/tsave.vvv", "tsave.vvv", doc);
 
     screenshake = flashlight = 0 ;
 
@@ -455,29 +428,9 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
     {
         clevel = clevel.substr(7);
     }
-    int tvar=-1;
-    for(size_t j=0; j<customlevelstats.size(); j++)
+    if (customlevelstats.count(clevel) == 0 || cscore > customlevelstats[clevel])
     {
-        if(clevel==customlevelstats[j].name)
-        {
-            tvar=j;
-            break;
-        }
-    }
-    if(tvar>=0)
-    {
-        // We have an existing entry
-        // Don't update it unless it's a higher score
-        if (cscore > customlevelstats[tvar].score)
-        {
-            customlevelstats[tvar].score=cscore;
-        }
-    }
-    else
-    {
-        //add a new entry
-        CustomLevelStat levelstat = {clevel, cscore};
-        customlevelstats.push_back(levelstat);
+        customlevelstats[clevel] = cscore;
     }
     savecustomlevelstats();
 }
@@ -536,10 +489,6 @@ void Game::loadcustomlevelstats(void)
 
     customlevelstats.clear();
 
-    // Old system
-    std::vector<std::string> customlevelnames;
-    std::vector<int> customlevelscores;
-
     tinyxml2::XMLElement* pElem;
     tinyxml2::XMLElement* firstElement;
 
@@ -562,21 +511,40 @@ void Game::loadcustomlevelstats(void)
 
         if (SDL_strcmp(pKey, "stats") == 0)
         {
+            bool file_has_duplicates = false;
+
             for (tinyxml2::XMLElement* stat_el = pElem->FirstChildElement(); stat_el; stat_el = stat_el->NextSiblingElement())
             {
-                CustomLevelStat stat = {};
+                int score = 0;
+                std::string name;
 
                 if (stat_el->GetText() != NULL)
                 {
-                    stat.score = help.Int(stat_el->GetText());
+                    score = help.Int(stat_el->GetText());
                 }
 
                 if (stat_el->Attribute("name"))
                 {
-                    stat.name = stat_el->Attribute("name");
+                    name = stat_el->Attribute("name");
                 }
 
-                customlevelstats.push_back(stat);
+                int existing = customlevelstats.count(name);
+                if (existing > 0)
+                {
+                    file_has_duplicates = true;
+                }
+
+                if (existing == 0 || score > customlevelstats[name])
+                {
+                    customlevelstats[name] = score;
+                }
+            }
+
+            if (file_has_duplicates)
+            {
+                /* This might be really inflated, so simply save the map we have now,
+                 * so we don't have to keep loading a 90 MB file. */
+                savecustomlevelstats();
             }
 
             return;
@@ -585,6 +553,9 @@ void Game::loadcustomlevelstats(void)
 
 
     // Since we're still here, we must be on the old system
+    std::vector<std::string> customlevelnames;
+    std::vector<int> customlevelscores;
+
     for (pElem = firstElement; pElem; pElem=pElem->NextSiblingElement())
     {
         const char* pKey = pElem->Value();
@@ -623,8 +594,13 @@ void Game::loadcustomlevelstats(void)
     // If the two arrays happen to differ in length, just go with the smallest one
     for (size_t i = 0; i < SDL_min(customlevelnames.size(), customlevelscores.size()); i++)
     {
-        CustomLevelStat stat = {customlevelnames[i], customlevelscores[i]};
-        customlevelstats.push_back(stat);
+        const std::string& name = customlevelnames[i];
+        const int score = customlevelscores[i];
+
+        if (customlevelstats.count(name) == 0 || score > customlevelstats[name])
+        {
+            customlevelstats[name] = score;
+        }
     }
 }
 
@@ -655,29 +631,25 @@ void Game::savecustomlevelstats(void)
     xml::update_tag(msgs, "numcustomlevelstats", numcustomlevelstats);
 
     std::string customlevelscorestr;
-    for(int i = 0; i < numcustomlevelstats; i++ )
+    std::string customlevelstatsstr;
+    std::map<std::string, int>::iterator iter;
+    for (iter = customlevelstats.begin(); iter != customlevelstats.end(); iter++)
     {
-        customlevelscorestr += help.String(customlevelstats[i].score) + ",";
+        customlevelscorestr += help.String(iter->second) + ",";
+        customlevelstatsstr += iter->first + "|";
     }
     xml::update_tag(msgs, "customlevelscore", customlevelscorestr.c_str());
-
-    std::string customlevelstatsstr;
-    for(int i = 0; i < numcustomlevelstats; i++ )
-    {
-        customlevelstatsstr += customlevelstats[i].name + "|";
-    }
     xml::update_tag(msgs, "customlevelstats", customlevelstatsstr.c_str());
 
     // New system
     tinyxml2::XMLElement* msg = xml::update_element_delete_contents(msgs, "stats");
     tinyxml2::XMLElement* stat_el;
-    for (size_t i = 0; i < customlevelstats.size(); i++)
+    for (iter = customlevelstats.begin(); iter != customlevelstats.end(); iter++)
     {
         stat_el = doc.NewElement("stat");
-        CustomLevelStat& stat = customlevelstats[i];
 
-        stat_el->SetAttribute("name", stat.name.c_str());
-        stat_el->LinkEndChild(doc.NewText(help.String(stat.score).c_str()));
+        stat_el->SetAttribute("name", iter->first.c_str());
+        stat_el->LinkEndChild(doc.NewText(help.String(iter->second).c_str()));
 
         msg->LinkEndChild(stat_el);
     }
@@ -695,18 +667,19 @@ void Game::savecustomlevelstats(void)
 
 void Game::levelcomplete_textbox(void)
 {
-    graphics.createtextboxflipme("", -1, 12, 165, 165, 255);
+    graphics.createtextboxflipme("", -1, 12, TEXT_COLOUR("cyan"));
     graphics.addline("                                    ");
     graphics.addline("");
     graphics.addline("");
     graphics.textboxprintflags(PR_FONT_8X8);
     graphics.textboxcenterx();
+    graphics.setimage(TEXTIMAGE_LEVELCOMPLETE);
 }
 
-void Game::crewmate_textbox(const int r, const int g, const int b)
+void Game::crewmate_textbox(const int color)
 {
     const int extra_cjk_height = (font::height(PR_FONT_INTERFACE) * 4) - 32;
-    graphics.createtextboxflipme("", -1, 64 + 8 + 16 - extra_cjk_height/2, r, g, b);
+    graphics.createtextboxflipme("", -1, 64 + 8 + 16 - extra_cjk_height/2, TEXT_COLOUR("gray"));
 
     /* This is a special case for wrapping, we MUST have two lines.
      * So just make sure it can't fit in one line. */
@@ -729,6 +702,7 @@ void Game::crewmate_textbox(const int r, const int g, const int b)
     float spaces_per_8 = font::len(PR_FONT_INTERFACE, " ")/8.0f;
     graphics.textboxpad(SDL_ceilf(5/spaces_per_8), SDL_ceilf(2/spaces_per_8));
     graphics.textboxcenterx();
+    graphics.addsprite(14, 12, 0, color);
 }
 
 void Game::remaining_textbox(void)
@@ -2485,7 +2459,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(175, 174, 174);
+            crewmate_textbox(13);
             break;
         case 3008:
             incstate();
@@ -2527,7 +2501,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(174, 175, 174);
+            crewmate_textbox(14);
             break;
         case 3022:
             incstate();
@@ -2568,7 +2542,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(174, 174, 175);
+            crewmate_textbox(16);
             break;
         case 3042:
             incstate();
@@ -2610,7 +2584,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(175, 175, 174);
+            crewmate_textbox(20);
             break;
         case 3052:
             incstate();
@@ -2676,7 +2650,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(175, 174, 175);
+            crewmate_textbox(15);
             break;
         case 3062:
             incstate();
@@ -2892,12 +2866,13 @@ void Game::updatestate(void)
             setstatedelay(75);
             music.play(Music_PLENARY);
 
-            graphics.createtextboxflipme("", -1, 12, 164, 165, 255);
+            graphics.createtextboxflipme("", -1, 12, TEXT_COLOUR("cyan"));
             graphics.addline("                                    ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
+            graphics.setimage(TEXTIMAGE_GAMECOMPLETE);
             break;
         case 3502:
         {
@@ -2981,7 +2956,10 @@ void Game::updatestate(void)
             );
             graphics.createtextboxflipme(buffer, -1, 158, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.createtextboxflipme(hardestroom, -1, 170, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme(
+                loc::gettext_roomname(map.custommode, hardestroom_x, hardestroom_y, hardestroom.c_str(), hardestroom_specialname),
+                -1, 170, TEXT_COLOUR("transparent")
+            );
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             break;
         }
@@ -4273,13 +4251,19 @@ void Game::gethardestroom(void)
     {
         hardestroomdeaths = currentroomdeaths;
 
+        hardestroom_x = roomx;
+        hardestroom_y = roomy;
+        hardestroom_finalstretch = map.finalstretch;
+
         if (map.roomname[0] == '\0')
         {
-            hardestroom = loc::gettext_roomname_special(map.hiddenname);
+            hardestroom = map.hiddenname;
+            hardestroom_specialname = true;
         }
         else
         {
-            hardestroom = loc::gettext_roomname(map.custommode, roomx, roomy, map.roomname, map.roomname_special);
+            hardestroom = map.roomname;
+            hardestroom_specialname = map.roomname_special;
         }
     }
 }
@@ -5227,6 +5211,13 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         return;
     }
 
+    /* Even if we want the default hardest room to be Welcome Aboard, there are pre-2.4
+     * saves with JUST <hardestroom> which should take priority over the coords */
+    hardestroom_x = -1;
+    hardestroom_y = -1;
+    hardestroom_specialname = false;
+    hardestroom_finalstretch = false;
+
     for (pElem = hDoc
         .FirstChildElement()
         .FirstChildElement("Data")
@@ -5339,6 +5330,22 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         {
             hardestroomdeaths = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "hardestroom_x") == 0)
+        {
+            hardestroom_x = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_y") == 0)
+        {
+            hardestroom_y = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_specialname") == 0)
+        {
+            hardestroom_specialname = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_finalstretch") == 0)
+        {
+            hardestroom_finalstretch = help.Int(pText);
+        }
         else if (SDL_strcmp(pKey, "currentsong") == 0)
         {
             int song = help.Int(pText);
@@ -5408,6 +5415,12 @@ void Game::customloadquick(const std::string& savfile)
         vlog_error("Error parsing %s.vvv: %s", levelfile.c_str(), doc.ErrorStr());
         return;
     }
+
+    // Like readmaingamesave(...), old saves have just <hardestroom>
+    hardestroom_x = -1;
+    hardestroom_y = -1;
+    hardestroom_specialname = false;
+    hardestroom_finalstretch = false;
 
     for (pElem = hDoc
         .FirstChildElement()
@@ -5544,6 +5557,22 @@ void Game::customloadquick(const std::string& savfile)
         {
             hardestroomdeaths = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "hardestroom_x") == 0)
+        {
+            hardestroom_x = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_y") == 0)
+        {
+            hardestroom_y = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_specialname") == 0)
+        {
+            hardestroom_specialname = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_finalstretch") == 0)
+        {
+            hardestroom_finalstretch = help.Int(pText);
+        }
         else if (SDL_strcmp(pKey, "currentsong") == 0)
         {
             int song = help.Int(pText);
@@ -5581,22 +5610,9 @@ void Game::customloadquick(const std::string& savfile)
     }
 }
 
-struct Summary
-{
-    const char* summary;
-    int seconds;
-    int minutes;
-    int hours;
-    int savex;
-    int savey;
-    int trinkets;
-    bool finalmode;
-    bool crewstats[Game::numcrew];
-};
-
 static void loadthissummary(
     const char* filename,
-    struct Summary* summary,
+    struct Game::Summary* summary,
     tinyxml2::XMLDocument& doc
 ) {
     tinyxml2::XMLHandle hDoc(&doc);
@@ -5607,6 +5623,8 @@ static void loadthissummary(
         vlog_error("Error parsing %s: %s", filename, doc.ErrorStr());
         return;
     }
+
+    summary->exists = true;
 
     for (pElem = hDoc
         .FirstChildElement()
@@ -5624,17 +5642,7 @@ static void loadthissummary(
             pText = "";
         }
 
-        if (pText == NULL)
-        {
-            pText = "";
-        }
-
-        if (SDL_strcmp(pKey, "summary") == 0)
-        {
-            summary->summary = pText;
-        }
-
-        else if (SDL_strcmp(pKey, "seconds") == 0)
+        if (SDL_strcmp(pKey, "seconds") == 0)
         {
             summary->seconds = help.Int(pText);
         }
@@ -5648,19 +5656,15 @@ static void loadthissummary(
         }
         else if (SDL_strcmp(pKey, "saverx") == 0)
         {
-            summary->savex = help.Int(pText);
+            summary->saverx = help.Int(pText);
         }
         else if (SDL_strcmp(pKey, "savery") == 0)
         {
-            summary->savey = help.Int(pText);
+            summary->savery = help.Int(pText);
         }
         else if (SDL_strcmp(pKey, "trinkets") == 0)
         {
             summary->trinkets = help.Int(pText);
-        }
-        else if (SDL_strcmp(pKey, "finalmode") == 0)
-        {
-            map.finalmode = help.Int(pText);
         }
 
         LOAD_ARRAY_RENAME(crewstats, summary->crewstats)
@@ -5671,54 +5675,17 @@ void Game::loadsummary(void)
 {
     tinyxml2::XMLDocument doc;
 
-    if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc))
-    {
-        telesummary = "";
-    }
-    else
-    {
-        struct Summary summary;
-        SDL_zero(summary);
+    SDL_zero(last_telesave);
+    SDL_zero(last_quicksave);
 
-        loadthissummary("tsave.vvv", &summary, doc);
-
-        telesummary = summary.summary;
-        tele_gametime = giventimestring(
-            summary.hours,
-            summary.minutes,
-            summary.seconds
-        );
-        map.finalmode = summary.finalmode;
-        tele_currentarea = map.currentarea(
-            map.area(summary.savex, summary.savey)
-        );
-        SDL_memcpy(tele_crewstats, summary.crewstats, sizeof(tele_crewstats));
-        tele_trinkets = summary.trinkets;
+    if (FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc))
+    {
+        loadthissummary("tsave.vvv", &last_telesave, doc);
     }
 
-    if (!FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc))
+    if (FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc))
     {
-        quicksummary = "";
-    }
-    else
-    {
-        struct Summary summary;
-        SDL_zero(summary);
-
-        loadthissummary("qsave.vvv", &summary, doc);
-
-        quicksummary = summary.summary;
-        quick_gametime = giventimestring(
-            summary.hours,
-            summary.minutes,
-            summary.seconds
-        );
-        map.finalmode = summary.finalmode;
-        quick_currentarea = map.currentarea(
-            map.area(summary.savex, summary.savey)
-        );
-        SDL_memcpy(quick_crewstats, summary.crewstats, sizeof(quick_crewstats));
-        quick_trinkets = summary.trinkets;
+        loadthissummary("qsave.vvv", &last_quicksave, doc);
     }
 }
 
@@ -5756,7 +5723,7 @@ bool Game::savetele(void)
         vlog_info("Creating new tsave.vvv");
     }
 
-    telesummary = writemaingamesave(doc);
+    last_telesave = writemaingamesave(doc);
 
     if(!FILESYSTEM_saveTiXml2Document("saves/tsave.vvv", doc))
     {
@@ -5789,7 +5756,7 @@ bool Game::savequick(void)
         vlog_info("Creating new qsave.vvv");
     }
 
-    quicksummary = writemaingamesave(doc);
+    last_quicksave = writemaingamesave(doc);
 
     if(!FILESYSTEM_saveTiXml2Document("saves/qsave.vvv", doc))
     {
@@ -5802,14 +5769,17 @@ bool Game::savequick(void)
 }
 
 // Returns summary of save
-std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
+struct Game::Summary Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 {
     //TODO make this code a bit cleaner.
+
+    struct Game::Summary summary;
+    SDL_zero(summary);
 
     if (map.custommode || inspecial())
     {
         //Don't trash save data!
-        return "";
+        return summary;
     }
 
     xml::update_declaration(doc);
@@ -5867,7 +5837,8 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 
     xml::update_tag(msgs, "savepoint", savepoint);
 
-    xml::update_tag(msgs, "trinkets", trinkets());
+    int n_trinkets = trinkets();
+    xml::update_tag(msgs, "trinkets", n_trinkets);
 
 
     //Special stats
@@ -5903,13 +5874,27 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 
     xml::update_tag(msgs, "hardestroom", hardestroom.c_str());
     xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
+    xml::update_tag(msgs, "hardestroom_x", hardestroom_x);
+    xml::update_tag(msgs, "hardestroom_y", hardestroom_y);
+    xml::update_tag(msgs, "hardestroom_specialname", (int) hardestroom_specialname);
+    xml::update_tag(msgs, "hardestroom_finalstretch", (int) hardestroom_finalstretch);
 
     xml::update_tag(msgs, "finalmode", (int) map.finalmode);
     xml::update_tag(msgs, "finalstretch", (int) map.finalstretch);
 
 
-    std::string summary = savearea + ", " + timestring();
-    xml::update_tag(msgs, "summary", summary.c_str());
+    std::string legacy_summary = std::string(map.currentarea(saverx, savery)) + ", " + timestring();
+    xml::update_tag(msgs, "summary", legacy_summary.c_str());
+
+
+    summary.exists = true;
+    summary.seconds = seconds;
+    summary.minutes = minutes;
+    summary.hours = hours;
+    summary.saverx = saverx;
+    summary.savery = savery;
+    summary.trinkets = n_trinkets;
+    SDL_memcpy(summary.crewstats, crewstats, sizeof(summary.crewstats));
 
     return summary;
 }
@@ -6040,6 +6025,10 @@ bool Game::customsavequick(const std::string& savfile)
 
     xml::update_tag(msgs, "hardestroom", hardestroom.c_str());
     xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
+    xml::update_tag(msgs, "hardestroom_x", hardestroom_x);
+    xml::update_tag(msgs, "hardestroom_y", hardestroom_y);
+    xml::update_tag(msgs, "hardestroom_specialname", (int) hardestroom_specialname);
+    xml::update_tag(msgs, "hardestroom_finalstretch", (int) hardestroom_finalstretch);
 
     xml::update_tag(msgs, "showminimap", (int) map.customshowmm);
 
@@ -6061,10 +6050,8 @@ bool Game::customsavequick(const std::string& savfile)
         }
     }
 
-    std::string summary = savearea + ", " + timestring();
-    xml::update_tag(msgs, "summary", summary.c_str());
-
-    customquicksummary = summary;
+    std::string legacy_summary = customleveltitle + ", " + timestring();
+    xml::update_tag(msgs, "summary", legacy_summary.c_str());
 
     if(!FILESYSTEM_saveTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))
     {
@@ -6308,49 +6295,37 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             {
                 if(i>=levelpage*8 && i< (levelpage*8)+8)
                 {
-                    //This is, er, suboptimal. Whatever, life optimisation and all that
-                    int tvar=-1;
-                    for(size_t j=0; j<customlevelstats.size(); j++)
+                    const std::string filename = cl.ListOfMetaData[i].filename.substr(7);
+                    int score = 0;
+                    if (customlevelstats.count(filename) > 0)
                     {
-                        if(cl.ListOfMetaData[i].filename.substr(7) == customlevelstats[j].name)
-                        {
-                            tvar=j;
-                            break;
-                        }
+                        score = customlevelstats[filename];
                     }
                     const char* prefix;
-                    if(tvar>=0)
+                    switch (score)
                     {
-                        switch (customlevelstats[tvar].score)
-                        {
-                        case 0:
-                        {
-                            static const char tmp[] = "   ";
-                            prefix = tmp;
-                            break;
-                        }
-                        case 1:
-                        {
-                            static const char tmp[] = " * ";
-                            prefix = tmp;
-                            break;
-                        }
-                        case 3:
-                        {
-                            static const char tmp[] = "** ";
-                            prefix = tmp;
-                            break;
-                        }
-                        default:
-                            SDL_assert(0 && "Unhandled menu text prefix!");
-                            prefix = "";
-                            break;
-                        }
-                    }
-                    else
+                    case 0:
                     {
                         static const char tmp[] = "   ";
                         prefix = tmp;
+                        break;
+                    }
+                    case 1:
+                    {
+                        static const char tmp[] = " * ";
+                        prefix = tmp;
+                        break;
+                    }
+                    case 3:
+                    {
+                        static const char tmp[] = "** ";
+                        prefix = tmp;
+                        break;
+                    }
+                    default:
+                        SDL_assert(0 && "Unhandled menu text prefix!");
+                        prefix = "";
+                        break;
                     }
                     char text[MENU_TEXT_BYTES];
                     SDL_snprintf(text, sizeof(text), "%s%s", prefix, cl.ListOfMetaData[i].title.c_str());
@@ -7052,10 +7027,14 @@ void Game::deletequick(void)
         return;
     }
 
-    if( !FILESYSTEM_delete( "saves/qsave.vvv" ) )
+    if (!FILESYSTEM_delete("saves/qsave.vvv"))
+    {
         vlog_error("Error deleting saves/qsave.vvv");
+    }
     else
-        quicksummary = "";
+    {
+        SDL_zero(last_quicksave);
+    }
 }
 
 void Game::deletetele(void)
@@ -7065,10 +7044,14 @@ void Game::deletetele(void)
         return;
     }
 
-    if( !FILESYSTEM_delete( "saves/tsave.vvv" ) )
+    if (!FILESYSTEM_delete("saves/tsave.vvv"))
+    {
         vlog_error("Error deleting saves/tsave.vvv");
+    }
     else
-        telesummary = "";
+    {
+        SDL_zero(last_telesave);
+    }
 }
 
 void Game::customdeletequick(const std::string& file)
@@ -7222,7 +7205,7 @@ bool Game::anything_unlocked(void)
 
 bool Game::save_exists(void)
 {
-    return telesummary != "" || quicksummary != "";
+    return last_telesave.exists || last_quicksave.exists;
 }
 
 static void hardreset(void)
@@ -7475,7 +7458,7 @@ void Game::copyndmresults(void)
 {
     ndmresultcrewrescued = crewrescued();
     ndmresulttrinkets = trinkets();
-    ndmresulthardestroom = hardestroom;
+    ndmresulthardestroom = loc::gettext_roomname(false, hardestroom_x, hardestroom_y, hardestroom.c_str(), hardestroom_specialname);
     SDL_memcpy(ndmresultcrewstats, crewstats, sizeof(ndmresultcrewstats));
 }
 
@@ -7509,7 +7492,7 @@ int Game::get_timestep(void)
 
 bool Game::physics_frozen(void)
 {
-    return roomname_translator::is_pausing();
+    return roomname_translator::is_pausing() || level_debugger::is_pausing();
 }
 
 bool Game::incompetitive(void)

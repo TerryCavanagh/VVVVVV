@@ -14,6 +14,7 @@
 #include "GraphicsUtil.h"
 #include "InterimVersion.h"
 #include "KeyPoll.h"
+#include "LevelDebugger.h"
 #include "Localization.h"
 #include "LocalizationStorage.h"
 #include "MakeAndPlay.h"
@@ -1259,58 +1260,58 @@ static void menurender(void)
         font::print_wrap(PR_CEN, -1, 75, loc::gettext("Are you sure you want to quit?"), tr, tg, tb);
         break;
     case Menu::continuemenu:
+    {
+        const char* title = NULL;
+        struct Game::Summary* summary = NULL;
+
         switch (game.currentmenuoption)
         {
         case 0:
-        {
-            //Show teleporter save info
-            graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
-
-            font::print(PR_2X | PR_CEN, -1, 20, loc::gettext("Tele Save"), tr, tg, tb);
-            font::print(PR_CEN, -1, 80-20, game.tele_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2));
-            for (int i = 0; i < 6; i++)
-            {
-                graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.tele_crewstats[i], true);
-            }
-            font::print(0, 59, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(buffer, sizeof(buffer),
-                loc::gettext("{savebox_n_trinkets|wordy}"),
-                "savebox_n_trinkets:int",
-                game.tele_trinkets
-            );
-            font::print(PR_RIGHT, 262, 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-
-            graphics.draw_sprite(34, 126-20, 50, graphics.col_clock);
-            graphics.draw_sprite(270, 126-20, 22, graphics.col_trinket);
+            title = loc::gettext("Tele Save");
+            summary = &game.last_telesave;
             break;
-        }
         case 1:
+            title = loc::gettext("Quick Save");
+            summary = &game.last_quicksave;
+            break;
+        }
+
+        if (summary != NULL)
         {
-            //Show quick save info
             graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
 
-            font::print(PR_2X | PR_CEN, -1, 20, loc::gettext("Quick Save"), tr, tg, tb);
-            font::print(PR_CEN, -1, 80-20, game.quick_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2));
+            font::print(PR_2X | PR_CEN, -1, 20, title, tr, tg, tb);
+            font::print(
+                PR_CEN, -1, 80-20,
+                loc::gettext_roomname_special(map.currentarea(summary->saverx, summary->savery)),
+                25, 255 - (help.glow / 2), 255 - (help.glow / 2)
+            );
             for (int i = 0; i < 6; i++)
             {
-                graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.quick_crewstats[i], true);
+                graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, summary->crewstats[i], true);
             }
-            font::print(0, 59, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            font::print(
+                0, 59, 132-20,
+                game.giventimestring(
+                    summary->hours,
+                    summary->minutes,
+                    summary->seconds
+                ),
+                255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2)
+            );
             char buffer[SCREEN_WIDTH_CHARS + 1];
             vformat_buf(buffer, sizeof(buffer),
                 loc::gettext("{savebox_n_trinkets|wordy}"),
                 "savebox_n_trinkets:int",
-                game.quick_trinkets
+                summary->trinkets
             );
             font::print(PR_RIGHT, 262, 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
             graphics.draw_sprite(34, 126-20, 50, graphics.col_clock);
             graphics.draw_sprite(270, 126-20, 22, graphics.col_trinket);
-            break;
-        }
         }
         break;
+    }
     case Menu::gameover:
     case Menu::gameover2:
     {
@@ -2472,6 +2473,7 @@ void gamerender(void)
         graphics.drawtrophytext();
     }
 
+    level_debugger::render();
 
     graphics.renderwithscreeneffects();
 }
@@ -2512,15 +2514,15 @@ static MapRenderData getmaprenderdata(void)
     switch (data.zoom)
     {
     case 4:
-        data.legendxoff += 21;
-        data.legendyoff += 16;
+        data.legendxoff += 20;
+        data.legendyoff += 14;
         break;
     case 2:
-        data.legendxoff += 9;
+        data.legendxoff += 8;
         data.legendyoff += 5;
         break;
     default:
-        data.legendxoff += 3;
+        data.legendxoff += 2;
         data.legendyoff += 1;
         break;
     }
@@ -2570,17 +2572,15 @@ static void rendermaplegend(void)
 
     const MapRenderData data = getmaprenderdata();
 
-    const int tile_offset = graphics.flipmode ? 3 : 0;
-
     for (size_t i = 0; i < map.teleporters.size(); i++)
     {
         if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1127 + tile_offset);
+            font::print(PR_FONT_8X8 | PR_FULLBOR, data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), "💿", 171, 255, 252);
         }
         else if (map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1126 + tile_offset);
+            font::print(PR_FONT_8X8 | PR_FULLBOR, data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), "❓", 64, 64, 64);
         }
     }
 
@@ -2590,7 +2590,7 @@ static void rendermaplegend(void)
         {
             if (!obj.collect[i])
             {
-                graphics.drawtile(data.legendxoff + (map.shinytrinkets[i].x * 12 * data.zoom), data.legendyoff + (map.shinytrinkets[i].y * 9 * data.zoom), 1086 + tile_offset);
+                font::print(PR_FONT_8X8 | PR_FULLBOR, data.legendxoff + (map.shinytrinkets[i].x * 12 * data.zoom), data.legendyoff + (map.shinytrinkets[i].y * 9 * data.zoom), "🪙", 254, 252, 58);
             }
         }
     }
@@ -2624,7 +2624,13 @@ static void rendermapcursor(const bool flashing)
 
     if (!flashing || ((map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0) || game.noflashingmode))
     {
-        graphics.draw_rect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
+        int margin = (data.zoom == 4) ? 2 : 1;
+        graphics.draw_rect(
+            40 + ((game.roomx - 100) * 12 * data.zoom) + margin + data.xoff,
+            21 + ((game.roomy - 100) * 9 * data.zoom) + margin + data.yoff,
+            (12 * data.zoom) - (2 * margin), (9 * data.zoom) - (2 * margin),
+            16, 245 - (help.glow), 245 - (help.glow)
+        );
     }
     else if (map.cursorstate == 1 && int(map.cursordelay / 4) % 2 == 0)
     {
@@ -2979,13 +2985,23 @@ void maprender(void)
 
             font::print(PR_CEN, -1, 80, buffer, 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
 
-            if (map.custommode || game.quicksummary == "")
+            if (map.custommode || !game.last_quicksave.exists)
             {
                 break;
             }
 
             font::print(PR_CEN, -1, FLIP(100, 8), loc::gettext("Last Save:"), 164 - help.glow/4, 164 - help.glow/4, 164);
-            font::print(PR_CEN, -1, FLIP(112, 8), game.quicksummary, 164 - help.glow/4, 164 - help.glow/4, 164);
+
+            struct Game::Summary* last = &game.last_quicksave;
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("{area}, {time}"),
+                "area:str, time:str",
+                loc::gettext_roomname_special(map.currentarea(last->saverx, last->savery)),
+                game.giventimestring(last->hours, last->minutes, last->seconds).c_str()
+            );
+
+            font::print(PR_CEN, -1, FLIP(112, 8), buffer, 164 - help.glow/4, 164 - help.glow/4, 164);
             break;
         }
 
@@ -3002,7 +3018,11 @@ void maprender(void)
         else
         {
             size_t i;
-            font::print(PR_CEN, -1, FLIP(80, 8), game.savearea, 25, 255 - help.glow/2, 255 - help.glow/2);
+            font::print(
+                PR_CEN, -1, FLIP(80, 8),
+                loc::gettext_roomname_special(map.currentarea(game.last_quicksave.saverx, game.last_quicksave.savery)),
+                25, 255 - help.glow/2, 255 - help.glow/2
+            );
             for (i = 0; i < SDL_arraysize(game.crewstats); ++i)
             {
                 /* Crewmates are annoying. Their height is 21 pixels, but to flip them,
@@ -3201,7 +3221,7 @@ void teleporterrender(void)
 
     if (game.useteleporter && (help.slowsine % 16 > 8 || game.noflashingmode))
     {
-        graphics.drawtile(data.legendxoff + data.xoff + (telex * 12 * data.zoom), data.legendyoff + data.yoff + (teley * 9 * data.zoom), 1128 + (graphics.flipmode ? 3 : 0));
+        font::print(PR_FONT_8X8 | PR_FULLBOR, data.legendxoff + data.xoff + (telex * 12 * data.zoom), data.legendyoff + data.yoff + (teley * 9 * data.zoom), "💿", 255, 0, 0);
     }
 
     graphics.cutscenebars();

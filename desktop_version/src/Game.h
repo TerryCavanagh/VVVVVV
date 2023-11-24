@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SDL.h>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -176,12 +177,6 @@ struct MenuStackFrame
     enum Menu::MenuName name;
 };
 
-struct CustomLevelStat
-{
-    std::string name;
-    int score; //0 - not played, 1 - finished, 2 - all trinkets, 3 - finished, all trinkets
-};
-
 
 class Game
 {
@@ -222,7 +217,7 @@ public:
     void gethardestroom(void);
 
     void levelcomplete_textbox(void);
-    void crewmate_textbox(const int r, const int g, const int b);
+    void crewmate_textbox(const int color);
     void remaining_textbox(void);
     void actionprompt_textbox(void);
     void savetele_textbox(void);
@@ -290,8 +285,25 @@ public:
 
     void loadsummary(void);
 
+    static const int numcrew = 6;
+
+    struct Summary
+    {
+        bool exists;
+        int seconds;
+        int minutes;
+        int hours;
+        int saverx;
+        int savery;
+        int trinkets;
+        bool crewstats[numcrew];
+    };
+
+    struct Summary last_telesave, last_quicksave;
+    bool save_exists(void);
+
     void readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc);
-    std::string writemaingamesave(tinyxml2::XMLDocument& doc);
+    struct Summary writemaingamesave(tinyxml2::XMLDocument& doc);
 
     void initteleportermode(void);
 
@@ -342,7 +354,6 @@ public:
     bool gamesaved;
     bool gamesavefailed;
     std::string savetime;
-    std::string savearea;
     int savetrinkets;
     bool startscript;
     std::string newscript;
@@ -434,17 +445,12 @@ public:
 
     bool inintermission;
 
-    static const int numcrew = 6;
     bool crewstats[numcrew];
     bool ndmresultcrewstats[numcrew];
 
     bool alarmon;
     int alarmdelay;
     bool blackout;
-
-    bool tele_crewstats[numcrew];
-
-    bool quick_crewstats[numcrew];
 
     static const int numunlock = 25;
     bool unlock[numunlock];
@@ -460,13 +466,6 @@ public:
     int besttrinkets[numtrials];
     int bestlives[numtrials];
     int bestrank[numtrials];
-
-    std::string tele_gametime;
-    int tele_trinkets;
-    std::string tele_currentarea;
-    std::string quick_gametime;
-    int quick_trinkets;
-    std::string quick_currentarea;
 
     int screenshake, flashlight;
     bool advancetext, pausescript;
@@ -491,9 +490,6 @@ public:
     std::string activity_lastprompt;
     bool activity_gettext;
 
-    std::string telesummary, quicksummary, customquicksummary;
-    bool save_exists(void);
-
     bool backgroundtext;
 
     int activeactivity, act_fade;
@@ -505,8 +501,11 @@ public:
 
     //Some stats:
     int totalflips;
-    std::string hardestroom; // don't change to C string unless you wanna handle language switches (or make it store coords)
+    std::string hardestroom; // don't change to C string unless you wanna handle when this string is loaded from the XML
     int hardestroomdeaths, currentroomdeaths;
+    int hardestroom_x, hardestroom_y;
+    bool hardestroom_specialname;
+    bool hardestroom_finalstretch;
 
 
     bool quickrestartkludge;
@@ -525,7 +524,8 @@ public:
     void updatecustomlevelstats(std::string clevel, int cscore);
     void deletecustomlevelstats(void);
 
-    std::vector<CustomLevelStat> customlevelstats;
+    // name -> score. 0 - not played, 1 - finished, 2 - all trinkets, 3 - finished, all trinkets
+    std::map<std::string, int> customlevelstats;
 
 
     std::vector<SDL_GameControllerButton> controllerButton_map;

@@ -84,6 +84,7 @@ set(VVV_SRC
     src/Input.cpp
     src/KeyPoll.cpp
     src/Labclass.cpp
+    src/LevelDebugger.cpp
     src/Localization.cpp
     src/LocalizationMaint.cpp
     src/LocalizationStorage.cpp
@@ -407,12 +408,6 @@ elseif (EMSCRIPTEN)
     if(BUNDLE_DEPENDENCIES)
         target_compile_options(faudio-static PUBLIC -sUSE_SDL=2)
         target_link_libraries(faudio-static -sUSE_SDL=2)
-    endif()
-elseif (ANDROID)
-    message(STATUS "Using Android SDL2")
-    target_link_libraries(VVVVVV SDL2 SDL2main)
-    if(BUNDLE_DEPENDENCIES)
-        target_link_libraries(faudio-static SDL2)
     endif()
 else()
     # Only try to autodetect if both SDL2 variables aren't explicitly set

@@ -838,20 +838,14 @@ const char* Graphics::textbox_line(
 void Graphics::drawgui(void)
 {
     int text_sign;
-    int crew_yp;
-    int crew_sprite;
 
     if (flipmode)
     {
         text_sign = -1;
-        crew_yp = 64 + 48 + 4;
-        crew_sprite = 6;
     }
     else
     {
         text_sign = 1;
-        crew_yp = 64 + 32 + 4;
-        crew_sprite = 0;
     }
 
     //Draw all the textboxes to the screen
@@ -950,7 +944,7 @@ void Graphics::drawgui(void)
             continue;
         }
 
-        if (textboxes[i].yp == 12 && textboxes[i].r == 165)
+        if (textboxes[i].image == TEXTIMAGE_LEVELCOMPLETE)
         {
             // Level complete
             const char* english = "Level Complete!";
@@ -987,7 +981,7 @@ void Graphics::drawgui(void)
                 }
             }
         }
-        else if (textboxes[i].yp == 12 && textboxes[i].g == 165)
+        else if (textboxes[i].image == TEXTIMAGE_GAMECOMPLETE)
         {
             // Game complete
             const char* english = "Game Complete!";
@@ -1023,31 +1017,28 @@ void Graphics::drawgui(void)
                 }
             }
         }
-        int crew_xp = textboxes[i].xp+20 - 6;
-        if (textboxes[i].r == 175 && textboxes[i].g == 175)
+
+        for (size_t index = 0; index < textboxes[i].sprites.size(); index++)
         {
-            //purple guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 220 - help.glow / 4 - textboxes[i].rand, 120 - help.glow / 4, 210 - help.glow / 4);
-        }
-        else if (textboxes[i].r == 175 && textboxes[i].b == 175)
-        {
-            //red guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 255 - help.glow / 8, 70 - help.glow / 4, 70 - help.glow / 4);
-        }
-        else if (textboxes[i].r == 175)
-        {
-            //green guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 120 - help.glow / 4 - textboxes[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
-        }
-        else if (textboxes[i].g == 175)
-        {
-            //yellow guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 220 - help.glow / 4 - textboxes[i].rand, 210 - help.glow / 4, 120 - help.glow / 4);
-        }
-        else if (textboxes[i].b == 175)
-        {
-            //blue guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 75, 75, 255 - help.glow / 4 - textboxes[i].rand);
+            TextboxSprite* sprite = &textboxes[i].sprites[index];
+            int y = sprite->y + yp;
+
+            if (flipmode)
+            {
+                y = yp + textboxes[i].h - sprite->y - sprites_rect.h;
+            }
+
+            draw_grid_tile(
+                grphx.im_sprites,
+                sprite->tile,
+                sprite->x + textboxes[i].xp,
+                y,
+                sprites_rect.w,
+                sprites_rect.h,
+                getcol(sprite->col),
+                1,
+                (flipmode ? -1 : 1)
+            );
         }
     }
 }
@@ -1426,6 +1417,28 @@ void Graphics::textboxtimer(int t)
     }
 
     textboxes[m].timer = t;
+}
+
+void Graphics::addsprite(int x, int y, int tile, int col)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("addsprite() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].addsprite(x, y, tile, col);
+}
+
+void Graphics::setimage(TextboxImage image)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("setimage() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].setimage(image);
 }
 
 void Graphics::addline( const std::string& t )

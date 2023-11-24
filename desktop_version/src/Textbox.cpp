@@ -28,6 +28,25 @@ textboxclass::textboxclass(void)
 
     print_flags = PR_FONT_LEVEL;
     fill_buttons = false;
+
+    sprites.clear();
+
+    image = TEXTIMAGE_NONE;
+}
+
+void textboxclass::addsprite(int x, int y, int tile, int col)
+{
+    TextboxSprite sprite;
+    sprite.x = x;
+    sprite.y = y;
+    sprite.tile = tile;
+    sprite.col = col;
+    sprites.push_back(sprite);
+}
+
+void textboxclass::setimage(TextboxImage new_image)
+{
+    image = new_image;
 }
 
 void textboxclass::centerx(void)

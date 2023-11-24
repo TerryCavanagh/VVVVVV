@@ -27,8 +27,15 @@ jobs:
     - uses: actions/checkout@v4
       with:
         repository: libsdl-org/SDL
-        ref: release-2.28.x
+        ref: release-2.28.5
         path: 'SDL'
+
+    - name: Build SDL
+      run: |
+        sudo apt-get -y install ninja-build
+        cd SDL
+        ./build-scripts/android-prefab.sh
+        mvn install:install-file -Dfile=build-android-prefab/prefab-2.28.5/SDL2-2.28.5.aar -DpomFile=build-android-prefab/prefab-2.28.5/SDL2-2.28.5.pom
 
     - name: Build
       run: |

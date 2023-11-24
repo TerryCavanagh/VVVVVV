@@ -13,6 +13,7 @@
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
+#include "LevelDebugger.h"
 #include "Localization.h"
 #include "LocalizationMaint.h"
 #include "LocalizationStorage.h"
@@ -1773,13 +1774,13 @@ static void menuactionpress(void)
                 music.playef(Sound_VIRIDIAN);
                 startmode(Start_MAINGAME);
             }
-            else if (game.telesummary == "")
+            else if (!game.last_telesave.exists)
             {
                 //You at least have a quicksave, or you couldn't have gotten here
                 music.playef(Sound_VIRIDIAN);
                 startmode(Start_MAINGAME_QUICKSAVE);
             }
-            else if (game.quicksummary == "")
+            else if (!game.last_quicksave.exists)
             {
                 //You at least have a telesave, or you couldn't have gotten here
                 music.playef(Sound_VIRIDIAN);
@@ -2442,6 +2443,12 @@ void gameinput(void)
         game.press_map = true;
     }
 
+    level_debugger::input();
+    if (level_debugger::is_pausing())
+    {
+        return;
+    }
+
     if (game.advancetext)
     {
         if (game.pausescript)
@@ -3068,10 +3075,7 @@ static void mapmenuactionpress(const bool version2_2)
         music.playef(Sound_GAMESAVED);
 
         game.savetime = game.timestring();
-        game.savearea = map.currentarea(map.area(game.roomx, game.roomy));
         game.savetrinkets = game.trinkets();
-
-        if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = loc::gettext_roomname_special("The Ship");
 
         bool success;
 

@@ -53,6 +53,8 @@ scriptclass::scriptclass(void)
     textcase = 1;
     textbuttons = false;
     textlarge = false;
+    textbox_sprites.clear();
+    textbox_image = TEXTIMAGE_NONE;
 }
 
 void scriptclass::add_default_colours(void)
@@ -528,6 +530,8 @@ void scriptclass::run(void)
                 textpad_right = 0;
                 textpadtowidth = 0;
                 textboxtimer = 0;
+                textbox_sprites.clear();
+                textbox_image = TEXTIMAGE_NONE;
 
                 translate_dialogue();
             }
@@ -698,6 +702,30 @@ void scriptclass::run(void)
             {
                 textboxtimer = ss_toi(words[1]);
             }
+            else if (words[0] == "textsprite")
+            {
+                TextboxSprite sprite;
+                sprite.x = ss_toi(words[1]);
+                sprite.y = ss_toi(words[2]);
+                sprite.tile = ss_toi(words[3]);
+                sprite.col = ss_toi(words[4]);
+                textbox_sprites.push_back(sprite);
+            }
+            else if (words[0] == "textimage")
+            {
+                if (words[1] == "levelcomplete")
+                {
+                    textbox_image = TEXTIMAGE_LEVELCOMPLETE;
+                }
+                else if (words[1] == "gamecomplete")
+                {
+                    textbox_image = TEXTIMAGE_GAMECOMPLETE;
+                }
+                else
+                {
+                    textbox_image = TEXTIMAGE_NONE;
+                }
+            }
             else if (words[0] == "flipme")
             {
                 textflipme = !textflipme;
@@ -728,6 +756,13 @@ void scriptclass::run(void)
                 {
                     graphics.textboxtimer(textboxtimer);
                 }
+
+                for (size_t i = 0; i < textbox_sprites.size(); i++)
+                {
+                    graphics.addsprite(textbox_sprites[i].x, textbox_sprites[i].y, textbox_sprites[i].tile, textbox_sprites[i].col);
+                }
+
+                graphics.setimage(textbox_image);
 
                 // Some textbox formatting that can be set by translations...
                 if (textcentertext)
@@ -3127,7 +3162,6 @@ void scriptclass::hardreset(void)
     game.gamesaved = false;
     game.gamesavefailed = false;
     game.savetime = "00:00";
-    game.savearea = "nowhere";
     game.savetrinkets = 0;
     if (!version2_2)
     {
@@ -3153,8 +3187,12 @@ void scriptclass::hardreset(void)
     game.translator_cutscene_test = false;
 
     game.totalflips = 0;
-    game.hardestroom = loc::gettext_roomname(false, 13, 5, "Welcome Aboard", false);
+    game.hardestroom = "Welcome Aboard";
     game.hardestroomdeaths = 0;
+    game.hardestroom_x = 13;
+    game.hardestroom_y = 5;
+    game.hardestroom_specialname = false;
+    game.hardestroom_finalstretch = false;
     game.currentroomdeaths=0;
 
     game.swnmode = false;

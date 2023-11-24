@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "LevelDebugger.h"
 #include "Map.h"
 #include "Music.h"
 #include "Network.h"
@@ -131,6 +132,7 @@ void gamelogic(void)
 {
     if (game.physics_frozen())
     {
+        level_debugger::logic();
         return;
     }
 
@@ -1475,4 +1477,6 @@ void gamelogic(void)
 
 #undef gotoroom
 #undef GOTOROOM
+
+    level_debugger::logic();
 }

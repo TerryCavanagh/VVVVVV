@@ -12,8 +12,8 @@
     <roomname english="Outside Dimension VVVVVV" translation="Вне измерения VVVVVV" explanation="For rare rooms outside the normal area"/>
     <roomname english="???" translation="???" explanation=""/>
     <roomname english="The Super Gravitron" translation="Супер Гравитрон" explanation="An expanded version of the room at 53, 50"/>
-    <roomname english="I Can&apos;t Believe You Got This Far" translation="Не могу поверить, что вы до сюда дошли" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
-    <roomname english="Imagine Spikes There, if You Like" translation="Представьте себе, что там шипы" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="I Can&apos;t Believe You Got This Far" translation="Тебе удалось так далеко забраться?!" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="Imagine Spikes There, if You Like" translation="Представь, что там шипы, если хочешь" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
     <!-- - -->
     <roomname english="Rear Window" translation="Окно во двор" explanation="Named after the Hitchcock film (The final stage has room names that suggest old black and white TV shows.)"/>
     <roomname english="Rear Vindow" translation="Окно vо двор" explanation=""/>
