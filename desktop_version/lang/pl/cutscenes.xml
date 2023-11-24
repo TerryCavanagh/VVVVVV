@@ -663,11 +663,11 @@
 
 READY _" translation="* GENERATOR STABILNOŚCI WYMIAROWEJ *
 
-     [ Obecnie Generuje ]
+        [ Obecnie Generuje ]
         Maksymalna Stabilność
 
-            [ Status ]
-              Online
+             [ Status ]
+               Online
 
 GOTOWE _" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Aha! To stąd biorą się zakłócenia!"/>
