@@ -37,11 +37,11 @@
     </cutscene>
     <cutscene id="trenchwarfare" explanation="player finds Trench Warfare trinket, if no trinkets found yet">
         <dialogue speaker="cyan" english="Ohh! I wonder what that is?" translation="О! Интересно, что это за штуковина?"/>
-        <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="Наверное, мне она не совсем нужна. Но, может, было бы интересно взять её с собой на корабль для изучения..."/>
+        <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="Наверное, мне она не совсем нужна. Но, может, было бы неплохо взять её с собой на корабль для изучения..."/>
     </cutscene>
     <cutscene id="newtrenchwarfare" explanation="player finds Trench Warfare trinket, if other trinket already found">
         <dialogue speaker="cyan" english="Oh! It&apos;s another one of those shiny things!" translation="О! Ещё одна блестящая штуковина!"/>
-        <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="Наверное, мне она не совсем нужна. Но, может, было бы интересно взять её с собой на корабль для изучения..."/>
+        <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="Наверное, мне она не совсем нужна. Но, может, было бы неплохо взять её с собой на корабль для изучения..."/>
     </cutscene>
     <cutscene id="teleporterback" explanation="">
         <dialogue speaker="cyan" english="A teleporter!" translation="Телепорт!"/>
@@ -63,10 +63,10 @@
         <dialogue speaker="purple" english="Not unless they find some way to communicate with us!" translation="Только если найдут способ с нами связаться!"/>
         <dialogue speaker="purple" english="We can&apos;t pick up their signal and they can&apos;t teleport here unless they know where the ship is..." translation="Мы не можем поймать их сигналы, а они не могут телепортироваться сюда, пока не знают, где находится корабль..."/>
         <dialogue speaker="player" english="So what do we do?" translation="И что нам тогда делать?"/>
-        <dialogue speaker="purple" english="We need to find them! Head out into the dimension and look for anywhere they might have ended up..." translation="Искать их! Путешествовать по измерению и исследовать каждый уголок, в который они могли запропаститься..."/>
+        <dialogue speaker="purple" english="We need to find them! Head out into the dimension and look for anywhere they might have ended up..." translation="Нам надо их найти! Отправляйся в измерение и ищи любые места, куда они могли бы угодить..."/>
         <dialogue speaker="player" english="Ok! Where do we start?" translation="Понятно! Где нам начать?"/>
         <dialogue speaker="purple" english="Well, I&apos;ve been trying to find them with the ship&apos;s scanners!" translation="Ну, я пыталась найти их с помощью сканеров корабля!"/>
-        <dialogue speaker="purple" english="It&apos;s not working, but I did find something..." translation="Ребят найти пока не удалось, но кое-что я всё-таки нашла..."/>
+        <dialogue speaker="purple" english="It&apos;s not working, but I did find something..." translation="С этим пока что успехов нет, но кое-что я всё-таки нашла..."/>
         <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="Эти точки описаны на наших сканах как структуры сосредоточения высокого количества энергии!"/>
         <dialogue speaker="purple" english="There&apos;s a good chance they&apos;re teleporters - which means they&apos;re probably built near something important..." translation="Велика вероятность того, что это телепорты, а это значит, что они, скорее всего, построены около чего-то важного..."/>
         <dialogue speaker="purple" english="They could be a very good place to start looking." translation="Думаю, с этих мест и следует начать."/>
@@ -77,7 +77,7 @@
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="Я буду здесь, если вдруг понадобится помощь!"/>
     </cutscene>
     <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
-        <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Я чувствую себя как-то подавленно, доктор. Просто... глаза разбегаются."/>
+        <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Я чувствую себя как-то растерянно, доктор."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Где мне начать?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Помни, что нажав ENTER, ты можешь посмотреть, где ты находишься на карте!"/>
         <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="Помни, что ты можешь нажать {b_map}, чтобы посмотреть, где находишься на карте!" buttons="1"/>
@@ -97,11 +97,11 @@
         <dialogue speaker="purple" english="Here! Have a lollipop!" translation="Вот! Держи леденец!"/>
     </cutscene>
     <cutscene id="trinketcollector" explanation="if no trinkets found yet">
-        <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation="Это выглядит как отличное место для хранения всякой всячины на случай, если найду что-нибудь снаружи..."/>
+        <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation="Это выглядит как хорошее место для хранения всего, что найду снаружи..."/>
         <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="Виктория обожает изучать разные интересные вещи, которые мы находим в приключениях!"/>
     </cutscene>
     <cutscene id="newtrinketcollector" explanation="if at least one trinket found">
-        <dialogue speaker="cyan" english="This seems like a good place to store those shiny things." translation="Это выглядит как отличное место для хранения этих блестящих штуковин."/>
+        <dialogue speaker="cyan" english="This seems like a good place to store those shiny things." translation="Это выглядит как хорошее место для хранения этих блестящих штуковин."/>
         <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="Виктория обожает изучать разные интересные вещи, которые мы находим в приключениях!"/>
     </cutscene>
     <cutscene id="new2trinketcollector" explanation="">
@@ -112,7 +112,7 @@
         <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation="Старший инженер Вердигри! Ты в порядке!"/>
         <dialogue speaker="green" english="I&apos;ve been trying to get out, but I keep going around in circles..." translation="Я пытался выбраться отсюда, но, кажется, я иду по кругу..."/>
         <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation="Я с корабля, и я здесь, чтобы телепортировать тебя обратно."/>
-        <dialogue speaker="green" english="Is everyone else alright? Is Violet..." translation="Как дела у остальных? Все целы? Пожалуйста, скажи, что Виолетта..."/>
+        <dialogue speaker="green" english="Is everyone else alright? Is Violet..." translation="А все остальные в порядке? А Виолетта..."/>
         <dialogue speaker="player" english="She&apos;s fine - she&apos;s back on the ship!" translation="Она в норме - она на корабле!"/>
         <dialogue speaker="green" english="Oh! Great - Let&apos;s get going, then!" translation="Фух! Прекрасно! Тогда вперёд!"/>
     </cutscene>
@@ -139,8 +139,8 @@
         <dialogue speaker="player" english="It&apos;s good to see you&apos;re alright, Professor!" translation="Приятно видеть, что с тобой ничего не стряслось, профессор!"/>
         <dialogue speaker="yellow" english="Is the ship ok?" translation="Корабль в порядке?"/>
         <dialogue speaker="player" english="It&apos;s badly damaged, but Violet&apos;s been working on fixing it." translation="Он серьёзно пострадал, но Виолетта уже работает над его ремонтом."/>
-        <dialogue speaker="player" english="We could really use your help..." translation="Нам бы понадобилась твоя помощь..."/>
-        <dialogue speaker="yellow" english="Ah, of course!" translation="Ах, ну конечно!"/>
+        <dialogue speaker="player" english="We could really use your help..." translation="Нам бы очень понадобилась твоя помощь..."/>
+        <dialogue speaker="yellow" english="Ah, of course!" translation="Ах, разумеется!"/>
         <dialogue speaker="yellow" english="The background interference in this dimension prevented the ship from finding a teleporter when we crashed!" translation="Фоновые помехи этого измерения не дали кораблю найти телепорт во время крушения!"/>
         <dialogue speaker="yellow" english="We&apos;ve all been teleported to different locations!" translation="Поэтому всех телепортировало по разным точкам!"/>
         <dialogue speaker="player" english="Er, that sounds about right!" translation="Э-э, да, звучит логично!"/>
@@ -165,7 +165,7 @@
         <dialogue speaker="blue" english="I wanna go home!" translation="Я хочу домой!"/>
         <dialogue speaker="blue" english="Where are we? How did we even get here?" translation="Где мы? Как мы вообще сюда попали?"/>
         <dialogue speaker="player" english="Well, Violet did say that the interference in the dimension we crashed in was causing problems with the teleporters..." translation="Ну, Виолетта говорила мне, что помехи в измерении, где мы разбились, вызывают проблемы с телепортами..."/>
-        <dialogue speaker="player" english="I guess something went wrong..." translation="Похоже, что-то пошло не так..."/>
+        <dialogue speaker="player" english="I guess something went wrong..." translation="Полагаю, что-то пошло не так..."/>
         <dialogue speaker="player" english="But if we can find another teleporter, I think we can get back to the ship!" translation="Но если мы найдём ещё один телепорт, думаю, мы сможем вернуться на корабль!"/>
         <dialogue speaker="blue" english="Sniff..." translation="*хнык*..."/>
     </cutscene>
@@ -184,12 +184,12 @@
         <dialogue speaker="blue" english="We&apos;re going to be lost forever!" translation="Мы застряли здесь навсегда!"/>
         <dialogue speaker="player" english="Ok, come on... Things aren&apos;t that bad." translation="Ну же, ну же... Всё не так уж и плохо."/>
         <dialogue speaker="player" english="I have a feeling that we&apos;re nearly home!" translation="У меня такое предчувствие, что мы уже совсем скоро вернёмся домой!"/>
-        <dialogue speaker="player" english="We can&apos;t be too far from another teleporter!" translation="Телепорт должен быть близко!"/>
+        <dialogue speaker="player" english="We can&apos;t be too far from another teleporter!" translation="Где-то поблизости должен быть телепорт!"/>
         <dialogue speaker="blue" english="I hope you&apos;re right, captain..." translation="Надеюсь ты говоришь правду, капитан..."/>
     </cutscene>
     <cutscene id="int1blue_7" explanation="">
         <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation="И вправду! Капитан! Это же телепорт!"/>
-        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="Фух! Здорово ты меня напугала... Мне уж казалось, что мы никогда не найдём здесь второй телепорт."/>
+        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="Фух! Здорово ты меня напугала... Мне уж казалось, что телепорт мы здесь никогда не найдём."/>
         <dialogue speaker="blue" english="What? Really?" translation="Что? Серьёзно?"/>
         <dialogue speaker="player" english="Anyway, let&apos;s go back to the ship." translation="Ну, неважно! Возвращаемся на корабль!"/>
     </cutscene>
@@ -211,9 +211,9 @@
         <dialogue speaker="player" english="She&apos;s fine! She helped me find my way back!" translation="Да! Она помогла мне найти дорогу назад!"/>
         <dialogue speaker="green" english="Oh, phew! I was worried about her." translation="Фух! Я сильно за неё волновался."/>
         <dialogue speaker="green" english="Captain, I have a secret..." translation="Капитан, у меня есть одна тайна..."/>
-        <dialogue speaker="green" english="I really like Violet!" translation="Я очень люблю Виолетту!"/>
+        <dialogue speaker="green" english="I really like Violet!" translation="Мне очень нравится Виолетта!"/>
         <dialogue speaker="player" english="Is that so?" translation="Серьёзно?"/>
-        <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation="Пожалуйста, поклянись, что не скажешь ей!"/>
+        <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation="Пожалуйста, поклянись, что не расскажешь ей!"/>
     </cutscene>
     <cutscene id="int1green_4" explanation="the split paths merge">
         <dialogue speaker="green" english="Hey again!" translation="И снова здравствуйте!"/>
@@ -244,7 +244,7 @@
     </cutscene>
     <cutscene id="int1red_1" explanation="">
         <dialogue speaker="red" english="Wow! Where are we?" translation="Ого! Где это мы?"/>
-        <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation="Этого... не должно было случиться... Кажется, что-то пошло не так с телепортом!"/>
+        <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation="Это... что-то совсем не то... Должно быть, что-то пошло не так с телепортом!"/>
         <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation="Эх... Ну, с этим мы ещё успеем разобраться, когда вернёмся на корабль!"/>
         <dialogue speaker="red" english="Let&apos;s go exploring!" translation="Давай лучше исследуем это место!"/>
         <dialogue speaker="player" english="Ok then!" translation="Хорошо!"/>
@@ -254,7 +254,7 @@
         <dialogue speaker="red" english="Aye aye, Captain!" translation="Так точно, капитан!"/>
     </cutscene>
     <cutscene id="int1red_3" explanation="">
-        <dialogue speaker="red" english="Hey Viridian... how did the crash happen, exactly?" translation="Слушай, Виридиан... почему именно мы разбились?"/>
+        <dialogue speaker="red" english="Hey Viridian... how did the crash happen, exactly?" translation="Слушай, Виридиан... а как именно мы разбились?"/>
         <dialogue speaker="player" english="Oh, I don&apos;t really know - some sort of interference..." translation="Ох, точно не знаю - возникли какие-то помехи..."/>
         <dialogue speaker="player" english="...or something sciencey like that. It&apos;s not really my area." translation="...или что-то там в этом духе, на научном. Не знаю, это не совсем по моей специальности."/>
         <dialogue speaker="red" english="Ah! Well, do you think we&apos;ll be able to fix the ship and go home?" translation="А, ну ладно! Думаешь, мы сможем починить корабль и вернуться домой?"/>
@@ -312,7 +312,7 @@
         <dialogue speaker="player" english="Yeah?" translation="Хм?"/>
         <dialogue speaker="yellow" english="We shouldn&apos;t really be able to move between dimensions with a regular teleporter..." translation="Переход между измерениями невозможен с использованием обычного телепорта..."/>
         <dialogue speaker="yellow" english="Maybe this isn&apos;t a proper dimension at all?" translation="Может, это вообще не настоящее измерение?"/>
-        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="Может, это какое-то полярное измерение? Созданное искусственно, по какой-то причине?"/>
+        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="Может, это какое-то полярное измерение? Что-то, что создали искусственно по какой-то причине?"/>
         <dialogue speaker="yellow" english="I can&apos;t wait to get back to the ship. I have a lot of tests to run!" translation="Жду не дождусь, когда мы вернёмся на корабль. Мне столько испытаний провести нужно!"/>
     </cutscene>
     <cutscene id="int1yellow_6" explanation="">
@@ -431,9 +431,9 @@
         <dialogue speaker="green" english="Vermilion&apos;s back! Yey!" translation="Вермильон вернулся! Ура!"/>
     </cutscene>
     <cutscene id="talkgreen_5" explanation="">
-        <dialogue speaker="green" english="The Professor had lots of questions about this dimension for me..." translation="Профессор пришёл ко мне с кучей вопросов об этом измерении..."/>
-        <dialogue speaker="green" english="We still don&apos;t really know that much, though." translation="Но мы всё ещё многого не знаем."/>
-        <dialogue speaker="green" english="Until we work out what&apos;s causing that interference, we can&apos;t go anywhere." translation="Мы не можем улететь, пока не разберёмся, в чём причина помех."/>
+        <dialogue speaker="green" english="The Professor had lots of questions about this dimension for me..." translation="У профессора ко мне было множество вопросов об этом измерении..."/>
+        <dialogue speaker="green" english="We still don&apos;t really know that much, though." translation="Однако мы всё ещё многого не знаем."/>
+        <dialogue speaker="green" english="Until we work out what&apos;s causing that interference, we can&apos;t go anywhere." translation="Мы не можем улететь, пока не разберёмся, что создаёт эти помехи."/>
     </cutscene>
     <cutscene id="talkgreen_6" explanation="">
         <dialogue speaker="green" english="I&apos;m so glad that Violet&apos;s alright!" translation="Я так рад, что с Виолеттой всё хорошо!"/>
@@ -465,7 +465,7 @@
     </cutscene>
     <cutscene id="talkred_4" explanation="">
         <dialogue speaker="red" english="I wonder what caused the ship to crash here?" translation="Интересно, что заставило корабль упасть сюда?"/>
-        <dialogue speaker="red" english="It&apos;s the shame the Professor isn&apos;t here, huh? I&apos;m sure he could work it out!" translation="Жаль Профессора здесь нет, а? Вот он бы во всём разобрался!"/>
+        <dialogue speaker="red" english="It&apos;s the shame the Professor isn&apos;t here, huh? I&apos;m sure he could work it out!" translation="Жаль профессора здесь нет, а? Вот он бы во всём разобрался!"/>
     </cutscene>
     <cutscene id="talkred_5" explanation="">
         <dialogue speaker="red" english="It&apos;s great to be back!" translation="Я так рад, что вернулся!"/>
@@ -489,7 +489,7 @@
     </cutscene>
     <cutscene id="talkred_10" explanation="">
         <dialogue speaker="red" english="Heya Captain!" translation="Эй, капитан!"/>
-        <dialogue speaker="red" english="This way looks a little dangerous..." translation="Эта дорога выглядит довольно опасной..."/>
+        <dialogue speaker="red" english="This way looks a little dangerous..." translation="Эта дорога выглядит немного опасной..."/>
     </cutscene>
     <cutscene id="talkred_11" explanation="">
         <dialogue speaker="red" english="I&apos;m helping!" translation="Я помогаю!"/>
@@ -517,15 +517,15 @@
     </cutscene>
     <cutscene id="talkblue_4" explanation="">
         <dialogue speaker="blue" english="Vitellary&apos;s back? I knew you&apos;d find him!" translation="Вителлин вернулся? Я знала, что ты его найдёшь!"/>
-        <dialogue speaker="blue" english="I mean, I admit I was very worried that you wouldn&apos;t..." translation="Хотя, честно сказать, я боялась, что ты его всё-таки не найдёшь..."/>
-        <dialogue speaker="blue" english="or that something might have happened to him..." translation="или что с ним случилось что-то плохое..."/>
+        <dialogue speaker="blue" english="I mean, I admit I was very worried that you wouldn&apos;t..." translation="Хотя, должна признать, я боялась, что ты его всё-таки не найдёшь..."/>
+        <dialogue speaker="blue" english="or that something might have happened to him..." translation="или что с ним могло случиться что-то плохое..."/>
         <dialogue speaker="blue" english="sniff..." translation="*хнык*..."/>
         <dialogue speaker="player" english="Doctor Victoria? He&apos;s ok!" translation="Доктор Виктория? Он в порядке!"/>
         <dialogue speaker="blue" english="Oh! Sorry! I was just thinking about what if he wasn&apos;t?" translation="Ой! Извини! Я просто думала, а что, если бы он не был в порядке?"/>
         <dialogue speaker="blue" english="Thank you, Captain!" translation="Спасибо, капитан!"/>
     </cutscene>
     <cutscene id="talkblue_5" explanation="">
-        <dialogue speaker="blue" english="You found Vermilion! Great!" translation="Вермильон нашёлся! Ура!"/>
+        <dialogue speaker="blue" english="You found Vermilion! Great!" translation="Вермильон нашёлся! Отлично!"/>
         <dialogue speaker="blue" english="I wish he wasn&apos;t so reckless!" translation="Вот бы он не был таким безрассудным!"/>
         <dialogue speaker="blue" english="He&apos;ll get himself into trouble..." translation="А то ещё ненароком в беду попадёт..."/>
     </cutscene>
@@ -546,7 +546,7 @@
     </cutscene>
     <cutscene id="talkblue_trinket1" explanation="">
         <dialogue speaker="blue" english="Hey Captain, I found this in that lab..." translation="Капитан, я нашла вот это в той лаборатории..."/>
-        <dialogue speaker="blue" english="Any idea what it does?" translation="Не знаешь, для чего это?"/>
+        <dialogue speaker="blue" english="Any idea what it does?" translation="Есть идеи, для чего это?"/>
         <dialogue speaker="player" english="Sorry, I don&apos;t know!" translation="Прости, не знаю!"/>
         <dialogue speaker="player" english="They seem important, though..." translation="Но они выглядят как что-то важное..."/>
         <dialogue speaker="player" english="Maybe something will happen if we find them all?" translation="Может, что-то произойдёт, если мы соберём их всех?"/>
@@ -595,7 +595,7 @@
         <dialogue speaker="yellow" english="No no... that&apos;s very unlikely, really..." translation="Нет, нет... это очень маловероятно, на самом деле..."/>
     </cutscene>
     <cutscene id="talkyellow_4" explanation="">
-        <dialogue speaker="yellow" english="My guess is that whoever used to live here was experimenting with ways to stop the dimension from collapsing." translation="Предполагаю, что те, кто жили здесь до нас, экспериментировали с путями предотвращения коллапса этого измерения."/>
+        <dialogue speaker="yellow" english="My guess is that whoever used to live here was experimenting with ways to stop the dimension from collapsing." translation="Предполагаю, что те, кто здесь жили, экспериментировали с путями предотвращения коллапса этого измерения."/>
         <dialogue speaker="yellow" english="It would explain why they&apos;ve wrapped the edges..." translation="Это бы объяснило, зачем они соединили края измерения в круг..."/>
         <dialogue speaker="yellow" english="Hey, maybe that&apos;s what&apos;s causing the interference?" translation="Хм, а может, как раз в этом и есть причина помех?"/>
     </cutscene>
@@ -604,7 +604,7 @@
     </cutscene>
     <cutscene id="talkyellow_6" explanation="">
         <dialogue speaker="yellow" english="I think it&apos;s no coincidence that the teleporter was drawn to that dimension..." translation="Связь того телепорта с другим измерением было определённо чем-то большим, чем совпадение..."/>
-        <dialogue speaker="yellow" english="There&apos;s something there. I think it might be causing the interference that&apos;s stopping us from leaving..." translation="Там что-то есть. И это что-то, согласно моим предположениям, вызывает те самые помехи, которые не дают нам уйти..."/>
+        <dialogue speaker="yellow" english="There&apos;s something there. I think it might be causing the interference that&apos;s stopping us from leaving..." translation="Там что-то есть. И это что-то, согласно моим предположениям, создаёт те самые помехи, которые не дают нам уйти..."/>
     </cutscene>
     <cutscene id="talkyellow_7" explanation="">
         <dialogue speaker="yellow" english="I&apos;m glad Verdigris is alright." translation="Я рад, что с Вердигри всё хорошо."/>
@@ -624,7 +624,7 @@
         <dialogue speaker="yellow" english="I&apos;ve got so much work to catch up on..." translation="У меня столько незаконченной работы..."/>
     </cutscene>
     <cutscene id="talkyellow_11" explanation="">
-        <dialogue speaker="yellow" english="I know it&apos;s probably a little dangerous to stay here now that this dimension is collapsing..." translation="Знаю, что оставаться здесь довольно опасно, учитывая, что это измерение коллапсирует..."/>
+        <dialogue speaker="yellow" english="I know it&apos;s probably a little dangerous to stay here now that this dimension is collapsing..." translation="Знаю, что оставаться здесь немного опасно, учитывая, что это измерение коллапсирует..."/>
         <dialogue speaker="yellow" english="...but it&apos;s so rare to find somewhere this interesting!" translation="...но ведь не каждый день найдёшь нечто столь интересное!"/>
         <dialogue speaker="yellow" english="Maybe we&apos;ll find the answers to our own problems here?" translation="Может, мы даже найдём здесь решения собственных проблем?"/>
     </cutscene>
@@ -670,7 +670,7 @@ READY _" translation="* ГЕНЕРАТОР СТАБИЛЬНОСТИ ИЗМЕРЕ
              Подключен
 
 ГОТОВ _" tt="1"/>
-        <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Ага! Это, должно быть, как раз то, что вызывает помехи!"/>
+        <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Ага! Это, должно быть, как раз то, что создаёт помехи!"/>
         <dialogue speaker="cyan" english="I wonder if I can turn it off?" translation="Интересно, можно ли как-то его выключить?"/>
         <dialogue speaker="gray" english="WARNING: Disabling the Dimensional Stability Generator may lead to instability! Are you sure you want to do this?" translation="ВНИМАНИЕ: Отключение Генератора стабильности измерения может привести к нестабильности! Вы уверены, что хотите это сделать?"/>
         <dialogue speaker="cyan" english="Yes!" translation="Да!" case="1"/>
@@ -700,7 +700,7 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= ВНИМАНИЕ =-
         <dialogue speaker="green" english="Captain!" translation="Капитан!" case="4" pad_right="2"/>
         <dialogue speaker="blue" english="Captain!" translation="Капитан!" case="5"/>
         <dialogue speaker="blue" english="You&apos;re alright!" translation="Ты в порядке!"/>
-        <dialogue speaker="blue" english="I knew you&apos;d be ok!" translation="Я знала, что с тобой всё будет в порядке!"/>
+        <dialogue speaker="blue" english="I knew you&apos;d be ok!" translation="Я знала, что с тобой всё будет хорошо!"/>
         <dialogue speaker="purple" english="We were very worried when you didn&apos;t come back..." translation="Мы сильно перепугались, когда тебя не появилось в телепорте..."/>
         <dialogue speaker="green" english="...but when you turned off the source of the interference..." translation="...но когда у тебя получилось отключить источник помех..."/>
         <dialogue speaker="yellow" english="...we were able to find you with the ship&apos;s scanners..." translation="...мы нашли тебя с помощью сканеров корабля..."/>
@@ -775,7 +775,7 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= ВНИМАНИЕ =-
 
 Songs will continue to play until you leave the ship.
 
-Collect trinkets to unlock new songs!" translation="-= МУЗЫКАЛЬНАЯ ШКАТУЛКА =-
+Collect trinkets to unlock new songs!" translation="-= МУЗЫКАЛЬНЫЙ АВТОМАТ =-
 
 Треки будут играть, пока вы не покинете корабль.
 
@@ -883,7 +883,7 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_2" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= Записи об исследовании =-" padtowidth="264"/>
-        <dialogue speaker="gray" english="...with just a small modification to the usual parameters, we were able to stabilise an infinite tunnel!" translation="...с помощью внесения небольших модификаций в наши обычные параметры, нам удалось стабилизировать бесконечный туннель!"/>
+        <dialogue speaker="gray" english="...with just a small modification to the usual parameters, we were able to stabilise an infinite tunnel!" translation="...с помощью внесения небольших модификаций в обычные параметры, нам удалось стабилизировать бесконечный туннель!"/>
     </cutscene>
     <cutscene id="terminal_outside_3" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= Записи об исследовании =-" padtowidth="264"/>
@@ -891,7 +891,7 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_4" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= Записи об исследовании =-" padtowidth="264"/>
-        <dialogue speaker="gray" english="...despite our best efforts, the dimensional stabiliser won&apos;t hold out forever. Its collapse is inevitable..." translation="...несмотря на все наши усилия, стабилизатор измерения навсегда не продержится. Его исчезновение неизбежно..." pad="1"/>
+        <dialogue speaker="gray" english="...despite our best efforts, the dimensional stabiliser won&apos;t hold out forever. Its collapse is inevitable..." translation="...несмотря на все наши усилия, стабилизатор измерения навсегда не продержится. Его коллапс неизбежен..." pad="1"/>
         <dialogue speaker="cyan" english="Huh? These coordinates aren&apos;t even in this dimension!" translation="Что? Эти координаты даже не из этого измерения!"/>
     </cutscene>
     <cutscene id="terminal_outside_5" explanation="">
@@ -900,7 +900,7 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_6" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= Записи об исследовании =-" padtowidth="264"/>
-        <dialogue speaker="gray" english="... access to the control center is still possible through the main atmospheric filters ..." translation="... доступ к центру управления всё ещё можно получить через главные фильтры атмосферы ..."/>
+        <dialogue speaker="gray" english="... access to the control center is still possible through the main atmospheric filters ..." translation="... доступ к центру управления всё ещё возможен через главные фильтры атмосферы ..."/>
     </cutscene>
     <cutscene id="terminal_lab_1" explanation="">
         <dialogue speaker="gray" english="... it turns out the key to stabilising this dimension was to create a balancing force outside of it!" translation="... оказывается, ключом к стабилизации этого измерения было создание балансирующей силы ВНЕ измерения!"/>
