@@ -80,15 +80,15 @@
     <string english="Current mode: INTEGER" translation="Текущий режим: ЦЕЛОЧИСЛЕННОЕ" explanation="integer (whole number) mode only enlarges the game in exact multiples of 320x240" max="38*2"/>
     <string english="Current mode: STRETCH" translation="Текущий режим: РАСТЯЖЕНИЕ" explanation="stretch mode just stretches the game to fill the window content" max="38*2"/>
     <string english="Current mode: LETTERBOX" translation="Текущий режим: РАМКА" explanation="letterbox mode enlarges the game to the window, but adds black bars to make the aspect ratio 4:3" max="38*2"/>
-    <string english="resize to nearest" translation="изменить масштаб к близжайшему" explanation="menu option. The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480"/>
-    <string english="Resize to Nearest" translation="К близжайшему" explanation="title. The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480" max="20"/>
-    <string english="Resize to the nearest window size that is of an integer multiple." translation="Измените масштаб окна к близжайшему кратному." explanation="The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480" max="38*3"/>
-    <string english="You must be in windowed mode to use this option." translation="Вы должны быть в оконном режиме, " explanation="The game cannot be in fullscreen to resize the window" max="38*2"/>
+    <string english="resize to nearest" translation="изменить масштаб к ближайшему" explanation="menu option. The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480"/>
+    <string english="Resize to Nearest" translation="К ближайшему" explanation="title. The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480" max="20"/>
+    <string english="Resize to the nearest window size that is of an integer multiple." translation="Измените масштаб окна к ближайшему кратному." explanation="The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480" max="38*3"/>
+    <string english="You must be in windowed mode to use this option." translation="Вы должны быть в оконном режиме, чтобы использовать эту опцию." explanation="The game cannot be in fullscreen to resize the window" max="38*2"/>
     <string english="toggle filter" translation="переключить фильтр" explanation="menu option"/>
     <string english="Toggle Filter" translation="Переключить фильтр" explanation="title" max="20"/>
-    <string english="Change to nearest/linear filter." translation="Смените фильтр на линейный/близжайший." explanation="" max="38*3"/>
+    <string english="Change to nearest/linear filter." translation="Смените фильтр на линейный/ближайший." explanation="" max="38*3"/>
     <string english="Current mode: LINEAR" translation="Текущий режим: ЛИНЕЙНЫЙ" explanation="" max="38*2"/>
-    <string english="Current mode: NEAREST" translation="Текущий режим: БЛИЗЖАЙШИЙ" explanation="nearest neighbor filter" max="38*2"/>
+    <string english="Current mode: NEAREST" translation="Текущий режим: БЛИЖАЙШИЙ" explanation="nearest neighbor filter" max="38*2"/>
     <string english="toggle analogue" translation="аналоговый режим" explanation="menu option, analogue mode simulates distortion from bad signal"/>
     <string english="Analogue Mode" translation="Аналоговый режим" explanation="title, analogue mode simulates distortion from bad signal" max="20"/>
     <string english="There is nothing wrong with your television set. Do not attempt to adjust the picture." translation="С вашим телевизором всё в порядке. Не пытайтесь настроить изображение." explanation="" max="38*5"/>
@@ -129,9 +129,9 @@
     <string english="You!" translation="Вам!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Благодаря Вашей поддержке я могу продолжать делать игры, которые хочу делать, сейчас и в будущем." explanation="credits" max="38*5"/>
     <string english="Thank you!" translation="Спасибо Вам!" explanation="credits" max="38*5"/>
-    <string english="Good luck!" translation="Удачи" explanation="" max="38*3"/>
+    <string english="Good luck!" translation="Удачи!" explanation="" max="38*3"/>
     <string english="You cannot save in this mode." translation="Вы не можете сохраняться в этом режиме." explanation="" max="38*3"/>
-    <string english="Would you like to disable the cutscenes during the game?" translation="Хотите отключить катсцены (внутриигровые видео) во время игры?" explanation="" max="38*6"/>
+    <string english="Would you like to disable the cutscenes during the game?" translation="Хотите отключить катсцены (внутриигровые видео)?" explanation="" max="38*6"/>
     <string english="disable cutscenes" translation="отключить катсцены" explanation="menu option"/>
     <string english="enable cutscenes" translation="включить катсцены" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="чувствительность джойстика" explanation="menu option"/>
@@ -206,7 +206,7 @@
     <string english="Unfocus audio pause is ON" translation="Пауза звука вне фокуса ВКЛЮЧЕНА" explanation="Making another window active will pause the music." max="38*2"/>
     <string english="toggle in-game timer" translation="внутриигровой таймер" explanation="menu option"/>
     <string english="In-Game Timer" translation="Таймер" explanation="title" max="20"/>
-    <string english="Toggle the in-game timer outside of time trials." translation="Включите отображение внутриирового таймера вне испытаний на время." explanation="" max="38*3"/>
+    <string english="Toggle the in-game timer outside of time trials." translation="Включите отображение внутриигрового таймера вне испытаний на время." explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Внутриигровой таймер ВКЛЮЧЕН" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Внутриигровой таймер ОТКЛЮЧЕН" explanation="" max="38*2"/>
     <string english="interact button" translation="клавиша взаимодействия" explanation="menu option"/>
@@ -281,7 +281,7 @@
     <string english="Game speed is at 40%" translation="Скорость игры - 40%." explanation="" max="38*2"/>
     <string english="normal speed" translation="обычная скорость" explanation="menu option"/>
     <string english="80% speed" translation="скорость 80%" explanation="menu option"/>
-    <string english="60% speed" translation="скорость 80%" explanation="menu option"/>
+    <string english="60% speed" translation="скорость 60%" explanation="menu option"/>
     <string english="40% speed" translation="скорость 40%" explanation="menu option"/>
     <string english="play intermission 1" translation="промежуточный уровень 1" explanation="menu option"/>
     <string english="play intermission 2" translation="промежуточный уровень 2" explanation="menu option"/>
@@ -308,7 +308,7 @@
     <string english="Flip Mode" translation="Перевёрнутый режим" explanation="title, mirrors the entire game vertically" max="20"/>
     <string english="Flip the entire game vertically." translation="Переверните всю игру по вертикали." explanation="" max="38*2"/>
     <string english="Flip the entire game vertically. Compatible with other game modes." translation="Переверните всю игру по вертикали. Совместим с другими игровыми режимами." explanation="" max="38*4"/>
-    <string english="unlock flip mode" translation="зеркальный режим" explanation="menu option"/>
+    <string english="unlock flip mode" translation="перевёрнутый режим" explanation="menu option"/>
     <string english="Currently ENABLED!" translation="ВКЛЮЧЕНО!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Отключено." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="КАК ОТКРЫТЬ: Пройдите игру." explanation="" max="38*3"/>
@@ -396,7 +396,7 @@
     <string english="You have unlocked a new Time Trial." translation="Вы разблокировали новое испытание на время." explanation="" max="38*7"/>
     <string english="You have unlocked some new Time Trials." translation="Вы разблокировали несколько новых испытаний на время." explanation="" max="38*7"/>
     <string english="You have unlocked No Death Mode." translation="Вы разблокировали режим &quot;Не умирая&quot;." explanation="" max="38*7"/>
-    <string english="You have unlocked Flip Mode." translation="Вы разблокировали Зеркальный режим." explanation="" max="38*7"/>
+    <string english="You have unlocked Flip Mode." translation="Вы разблокировали Перевёрнутый режим." explanation="" max="38*7"/>
     <string english="You have unlocked the intermission levels." translation="Вы разблокировали промежуточные уровни." explanation="" max="38*7"/>
     <string english="play a level" translation="сыграть в уровень" explanation="menu option"/>
     <string english="level editor" translation="редактор уровней" explanation="menu option"/>
@@ -626,8 +626,8 @@
     <string english="T: Terminals" translation="T: Терминалы" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
     <string english="Y: Script Box" translation="Y: Скрипт-зона" explanation="***OUTDATED***"/>
     <string english="Y: Script Boxes" translation="Y: Скрипт-зоны" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
-    <string english="U: Warp Token" translation="U: Портальный жетон" explanation="***OUTDATED***"/>
-    <string english="U: Warp Tokens" translation="U: Портальные жетоны" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
+    <string english="U: Warp Token" translation="U: Варп-токен" explanation="***OUTDATED***"/>
+    <string english="U: Warp Tokens" translation="U: Варп-токены" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
     <string english="I: Warp Lines" translation="I: Линии цикла" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
     <string english="O: Crewmate" translation="O: Член экипажа" explanation="***OUTDATED***"/>
     <string english="O: Crewmates" translation="O: Члены экипажа" explanation="editor tool. Crewmate that can be rescued" max="32"/>
@@ -640,7 +640,7 @@
     <string english="F4: Enemy Bounds" translation="F4: Границы врагов" explanation="editor shortcut, invisible box which enemies always stay inside of" max="25"/>
     <string english="F5: Platform Bounds" translation="F5: Границы платформ" explanation="editor shortcut, invisible box which platforms always stay inside of" max="25"/>
     <string english="F9: Reload Resources" translation="F9: Перезагрузить ресурсы" explanation="editor shortcut, reload tilesets, sprites, music, etc" max="25"/>
-    <string english="F10: Direct Mode" translation="F10: Режим &quot;напрямую&quot;" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25"/>
+    <string english="F10: Direct Mode" translation="F10: Ручной режим" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25"/>
     <string english="W: Change Warp Dir" translation="W: Направление цикла" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25"/>
     <string english="E: Change Roomname" translation="E: Название комнаты" explanation="editor shortcut, the name of the room appears at the bottom" max="25"/>
     <string english="S: Save Map" translation="S: Сохранить" explanation="level editor, save level, `Map` is basically redundant" max="12"/>
@@ -652,13 +652,13 @@
     <string english="Enter script name:" translation="Введите название скрипта:" explanation="level editor text input, enter name of newly created script, or edit the script name of a terminal/script box" max="39*3"/>
     <string english="Enter roomtext:" translation="Введите текст:" explanation="level editor text input, enter text to place in the room" max="39*3"/>
     <string english="Space Station" translation="Космическая станция" explanation="editor tileset name, Now using Space Station Tileset"/>
-    <string english="Outside" translation="Мир" explanation="editor tileset name, Now using Outside Tileset"/>
+    <string english="Outside" translation="Космос" explanation="editor tileset name, Now using Outside Tileset"/>
     <string english="Lab" translation="Лаборатория" explanation="editor tileset name, Now using Lab Tileset"/>
-    <string english="Warp Zone" translation="Зона цикла" explanation="editor tileset name, Now using Warp Zone Tileset. The Warp Zone got its name because its rooms wrap around, but think Star Trek"/>
+    <string english="Warp Zone" translation="Зона циклов" explanation="editor tileset name, Now using Warp Zone Tileset. The Warp Zone got its name because its rooms wrap around, but think Star Trek"/>
     <string english="Ship" translation="Корабль" explanation="editor tileset name, Now using Ship Tileset. Spaceship"/>
     <string english="Now using {area} Tileset" translation="Теперь используется вид плиток &quot;{area}&quot;" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="Цвет плиток изменён" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
-    <string english="Enemy Type Changed" translation="Вид врагов изменён" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
+    <string english="Enemy Type Changed" translation="Тип врагов изменён" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Установлена скорость платформ {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Ресурсы перезагружены" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ОШИБКА: Недопустимый формат" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
@@ -667,8 +667,8 @@
     <string english="ERROR: Could not load level" translation="ОШИБКА: Уровень не удалось загрузить" explanation="that level could not be loaded, maybe it does not exist" max="38*3"/>
     <string english="ERROR: Could not save level!" translation="ОШИБКА: Уровень не удалось сохранить!" explanation="maybe the filename is too long? exclamation mark because you will lose your data if you quit" max="38*3"/>
     <string english="Mapsize is now [{width},{height}]" translation="Теперь размер карты [{width},{height}]" explanation="editor, the map is now {width} by {height}" max="38*3"/>
-    <string english="Direct Mode Disabled" translation="Режим &quot;напрямую&quot; отключен" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to automatic mode" max="38*3"/>
-    <string english="Direct Mode Enabled" translation="Режим &quot;напрямую&quot; включен" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to manual mode" max="38*3"/>
+    <string english="Direct Mode Disabled" translation="Ручной режим отключен" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to automatic mode" max="38*3"/>
+    <string english="Direct Mode Enabled" translation="Ручной режим включен" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to manual mode" max="38*3"/>
     <string english="ERROR: Warp lines must be on edges" translation="ОШИБКА: Линии цикла должны располагаться по краям" explanation="level editor, warp lines make a room edge be connected to its opposite edge. So they must be placed on one of the edges, not in the middle" max="38*3"/>
     <string english="Room warps in all directions" translation="Комната зациклена во все стороны" explanation="level editor, all edges of the room are connected with each other. If the player leaves the room they end up on the other side of the same room." max="38*3"/>
     <string english="Room warps horizontally" translation="Комната зациклена горизонтально" explanation="level editor, the left and right edges of the room are connected with each other. The player can still go to other rooms on the top and bottom" max="38*3"/>
@@ -793,7 +793,7 @@ You have found the secret lab!" translation="Поздравляем!
     <string english="Something went wrong, but we forgot the error message." translation="Что-то пошло не так, но мы забыли сообщение об ошибке." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Не удалось монтировать {path}: настоящего каталога по данному пути не существует" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="Level {path} not found" translation="Не удалось найти уровень {path}" explanation="" max="38*6"/>
-    <string english="Error parsing {path}: {error}" translation="Ошибка анализа {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="Ошибка обработки {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Размеры изображения {filename} не кратны {width} на {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ОШИБКА: Не удалось записать данные в папку локализации! Убедитесь, что рядом с обычными сохранениями нет папки &quot;lang&quot;." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
