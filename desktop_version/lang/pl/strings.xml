@@ -507,16 +507,16 @@
     <string english="Press {button} to activate terminals" translation="Aktywuj terminale: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Wejdź w interakcję: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="- Press {button} to skip -" translation="- Pomiń: {button} -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
-    <string english="Passion for Exploring" translation="(Pasja do Eksploracji)|Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pushing Onwards" translation="(Pchamy Naprzód)|Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Positive Force" translation="(Pozytywna Siła)|Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Presenting VVVVVV" translation="(Prezentujemy VVVVVV)|Presenting VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Potential for Anything" translation="(Potencjał na Wszystko)|Potential for Anything" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Predestined Fate" translation="(Przeznaczenie Narzucone)|Predestined Fate" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pipe Dream" translation="(Pomarzyć Można)|Pipe Dream" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Popular Potpourri" translation="(Popularne Potpourri)|Popular Potpourri" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pressure Cooker" translation="(Pod Ciśnieniem)|Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="ecroF evitisoP" translation="(ałiS anwytyzoP)|ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Passion for Exploring" translation="Pasja do Eksploracji|(Passion for Exploring)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pushing Onwards" translation="Pchamy Naprzód|(Pushing Onwards)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Positive Force" translation="Pozytywna Siła|(Positive Force)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Presenting VVVVVV" translation="Prezentujemy VVVVVV|(Presenting VVVVVV)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Potential for Anything" translation="Potencjał na Wszystko|(Potential for Anything)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Predestined Fate" translation="Przeznaczenie Narzucone|(Predestined Fate)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pipe Dream" translation="Pomarzyć Można|(Pipe Dream)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Popular Potpourri" translation="Popularne Potpourri|(Popular Potpourri)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pressure Cooker" translation="Pod Ciśnieniem|(Pressure Cooker)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="ałiS anwytyzoP|(ecroF evitisoP)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Ustawienia mapy" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="edytuj skrypty" explanation="level editor menu option"/>
     <string english="change music" translation="zmień piosenkę" explanation="level editor menu option"/>
