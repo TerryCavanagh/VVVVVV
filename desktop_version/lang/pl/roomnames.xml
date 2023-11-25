@@ -77,7 +77,7 @@
     <roomname x="13" y="8" english="Level Complete!" translation="Poziom ukończony!" explanation="This room has a teleporter, which is normally found at the end of a level. However this room is midway through the stage."/>
     <roomname x="13" y="9" english="Lighter Than Air" translation="Lżejszy od powietrza" explanation="This room has clouds that rise from the bottom of the screen to the top, which the player is faster than, implying that the player is lighter than air."/>
     <roomname x="13" y="10" english="The Solution is Dilution" translation="Swojskie klimaty" explanation="This room has a factory and pollution clouds in it. Apparently this phrase was once used by industrialists to advocate for not worrying too much about pollution."/>
-    <roomname x="13" y="11" english="The Cuckoo" translation="Aleja Woronicza" explanation="This room contains a speaker that emits the word &apos;LIES&apos; over and over. A cuckoo&apos;s call decieves other birds!"/>
+    <roomname x="13" y="11" english="The Cuckoo" translation="Taśmy prawdy" explanation="This room contains a speaker that emits the word &apos;LIES&apos; over and over. A cuckoo&apos;s call decieves other birds!"/>
     <roomname x="13" y="12" english="Backsliders" translation="Cofamy się w tył" explanation="A conveyor belt in this room pushes against you as you try to move, so you slide backwards."/>
     <roomname x="13" y="13" english="Select Track" translation="Wybór ścieżki" explanation="There are two paths you can pick between here"/>
     <roomname x="14" y="0" english="Green Dudes Can&apos;t Flip" translation="Zieloni nie potrafią skakać" explanation="You have a green crewmate with you in this room! A reference to the 90&apos;s film &apos;White Guy&apos;s Can&apos;t Jump&apos;."/>
