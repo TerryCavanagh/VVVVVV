@@ -209,8 +209,8 @@
     <string english="Toggle the in-game timer outside of time trials." translation="Zamanla yarış modları dışında|oyun içi zamanlayıcıyı aç/kapat." explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Oyun İçi Zamanlayıcı AÇIK" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Oyun İçi Zamanlayıcı KAPALI" explanation="" max="38*2"/>
-    <string english="english sprites" translation="ingilizce hareketli kelimeler" explanation="menu option"/>
-    <string english="English Sprites" translation="İngilizce Hareketli Kelimeler" explanation="title" max="20"/>
+    <string english="english sprites" translation="hareketli kelimeler" explanation="menu option"/>
+    <string english="English Sprites" translation="Hareketli Kelimeler" explanation="title" max="20"/>
     <string english="Show the original English word enemies regardless of your language setting." translation="Dil seçiminden bağımsız olarak hareketli kelimeleri orijinal dilinde (İngilizce) göster" explanation="" max="38*3"/>
     <string english="Sprites are currently translated" translation="Hareketli kelimelerin çevirileri gösteriliyor" explanation="" max="38*2"/>
     <string english="Sprites are currently ALWAYS ENGLISH" translation="Hareketli kelimeler İNGİLİZCE gösteriliyor" explanation="" max="38*2"/>
