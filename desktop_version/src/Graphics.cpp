@@ -2443,7 +2443,7 @@ void Graphics::drawbackground( int t )
     {
         clear();
 
-        const int offset = (int) lerp(0, -3);
+        const int offset = (int) lerp(-3, 0);
         const SDL_Rect srcRect = {8 + offset, 0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS};
 
         copy_texture(backgroundTexture, &srcRect, NULL);
@@ -2453,7 +2453,7 @@ void Graphics::drawbackground( int t )
     {
         clear();
 
-        const int offset = (int) lerp(0, -3);
+        const int offset = (int) lerp(-3, 0);
         const SDL_Rect srcRect = {0, 8 + offset, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS};
 
         copy_texture(backgroundTexture, &srcRect, NULL);
