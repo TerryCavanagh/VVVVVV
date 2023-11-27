@@ -1,4 +1,5 @@
-#include <SDL_stdinc.h>
+#include "Vlogging.h"
+
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -258,6 +259,10 @@ static void check_color_support(void)
         return;
     }
 
+    /* Older VS releases don't have this defined yet */
+    #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+    #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+    #endif
     const BOOL success = SetConsoleMode(
         hStdout, ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING
     );

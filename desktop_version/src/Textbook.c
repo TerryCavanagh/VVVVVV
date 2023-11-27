@@ -108,5 +108,5 @@ const char* textbook_store(Textbook* textbook, const char* text)
         return "";
     }
 
-    return textbook_store_raw(textbook, text, SDL_strlen(text)+1);
+    return (const char*) textbook_store_raw(textbook, text, SDL_strlen(text)+1);
 }

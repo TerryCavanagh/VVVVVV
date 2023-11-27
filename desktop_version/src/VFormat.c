@@ -39,7 +39,7 @@ int vformat_button(ActionSet actionset, int action)
 static void vformat_unbutton(ActionSet* actionset, Action* action, const int vararg_value)
 {
     // Unpack the ActionSet and Action from a packed vararg value.
-    *actionset = vararg_value >> 16;
+    *actionset = (ActionSet) (vararg_value >> 16);
     action->intval = vararg_value & 0xFFFF;
 }
 
@@ -207,7 +207,11 @@ void vformat_cb_valist(
              * The arguments index string is comma-separated,
              * each argument is name:type. */
             va_list args_copy;
+#ifndef va_copy /* Older VS releases don't have this yet, just copy the old way */
+            args_copy = args;
+#else
             va_copy(args_copy, args);
+#endif
 
             const char* args_index_cursor = args_index;
 
@@ -385,11 +389,10 @@ size_t vformat_buf_valist(
 {
     /* Variant of vformat_buf which takes a va_list instead of `...` */
 
-    buffer_info buf = {
-        .total_needed = 1,
-        .buffer_cursor = buffer,
-        .buffer_left = buffer_len
-    };
+    buffer_info buf;
+    buf.total_needed = 1;
+    buf.buffer_cursor = buffer;
+    buf.buffer_left = buffer_len;
 
     if (buf.buffer_left != 0)
     {
@@ -438,7 +441,7 @@ char* vformat_alloc_valist(
     /* Variant of vformat_alloc which takes a va_list instead of `...` */
 
     size_t needed = vformat_buf_valist(NULL, 0, format_string, args_index, args);
-    char* buffer = SDL_malloc(needed);
+    char* buffer = (char*) SDL_malloc(needed);
     if (buffer == NULL)
     {
         return NULL;
