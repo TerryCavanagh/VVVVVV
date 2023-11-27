@@ -702,7 +702,7 @@ void Game::crewmate_textbox(const int color)
     float spaces_per_8 = font::len(PR_FONT_INTERFACE, " ")/8.0f;
     graphics.textboxpad(SDL_ceilf(5/spaces_per_8), SDL_ceilf(2/spaces_per_8));
     graphics.textboxcenterx();
-    graphics.addsprite(14, 12, 0, color);
+    graphics.addsprite(14, 12 + extra_cjk_height/2, 0, color);
 }
 
 void Game::remaining_textbox(void)
