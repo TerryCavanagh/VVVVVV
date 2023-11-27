@@ -1195,11 +1195,9 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= 個人ログ =-" padtowidth="132"/>
-        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="宇宙ステーションからの避難は
-ほぼ全員完了したようだ。
-残った我々も、あと数日で
-離れる事になろう。
-研究が終わればの話だが。" pad="1"/>
+        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="宇宙ステーションからの避難は、ほぼ全員
+完了したようだ。残った我々も、あと数日で
+離れる事になろう。研究が終わればの話だが。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_2" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究資料 =-" padtowidth="132"/>
@@ -1260,9 +1258,8 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_5" explanation="">
         <dialogue speaker="gray" english="-= Personal Log =-" translation="-= 個人ログ =-" padtowidth="132"/>
-        <dialogue speaker="gray" english="... I&apos;ve had to seal off access to most of our research. Who knows what could happen if it fell into the wrong hands? ..." translation="面倒だが我々の研究結果への
-アクセスを遮断する必要があった。
-もしもこの情報が悪しき者に渡れば
+        <dialogue speaker="gray" english="... I&apos;ve had to seal off access to most of our research. Who knows what could happen if it fell into the wrong hands? ..." translation="面倒だが我々の研究結果へのアクセスを遮断する
+必要があった。もしもこの情報が悪しき者に渡れば
 どんな恐ろしい事になるか…。
 それだけは避けねばならなかったのだ。" pad="1"/>
     </cutscene>
