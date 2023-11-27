@@ -72,25 +72,3 @@ actually distribute this data.zip file with your own forks without getting
 permission from us first. See [LICENSE.md](../LICENSE.md) for more details. (If
 you've got a project in mind that requires distributing this
 file, [get in touch](http://distractionware.com/email/)!)
-
-A Word About Compiler Quirks
-----------------------------
-
-_(Note: This section only applies to version 2.2 of the source code, which is
-the initial commit of this repository. Since then, much hard work has been put
-in to fix many undefined behaviors. If you're compiling the latest version of
-the source code, ignore this section.)_
-
-This engine is _super_ fussy about optimization levels and runtime checks. In
-particular, the Windows version _absolutely positively must_ be compiled in
-Debug mode, with /RTC enabled. If you build in Release mode, or have /RTC
-disabled, the game behaves dramatically different in ways that were never fully
-documented (bizarre softlocks, out-of-bounds issues that don't show up in tools
-like Valgrind, stuff like that). There are lots of things about this old code
-that could be cleaned up, polished, rewritten, and so on, but this is the one
-that will probably bite you the hardest when setting up your own build,
-regardless of platform.
-
-We hope you'll enjoy messing with the source anyway!
-
-Love, flibit
