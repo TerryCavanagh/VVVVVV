@@ -388,9 +388,9 @@
     <string english="SHINY" translation="BLINGS" explanation="record number of trinkets" max="8"/>
     <string english="LIVES" translation="VIES" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="RÉFÉRENCE" explanation="followed by the goal time for this time trial" max="14"/>
-    <string english="TIME:" translation="TEMPS :" explanation="in time trial. Stopwatch time, not too long"/>
-    <string english="DEATH:" translation="MORTS :" explanation="in time trial. Number of times player died, not too long"/>
-    <string english="SHINY:" translation="BLINGS :" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
+    <string english="TIME:" translation="TEMPS : " explanation="in time trial. Stopwatch time, not too long"/>
+    <string english="DEATH:" translation="MORTS : " explanation="in time trial. Number of times player died, not too long"/>
+    <string english="SHINY:" translation="BLINGS : " explanation="in time trial. Number of shiny trinkets collected, not too long"/>
     <string english="PAR TIME:" translation="RÉFÉRENCE :" explanation="in time trial. Goal time for time trial"/>
     <string english="BEST RANK" translation="MEILLEUR RANG" explanation="ranks are B A S V" max="17"/>
     <string english="GO!" translation="GO !" explanation="3, 2, 1, GO!" max="13"/>
