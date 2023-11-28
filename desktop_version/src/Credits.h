@@ -5,6 +5,59 @@
 
 namespace Credits {
 
+/* Translators list; lines prefaced with a space aren't translatable */
+static const char* translators[] = {
+    "Catalan",
+    " Eduard Ereza Martínez",
+    "Welsh",
+    " Morgan Roberts",
+    "German",
+    " Thomas Faust",
+    "Esperanto",
+    " Reese Rivers",
+    "Spanish",
+    " Felipe Mercader",
+    " Sara Marín",
+    "French",
+    " Words of Magic",
+    "Irish",
+    " Úna-Minh Kavanagh",
+    " Seaghán Ó Modhráin",
+    " Davis Sandefur",
+    "Italian",
+    " A. Dellepiane",
+    " M. Scarabelli",
+    " L. Bertolucci",
+    " F. Bortolotti",
+    "Japanese",
+    " Nicalis, Inc.",
+    " KabanFriends",
+    "Korean",
+    " Bada Im",
+    " Hyungseok Cho",
+    "Dutch",
+    " Dav999",
+    "Polish",
+    " Kuba Kallus",
+    "Brazilian Portuguese",
+    " Lucas Araujo",
+    " Thiago Araujo",
+    "European Portuguese",
+    " Locsmiths",
+    "Russian",
+    " TheMysticSword",
+    "Silesian",
+    " Kuba Kallus",
+    "Turkish",
+    " Engin İlkiz",
+    "Ukrainian",
+    " Olya Sushytska",
+    "Chinese (Simplified)",
+    " Sound of Mystery",
+    "Chinese (Traditional)",
+    " Sound of Mystery / craft",
+};
+
 /* Terry's Patrons... */
 static const char* superpatrons[] = {
     "Anders Ekermo",
@@ -121,9 +174,9 @@ static const char* githubfriends[] = {
 };
 
 /* Calculate credits length, finally. */
-static const int creditmaxposition = 1068 + (10 * (
+static const int creditmaxposition = 1228 + (10 * (
     SDL_arraysize(superpatrons) + SDL_arraysize(patrons) + SDL_arraysize(githubfriends)
-));
+)) + (12 * SDL_arraysize(translators));
 
 } /* namespace Credits */
 
