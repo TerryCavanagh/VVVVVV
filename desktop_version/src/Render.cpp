@@ -1945,9 +1945,57 @@ void gamecompleterender(void)
         font::print(PR_2X | PR_FONT_8X8, 60, 830 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (graphics.onscreen(910 + position)) font::print(PR_3X | PR_CEN, -1, 890 + position, loc::gettext("Patrons"), tr, tg, tb);
+    int creditOffset = 890;
 
-    int creditOffset = 950;
+    if (graphics.onscreen(creditOffset + position))
+    {
+        font::print(PR_2X | PR_CEN, -1, creditOffset + position, loc::gettext("Localisation"), tr, tg, tb);
+    }
+    creditOffset += 30;
+
+    if (graphics.onscreen(creditOffset + position))
+    {
+        font::print(PR_CJK_HIGH, 40, creditOffset + position, loc::gettext("Localisation Project Led by"), tr, tg, tb);
+        font::print(PR_2X | PR_FONT_8X8, 60, creditOffset + position + 10, "Dav999", tr, tg, tb);
+    }
+    creditOffset += 40;
+    if (graphics.onscreen(creditOffset + position))
+    {
+        font::print(PR_CJK_HIGH, 40, creditOffset + position, loc::gettext("Pan-European Font Design by"), tr, tg, tb);
+        font::print(PR_2X | PR_FONT_8X8, 60, creditOffset + position + 10, "Reese Rivers", tr, tg, tb);
+    }
+    creditOffset += 40;
+    if (graphics.onscreen(creditOffset + position))
+    {
+        font::print(PR_CJK_HIGH | PR_CEN, -1, creditOffset + position, loc::gettext("Translators"), tr, tg, tb);
+    }
+    creditOffset += 20;
+    for (size_t i = 0; i < SDL_arraysize(Credits::translators); i += 1)
+    {
+        if (graphics.onscreen(creditOffset + position))
+        {
+            if (Credits::translators[i][0] != ' ')
+            {
+                // Not prefixed with a space, so this line is the name of a language, display its localised string
+                font::print(0, 60, creditOffset + position, loc::gettext(Credits::translators[i]), tr, tg, tb);
+            }
+            else
+            {
+                // Otherwise, this line is the name of a translator, indent it and display with the original 8x8 font always
+                font::print(PR_FONT_8X8, 72, creditOffset + position, Credits::translators[i], tr, tg, tb);
+            }
+        }
+        creditOffset += 12;
+    }
+
+    creditOffset += 40;
+
+    if (graphics.onscreen(creditOffset + position))
+    {
+        font::print(PR_3X | PR_CEN, -1, creditOffset + position, loc::gettext("Patrons"), tr, tg, tb);
+    }
+
+    creditOffset += 50;
 
     for (size_t i = 0; i < SDL_arraysize(Credits::superpatrons); i += 1)
     {
@@ -1959,7 +2007,10 @@ void gamecompleterender(void)
     }
 
     creditOffset += 10;
-    if (graphics.onscreen(creditOffset + position)) font::print(PR_CEN, -1, creditOffset + position, loc::gettext("and"), tr, tg, tb);
+    if (graphics.onscreen(creditOffset + position))
+    {
+        font::print(PR_CEN, -1, creditOffset + position, loc::gettext("and"), tr, tg, tb);
+    }
     creditOffset += 20;
 
     for (size_t i = 0; i < SDL_arraysize(Credits::patrons); i += 1)
@@ -1972,7 +2023,10 @@ void gamecompleterender(void)
     }
 
     creditOffset += 20;
-    if (graphics.onscreen(creditOffset + position)) font::print(PR_2X | PR_CEN, -1, creditOffset + position, loc::gettext("GitHub Contributors"), tr, tg, tb);
+    if (graphics.onscreen(creditOffset + position))
+    {
+        font::print(PR_2X | PR_CEN, -1, creditOffset + position, loc::gettext("GitHub Contributors"), tr, tg, tb);
+    }
     creditOffset += 30;
 
     for (size_t i = 0; i < SDL_arraysize(Credits::githubfriends); i += 1)
