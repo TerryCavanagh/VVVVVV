@@ -939,7 +939,7 @@ void Graphics::drawgui(void)
 
         opaque = textboxes[i].tl >= 1.0;
 
-        if (!opaque)
+        if (!opaque && textboxes[i].r != 0 && textboxes[i].g != 0 && textboxes[i].b != 0)
         {
             continue;
         }
