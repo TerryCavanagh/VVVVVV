@@ -853,7 +853,6 @@ void Graphics::drawgui(void)
     {
         int text_yoff;
         int yp;
-        bool opaque;
         int font_height = font::height(textboxes[i].print_flags);
         if (flipmode)
         {
@@ -872,7 +871,9 @@ void Graphics::drawgui(void)
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
 
-        if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
+        const bool transparent = (textboxes[i].r | textboxes[i].g | textboxes[i].b) == 0;
+
+        if (transparent)
         {
             /* To avoid the outlines for different lines overlapping the text itself,
              * first draw all the outlines and then draw the text. */
@@ -937,9 +938,10 @@ void Graphics::drawgui(void)
             }
         }
 
-        opaque = textboxes[i].tl >= 1.0;
+        const bool opaque = textboxes[i].tl >= 1.0;
+        const bool draw_overlays = opaque || transparent;
 
-        if (!opaque && textboxes[i].r != 0 && textboxes[i].g != 0 && textboxes[i].b != 0)
+        if (!draw_overlays)
         {
             continue;
         }
