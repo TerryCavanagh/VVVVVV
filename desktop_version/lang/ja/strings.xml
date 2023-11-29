@@ -347,7 +347,7 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="Keep trying! You&apos;ll get there!" translation="頑張れ! やればできるっ!!" explanation="player died before managing to save anybody" max="38*2" max_local="38*1"/>
     <string english="Nice one!" translation="ナイス!" explanation="player died after saving one crewmate" max="38*2" max_local="38*1"/>
     <string english="Wow! Congratulations!" translation="WOW! おめでとう!!" explanation="player died after saving two crewmates" max="38*2" max_local="38*1"/>
-    <string english="Incredible!" translation="凄い!" explanation="player died after saving three crewmates" max="38*2" max_local="38*1"/>
+    <string english="Incredible!" translation="すごい!" explanation="player died after saving three crewmates" max="38*2" max_local="38*1"/>
     <string english="Unbelievable! Well done!" translation="信じられない! 良くやった!!" explanation="player died after saving four crewmates" max="38*2" max_local="38*1"/>
     <string english="Er, how did you do that?" translation="えっ? 今のどうやったの…?" explanation="player died even though they were finished, lol" max="38*2" max_local="38*1"/>
     <string english="WOW" translation="WOW!" explanation="even bigger title" max="10" max_local="10"/>
