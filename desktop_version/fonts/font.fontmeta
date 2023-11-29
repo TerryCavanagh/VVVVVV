@@ -39,33 +39,67 @@
         <range start="0x21BA" end="0x21C3"/>
         <range start="0x21C5" end="0x21C6"/>
         <range start="0x21CB" end="0x21CC"/>
+        <range start="0x2318" end="0x2318"/>
+        <range start="0x2325" end="0x2325"/>
+        <range start="0x237C" end="0x237C"/>
+        <range start="0x23B2" end="0x23B3"/>
+        <range start="0x23CE" end="0x23CE"/>
+        <range start="0x23E9" end="0x23EF"/>
+        <range start="0x23F4" end="0x23FA"/>
         <range start="0x2500" end="0x25A2"/>
         <range start="0x25B2" end="0x25B3"/>
         <range start="0x25B6" end="0x25B7"/>
         <range start="0x25BC" end="0x25BD"/>
         <range start="0x25C0" end="0x25C1"/>
-        <range start="0x2605" end="0x2606"/>
+        <range start="0x2600" end="0x2606"/>
+        <range start="0x2609" end="0x2609"/>
+        <range start="0x260E" end="0x260F"/>
         <range start="0x261C" end="0x2620"/>
         <range start="0x2622" end="0x2623"/>
         <range start="0x263A" end="0x263B"/>
-        <range start="0x2640" end="0x2640"/>
-        <range start="0x2642" end="0x2642"/>
+        <range start="0x262E" end="0x262E"/>
+        <range start="0x263A" end="0x2640"/>
+        <range start="0x2642" end="0x2653"/>
         <range start="0x2660" end="0x2660"/>
         <range start="0x2663" end="0x2663"/>
         <range start="0x2665" end="0x2666"/>
         <range start="0x2669" end="0x266B"/>
         <range start="0x2690" end="0x2691"/>
+        <range start="0x2693" end="0x2693"/>
+        <range start="0x269B" end="0x269B"/>
         <range start="0x26A0" end="0x26A1"/>
         <range start="0x26A5" end="0x26A6"/>
+        <range start="0x26B3" end="0x26B6"/>
+        <range start="0x26B8" end="0x26B8"/>
         <range start="0x26C4" end="0x26C4"/>
+        <range start="0x26CF" end="0x26CF"/>
+        <range start="0x26D3" end="0x26D4"/>
+        <range start="0x26E2" end="0x26E2"/>
+        <range start="0x26EC" end="0x26EC"/>
+        <range start="0x26F6" end="0x26F6"/>
+        <range start="0x26FA" end="0x26FA"/>
+        <range start="0x2709" end="0x2709"/>
+        <range start="0x270F" end="0x270F"/>
         <range start="0x2713" end="0x2713"/>
         <range start="0x274C" end="0x274C"/>
         <range start="0x2753" end="0x2753"/>
         <range start="0x2962" end="0x296F"/>
+        <range start="0x2BD3" end="0x2BD3"/>
         <range start="0x2E18" end="0x2E18"/>
+        <range start="0xE0A0" end="0xE0A3"/>
         <range start="0xFFFD" end="0xFFFD"/>
+        <range start="0x1F311" end="0x1F318"/>
         <range start="0x1F451" end="0x1F451"/>
         <range start="0x1F4BF" end="0x1F4BF"/>
+        <range start="0x1F700" end="0x1F705"/>
+        <range start="0x1F707" end="0x1F707"/>
+        <range start="0x1F709" end="0x1F709"/>
+        <range start="0x1F70B" end="0x1F70B"/>
+        <range start="0x1F70D" end="0x1F70D"/>
+        <range start="0x1F713" end="0x1F716"/>
+        <range start="0x1F71A" end="0x1F71A"/>
+        <range start="0x1F728" end="0x1F728"/>
+        <range start="0x1F741" end="0x1F741"/>
         <range start="0x1FA99" end="0x1FA99"/>
     </chars>
     <special>

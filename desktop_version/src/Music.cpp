@@ -435,27 +435,12 @@ end:
         sample_pos = 0;
         stb_vorbis_seek_start(vorbis);
 
-        if (!IsHalted())
-        {
-            if (SDL_memcmp(&musicVoiceFormat, &format, sizeof(format)) != 0)
-            {
-                Halt();
-                musicVoiceFormat = format;
-            }
-        }
+        Halt();
 
-        if (IsHalted())
-        {
-            SDL_zero(callbacks);
-            callbacks.OnBufferStart = &MusicTrack::refillReserve;
-            callbacks.OnBufferEnd = &MusicTrack::swapBuffers;
-            FAudio_CreateSourceVoice(faudioctx, &musicVoice, &format, 0, 2.0f, &callbacks, NULL, NULL);
-        }
-        else
-        {
-            Pause();
-            FAudioSourceVoice_FlushSourceBuffers(musicVoice);
-        }
+        SDL_zero(callbacks);
+        callbacks.OnBufferStart = &MusicTrack::refillReserve;
+        callbacks.OnBufferEnd = &MusicTrack::swapBuffers;
+        FAudio_CreateSourceVoice(faudioctx, &musicVoice, &format, 0, 2.0f, &callbacks, NULL, NULL);
 
         FAudioBuffer faudio_buffer;
         SDL_zero(faudio_buffer);
@@ -546,7 +531,6 @@ end:
 
     static bool paused;
     static FAudioSourceVoice* musicVoice;
-    static FAudioWaveFormatEx musicVoiceFormat;
 
     static void refillReserve(FAudioVoiceCallback* callback, void* ctx)
     {
@@ -725,7 +709,6 @@ end:
 };
 bool MusicTrack::paused = false;
 FAudioSourceVoice* MusicTrack::musicVoice = NULL;
-FAudioWaveFormatEx MusicTrack::musicVoiceFormat;
 
 musicclass::musicclass(void)
 {
