@@ -56,7 +56,6 @@
         <range start="0x260E" end="0x260F"/>
         <range start="0x261C" end="0x2620"/>
         <range start="0x2622" end="0x2623"/>
-        <range start="0x263A" end="0x263B"/>
         <range start="0x262E" end="0x262E"/>
         <range start="0x263A" end="0x2640"/>
         <range start="0x2642" end="0x2653"/>
