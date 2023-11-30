@@ -69,7 +69,7 @@
     <string english="Toggle between MMMMMM and PPPPPP." translation="Wechsle zwischen MMMMMM und PPPPPP." explanation="" max="38*2"/>
     <string english="Current soundtrack: PPPPPP" translation="Aktueller Soundtrack: PPPPPP" explanation="" max="38*3"/>
     <string english="Current soundtrack: MMMMMM" translation="Aktueller Soundtrack: MMMMMM" explanation="" max="38*3"/>
-    <string english="toggle fullscreen" translation="Vollbild umschalten" explanation="menu option"/>
+    <string english="toggle fullscreen" translation="vollbild umschalten" explanation="menu option"/>
     <string english="Toggle Fullscreen" translation="Vollbild umschalten" explanation="title" max="20"/>
     <string english="Change to fullscreen/windowed mode." translation="Wechselt zwischen Vollbild-/Fenstermodus." explanation="" max="38*3"/>
     <string english="Current mode: FULLSCREEN" translation="Aktueller Modus: VOLLBILD" explanation="" max="38*2"/>
