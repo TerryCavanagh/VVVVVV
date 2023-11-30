@@ -381,7 +381,7 @@
     </cutscene>
     <cutscene id="talkpurple_1" explanation="">
         <dialogue speaker="purple" english="... I hope Verdigris is alright." translation="……我希望维碧格里没事。"/>
-        <dialogue speaker="purple" english="If you can find him, he&apos;d be a a big help fixing the ship!" translation="如果你能找到他，修理飞船他会帮上很大的忙！"/>
+        <dialogue speaker="purple" english="If you can find him, he&apos;d be a big help fixing the ship!" translation="如果你能找到他，修理飞船他会帮上很大的忙！"/>
     </cutscene>
     <cutscene id="talkpurple_2" explanation="">
         <dialogue speaker="purple" english="Chief Verdigris is so brave and ever so smart!" translation="维碧格里总工既勇敢又那么聪明！"/>

@@ -365,7 +365,7 @@
     </cutscene>
     <cutscene id="talkpurple_1" explanation="">
         <dialogue speaker="purple" english="... I hope Verdigris is alright." translation="... Ich hoffe, Verdigris geht es gut."/>
-        <dialogue speaker="purple" english="If you can find him, he&apos;d be a a big help fixing the ship!" translation="Wenn du ihn finden kannst, wäre er eine große Hilfe bei der Reparatur des Schiffes!"/>
+        <dialogue speaker="purple" english="If you can find him, he&apos;d be a big help fixing the ship!" translation="Wenn du ihn finden kannst, wäre er eine große Hilfe bei der Reparatur des Schiffes!"/>
     </cutscene>
     <cutscene id="talkpurple_2" explanation="">
         <dialogue speaker="purple" english="Chief Verdigris is so brave and ever so smart!" translation="Chief Verdigris ist so mutig und schlau!"/>
