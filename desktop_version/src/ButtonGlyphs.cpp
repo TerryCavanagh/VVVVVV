@@ -178,14 +178,31 @@ void BUTTONGLYPHS_keyboard_set_active(bool active)
     keyboard_is_active = active;
 }
 
-void BUTTONGLYPHS_update_layout(Uint16 vendor, Uint16 product)
+void BUTTONGLYPHS_update_layout(SDL_GameController *c)
 {
+    Uint16 vendor = SDL_GameControllerGetVendor(c);
+    Uint16 product = SDL_GameControllerGetProduct(c);
+
     if (vendor == 0x054c)
     {
         layout = LAYOUT_PLAYSTATION;
     }
     else if (vendor == 0x28de)
     {
+        /* Steam Virtual Gamepads can hypothetically tell us that the physical
+         * device is a PlayStation controller, so try to catch that scenario */
+        const char *mapping = SDL_GameControllerMapping(c);
+        if (SDL_strstr(mapping, "type:") != NULL)
+        {
+            SDL_GameControllerType gct = SDL_GameControllerGetType(c);
+            if ( gct == SDL_CONTROLLER_TYPE_PS3 ||
+                 gct == SDL_CONTROLLER_TYPE_PS4 ||
+                 gct == SDL_CONTROLLER_TYPE_PS5 )
+            {
+                layout = LAYOUT_PLAYSTATION;
+                return;
+            }
+        }
         layout = LAYOUT_DECK;
     }
     else if (vendor == 0x057e)
