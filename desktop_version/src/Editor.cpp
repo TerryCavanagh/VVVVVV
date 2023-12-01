@@ -259,13 +259,13 @@ editorclass::editorclass(void)
     register_tilecol(EditorTileset_OUTSIDE, 6, "basic", 498, "outside", 698);
     register_tilecol(EditorTileset_OUTSIDE, 7, "basic", 501, "outside", 701);
 
-    register_tilecol(EditorTileset_LAB, 0, "lab_cyan", 280, "none", 0);
-    register_tilecol(EditorTileset_LAB, 1, "lab_red", 283, "none", 0);
-    register_tilecol(EditorTileset_LAB, 2, "lab_pink", 286, "none", 0);
-    register_tilecol(EditorTileset_LAB, 3, "basic", 289, "none", 0);
-    register_tilecol(EditorTileset_LAB, 4, "lab_yellow", 292, "none", 0);
-    register_tilecol(EditorTileset_LAB, 5, "lab_green", 295, "none", 0);
-    register_tilecol(EditorTileset_LAB, 6, "none", 0, "none", 0, true);
+    register_tilecol(EditorTileset_LAB, 0, "lab_cyan", 280, "none", 713);
+    register_tilecol(EditorTileset_LAB, 1, "lab_red", 283, "none", 713);
+    register_tilecol(EditorTileset_LAB, 2, "lab_pink", 286, "none", 713);
+    register_tilecol(EditorTileset_LAB, 3, "basic", 289, "none", 713);
+    register_tilecol(EditorTileset_LAB, 4, "lab_yellow", 292, "none", 713);
+    register_tilecol(EditorTileset_LAB, 5, "lab_green", 295, "none", 713);
+    register_tilecol(EditorTileset_LAB, 6, "none", 0, "none", 713, true);
 
     register_tilecol(EditorTileset_WARP_ZONE, 0, "basic", 80, "none", 120);
     register_tilecol(EditorTileset_WARP_ZONE, 1, "basic", 83, "none", 123);
