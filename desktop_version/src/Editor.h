@@ -177,6 +177,8 @@ public:
 
     bool lines_can_pass(int x, int y);
 
+    void make_autotiling_base(void);
+
     int get_enemy_tile(int t);
 
     void switch_tileset(const bool reversed);
