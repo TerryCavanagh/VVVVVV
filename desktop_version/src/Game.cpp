@@ -2881,6 +2881,7 @@ void Game::updatestate(void)
 
             graphics.createtextboxflipme(loc::gettext("All Crew Members Rescued!"), -1, 64, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxcenterx();
             char buffer[SCREEN_WIDTH_CHARS + 1];
             timestringcenti(buffer, sizeof(buffer));
             savetime = buffer;
@@ -2956,11 +2957,13 @@ void Game::updatestate(void)
             );
             graphics.createtextboxflipme(buffer, -1, 158, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxcenterx();
             graphics.createtextboxflipme(
                 loc::gettext_roomname(map.custommode, hardestroom_x, hardestroom_y, hardestroom.c_str(), hardestroom_specialname),
                 -1, 170, TEXT_COLOUR("transparent")
             );
             graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxcenterx();
             break;
         }
         case 3508:

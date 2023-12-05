@@ -207,8 +207,8 @@
     <string english="toggle in-game timer" translation="timer nel gioco" explanation="menu option"/>
     <string english="In-Game Timer" translation="Timer nel gioco" explanation="title" max="20"/>
     <string english="Toggle the in-game timer outside of time trials." translation="Attiva o disattiva il timer nel gioco al di fuori delle prove a tempo." explanation="" max="38*3"/>
-    <string english="In-Game Timer is ON" translation="Timer nel gioco: NO" explanation="" max="38*2"/>
-    <string english="In-Game Timer is OFF" translation="Timer nel gioco: SÌ" explanation="" max="38*2"/>
+    <string english="In-Game Timer is ON" translation="Timer nel gioco: SÌ" explanation="" max="38*2"/>
+    <string english="In-Game Timer is OFF" translation="Timer nel gioco: NO" explanation="" max="38*2"/>
     <string english="english sprites" translation="sprite inglesi" explanation="menu option"/>
     <string english="English Sprites" translation="Sprite inglesi" explanation="title" max="20"/>
     <string english="Show the original English word enemies regardless of your language setting." translation="Mostra le parole nemiche in inglese indipendentemente dalla lingua impostata." explanation="" max="38*3"/>

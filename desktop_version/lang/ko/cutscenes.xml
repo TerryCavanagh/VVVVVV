@@ -365,7 +365,7 @@
     </cutscene>
     <cutscene id="talkpurple_1" explanation="">
         <dialogue speaker="purple" english="... I hope Verdigris is alright." translation="...베르디그리스가 무사하면 좋겠어."/>
-        <dialogue speaker="purple" english="If you can find him, he&apos;d be a a big help fixing the ship!" translation="녀석이 있으면 함선을 고치는 데 큰 도움이 될 텐데!"/>
+        <dialogue speaker="purple" english="If you can find him, he&apos;d be a big help fixing the ship!" translation="녀석이 있으면 함선을 고치는 데 큰 도움이 될 텐데!"/>
     </cutscene>
     <cutscene id="talkpurple_2" explanation="">
         <dialogue speaker="purple" english="Chief Verdigris is so brave and ever so smart!" translation="베르디그리스 대장은 용감하고 정말 똑똑해!"/>

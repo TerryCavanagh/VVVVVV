@@ -280,10 +280,7 @@ void KeyPoll::Poll(void)
             BUTTONGLYPHS_keyboard_set_active(false);
 
             controller = controllers[evt.cbutton.which];
-            BUTTONGLYPHS_update_layout(
-                SDL_GameControllerGetVendor(controller),
-                SDL_GameControllerGetProduct(controller)
-            );
+            BUTTONGLYPHS_update_layout(controller);
             break;
         case SDL_CONTROLLERBUTTONUP:
             buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = false;
@@ -319,10 +316,7 @@ void KeyPoll::Poll(void)
             BUTTONGLYPHS_keyboard_set_active(false);
 
             controller = controllers[evt.caxis.which];
-            BUTTONGLYPHS_update_layout(
-                SDL_GameControllerGetVendor(controller),
-                SDL_GameControllerGetProduct(controller)
-            );
+            BUTTONGLYPHS_update_layout(controller);
             break;
         }
         case SDL_CONTROLLERDEVICEADDED:
@@ -335,10 +329,7 @@ void KeyPoll::Poll(void)
             );
             controllers[SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(controller))] = controller;
             BUTTONGLYPHS_keyboard_set_active(false);
-            BUTTONGLYPHS_update_layout(
-                SDL_GameControllerGetVendor(controller),
-                SDL_GameControllerGetProduct(controller)
-            );
+            BUTTONGLYPHS_update_layout(controller);
             break;
         }
         case SDL_CONTROLLERDEVICEREMOVED:

@@ -4598,7 +4598,7 @@ bool scriptclass::load(const std::string& name)
         "squeak(purple)",
         "changemood(purple,0)",
         "text(purple,0,0,2)",
-        "If you can find him, he'd be a",
+        "If you can find him, he'd be",
         "a big help fixing the ship!",
         "position(purple,above)",
         "speak_active",

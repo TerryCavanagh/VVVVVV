@@ -259,13 +259,13 @@ editorclass::editorclass(void)
     register_tilecol(EditorTileset_OUTSIDE, 6, "basic", 498, "outside", 698);
     register_tilecol(EditorTileset_OUTSIDE, 7, "basic", 501, "outside", 701);
 
-    register_tilecol(EditorTileset_LAB, 0, "lab_cyan", 280, "none", 0);
-    register_tilecol(EditorTileset_LAB, 1, "lab_red", 283, "none", 0);
-    register_tilecol(EditorTileset_LAB, 2, "lab_pink", 286, "none", 0);
-    register_tilecol(EditorTileset_LAB, 3, "basic", 289, "none", 0);
-    register_tilecol(EditorTileset_LAB, 4, "lab_yellow", 292, "none", 0);
-    register_tilecol(EditorTileset_LAB, 5, "lab_green", 295, "none", 0);
-    register_tilecol(EditorTileset_LAB, 6, "none", 0, "none", 0, true);
+    register_tilecol(EditorTileset_LAB, 0, "lab_cyan", 280, "none", 713);
+    register_tilecol(EditorTileset_LAB, 1, "lab_red", 283, "none", 713);
+    register_tilecol(EditorTileset_LAB, 2, "lab_pink", 286, "none", 713);
+    register_tilecol(EditorTileset_LAB, 3, "basic", 289, "none", 713);
+    register_tilecol(EditorTileset_LAB, 4, "lab_yellow", 292, "none", 713);
+    register_tilecol(EditorTileset_LAB, 5, "lab_green", 295, "none", 713);
+    register_tilecol(EditorTileset_LAB, 6, "none", 0, "none", 713, true);
 
     register_tilecol(EditorTileset_WARP_ZONE, 0, "basic", 80, "none", 120);
     register_tilecol(EditorTileset_WARP_ZONE, 1, "basic", 83, "none", 123);
@@ -4017,8 +4017,48 @@ bool editorclass::lines_can_pass(int x, int y)
     return false;
 }
 
+void editorclass::make_autotiling_base(void)
+{
+    if (cl.getroomprop(levx, levy)->directmode == 1)
+    {
+        return;
+    }
+
+    for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
+    {
+        int tile_x = i % SCREEN_WIDTH_TILES;
+        int tile_y = i / SCREEN_WIDTH_TILES;
+        int tile = get_tile(tile_x, tile_y);
+
+        if (tile == 0)
+        {
+            continue;
+        }
+
+        TileTypes type = get_tile_type(tile_x, tile_y, false);
+
+        switch (type)
+        {
+        case TileType_NONSOLID:
+            if (type == TileType_NONSOLID || is_warp_zone_background(tile))
+            {
+                set_tile(tile_x, tile_y, 2);
+            }
+            break;
+        case TileType_SOLID:
+            set_tile(tile_x, tile_y, 1);
+            break;
+        case TileType_SPIKE:
+            set_tile(tile_x, tile_y, 6);
+            break;
+        }
+    }
+}
+
 void editorclass::switch_tileset(const bool reversed)
 {
+    make_autotiling_base();
+
     int tiles = cl.getroomprop(levx, levy)->tileset;
 
     if (reversed)
@@ -4052,6 +4092,8 @@ void editorclass::switch_tileset(const bool reversed)
 
 void editorclass::switch_tilecol(const bool reversed)
 {
+    make_autotiling_base();
+
     int tilecol = cl.getroomprop(levx, levy)->tilecol;
 
     if (reversed)
