@@ -85,6 +85,8 @@ namespace Menu
         credits4,
         credits5,
         credits6,
+        credits_localisations_implementation,
+        credits_localisations_translations,
         play,
         unlocktimetrial,
         unlocktimetrials,
@@ -375,6 +377,7 @@ public:
     enum Menu::MenuName kludge_ingametemp;
     enum SLIDERMODE slidermode;
     int current_credits_list_index;
+    int translator_credits_pagenum;
     int menuxoff, menuyoff;
     int menuspacing;
     std::vector<MenuStackFrame> menustack;

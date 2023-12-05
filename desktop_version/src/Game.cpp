@@ -242,6 +242,7 @@ void Game::init(void)
     currentmenuoption = 0;
     menutestmode = false;
     current_credits_list_index = 0;
+    translator_credits_pagenum = 0;
     menuxoff = 0;
     menuyoff = 0;
     menucountdown = 0;
@@ -6703,6 +6704,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::credits3:
     case Menu::credits4:
     case Menu::credits5:
+    case Menu::credits_localisations_implementation:
+    case Menu::credits_localisations_translations:
         option(loc::gettext("next page"));
         option(loc::gettext("previous page"));
         option(loc::gettext("return"));
