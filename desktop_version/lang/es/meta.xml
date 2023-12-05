@@ -3,7 +3,7 @@
     <active>1</active>
 
     <!-- should be lowercase because menu style, and should be in the language itself -->
-    <nativename>español</nativename>
+    <nativename>español (es)</nativename>
 
     <!-- English translation by X -->
     <credit>Traducción al español de Felipe Mercader y Sara Marín</credit>
