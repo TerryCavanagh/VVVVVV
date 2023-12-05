@@ -494,7 +494,7 @@
     <string english="yes, quit" translation="ja, afsluiten" explanation="quit program menu option"/>
     <string english="return to game" translation="terug naar het spel" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="stoppen" explanation="pause menu option" max="19"/>
-    <string english="Press Left/Right to choose a Teleporter" translation="Links/Rechts: kies teleport" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
+    <string english="Press Left/Right to choose a Teleporter" translation="Links/Rechts: kies bestemming" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
     <string english="Press {button} to Teleport" translation="Druk op {button} om te teleporteren" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40"/>
     <string english="- Press {button} to Teleport -" translation="- Druk op {button} om te teleporteren -" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40"/>
     <string english="Press {button} to explode" translation="{button}: Opblazen" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
