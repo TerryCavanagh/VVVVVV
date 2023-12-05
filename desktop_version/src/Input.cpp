@@ -1567,7 +1567,7 @@ static void menuactionpress(void)
         case 0:
             //next page
             music.playef(Sound_VIRIDIAN);
-            game.createmenu(Menu::credits3, true);
+            game.createmenu(Menu::credits_localisations_implementation, true);
             map.nexttowercolour();
             break;
         case 1:
@@ -1579,6 +1579,87 @@ static void menuactionpress(void)
         default:
             //back
             music.playef(Sound_VIRIDIAN);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::credits_localisations_implementation:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            //next page
+            music.playef(Sound_VIRIDIAN);
+            game.translator_credits_pagenum = 0;
+            game.createmenu(Menu::credits_localisations_translations, true);
+            map.nexttowercolour();
+            break;
+        case 1:
+            //previous page
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::credits25, true);
+            map.nexttowercolour();
+            break;
+        default:
+            //back
+            music.playef(Sound_VIRIDIAN);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::credits_localisations_translations:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            //next page
+            music.playef(Sound_VIRIDIAN);
+            game.translator_credits_pagenum++;
+
+            if (game.translator_credits_pagenum >= (int)SDL_arraysize(Credits::translator_pagesize))
+            {
+                // No more translators. Move to the next credits section
+                game.current_credits_list_index = 0;
+                game.createmenu(Menu::credits3, true);
+            }
+            else
+            {
+                // There are more translators. Refresh the menu with the next ones
+                game.current_credits_list_index = 0;
+                for (int i = 0; i < game.translator_credits_pagenum; i += 1)
+                {
+                    game.current_credits_list_index += Credits::translator_pagesize[i];
+                }
+
+                game.createmenu(Menu::credits_localisations_translations, true);
+            }
+
+            map.nexttowercolour();
+            break;
+        case 1:
+            //previous page
+            music.playef(Sound_VIRIDIAN);
+            game.translator_credits_pagenum--;
+            if (game.translator_credits_pagenum >= 0)
+            {
+                game.current_credits_list_index = 0;
+                for (int i = 0; i < game.translator_credits_pagenum; i += 1)
+                {
+                    game.current_credits_list_index += Credits::translator_pagesize[i];
+                }
+                game.createmenu(Menu::credits_localisations_translations, true);
+            }else {
+                //No more translators. Move to the previous credits section
+                game.current_credits_list_index = 0;
+                game.createmenu(Menu::credits_localisations_implementation, true);
+            }
+
+            map.nexttowercolour();
+            break;
+        default:
+            //back
+            music.playef(Sound_VIRIDIAN);
+            game.current_credits_list_index = 0;
             game.returnmenu();
             map.nexttowercolour();
             break;
@@ -1614,8 +1695,13 @@ static void menuactionpress(void)
             if (game.current_credits_list_index < 0)
             {
                 //No more super patrons. Move to the previous credits section
+                game.translator_credits_pagenum = (int)SDL_arraysize(Credits::translator_pagesize) - 1;
                 game.current_credits_list_index = 0;
-                game.createmenu(Menu::credits25, true);
+                for (int i = 0; i < game.translator_credits_pagenum; i += 1)
+                {
+                    game.current_credits_list_index += Credits::translator_pagesize[i];
+                }
+                game.createmenu(Menu::credits_localisations_translations, true);
             }
             else
             {

@@ -58,6 +58,9 @@ static const char* translators[] = {
     " Sound of Mystery / craft",
 };
 
+/* Hardcoded pagesizes for the translator credits. Simplifies paging backwards and forwards */
+static const int translator_pagesize[] = { 8, 9, 8, 10, 10, 4 };
+
 /* Terry's Patrons... */
 static const char* superpatrons[] = {
     "Anders Ekermo",
@@ -174,7 +177,7 @@ static const char* githubfriends[] = {
 };
 
 /* Calculate credits length, finally. */
-static const int creditmaxposition = 1228 + (10 * (
+static const int creditmaxposition = 1348 + (10 * (
     SDL_arraysize(superpatrons) + SDL_arraysize(patrons) + SDL_arraysize(githubfriends)
 )) + (12 * SDL_arraysize(translators));
 

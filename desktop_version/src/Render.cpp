@@ -533,13 +533,13 @@ static void menurender(void)
         graphics.drawimagecol(IMAGE_SITE2, -1, 156, graphics.getRGB(tr, tg, tb), true);
         break;
     case Menu::credits2:
-        font::print(PR_CEN, -1, 50, loc::gettext("Roomnames are by"), tr, tg, tb);
-        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 65, "Bennett Foddy", tr, tg, tb);
-        graphics.drawimagecol(IMAGE_SITE3, -1, 86, graphics.getRGB(tr, tg, tb), true);
-        font::print(PR_CEN, -1, 110, loc::gettext("C++ version by"), tr, tg, tb);
-        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 125, "Simon Roth", tr, tg, tb);
-        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 145, "Ethan Lee", tr, tg, tb);
-        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 165, "Misa Kai", tr, tg, tb);
+        font::print(PR_CEN, -1, 40, loc::gettext("Roomnames are by"), tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 55, "Bennett Foddy", tr, tg, tb);
+        graphics.drawimagecol(IMAGE_SITE3, -1, 76, graphics.getRGB(tr, tg, tb), true);
+        font::print(PR_CEN, -1, 100, loc::gettext("C++ version by"), tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 115, "Simon Roth", tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 135, "Ethan Lee", tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 155, "Misa Kai", tr, tg, tb);
         break;
     case Menu::credits25:
         font::print(PR_CEN, -1, 40, loc::gettext("Beta Testing by"), tr, tg, tb);
@@ -548,6 +548,44 @@ static void menurender(void)
         font::print(PR_CEN, -1, 130, loc::gettext("Ending Picture by"), tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 145, "Pauli Kohberger", tr, tg, tb);
         break;
+    case Menu::credits_localisations_implementation:
+        font::print(PR_CEN, -1, 30, loc::gettext("Localisation Project Led by"), tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 45, "Dav999", tr, tg, tb);
+        font::print(PR_CEN, -1, 75, loc::gettext("Pan-European Font Design by"), tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 90, "Reese Rivers", tr, tg, tb);
+        font::print_wrap(PR_CEN, -1, 125, loc::gettext("With contributions on GitHub from"), tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 140, "Alexandra Fox", tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 160, "mothbeanie", tr, tg, tb);
+        break;
+    case Menu::credits_localisations_translations:
+    {
+        font::print_wrap(PR_2X | PR_CEN | PR_FONT_8X8, -1, 15, loc::gettext("Translators"), tr, tg, tb);
+
+        int startidx = game.current_credits_list_index;
+        int endidx = game.current_credits_list_index;
+        endidx += Credits::translator_pagesize[game.translator_credits_pagenum];
+        endidx = SDL_min(endidx, (int)SDL_arraysize(Credits::translators));
+
+        int maxheight = 110;
+
+        int totalheight = (endidx - startidx) * 10;
+        int emptyspace = maxheight - totalheight;
+
+        int yofs = 50 + (emptyspace / 2);
+
+        for (int i = startidx; i < endidx; ++i)
+        {
+            if (Credits::translators[i][0] != ' ')
+            {
+              yofs += 5;
+              font::print(PR_FONT_8X8, 80, yofs, loc::gettext(Credits::translators[i]), tr, tg, tb);
+            }else{
+              font::print(PR_FONT_8X8, 80, yofs, Credits::translators[i], tr, tg, tb);
+            }
+            yofs += 10;
+        }
+        break;
+    }
     case Menu::credits3:
     {
         font::print_wrap(PR_CEN, -1, 20, loc::gettext("VVVVVV is supported by the following patrons"), tr, tg, tb);
@@ -1967,9 +2005,16 @@ void gamecompleterender(void)
     creditOffset += 40;
     if (graphics.onscreen(creditOffset + position))
     {
-        font::print(PR_CJK_HIGH | PR_CEN, -1, creditOffset + position, loc::gettext("Translators"), tr, tg, tb);
+        font::print(PR_CJK_HIGH, 40, creditOffset + position, loc::gettext("With contributions on GitHub from"), tr, tg, tb);
+        font::print(PR_2X | PR_FONT_8X8, 60, creditOffset + position + 10, "Alexandra Fox", tr, tg, tb);
+        font::print(PR_2X | PR_FONT_8X8, 60, creditOffset + position + 30, "mothbeanie", tr, tg, tb);
     }
-    creditOffset += 20;
+    creditOffset += 100;
+    if (graphics.onscreen(creditOffset + position))
+    {
+        font::print(PR_2X | PR_CJK_HIGH | PR_CEN, -1, creditOffset + position, loc::gettext("Translators"), tr, tg, tb);
+    }
+    creditOffset += 40;
     for (size_t i = 0; i < SDL_arraysize(Credits::translators); i += 1)
     {
         if (graphics.onscreen(creditOffset + position))
