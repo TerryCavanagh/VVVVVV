@@ -2,7 +2,7 @@
 <!-- Please read README.txt for information about the language files -->
 <cutscenes>
     <cutscene id="intro" explanation="">
-        <dialogue speaker="cyan" english="Uh oh..." translation="O jee..."/>
+        <dialogue speaker="cyan" english="Uh oh..." translation="O nee..."/>
         <dialogue speaker="purple" english="Is everything ok?" translation="Is alles in orde?"/>
         <dialogue speaker="cyan" english="No! We&apos;ve hit some kind of interference..." translation="Nee! We hebben last van een soort interferentie..."/>
         <dialogue speaker="cyan" english="Something&apos;s wrong! We&apos;re going to crash!" translation="Dit gaat fout! We gaan neerstorten!"/>
@@ -11,7 +11,7 @@
         <dialogue speaker="red" english="Everyone off the ship!" translation="Iedereen van het schip!"/>
         <dialogue speaker="yellow" english="This shouldn&apos;t be happening!" translation="Dit hoort niet te gebeuren!"/>
         <dialogue speaker="cyan" english="Phew! That was scary!" translation="Pfieuw! Dat was eng!"/>
-        <dialogue speaker="cyan" english="At least we all escaped, right guys?" translation="We zijn in ieder geval ontkomen, toch jongens?"/>
+        <dialogue speaker="cyan" english="At least we all escaped, right guys?" translation="We zijn in ieder geval ontsnapt, toch jongens?"/>
         <dialogue speaker="cyan" english="...guys?" translation="...jongens?"/>
     </cutscene>
     <cutscene id="firststeps" explanation="">
@@ -26,7 +26,7 @@
         <dialogue speaker="cyan" english="Oh no!" translation="O nee!"/>
         <dialogue speaker="purple" english="I&apos;m on the ship - it&apos;s damaged badly, but it&apos;s still intact!" translation="Ik ben op het schip - het is ernstig beschadigd, maar nog steeds intact!"/>
         <dialogue speaker="purple" english="Where are you, Captain?" translation="Waar ben jij, Kapitein?"/>
-        <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="Ik ben in een soort ruimtestation... Het ziet er best modern uit..."/>
+        <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="Ik zit in een soort ruimtestation... Het ziet er best modern uit..."/>
         <dialogue speaker="purple" english="There seems to be some sort of interference in this dimension..." translation="Er lijkt een soort interferentie te zijn in deze dimensie..."/>
         <dialogue speaker="purple" english="I&apos;m broadcasting the coordinates of the ship to you now." translation="Ik zend nu de coördinaten van het schip uit naar jou."/>
         <dialogue speaker="purple" english="I can&apos;t teleport you back, but..." translation="Ik kan je niet terugteleporteren, maar..."/>
@@ -687,7 +687,7 @@ Weet u heel zeker dat u dit wilt doen?"/>
 DIMENSIONAL STABILISER OFFLINE" translation="-= WAARSCHUWING =-
 
 DIMENSIONALE STABILISATOR INACTIEF" centertext="1" pad="1"/>
-        <dialogue speaker="cyan" english="Uh oh..." translation="O jee..."/>
+        <dialogue speaker="cyan" english="Uh oh..." translation="O-o..."/>
     </cutscene>
     <cutscene id="gamecomplete" explanation="">
         <dialogue speaker="yellow" english="Any moment now..." translation="Het kan nu ieder moment gebeuren..."/>
