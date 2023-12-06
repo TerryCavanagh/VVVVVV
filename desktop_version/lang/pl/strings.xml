@@ -211,7 +211,7 @@
     <string english="In-Game Timer is OFF" translation="Zegar w Grze jest WYŁĄCZONY" explanation="" max="38*2"/>
     <string english="english sprites" translation="angielskie obrazy" explanation="menu option"/>
     <string english="English Sprites" translation="Angielskie Obrazy" explanation="title" max="20"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="Wyświetlaj słownych wrogów po angielsku bez względu na ustawiony język." explanation="" max="38*3"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="Wyświetlaj słownych wrogów|po angielsku bez względu|na ustawiony język." explanation="" max="38*3"/>
     <string english="Sprites are currently translated" translation="Obrazy są obecnie tłumaczone" explanation="" max="38*2"/>
     <string english="Sprites are currently ALWAYS ENGLISH" translation="Obrazy są obecnie ZAWSZE ANGIELSKIE" explanation="" max="38*2"/>
     <string english="interact button" translation="przycisk interakcji" explanation="menu option"/>

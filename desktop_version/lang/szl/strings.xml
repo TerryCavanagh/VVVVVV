@@ -211,7 +211,7 @@
     <string english="In-Game Timer is OFF" translation="Zygŏr w Szpilu je WYŁŌNCZŌNY" explanation="" max="38*2"/>
     <string english="english sprites" translation="angelske ôbrŏzki" explanation="menu option"/>
     <string english="English Sprites" translation="Angelske Ôbrŏzki" explanation="title" max="20"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="Pokŏzuj słownych niyprzŏcieli po angelsku bez ôglōndu na na nasztalowano gŏdka." explanation="" max="38*3"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="Pokŏzuj słownych niyprzŏcieli|po angelsku bez ôglōndu|na nasztalowano gŏdka." explanation="" max="38*3"/>
     <string english="Sprites are currently translated" translation="Ôbrŏzki sōm terŏźnie przekłŏdane" explanation="" max="38*2"/>
     <string english="Sprites are currently ALWAYS ENGLISH" translation="Ôbrŏzki sōm terŏźnie ZŎWDY PO ANGELSKU" explanation="" max="38*2"/>
     <string english="interact button" translation="knefel interakcyji" explanation="menu option"/>

@@ -40,8 +40,7 @@
     <string english="WARNING" translation="警告" explanation="title" max="20" max_local="20"/>
     <string english="unlock play modes" translation="プレイモードを解除" explanation="menu option"/>
     <string english="Unlock Play Modes" translation="プレイモードを解除" explanation="title" max="20" max_local="20"/>
-    <string english="Unlock parts of the game normally unlocked as you progress." translation="本来はゲーム内で解除するべき
-コンテンツを強制解除する。" explanation="" max="38*5" max_local="38*4"/>
+    <string english="Unlock parts of the game normally unlocked as you progress." translation="本来はゲーム内で解除するべきコンテンツを強制解除する。" explanation="" max="38*5" max_local="38*4"/>
     <string english="From here, you may unlock parts of the game that are normally unlocked as you play." translation="本来はゲーム内で解除する必要のある要素を
 ここから強制的に解除する事ができます。" explanation="" max="38*5" max_local="38*4"/>
     <string english="unlock ship jukebox" translation="船内ジュークボックスを強制解除" explanation="menu option"/>

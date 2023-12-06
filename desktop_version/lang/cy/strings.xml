@@ -681,7 +681,7 @@
     <string english="Press ENTER to view map and quicksave" translation="Pwyswch ENTER i weld y map a&apos;r arbediad cyflym" explanation="***OUTDATED***" max="32*3"/>
     <string english="Press {button} to view map and quicksave" translation="Pwyswch {button} i weld y map a&apos;r arbediad cyflym" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Os yw&apos;n well gennych, gallwch wasgu LAN neu LAWR yn lle GWEITHREDU i fflipio." explanation="" max="34*3"/>
-    <string english="Help! Can anyone hear this message?" translation="Help! Gall unrhyw un glywed y neges hon?" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Help! Can anyone hear this message?" translation="Help! Oes unrhyw un yn gallu clywed y neges hon?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="Verdigris? Wyt ti allan yna? Wyt ti&apos;n iawn?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Please help us! We&apos;ve crashed and need assistance!" translation="Helpwch ni os gwelwch yn dda! Rydyn ni wedi cael damwain ac angen cymorth!" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Hello? Anyone out there?" translation="Helo? Unrhyw un yna?" explanation="Violet speaking via Comms Relay" max="25*4"/>
