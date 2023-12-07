@@ -1,4 +1,4 @@
-VVVVVV's source code is made available under a custom license. Basically, you can compile yourself a copy, for free, for personal use. But if you want distribute a compiled version of the game, you might need permission first. See the [License exceptions](License%20exceptions.md) page for more information.
+VVVVVV's source code is made available under a custom license. Basically, you can compile yourself a copy, for free, for personal use. But if you want to distribute a compiled version of the game, you might need permission first. See the [License exceptions](License%20exceptions.md) page for more information.
 
 VVVVVV Source Code License v1.0
 -------
