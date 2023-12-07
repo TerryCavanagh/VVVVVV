@@ -21,6 +21,7 @@ extern "C"
 
 // Sigh... This is the second forward-declaration, we need to put this in a header file
 SDL_Texture* LoadImage(const char *filename, TextureLoadType loadtype);
+SDL_Surface* LoadImageSurface(const char* filename);
 
 namespace font
 {
@@ -396,10 +397,48 @@ static uint8_t load_font(FontContainer* container, const char* name)
     if (!charset_loaded)
     {
         /* If we don't have font.txt and no <chars> tag either,
-         * this font is 2.2-and-below-style plain ASCII. */
-        for (uint32_t codepoint = 0x00; codepoint < 0x80; codepoint++)
+         * this font is 2.2-and-below-style plain ASCII.
+         * Or well... 2.3 interpreted these as
+         * "all unicode from 0 to however much is in the image"... */
+
+        SDL_Surface* temp_surface = LoadImageSurface(name_png);
+        if (temp_surface != NULL)
         {
-            add_glyphinfo(f, codepoint, codepoint);
+            const uint32_t chars_per_line = temp_surface->w / f->glyph_w;
+            const uint32_t max_codepoint = (temp_surface->h / f->glyph_h) * chars_per_line;
+
+            for (uint32_t codepoint = 0x00; codepoint <= max_codepoint; codepoint++)
+            {
+                if (codepoint > 0x7F)
+                {
+                    /* Only include characters with actual pixels...
+                     * If the font.png is too big (normally it is) we _want_ question marks. */
+                    const int glyph_x = (codepoint % chars_per_line) * f->glyph_w;
+                    const int glyph_y = (codepoint / chars_per_line) * f->glyph_h;
+
+                    bool found_pixel = false;
+                    for (int pixel_y = 0; pixel_y < f->glyph_h; pixel_y++)
+                    {
+                        for (int pixel_x = 0; pixel_x < f->glyph_w; pixel_x++)
+                        {
+                            if (ReadPixel(temp_surface, glyph_x+pixel_x, glyph_y+pixel_y).a > 0)
+                            {
+                                found_pixel = true;
+                                goto no_more_pixels;
+                            }
+                        }
+                    }
+                    no_more_pixels:
+                    if (!found_pixel)
+                    {
+                        // Do not add it
+                        continue;
+                    }
+                }
+                add_glyphinfo(f, codepoint, codepoint);
+            }
+
+            VVV_freefunc(SDL_FreeSurface, temp_surface);
         }
     }
 
