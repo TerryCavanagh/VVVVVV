@@ -17,4 +17,5 @@ Credits
 - Additional coding by [Misa Kai](https://infoteddy.info/)
 - Beta Testing by Sam Kaplan and Pauli Kohberger
 - Ending Picture by Pauli Kohberger
+- Localisations by [our localisation teams](desktop_version/TRANSLATORS.txt)
 - With additional contributions by [many others here on github](desktop_version/CONTRIBUTORS.txt) <3
