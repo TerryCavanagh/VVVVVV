@@ -29,46 +29,23 @@ in `MakeAndPlay.h`.
 To generate the projects on Windows:
 ```
 # Put your SDL2 folders somewhere nice!
-mkdir flibitBuild
-cd flibitBuild
+mkdir build
+cd build
 cmake -A Win32 -G "Visual Studio 10 2010" .. -DSDL2_INCLUDE_DIRS="C:\SDL2-2.24.0\include" -DSDL2_LIBRARIES="C:\SDL2-2.24.0\lib\x86\SDL2;C:\SDL2-2.24.0\lib\x86\SDL2main"
 ```
 
-Note that on some systems, the `SDL2_LIBRARIES` list on Windows may need
-SDL2/SDL2main to have `.lib` at the end of them. The reason for this
-inconsistency is unknown.
-
-Also note that if you're using a Visual Studio later than 2010, you will need to
-change the `-G` string accordingly; otherwise you will get a weird cryptic
-error. Refer to the list below:
-
-- VS 2012: `"Visual Studio 11 2012"`
-- VS 2013: `"Visual Studio 12 2013"`
-- VS 2015: `"Visual Studio 14 2015"`
-- VS 2017: `"Visual Studio 15 2017"`
-- VS 2019: `"Visual Studio 16 2019"`
-- VS 2022: `"Visual Studio 17 2022"`
+For more detailed information and troubleshooting, see the [Compiling VVVVVV Guide](https://vsix.dev/wiki/Guide:Compiling_VVVVVV_on_Windows_with_Visual_Studio) on the vsix wiki.
 
 To generate everywhere else:
 ```
-mkdir flibitBuild
-cd flibitBuild
+mkdir build
+cd build
 cmake ..
 ```
-
-macOS may be fussy about the SDK version. How to fix this is up to the whims of
-however Apple wants to make CMAKE_OSX_SYSROOT annoying to configure and retain
-each time Xcode updates.
 
 Including data.zip
 ------------
 You'll need the data.zip file from VVVVVV to actually run the game! You can grab
-it from your copy of the game, or you can download it for free from the [Make
+it from your copy of the game, or you can just download it for free from the [Make
 and Play](https://thelettervsixtim.es/makeandplay/) page. Put this file next to
 your executable and the game should run.
-
-This is intended for personal use only - our license doesn't allow you to
-actually distribute this data.zip file with your own forks without getting
-permission from us first. See [LICENSE.md](../LICENSE.md) for more details. (If
-you've got a project in mind that requires distributing this
-file, [get in touch](http://distractionware.com/email/)!)
