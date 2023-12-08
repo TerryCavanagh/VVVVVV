@@ -559,7 +559,7 @@ static void menurender(void)
         break;
     case Menu::credits_localisations_translations:
     {
-        font::print_wrap(PR_2X | PR_CEN | PR_FONT_8X8, -1, 15, loc::gettext("Translators"), tr, tg, tb);
+        font::print_wrap(PR_2X | PR_CEN, -1, 15, loc::gettext("Translators"), tr, tg, tb);
 
         int startidx = game.current_credits_list_index;
         int endidx = game.current_credits_list_index;
@@ -578,7 +578,7 @@ static void menurender(void)
             if (Credits::translators[i][0] != ' ')
             {
               yofs += 5;
-              font::print(PR_FONT_8X8, 80, yofs, loc::gettext(Credits::translators[i]), tr, tg, tb);
+              font::print(PR_CJK_HIGH, 80, yofs, loc::gettext(Credits::translators[i]), tr, tg, tb);
             }else{
               font::print(PR_FONT_8X8, 80, yofs, Credits::translators[i], tr, tg, tb);
             }
