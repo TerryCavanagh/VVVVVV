@@ -129,7 +129,7 @@
     <string english="and also by" translation="その他、支援してくださった方々" explanation="credits, VVVVVV is also supported by the following people" max="38*2" max_local="38*1"/>
     <string english="and" translation="その他の支援" explanation="credits. This list of names, AND furthermore, this other list of names" max="38" max_local="38"/>
     <string english="GitHub Contributors" translation="GitHubによる開発貢献" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20" max_local="20"/>
-    <string english="With contributions on GitHub from" translation="GitHubによる開発貢献" explanation="credits" max="38*3" max_local="38*2"/>
+    <string english="With contributions on GitHub from" translation="GitHubによる開発貢献" explanation="credits" max="40" max_local="40"/>
     <string english="and thanks also to:" translation="スペシャルサンクス" explanation="credits, and thanks also to ... you!" max="38*3" max_local="38*2"/>
     <string english="You!" translation="プレイしてくださったあなた" explanation="credits, and thanks also to ... you!" max="20" max_local="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="あなたのサポートがあるからこそ、今まで、そしてこれからも
@@ -843,11 +843,11 @@ You have found the secret lab!" translation="よくやった!
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="エラー: 言語フォルダーに書き込めません!
 セーブファイルと同じ場所に「lang」ディレクトリーが
 ないことを確認してください。" explanation="" max="38*5" max_local="38*4"/>
-    <string english="Localisation" translation="ローカライズ" explanation=""/>
-    <string english="Localisation Project Led by" translation="ローカライズ プロジェクト主任" explanation=""/>
+    <string english="Localisation" translation="ローカライズ" explanation="" max="20" max_local="20"/>
+    <string english="Localisation Project Led by" translation="ローカライズ プロジェクト主任" explanation="" max="40" max_local="40"/>
     <string english="Translations by" translation="翻訳" explanation=""/>
-    <string english="Translators" translation="翻訳" explanation=""/>
-    <string english="Pan-European Font Design by" translation="欧米フォントデザイン" explanation=""/>
+    <string english="Translators" translation="翻訳" explanation="" max="20" max_local="20"/>
+    <string english="Pan-European Font Design by" translation="欧米フォントデザイン" explanation="" max="40" max_local="40"/>
     <string english="Fonts by" translation="フォントデザイン" explanation=""/>
     <string english="Other Fonts by" translation="他言語フォントデザイン" explanation=""/>
     <string english="Catalan" translation="カタロニア語" explanation=""/>

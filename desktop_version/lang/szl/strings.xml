@@ -124,7 +124,7 @@
     <string english="and also by" translation="a tyż" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="tyż" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
     <string english="GitHub Contributors" translation="Spōłprogramiści:" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
-    <string english="With contributions on GitHub from" translation="Przi użyciu zmian na GitHubie autorstwa" explanation="credits" max="38*3"/>
+    <string english="With contributions on GitHub from" translation="Przi użyciu zmian na GitHubie autorstwa" explanation="credits" max="40"/>
     <string english="and thanks also to:" translation="a tyż z podziynkowaniym dlo:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="Cie!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Twoje wsparcie spōmŏgo mi durś wyrobiać take szpile, kere chca, terŏzki i na prziszłoś." explanation="credits" max="38*5"/>
@@ -773,11 +773,11 @@ You have found the secret lab!" translation="Winszujymy!" explanation="" max="34
     <string english="Error parsing {path}: {error}" translation="Feler czytanio {path}: {feler}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Miary {filename} niy som wielakrotnōściami {width} na {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="Feler: Niy zachowano do folderu ôd gŏdki! Bydź zicher, co niy ma folderu &quot;lang&quot; kole regularnych zapisōw." explanation="" max="38*5"/>
-    <string english="Localisation" translation="Lokalizacyjo" explanation=""/>
-    <string english="Localisation Project Led by" translation="Projektym lokalizacyji regiyrowoł" explanation=""/>
+    <string english="Localisation" translation="Lokalizacyjo" explanation="" max="20"/>
+    <string english="Localisation Project Led by" translation="Projektym lokalizacyji regiyrowoł" explanation="" max="40"/>
     <string english="Translations by" translation="Przekłŏdali" explanation=""/>
-    <string english="Translators" translation="Przekłŏdocze" explanation=""/>
-    <string english="Pan-European Font Design by" translation="Design Pan-Europyjskij Czciōnki" explanation=""/>
+    <string english="Translators" translation="Przekłŏdocze" explanation="" max="20"/>
+    <string english="Pan-European Font Design by" translation="Design Pan-Europyjskij Czciōnki" explanation="" max="40"/>
     <string english="Fonts by" translation="Czciōnki" explanation=""/>
     <string english="Other Fonts by" translation="Inksze czciōnki" explanation=""/>
     <string english="Catalan" translation="gŏdka katalońsko" explanation=""/>

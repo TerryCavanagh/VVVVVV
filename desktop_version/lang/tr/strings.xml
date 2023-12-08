@@ -124,7 +124,7 @@
     <string english="and also by" translation="Ayrıca:" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="ve" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
     <string english="GitHub Contributors" translation="GitHub Destekçileri:" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
-    <string english="With contributions on GitHub from" translation="GitHub Destekçileri:" explanation="credits" max="38*3"/>
+    <string english="With contributions on GitHub from" translation="GitHub Destekçileri:" explanation="credits" max="40"/>
     <string english="and thanks also to:" translation="Son olarak da:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="Sana teşekkürler!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Desteğin sayesinde hem şimdi hem de gelecekte yapmak istediğim oyunları geliştirebiliyorum." explanation="credits" max="38*5"/>
@@ -777,11 +777,11 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Error parsing {path}: {error}" translation="{path} işlenemedi: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename} dosyasının boyutları {width} x {height} değerlerinin tam katı değil!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="HATA: Dil klasörüne yazılamadı! Normal kayıt dosyalarının yanında &quot;lang&quot; adlı bir klasör olmadığından emin ol." explanation="" max="38*5"/>
-    <string english="Localisation" translation="Yerelleştirme" explanation=""/>
-    <string english="Localisation Project Led by" translation="Yerelleştirme Proje Lideri" explanation=""/>
+    <string english="Localisation" translation="Yerelleştirme" explanation="" max="20"/>
+    <string english="Localisation Project Led by" translation="Yerelleştirme Proje Lideri" explanation="" max="40"/>
     <string english="Translations by" translation="Çevirmenler" explanation=""/>
-    <string english="Translators" translation="Çevirmenler" explanation=""/>
-    <string english="Pan-European Font Design by" translation="Pan-European Yazı Tipi Tasarımı" explanation=""/>
+    <string english="Translators" translation="Çevirmenler" explanation="" max="20"/>
+    <string english="Pan-European Font Design by" translation="Pan-European Yazı Tipi Tasarımı" explanation="" max="40"/>
     <string english="Fonts by" translation="Yazı Tipleri" explanation=""/>
     <string english="Other Fonts by" translation="Diğer Yazı Tipleri" explanation=""/>
     <string english="Catalan" translation="Katalanca" explanation=""/>

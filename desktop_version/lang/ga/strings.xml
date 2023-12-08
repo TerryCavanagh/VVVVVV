@@ -124,7 +124,7 @@
     <string english="and also by" translation="agus le" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="agus le" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
     <string english="GitHub Contributors" translation="Cuiditheoirí GitHub" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
-    <string english="With contributions on GitHub from" translation="Le cuidiú ar GitHub ó" explanation="credits" max="38*3"/>
+    <string english="With contributions on GitHub from" translation="Le cuidiú ar GitHub ó" explanation="credits" max="40"/>
     <string english="and thanks also to:" translation="agus buíochas..." explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="leatsa!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Is de bharr do chuid tacaíochta is féidir liomsa leanúint ar aghaidh ag déanamh na gcluichí atá uaim." explanation="credits" max="38*5"/>
@@ -773,11 +773,11 @@ You have found the secret lab!" translation="Comhghairdeas! Fuair tú an tsaotha
     <string english="Error parsing {path}: {error}" translation="Tharla earráid le parsáil {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Níl toisí {filename} ina n-iolraithe cruinne de {width} agus {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="EARRÁID: Theip ar shonraí a chur san fhillteán teanga! Déan cinnte nach bhfuil fillteán darb ainm &quot;lang&quot; in aice leis na gnáthshábhálacha." explanation="" max="38*5"/>
-    <string english="Localisation" translation="Logánú" explanation=""/>
-    <string english="Localisation Project Led by" translation="Bainisteoir an Tionscadail Logánaithe" explanation=""/>
+    <string english="Localisation" translation="Logánú" explanation="" max="20"/>
+    <string english="Localisation Project Led by" translation="Bainisteoir an Tionscadail Logánaithe" explanation="" max="40"/>
     <string english="Translations by" translation="Aistriúcháin le" explanation=""/>
-    <string english="Translators" translation="Aistritheoirí" explanation=""/>
-    <string english="Pan-European Font Design by" translation="Cló Pan-Eorpach le" explanation=""/>
+    <string english="Translators" translation="Aistritheoirí" explanation="" max="20"/>
+    <string english="Pan-European Font Design by" translation="Cló Pan-Eorpach le" explanation="" max="40"/>
     <string english="Fonts by" translation="Clónna le" explanation=""/>
     <string english="Other Fonts by" translation="Clónna eile le" explanation=""/>
     <string english="Catalan" translation="Catalóinis" explanation=""/>

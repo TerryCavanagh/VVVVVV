@@ -124,7 +124,7 @@
     <string english="and also by" translation="此外還有" explanation="credits, VVVVVV is also supported by the following people" max="38*2" max_local="25*1"/>
     <string english="and" translation="以及" explanation="credits. This list of names, AND furthermore, this other list of names" max="38" max_local="25"/>
     <string english="GitHub Contributors" translation="GitHub貢獻者" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20" max_local="13"/>
-    <string english="With contributions on GitHub from" translation="以下人士在GitHub上做出了貢獻" explanation="credits" max="38*3" max_local="25*2"/>
+    <string english="With contributions on GitHub from" translation="以下人士在GitHub上做出了貢獻" explanation="credits" max="40" max_local="26"/>
     <string english="and thanks also to:" translation="此外還要感謝：" explanation="credits, and thanks also to ... you!" max="38*3" max_local="25*2"/>
     <string english="You!" translation="您！" explanation="credits, and thanks also to ... you!" max="20" max_local="13"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="你的支持讓我能夠在現在和將來、
@@ -787,11 +787,11 @@ You have found the secret lab!" translation="恭喜你！
     <string english="Error parsing {path}: {error}" translation="解析{path}時出錯：{error}" explanation="we tried to parse the level file, but failed" max="38*6" max_local="25*5"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename}的尺寸不是{width}x{height}的整數倍！" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6" max_local="25*5"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="錯誤：無法寫入語言資料夾！請確保存檔資料夾的同路徑沒有“lang”資料夾。" explanation="" max="38*5" max_local="25*4"/>
-    <string english="Localisation" translation="本地化" explanation=""/>
-    <string english="Localisation Project Led by" translation="本地化項目領導者" explanation=""/>
+    <string english="Localisation" translation="本地化" explanation="" max="20" max_local="13"/>
+    <string english="Localisation Project Led by" translation="本地化項目領導者" explanation="" max="40" max_local="26"/>
     <string english="Translations by" translation="翻譯者" explanation=""/>
-    <string english="Translators" translation="譯者" explanation=""/>
-    <string english="Pan-European Font Design by" translation="泛歐洲字體設計" explanation=""/>
+    <string english="Translators" translation="譯者" explanation="" max="20" max_local="13"/>
+    <string english="Pan-European Font Design by" translation="泛歐洲字體設計" explanation="" max="40" max_local="26"/>
     <string english="Fonts by" translation="字體" explanation=""/>
     <string english="Other Fonts by" translation="其他字體" explanation=""/>
     <string english="Catalan" translation="加泰羅尼亞語" explanation=""/>

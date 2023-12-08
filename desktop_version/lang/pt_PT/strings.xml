@@ -124,7 +124,7 @@
     <string english="and also by" translation="e também de" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="e" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
     <string english="GitHub Contributors" translation="Contribuintes GitHub" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
-    <string english="With contributions on GitHub from" translation="Contribuições no GitHub por" explanation="credits" max="38*3"/>
+    <string english="With contributions on GitHub from" translation="Contribuições no GitHub por" explanation="credits" max="40"/>
     <string english="and thanks also to:" translation="agradecemos também a:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="ti!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="O teu apoio permite-me continuar a fazer os jogos que pretendo, não só agora, como futuramente." explanation="credits" max="38*5"/>
@@ -777,11 +777,11 @@ Encontraste o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Error parsing {path}: {error}" translation="Ocorreu um erro ao analisar {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="As dimensões de {filename} não correspondem a múltiplos inteiros de {width} por {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERRO: Não foi possível escrever na pasta de idioma! Certifica-te de que não há uma pasta &apos;&apos;lang&apos;&apos; junto dos dados guardados." explanation="" max="38*5"/>
-    <string english="Localisation" translation="Tradução" explanation=""/>
-    <string english="Localisation Project Led by" translation="Tradução liderada por" explanation=""/>
+    <string english="Localisation" translation="Tradução" explanation="" max="20"/>
+    <string english="Localisation Project Led by" translation="Tradução liderada por" explanation="" max="40"/>
     <string english="Translations by" translation="Traduções por" explanation=""/>
-    <string english="Translators" translation="Tradução" explanation=""/>
-    <string english="Pan-European Font Design by" translation="Tipo de letra Pan-European criado por" explanation=""/>
+    <string english="Translators" translation="Tradução" explanation="" max="20"/>
+    <string english="Pan-European Font Design by" translation="Tipo de letra Pan-European criado por" explanation="" max="40"/>
     <string english="Fonts by" translation="Tipos de letra por" explanation=""/>
     <string english="Other Fonts by" translation="Tipos de letra adicionais por" explanation=""/>
     <string english="Catalan" translation="Catalão" explanation=""/>

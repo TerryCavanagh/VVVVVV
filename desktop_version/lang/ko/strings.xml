@@ -124,7 +124,7 @@
     <string english="and also by" translation="그리고 이분들도 도와주셨습니다" explanation="credits, VVVVVV is also supported by the following people" max="38*2" max_local="30*2"/>
     <string english="and" translation="그리고 이분들도" explanation="credits. This list of names, AND furthermore, this other list of names" max="38" max_local="30"/>
     <string english="GitHub Contributors" translation="GitHub 기여자" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20" max_local="16"/>
-    <string english="With contributions on GitHub from" translation="다음 GitHub 사용자들로부터 기여를 받았습니다" explanation="credits" max="38*3" max_local="30*3"/>
+    <string english="With contributions on GitHub from" translation="다음 GitHub 사용자들로부터 기여를 받았습니다" explanation="credits" max="40" max_local="32"/>
     <string english="and thanks also to:" translation="그리고" explanation="credits, and thanks also to ... you!" max="38*3" max_local="30*3"/>
     <string english="You!" translation="여러분께도 감사드립니다!" explanation="credits, and thanks also to ... you!" max="20" max_local="16"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="귀하의 지원이 제가 만들고자 하는 게임을 지금, 그리고 미래에도 만들 수 있게 합니다." explanation="credits" max="38*5" max_local="30*5"/>
@@ -777,11 +777,11 @@ You have found the secret lab!" translation="축하합니다!
     <string english="Error parsing {path}: {error}" translation="{path}의 경로를 분석할 수 없음: {error}" explanation="we tried to parse the level file, but failed" max="38*6" max_local="30*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename} 차원의 크기가 {width}, {height}의 정확한 배수가 아님!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6" max_local="30*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="오류: 언어 폴더에 쓰기 실패! 일반 저장 파일과 함께 &quot;lang&quot; 폴더가 없는지 확인해 주세요." explanation="" max="38*5" max_local="30*5"/>
-    <string english="Localisation" translation="현지화" explanation=""/>
-    <string english="Localisation Project Led by" translation="현지화 프로젝트 주도" explanation=""/>
+    <string english="Localisation" translation="현지화" explanation="" max="20" max_local="16"/>
+    <string english="Localisation Project Led by" translation="현지화 프로젝트 주도" explanation="" max="40" max_local="32"/>
     <string english="Translations by" translation="번역" explanation=""/>
-    <string english="Translators" translation="번역가" explanation=""/>
-    <string english="Pan-European Font Design by" translation="범유럽 폰트 디자인" explanation=""/>
+    <string english="Translators" translation="번역가" explanation="" max="20" max_local="16"/>
+    <string english="Pan-European Font Design by" translation="범유럽 폰트 디자인" explanation="" max="40" max_local="32"/>
     <string english="Fonts by" translation="폰트" explanation=""/>
     <string english="Other Fonts by" translation="기타 폰트" explanation=""/>
     <string english="Catalan" translation="카탈루냐어" explanation=""/>
