@@ -1987,25 +1987,34 @@ void gamecompleterender(void)
 
     if (graphics.onscreen(creditOffset + position))
     {
-        font::print(PR_2X | PR_CEN, -1, creditOffset + position, loc::gettext("Localisation"), tr, tg, tb);
+        font::print(PR_2X | PR_CJK_HIGH | PR_CEN, -1, creditOffset + position, loc::gettext("Localisation"), tr, tg, tb);
     }
     creditOffset += 30;
 
     if (graphics.onscreen(creditOffset + position))
     {
-        font::print(PR_CJK_HIGH, 40, creditOffset + position, loc::gettext("Localisation Project Led by"), tr, tg, tb);
+        const char* text = loc::gettext("Localisation Project Led by");
+        int x = SCREEN_WIDTH_PIXELS - font::len(0, text);
+        x = SDL_min(x, 40);
+        font::print(PR_CJK_HIGH, x, creditOffset + position, text, tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, creditOffset + position + 10, "Dav999", tr, tg, tb);
     }
     creditOffset += 40;
     if (graphics.onscreen(creditOffset + position))
     {
-        font::print(PR_CJK_HIGH, 40, creditOffset + position, loc::gettext("Pan-European Font Design by"), tr, tg, tb);
+        const char* text = loc::gettext("Pan-European Font Design by");
+        int x = SCREEN_WIDTH_PIXELS - font::len(0, text);
+        x = SDL_min(x, 40);
+        font::print(PR_CJK_HIGH, x, creditOffset + position, text, tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, creditOffset + position + 10, "Reese Rivers", tr, tg, tb);
     }
     creditOffset += 40;
     if (graphics.onscreen(creditOffset + position))
     {
-        font::print(PR_CJK_HIGH, 40, creditOffset + position, loc::gettext("With contributions on GitHub from"), tr, tg, tb);
+        const char* text = loc::gettext("With contributions on GitHub from");
+        int x = SCREEN_WIDTH_PIXELS - font::len(0, text);
+        x = SDL_min(x, 40);
+        font::print(PR_CJK_HIGH, x, creditOffset + position, text, tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, creditOffset + position + 10, "Alexandra Fox", tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, creditOffset + position + 30, "mothbeanie", tr, tg, tb);
     }
