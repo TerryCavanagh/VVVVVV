@@ -577,10 +577,12 @@ static void menurender(void)
         {
             if (Credits::translators[i][0] != ' ')
             {
-              yofs += 5;
-              font::print(PR_CJK_HIGH, 80, yofs, loc::gettext(Credits::translators[i]), tr, tg, tb);
-            }else{
-              font::print(PR_FONT_8X8, 80, yofs, Credits::translators[i], tr, tg, tb);
+                yofs += 5;
+                font::print(PR_CJK_HIGH, 80, yofs, loc::gettext(Credits::translators[i]), tr, tg, tb);
+            }
+            else
+            {
+                font::print(PR_FONT_8X8, 80, yofs, Credits::translators[i], tr, tg, tb);
             }
             yofs += 10;
         }
