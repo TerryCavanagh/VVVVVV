@@ -16,6 +16,8 @@ The English language files are basically templates for other languages (all the 
 
 To create a new language, simply copy the `en` folder, and start by filling out meta.xml (further explained below).
 
+Alternatively, you can create an empty language folder, and then use the in-game sync tool (translator > maintenance > sync language files) to populate it.
+
 
 
 === E X C E L ===
