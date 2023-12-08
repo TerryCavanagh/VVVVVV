@@ -177,6 +177,17 @@ static void sync_lang_file(const std::string& langcode)
         FILESYSTEM_saveTiXml2Document((langcode + "/strings.xml").c_str(), doc);
     }
 
+    if (!load_lang_doc("numbers", doc, langcode))
+    {
+        /* If numbers.xml doesn't exist _at all_, then simply copy it from English,
+         * so that you can make a new translation simply by making a folder and syncing. */
+
+        if (load_lang_doc("numbers", doc, "en"))
+        {
+            FILESYSTEM_saveTiXml2Document((langcode + "/numbers.xml").c_str(), doc);
+        }
+    }
+
     if (load_lang_doc("strings_plural", doc, "en"))
     {
         /* Form 255 is technically invalid, but we have to account for it */

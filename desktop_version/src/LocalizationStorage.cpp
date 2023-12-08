@@ -59,6 +59,10 @@ static void loadmeta(LangMeta& meta, const std::string& langcode = lang)
 {
     meta.active = true;
     meta.code = langcode;
+    meta.nativename = langcode;
+    meta.credit = "";
+    meta.action_hint = "Press Space, Z, or V to select";
+    meta.gamepad_hint = "Press {button} to select";
     meta.autowordwrap = true;
     meta.toupper = true;
     meta.toupper_i_dot = false;
@@ -238,6 +242,7 @@ void resettext(bool final_shutdown)
             number[i] = "";
         }
         SDL_zeroa(number_plural_form);
+        number_plural_form[1] = 1;
 
         SDL_zeroa(translation_roomnames);
         SDL_zeroa(explanation_roomnames);
