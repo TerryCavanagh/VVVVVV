@@ -1,6 +1,8 @@
 === I N T R O D U C T I O N ===
 
-This file will explain what you need to know when maintaining translations of VVVVVV (like adding new strings and syncing them across languages).
+This file will explain what you need to know when maintaining translations of VVVVVV (like adding new strings to the game and syncing them across languages).
+
+For making new translations of the game, read README-translators.txt instead.
 
 
 
