@@ -124,7 +124,7 @@
     <string english="and also by" translation="а также" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="и" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
     <string english="GitHub Contributors" translation="Вклад в GitHub" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
-    <string english="With contributions on GitHub from" translation="Вклад в GitHub совершили" explanation="credits" max="38*3"/>
+    <string english="With contributions on GitHub from" translation="Вклад в GitHub совершили" explanation="credits" max="40"/>
     <string english="and thanks also to:" translation="а также отдельное спасибо:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="Вам!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Благодаря Вашей поддержке я могу продолжать делать игры, которые хочу делать, сейчас и в будущем." explanation="credits" max="38*5"/>
@@ -802,11 +802,11 @@ You have found the secret lab!" translation="Поздравляем!
     <string english="Error parsing {path}: {error}" translation="Ошибка обработки {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Размеры изображения {filename} не кратны {width} на {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ОШИБКА: Не удалось записать данные в папку локализации! Убедитесь, что рядом с обычными сохранениями нет папки &quot;lang&quot;." explanation="" max="38*5"/>
-    <string english="Localisation" translation="Локализация" explanation=""/>
-    <string english="Localisation Project Led by" translation="Ведущий проекта локализации" explanation=""/>
+    <string english="Localisation" translation="Локализация" explanation="" max="20"/>
+    <string english="Localisation Project Led by" translation="Ведущий проекта локализации" explanation="" max="40"/>
     <string english="Translations by" translation="Переводы от" explanation=""/>
-    <string english="Translators" translation="Переводчики" explanation=""/>
-    <string english="Pan-European Font Design by" translation="Общеевропейский шрифт от" explanation=""/>
+    <string english="Translators" translation="Переводчики" explanation="" max="20"/>
+    <string english="Pan-European Font Design by" translation="Общеевропейский шрифт от" explanation="" max="40"/>
     <string english="Fonts by" translation="Шрифты от" explanation=""/>
     <string english="Other Fonts by" translation="Другие шрифты от" explanation=""/>
     <string english="Catalan" translation="Каталанский" explanation=""/>

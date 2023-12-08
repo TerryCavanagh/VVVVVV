@@ -124,7 +124,7 @@
     <string english="and also by" translation="kaj ankaŭ de" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="kaj" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
     <string english="GitHub Contributors" translation="Kod-kontribuantoj" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
-    <string english="With contributions on GitHub from" translation="Kun kontribuoj ĉe GitHub de" explanation="credits" max="38*3"/>
+    <string english="With contributions on GitHub from" translation="Kun kontribuoj ĉe GitHub de" explanation="credits" max="40"/>
     <string english="and thanks also to:" translation="kaj dankon ankaŭ al:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="Vi!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Via subteno ebligas por mi daŭre fari la ludojn, kiujn mi volas fari, nun kaj estontecen." explanation="credits" max="38*5"/>
@@ -777,11 +777,11 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="Error parsing {path}: {error}" translation="Eraro dum analizado de {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Dimensioj de {filename} ne estas ekzaktaj obloj de {width} oble {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERARO: Ne eblis skribi en lingvo-dosierujo! Certigu, ke ne estas dosierujo &quot;lang&quot; apud la normalaj konservaĵoj." explanation="" max="38*5"/>
-    <string english="Localisation" translation="Tradukado" explanation=""/>
-    <string english="Localisation Project Led by" translation="Ĉefo de traduka projekto" explanation=""/>
+    <string english="Localisation" translation="Tradukado" explanation="" max="20"/>
+    <string english="Localisation Project Led by" translation="Ĉefo de traduka projekto" explanation="" max="40"/>
     <string english="Translations by" translation="Tradukis" explanation=""/>
-    <string english="Translators" translation="Tradukistoj" explanation=""/>
-    <string english="Pan-European Font Design by" translation="Tuteŭropan tiparon desegnis" explanation=""/>
+    <string english="Translators" translation="Tradukistoj" explanation="" max="20"/>
+    <string english="Pan-European Font Design by" translation="Tuteŭropan tiparon desegnis" explanation="" max="40"/>
     <string english="Fonts by" translation="Tiparoj de" explanation=""/>
     <string english="Other Fonts by" translation="Aliaj tiparoj de" explanation=""/>
     <string english="Catalan" translation="Katalunen" explanation=""/>
