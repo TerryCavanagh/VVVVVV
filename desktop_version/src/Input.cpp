@@ -1591,6 +1591,7 @@ static void menuactionpress(void)
             //next page
             music.playef(Sound_VIRIDIAN);
             game.translator_credits_pagenum = 0;
+            game.current_credits_list_index = 0;
             game.createmenu(Menu::credits_localisations_translations, true);
             map.nexttowercolour();
             break;
