@@ -386,6 +386,22 @@ void Game::setdefaultcontrollerbuttons(void)
     {
         controllerButton_interact.push_back(SDL_CONTROLLER_BUTTON_X);
     }
+
+    /* If one of the arrays was empty, and others weren't, we might now have conflicts...
+     * A crucial one is if the ACTION button is also "ESC", because then you can't
+     * fix it with just a controller anymore, which might make the game unplayable.
+     * This is similar to updatebuttonmappings() in Input.cpp, except less... complete? */
+    for (size_t f = 0; f < controllerButton_flip.size(); f++)
+    {
+        for (size_t e = 0; e < controllerButton_esc.size(); e++)
+        {
+            if (controllerButton_flip[f] == controllerButton_esc[e])
+            {
+                controllerButton_esc.erase(controllerButton_esc.begin() + e);
+                break;
+            }
+        }
+    }
 }
 
 void Game::lifesequence(void)
