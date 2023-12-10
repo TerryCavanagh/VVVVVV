@@ -250,14 +250,14 @@ editorclass::editorclass(void)
     register_tilecol(EditorTileset_SPACE_STATION, 30, "basic", 507, "basic", 689);
     register_tilecol(EditorTileset_SPACE_STATION, 31, "basic", 510, "basic", 698);
 
-    register_tilecol(EditorTileset_OUTSIDE, 0, "basic", 480, "outside", 680);
-    register_tilecol(EditorTileset_OUTSIDE, 1, "basic", 483, "outside", 683);
-    register_tilecol(EditorTileset_OUTSIDE, 2, "basic", 486, "outside", 686);
-    register_tilecol(EditorTileset_OUTSIDE, 3, "basic", 489, "outside", 689);
-    register_tilecol(EditorTileset_OUTSIDE, 4, "basic", 492, "outside", 692);
-    register_tilecol(EditorTileset_OUTSIDE, 5, "basic", 495, "outside", 695);
-    register_tilecol(EditorTileset_OUTSIDE, 6, "basic", 498, "outside", 698);
-    register_tilecol(EditorTileset_OUTSIDE, 7, "basic", 501, "outside", 701);
+    register_tilecol(EditorTileset_OUTSIDE, 0, "basic", 480, "outside", 680, false, true);
+    register_tilecol(EditorTileset_OUTSIDE, 1, "basic", 483, "outside", 683, false, true);
+    register_tilecol(EditorTileset_OUTSIDE, 2, "basic", 486, "outside", 686, false, true);
+    register_tilecol(EditorTileset_OUTSIDE, 3, "basic", 489, "outside", 689, false, true);
+    register_tilecol(EditorTileset_OUTSIDE, 4, "basic", 492, "outside", 692, false, true);
+    register_tilecol(EditorTileset_OUTSIDE, 5, "basic", 495, "outside", 695, false, true);
+    register_tilecol(EditorTileset_OUTSIDE, 6, "basic", 498, "outside", 698, false, true);
+    register_tilecol(EditorTileset_OUTSIDE, 7, "basic", 501, "outside", 701, false, true);
 
     register_tilecol(EditorTileset_LAB, 0, "lab_cyan", 280, "none", 713);
     register_tilecol(EditorTileset_LAB, 1, "lab_red", 283, "none", 713);
@@ -295,7 +295,8 @@ void editorclass::register_tilecol(
     const int foreground_base,
     const char* background_type,
     const int background_base,
-    const bool direct
+    const bool direct,
+    const bool bg_ignores_walls
 ) {
     EditorTilecolInfo info;
     info.foreground_type = foreground_type;
@@ -303,6 +304,7 @@ void editorclass::register_tilecol(
     info.background_type = background_type;
     info.background_base = background_base;
     info.direct_mode = direct;
+    info.bg_ignores_walls = bg_ignores_walls;
     tileset_colors[tileset][index] = info;
 
     if (!direct)
@@ -313,6 +315,18 @@ void editorclass::register_tilecol(
 
     tileset_min_colour_direct[tileset] = SDL_min(tileset_min_colour_direct[tileset], index);
     tileset_max_colour_direct[tileset] = SDL_max(tileset_max_colour_direct[tileset], index);
+}
+
+void editorclass::register_tilecol(
+    EditorTilesets tileset,
+    const int index,
+    const char* foreground_type,
+    const int foreground_base,
+    const char* background_type,
+    const int background_base,
+    const bool bg_ignores_walls
+) {
+    register_tilecol(tileset, index, foreground_type, foreground_base, background_type, background_base, bg_ignores_walls, false);
 }
 
 void editorclass::register_tilecol(
@@ -3875,12 +3889,23 @@ bool editorclass::autotile_connector(int x, int y, TileTypes original_type)
         return false;
     }
 
+    EditorTilecolInfo data = get_tilecol_data();
+
+    if (original_type == TileType_NONSOLID)
+    {
+        if (data.bg_ignores_walls)
+        {
+            return new_type == TileType_NONSOLID || is_warp_zone_background(tile);
+        }
+        return true;
+    }
+
     if (new_type == TileType_SOLID && !is_warp_zone_background(tile))
     {
         return true;
     }
 
-    return original_type == TileType_NONSOLID;
+    return false;
 }
 
 int editorclass::get_enemy_tile(int t)

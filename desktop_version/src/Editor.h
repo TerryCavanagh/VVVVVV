@@ -27,6 +27,7 @@ struct EditorTilecolInfo
     const char* background_type;
     int background_base;
     bool direct_mode;
+    bool bg_ignores_walls;
 };
 
 enum EditorTools
@@ -139,6 +140,7 @@ public:
     void reset(void);
 
     void register_tileset(EditorTilesets tileset, const char* name);
+    void register_tilecol(EditorTilesets tileset, int index, const char* foreground_type, int foreground_base, const char* background_type, int background_base, bool direct, bool bg_ignores_walls);
     void register_tilecol(EditorTilesets tileset, int index, const char* foreground_type, int foreground_base, const char* background_type, int background_base, bool direct);
     void register_tilecol(EditorTilesets tileset, int index, const char* foreground_type, int foreground_base, const char* background_type, int background_base);
 
