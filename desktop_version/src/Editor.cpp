@@ -4065,13 +4065,17 @@ void editorclass::make_autotiling_base(void)
         switch (type)
         {
         case TileType_NONSOLID:
-            if (type == TileType_NONSOLID || is_warp_zone_background(tile))
+            set_tile(tile_x, tile_y, 2);
+            break;
+        case TileType_SOLID:
+            if (is_warp_zone_background(tile))
             {
                 set_tile(tile_x, tile_y, 2);
             }
-            break;
-        case TileType_SOLID:
-            set_tile(tile_x, tile_y, 1);
+            else
+            {
+                set_tile(tile_x, tile_y, 1);
+            }
             break;
         case TileType_SPIKE:
             set_tile(tile_x, tile_y, 6);
