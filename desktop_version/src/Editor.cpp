@@ -4039,6 +4039,11 @@ bool editorclass::lines_can_pass(int x, int y)
     {
         return tile == 0 || tile >= 680;
     }
+    if (x == -1 || y == -1 || x == SCREEN_WIDTH_TILES || y == SCREEN_HEIGHT_TILES)
+    {
+        // If lines go offscreen, they stick out one tile
+        return true;
+    }
     return false;
 }
 
