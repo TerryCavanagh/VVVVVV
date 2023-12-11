@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Please read README.txt for information about the language files -->
 <roomnames_special>
-    <roomname english="Outer Space" translation="우주 밖" explanation="Literally Outer Space"/>
+    <roomname english="Outer Space" translation="외우주" explanation="Literally Outer Space"/>
     <roomname english="Dimension VVVVVV" translation="VVVVVV 차원" explanation="The overall area that the game takes place in."/>
     <roomname english="The Ship" translation="함선" explanation="The dimension exploring spaceship"/>
     <roomname english="Secret Lab" translation="비밀 실험실" explanation="An endgame section containing achievement trophys"/>
@@ -40,10 +40,10 @@
     <roomname english="Vwitvhed" translation="매호되" explanation=""/>
     <roomname english="vVwivcvedv" translation="ㅁㅎㄷ" explanation=""/>
     <roomname english="vvvwMvcvMdvv" translation="ㄴㅇㄴ" explanation=""/>
-    <roomname english="DvvvwMvfvvMdvvv" translation="ㅅㄱㄴ ㅇㅇㄱ" explanation=""/>
-    <roomname english="Dvav Mvfvr Mdvvvv" translation="시고ㄴ 이이ㄱ" explanation=""/>
-    <roomname english="Diav M for Mdrver" translation="시고느 이이구" explanation=""/>
-    <roomname english="Dial M for Murder" translation="신고는 일일구" explanation="Named after the Hitchcock film (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="DvvvwMvfvvMdvvv" translation="ㄷㅇㅇ Mㅇ ㄷㄹㄹ" explanation=""/>
+    <roomname english="Dvav Mvfvr Mdvvvv" translation="다이ㅇ Mㅇ 도려ㄹ" explanation=""/>
+    <roomname english="Diav M for Mdrver" translation="다이어 M으 도려라" explanation=""/>
+    <roomname english="Dial M for Murder" translation="다이얼 M을 돌려라" explanation="Named after the Hitchcock film (Second part of the final stage has references to Colour TV shows)"/>
     <!-- - -->
     <roomname english="Gvnsmoke" translation="포연" explanation="Gunsmoke was a black and white Western (The final stage has room names that suggest old black and white TV shows.)"/>
     <roomname english="Gvnsmove" translation="포여" explanation=""/>

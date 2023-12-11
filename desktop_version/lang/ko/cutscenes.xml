@@ -779,14 +779,14 @@ Collect trinkets to unlock new songs!" translation="-= 주크박스 =-
 
 함선을 떠나기 전까지 곡이 재생됩니다.
 
-장신구를 모아 더 많은 곡을 해금해보세요!" centertext="1" padtowidth="264"/>
+트링켓을 모아 더 많은 곡을 해금해보세요!" centertext="1" padtowidth="264"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock1" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 5 Trinkets
 
 Pushing Onwards" translation="다음 해금:
-장신구 5개
+트링켓 5개
 
 Pushing Onwards" tt="1" pad="1"/>
     </cutscene>
@@ -795,7 +795,7 @@ Pushing Onwards" tt="1" pad="1"/>
 8 Trinkets
 
 Positive Force" translation="다음 해금:
-장신구 8개
+트링켓 8개
 
 Positive Force" tt="1" pad="1"/>
     </cutscene>
@@ -804,7 +804,7 @@ Positive Force" tt="1" pad="1"/>
 10 Trinkets
 
 Presenting VVVVVV" translation="다음 해금:
-장신구 10개
+트링켓 10개
 
 Presenting VVVVVV" tt="1" pad="1"/>
     </cutscene>
@@ -813,7 +813,7 @@ Presenting VVVVVV" tt="1" pad="1"/>
 12 Trinkets
 
 Potential for Anything" translation="다음 해금:
-장신구 12개
+트링켓 12개
 
 Potential for Anything" tt="1" pad="1"/>
     </cutscene>
@@ -822,7 +822,7 @@ Potential for Anything" tt="1" pad="1"/>
 14 Trinkets
 
 Pressure Cooker" translation="다음 해금:
-장신구 14개
+트링켓 14개
 
 Pressure Cooker" tt="1" pad="1"/>
     </cutscene>
@@ -831,7 +831,7 @@ Pressure Cooker" tt="1" pad="1"/>
 16 Trinkets
 
 Predestined Fate" translation="다음 해금:
-장신구 16개
+트링켓 16개
 
 Predestined Fate" tt="1" pad="1"/>
     </cutscene>
@@ -840,7 +840,7 @@ Predestined Fate" tt="1" pad="1"/>
 18 Trinkets
 
 Popular Potpourri" translation="다음 해금:
-장신구 18개
+트링켓 18개
 
 Popular Potpourri" tt="1" pad="1"/>
     </cutscene>
@@ -849,7 +849,7 @@ Popular Potpourri" tt="1" pad="1"/>
 20 Trinkets
 
 Pipe Dream" translation="다음 해금:
-장신구 20개
+트링켓 20개
 
 Pipe Dream" tt="1" pad="1"/>
     </cutscene>

@@ -329,17 +329,17 @@
     <string english="WOW" translation="와우" explanation="even bigger title" max="10" max_local="8"/>
     <string english="You rescued all the crewmates!" translation="모든 선원들을 구출했습니다!" explanation="" max="40" max_local="32"/>
     <string english="A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!" translation="새로운 트로피가 해금되어 비밀 실험실에 배치되었습니다. 도전과제 달성을 확인해보세요!" explanation="" max="38*4" max_local="30*4"/>
-    <string english="[Trinkets found]" translation="[발견한 장신구]" explanation="amount of shiny trinkets found" max="40" max_local="32"/>
+    <string english="[Trinkets found]" translation="[발견한 트링켓]" explanation="amount of shiny trinkets found" max="40" max_local="32"/>
     <string english="[Number of Deaths]" translation="[사망 횟수]" explanation="" max="40" max_local="32"/>
     <string english="[Time Taken]" translation="[걸린 시간]" explanation="stopwatch time" max="40" max_local="32"/>
-    <string english="Trinkets Found:" translation="발견한 장신구:" explanation="game complete screen" max="22" max_local="17"/>
+    <string english="Trinkets Found:" translation="발견한 트링켓:" explanation="game complete screen" max="22" max_local="17"/>
     <string english="Game Time:" translation="게임 시간:" explanation="game complete screen" max="22" max_local="17"/>
     <string english="Total Flips:" translation="총 뒤집은 횟수:" explanation="game complete screen" max="22" max_local="17"/>
     <string english="Total Deaths:" translation="총 사망 횟수:" explanation="game complete screen" max="22" max_local="17"/>
     <string english="Results" translation="결과" explanation="bigger title" max="13" max_local="10"/>
     <string english="TIME TAKEN:" translation="걸린 시간:" explanation="time the player took playing the level" max="32" max_local="25"/>
     <string english="NUMBER OF DEATHS:" translation="사망 횟수:" explanation="amount of times the player died" max="32" max_local="25"/>
-    <string english="SHINY TRINKETS:" translation="빛나는 장신구:" explanation="amount of trinkets collected" max="32" max_local="25"/>
+    <string english="SHINY TRINKETS:" translation="빛나는 트링켓:" explanation="amount of trinkets collected" max="32" max_local="25"/>
     <string english=" / " translation=" / " explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
     <string english="{n_trinkets}/{max_trinkets}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: 2/5"/>
     <string english="{n_trinkets} of {max_trinkets}" translation="{max_trinkets}개 중 {n_trinkets}개" explanation="ex: 2 of 5"/>
@@ -377,20 +377,20 @@
     <string english="Rescue Vitellary" translation="비텔러리를 구출한다" explanation="" max="40" max_local="32"/>
     <string english="Rescue Verdigris" translation="베르디그리스를 구출한다" explanation="" max="40" max_local="32"/>
     <string english="Complete the game" translation="게임을 완료한다" case="0" explanation="" max="40" max_local="32"/>
-    <string english="Find three trinkets" translation="장신구를 3개 찾는다" explanation="" max="40" max_local="32"/>
-    <string english="Find six trinkets" translation="장신구를 6개 찾는다" explanation="" max="40" max_local="32"/>
-    <string english="Find nine trinkets" translation="장신구를 9개 찾는다" explanation="" max="40" max_local="32"/>
-    <string english="Find twelve trinkets" translation="장신구를 12개 찾는다" explanation="" max="40" max_local="32"/>
-    <string english="Find fifteen trinkets" translation="장신구를 15개 찾는다" explanation="" max="40" max_local="32"/>
-    <string english="Find eighteen trinkets" translation="장신구를 18개 찾는다" explanation="" max="40" max_local="32"/>
+    <string english="Find three trinkets" translation="트링켓을 3개 찾는다" explanation="" max="40" max_local="32"/>
+    <string english="Find six trinkets" translation="트링켓을 6개 찾는다" explanation="" max="40" max_local="32"/>
+    <string english="Find nine trinkets" translation="트링켓을 9개 찾는다" explanation="" max="40" max_local="32"/>
+    <string english="Find twelve trinkets" translation="트링켓을 12개 찾는다" explanation="" max="40" max_local="32"/>
+    <string english="Find fifteen trinkets" translation="트링켓을 15개 찾는다" explanation="" max="40" max_local="32"/>
+    <string english="Find eighteen trinkets" translation="트링켓을 18개 찾는다" explanation="" max="40" max_local="32"/>
     <string english="RECORDS" translation="기록" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15" max_local="12"/>
     <string english="TIME" translation="시간" explanation="record time" max="8" max_local="6"/>
-    <string english="SHINY" translation="장신구" explanation="record number of trinkets" max="8" max_local="6"/>
+    <string english="SHINY" translation="트링켓" explanation="record number of trinkets" max="8" max_local="6"/>
     <string english="LIVES" translation="생명" explanation="record lowest number of deaths" max="8" max_local="6"/>
     <string english="PAR TIME" translation="완료 시간" explanation="followed by the goal time for this time trial" max="14" max_local="11"/>
     <string english="TIME:" translation="시간:" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="사망:" explanation="in time trial. Number of times player died, not too long"/>
-    <string english="SHINY:" translation="장신구:" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
+    <string english="SHINY:" translation="트링켓:" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
     <string english="PAR TIME:" translation="완료 시간:" explanation="in time trial. Goal time for time trial"/>
     <string english="BEST RANK" translation="최고 랭크" explanation="ranks are B A S V" max="17" max_local="13"/>
     <string english="GO!" translation="GO!" explanation="3, 2, 1, GO!" max="13" max_local="10"/>
@@ -471,7 +471,7 @@
     <string english="Rescued!" translation="구출함!" case="2" explanation="this female crew member is not missing anymore" max="15" max_local="12"/>
     <string english="(that&apos;s you!)" translation="(당신입니다!)" explanation="this crew member is you (Viridian)" max="15" max_local="12"/>
     <string english="Cannot Save in Level Replay" translation="레벨 리플레이에서는 저장할 수 없습니다" explanation="in-game menu" max="38*7" max_local="30*7"/>
-    <string english="Cannot Save in No Death Mode" translation="불사 모드에서는 저장할 수 없습니다" explanation="in-game menu" max="38*7" max_local="30*7"/>
+    <string english="Cannot Save in No Death Mode" translation="하드코어 모드에서는 저장할 수 없습니다" explanation="in-game menu" max="38*7" max_local="30*7"/>
     <string english="How&apos;d you get here?" translation="여긴 어떻게 온 건가요?" explanation="in-game menu" max="38*7" max_local="30*7"/>
     <string english="Cannot Save in Secret Lab" translation="비밀 실험실에서는 저장할 수 없습니다" explanation="in-game menu" max="38*7" max_local="30*7"/>
     <string english="ERROR: Could not save game!" translation="오류: 게임 저장 실패!" explanation="in-game menu" max="34*2" max_local="27*2"/>
@@ -590,7 +590,7 @@
     <string english="1: Walls" translation="1: 벽" explanation="editor tool. Solid tiles" max="32" max_local="25"/>
     <string english="2: Backing" translation="2: 배경" explanation="editor tool. Non-solid background tiles" max="32" max_local="25"/>
     <string english="3: Spikes" translation="3: 가시" explanation="editor tool" max="32" max_local="25"/>
-    <string english="4: Trinkets" translation="4: 장신구" explanation="editor tool. Shiny trinkets/collectibles" max="32" max_local="25"/>
+    <string english="4: Trinkets" translation="4: 트링켓" explanation="editor tool. Shiny trinkets/collectibles" max="32" max_local="25"/>
     <string english="5: Checkpoint" translation="5: Checkpoint" explanation="***OUTDATED***"/>
     <string english="5: Checkpoints" translation="5: 체크포인트" explanation="editor tool. You restart at the last checkpoint after death" max="32" max_local="25"/>
     <string english="6: Disappear" translation="6: Disappear" explanation="***OUTDATED***"/>
@@ -655,7 +655,7 @@
     <string english="Room warps vertically" translation="수직으로 워프하는 방" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3" max_local="30*3"/>
     <string english="Room warping disabled" translation="워프 방 비활성화 됨" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3" max_local="30*3"/>
     <string english="ERROR: No checkpoint to spawn at" translation="오류: 생성될 체크포인트 없음" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3" max_local="30*3"/>
-    <string english="ERROR: Max number of trinkets is 100" translation="오류: 최대 장신구 개수는 100개까지임" explanation="editor, user tried to place another trinket" max="38*3" max_local="30*3"/>
+    <string english="ERROR: Max number of trinkets is 100" translation="오류: 최대 트링켓 개수는 100개까지임" explanation="editor, user tried to place another trinket" max="38*3" max_local="30*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="오류: 최대 선원 수는 100명까지임" explanation="editor, user tried to place another crewmate" max="38*3" max_local="30*3"/>
     <string english="Level quits to menu" translation="레벨 메인메뉴로 복귀하지 않음" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3" max_local="30*3"/>
     <string english="Level completed" translation="레벨 완료되지 않음" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3" max_local="30*3"/>
@@ -692,7 +692,7 @@
 
 You have found a shiny trinket!" translation="축하합니다!
 
-빛나는 장신구를 찾았습니다!" explanation="" max="34*4" max_local="27*4"/>
+빛나는 트링켓을 찾았습니다!" explanation="" max="34*4" max_local="27*4"/>
     <string english="Congratulations!
 
 You have found a lost crewmate!" translation="축하합니다!
@@ -754,7 +754,7 @@ You have found the secret lab!" translation="축하합니다!
     <string english="SPACE STATION 2 MASTERED" translation="우주 정거장 2 마스터" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="30*2"/>
     <string english="WARP ZONE MASTERED" translation="워프 구역 마스터" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="30*2"/>
     <string english="FINAL LEVEL MASTERED" translation="마지막 레벨 마스터" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="30*2"/>
-    <string english="Obtain a V Rank in this Time Trial" translation="시간 제한 도전에서 V 랭크를 달성함" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
+    <string english="Obtain a V Rank in this Time Trial" translation="시간 제한 도전에서 V 랭크를 달성한다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
     <string english="GAME COMPLETE" translation="게임 클리어" explanation="achievement/trophy title" max="38*2" max_local="30*2"/>
     <string english="Complete the game" translation="게임을 완료한다" case="1" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
     <string english="FLIP MODE COMPLETE" translation="뒤집기 모드 완료" explanation="achievement/trophy title" max="38*2" max_local="30*2"/>
@@ -763,14 +763,14 @@ You have found the secret lab!" translation="축하합니다!
     <string english="Win with less than 100 deaths" translation="100번 이하로 죽고 게임을 완료한다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
     <string english="Win with less than 250 deaths" translation="250번 이하로 죽고 게임을 완료한다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
     <string english="Win with less than 500 deaths" translation="500번 이하로 죽고 게임을 완료한다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
-    <string english="Last 5 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 5초간 버팀" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
-    <string english="Last 10 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 10초간 버팀" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
-    <string english="Last 15 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 15초간 버팀" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
-    <string english="Last 20 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 20초간 버팀" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
-    <string english="Last 30 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 30초간 버팀" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
-    <string english="Last 1 minute on the Super Gravitron" translation="슈퍼 그라비트론에서 1분간 버팀" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
+    <string english="Last 5 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 5초간 버틴다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
+    <string english="Last 10 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 10초간 버틴다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
+    <string english="Last 15 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 15초간 버틴다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
+    <string english="Last 20 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 20초간 버틴다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
+    <string english="Last 30 seconds on the Super Gravitron" translation="슈퍼 그라비트론에서 30초간 버틴다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
+    <string english="Last 1 minute on the Super Gravitron" translation="슈퍼 그라비트론에서 1분간 버틴다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="우주의 제왕" explanation="achievement/trophy title - no death mode complete" max="38*2" max_local="30*2"/>
-    <string english="Complete the game in no death mode" translation="불사 모드에서 게임을 완료함" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
+    <string english="Complete the game in no death mode" translation="하드코어 모드에서 게임을 완료한다" explanation="achievement/trophy description" max="38*2" max_local="30*2"/>
     <string english="Something went wrong, but we forgot the error message." translation="무언가 잘못 되었지만, 어떤 오류 메시지를 내보내야 할지 모르는 상황입니다." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6" max_local="30*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="{path}를 시작할 수 없음: 실제 디렉토리가 존재하지 않음" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6" max_local="30*6"/>
     <string english="Level {path} not found" translation="레벨 {path}의 경로를 찾을 수 없음" explanation="" max="38*6" max_local="30*6"/>
