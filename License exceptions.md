@@ -9,9 +9,9 @@ Exceptions granted to the VVVVVV source code license
 -------
 Last updated on November 22nd, 2020.
 
-| Project | Description | Conditions |
-|---|---|---|
-| Any distribution of the VVVVVV: Make and Play edition | All distributions and packages of the Make and Play edition can freely distribute the data assets, so long as they compile with the makeandplay define and do not distribute the original levels.| Must compile with the makeandplay define set, cannot distribute the original levels. | 
+| Project | Creator | Description | Conditions | Link |
+|---|---|---|---|---|
+| Any distribution of the VVVVVV: Make and Play edition | | All distributions and packages of the Make and Play edition can freely distribute the data assets, so long as they compile with the makeandplay define and do not distribute the original levels.| Must compile with the makeandplay define set, cannot distribute the original levels. | |
 | VVVVVV: Make and Play Edition |[Terry Cavanagh](http://distractionware.com/)|The free and official version of VVVVVV that includes player levels, and the tools to create your own levels, but does not include the original levels from the game.| Must compile with the makeandplay define set, cannot distribute the original levels. | [download](https://thelettervsixtim.es/makeandplay/) |
 | Ved | [Dav999 and InfoTeddy](https://github.com/Daaaav/Ved/graphs/contributors) | An external editor for VVVVVV levels. | No conditions. | [download](https://tolp.nl/ved/), [github repo](https://github.com/Daaaav/Ved) |
 | VVVVVV: Community Edition | https://github.com/v6cord/VVVVVV-CE/graphs/contributors | Community fork of VVVVVV focused on expanding the capabilities of player levels. | Must compile with the makeandplay define set, cannot distribute the original levels. | [github repo](https://github.com/v6cord/VVVVVV-CE) |
