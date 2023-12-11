@@ -49,3 +49,7 @@ You'll need the data.zip file from VVVVVV to actually run the game! You can grab
 it from your copy of the game, or you can just download it for free from the [Make
 and Play](https://thelettervsixtim.es/makeandplay/) page. Put this file next to
 your executable and the game should run.
+
+This is intended for personal use only - our license doesn't allow you to
+actually distribute this data.zip file with your own forks without getting
+permission from us first. See [LICENSE.md](../LICENSE.md) for more details.
