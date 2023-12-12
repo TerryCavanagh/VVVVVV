@@ -25,10 +25,11 @@ static const char* translators[] = {
     " Seaghán Ó Modhráin",
     " Davis Sandefur",
     "Italian",
-    " A. Dellepiane",
-    " M. Scarabelli",
-    " L. Bertolucci",
-    " F. Bortolotti",
+    " gloc.team",
+    " Alain Dellepiane",
+    " Matteo Scarabelli",
+    " Lorenzo Bertolucci",
+    " Fabio Bortolotti",
     "Japanese",
     " Nicalis, Inc.",
     " KabanFriends",
@@ -59,7 +60,7 @@ static const char* translators[] = {
 };
 
 /* Hardcoded pagesizes for the translator credits. Simplifies paging backwards and forwards */
-static const int translator_pagesize[] = { 8, 9, 8, 10, 10, 4 };
+static const int translator_pagesize[] = { 8, 9, 9, 10, 10, 4 };
 
 /* Terry's Patrons... */
 static const char* superpatrons[] = {
