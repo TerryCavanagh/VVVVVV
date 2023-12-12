@@ -119,7 +119,7 @@
     <string english="With Music by" translation="Con musiche di" explanation="credits" max="30"/>
     <string english="Rooms Named by" translation="Stanze battezzate da" explanation="credits" max="30"/>
     <string english="C++ Port by" translation="Porting C++ di" explanation="credits" max="30"/>
-    <string english="Patrons" translation="Patron" explanation="credits, people who donated a certain amount before the game originally released" max="13"/>
+    <string english="Patrons" translation="Sostenitori" explanation="credits, people who donated a certain amount before the game originally released" max="13"/>
     <string english="VVVVVV is supported by the following patrons" translation="VVVVVV è supportato dai seguenti patron" explanation="credits" max="38*3"/>
     <string english="and also by" translation="e anche da" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="e" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>

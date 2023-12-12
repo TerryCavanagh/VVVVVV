@@ -20,7 +20,7 @@
     </cutscene>
     <cutscene id="communicationstation" explanation="">
         <dialogue speaker="cyan" english="Violet! Is that you?" translation="Violet! Tutto bene?"/>
-        <dialogue speaker="purple" english="Captain! You&apos;re ok!" translation="Capitano! Che gioia!"/>
+        <dialogue speaker="purple" english="Captain! You&apos;re ok!" translation="Capitano! Sta bene!"/>
         <dialogue speaker="purple" english="Something has gone horribly wrong with the ship&apos;s teleporter!" translation="Il teletrasporto della nave ha avuto una terribile avaria!"/>
         <dialogue speaker="purple" english="I think everyone has been teleported away randomly! They could be anywhere!" translation="Temo che abbia sballottato tutti chissà dove!"/>
         <dialogue speaker="cyan" english="Oh no!" translation="Oh, no!"/>
@@ -109,7 +109,7 @@
     </cutscene>
     <cutscene id="rescuegreen" explanation="nuance: `she&apos;s BACK on the ship` means more `she&apos;s home` and not `she has returned to the ship`. She has never left the ship">
         <dialogue speaker="green" english="Captain! I&apos;ve been so worried!" translation="Capitano! Ero preoccupatissimo!"/>
-        <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation="Capo Verdigris! Che gioia vederla!"/>
+        <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation="Capo Verdigris! Che piacere vederla!"/>
         <dialogue speaker="green" english="I&apos;ve been trying to get out, but I keep going around in circles..." translation="Ho provato ad andarmene, ma continuo a tornare al punto di partenza..."/>
         <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation="Sono qui per teletrasportarla alla nave. Io arrivo da lì."/>
         <dialogue speaker="green" english="Is everyone else alright? Is Violet..." translation="Gli altri stanno bene? Violet sta..."/>
@@ -128,7 +128,7 @@
     </cutscene>
     <cutscene id="rescuered" explanation="">
         <dialogue speaker="red" english="Captain!" translation="Capitano!"/>
-        <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation="Ma che gioia vederla! Temevo di essere l&apos;unico superstite!"/>
+        <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation="Ma che sollievo vederla! Temevo di essere l&apos;unico superstite!"/>
         <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="Vermilion! Sta bene! Lo sapevo!"/>
         <dialogue speaker="red" english="So, what&apos;s the situation?" translation="Allora, qual è la situazione?"/>
         <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation="Capisco. Beh, allora è meglio tornare."/>
@@ -365,13 +365,13 @@
     </cutscene>
     <cutscene id="talkpurple_1" explanation="">
         <dialogue speaker="purple" english="... I hope Verdigris is alright." translation="Spero che Verdigris stia bene."/>
-        <dialogue speaker="purple" english="If you can find him, he&apos;d be a big help fixing the ship!" translation="Se lei riuscisse a trovarlo, ci sarebbe di enorme aiuto nel riparare la nave!"/>
+        <dialogue speaker="purple" english="If you can find him, he&apos;d be a a big help fixing the ship!" translation="Se lei riuscisse a trovarlo, ci sarebbe di enorme aiuto nel riparare la nave!"/>
     </cutscene>
     <cutscene id="talkpurple_2" explanation="">
         <dialogue speaker="purple" english="Chief Verdigris is so brave and ever so smart!" translation="Il Capo Verdigris è coraggioso e intelligentissimo!"/>
     </cutscene>
     <cutscene id="talkpurple_4" explanation="">
-        <dialogue speaker="purple" english="Welcome back, Captain!" translation="Che gioia rivederla, Capitano!"/>
+        <dialogue speaker="purple" english="Welcome back, Captain!" translation="Sono così felice di rivederla, Capitano!"/>
         <dialogue speaker="purple" english="I think Victoria is quite happy to be back on the ship." translation="Victoria sembra felice di essere tornata sulla nave."/>
         <dialogue speaker="purple" english="She really doesn&apos;t like adventuring. She gets very homesick!" translation="L&apos;avventura non fa proprio per lei. Le fa venire nostalgia di casa!"/>
     </cutscene>
@@ -512,7 +512,7 @@
         <dialogue speaker="blue" english="Thanks so much for saving me, Captain!" translation="Grazie davvero per avermi salvato, Capitano!"/>
     </cutscene>
     <cutscene id="talkblue_3" explanation="">
-        <dialogue speaker="blue" english="I&apos;m so glad to be back!" translation="È una gioia essere ancora qui!"/>
+        <dialogue speaker="blue" english="I&apos;m so glad to be back!" translation="È un sollievo essere ancora qui!"/>
         <dialogue speaker="blue" english="That lab was so dark and scary! I didn&apos;t like it at all..." translation="Quel laboratorio è buio e spaventoso! Non mi piace affatto..."/>
     </cutscene>
     <cutscene id="talkblue_4" explanation="">
@@ -620,7 +620,7 @@
         <dialogue speaker="yellow" english="Interesting... I wonder why it was built?" translation="Interessante... Chissà perché l&apos;hanno costruito!"/>
     </cutscene>
     <cutscene id="talkyellow_10" explanation="">
-        <dialogue speaker="yellow" english="It&apos;s good to be back!" translation="Che gioia essere di nuovo qui!"/>
+        <dialogue speaker="yellow" english="It&apos;s good to be back!" translation="È un piacere essere di nuovo qui!"/>
         <dialogue speaker="yellow" english="I&apos;ve got so much work to catch up on..." translation="Ho tanto di quel lavoro da recuperare..."/>
     </cutscene>
     <cutscene id="talkyellow_11" explanation="">
@@ -646,7 +646,7 @@
         <dialogue speaker="yellow" english="Maybe you&apos;ve found them all?" translation="Forse li ha già raccolti tutti?"/>
     </cutscene>
     <cutscene id="finallevel_teleporter" explanation="">
-        <dialogue speaker="purple" english="Welcome back!" translation="Che gioia rivederla!"/>
+        <dialogue speaker="purple" english="Welcome back!" translation="Sono felice di rivederla!"/>
         <dialogue speaker="purple" english="..." translation="..."/>
         <dialogue speaker="purple" english="Um, where&apos;s Captain Viridian?" translation="Uhm, dov&apos;è il Capitano Viridian?"/>
         <dialogue speaker="player" english="... Hello?" translation="Ehi?"/>
@@ -867,7 +867,7 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_4" explanation="a trinket that&apos;s difficult to get">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= REGISTRO PERSONALE =-" padtowidth="280"/>
-        <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="Ahah! Questa non la capirà nessuno." pad="1"/>
+        <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="Ah! Quello non lo prende nessuno." pad="1"/>
     </cutscene>
     <cutscene id="terminal_warp_1" explanation="">
         <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="L&apos;altro giorno un cubo gigante con sopra la parola AVOID m&apos;ha inseguito nei corridoi."/>
