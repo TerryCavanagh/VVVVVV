@@ -25,11 +25,11 @@ Irish:
  - Seaghán Ó Modhráin
  - Davis Sandefur
 
-Italian:
- - A. Dellepiane
- - M. Scarabelli
- - L. Bertolucci
- - F. Bortolotti
+Italian (gloc.team):
+ - Alain Dellepiane
+ - Matteo Scarabelli
+ - Lorenzo Bertolucci
+ - Fabio Bortolotti
 
 Japanese:
  - Nicalis, Inc.
