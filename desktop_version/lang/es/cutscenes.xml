@@ -686,7 +686,7 @@ Are you really sure you want to do this?" translation="¡En serio! ¡La dimensi�
 
 DIMENSIONAL STABILISER OFFLINE" translation="-= AVISO =-
 
-ESTABILITZADOR DIMENSIONAL DESCONECTADO" centertext="1" pad="1"/>
+ESTABILIZADOR DIMENSIONAL DESCONECTADO" centertext="1" pad="1"/>
         <dialogue speaker="cyan" english="Uh oh..." translation="Oh, vaya..."/>
     </cutscene>
     <cutscene id="gamecomplete" explanation="">
