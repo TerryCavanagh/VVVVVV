@@ -191,19 +191,17 @@ void BUTTONGLYPHS_update_layout(SDL_GameController *c)
     {
         /* Steam Virtual Gamepads can hypothetically tell us that the physical
          * device is a PlayStation controller, so try to catch that scenario */
-        const char *mapping = SDL_GameControllerMapping(c);
-        if (SDL_strstr(mapping, "type:") != NULL)
+        SDL_GameControllerType gct = SDL_GameControllerGetType(c);
+        if ( gct == SDL_CONTROLLER_TYPE_PS3 ||
+             gct == SDL_CONTROLLER_TYPE_PS4 ||
+             gct == SDL_CONTROLLER_TYPE_PS5 )
         {
-            SDL_GameControllerType gct = SDL_GameControllerGetType(c);
-            if ( gct == SDL_CONTROLLER_TYPE_PS3 ||
-                 gct == SDL_CONTROLLER_TYPE_PS4 ||
-                 gct == SDL_CONTROLLER_TYPE_PS5 )
-            {
-                layout = LAYOUT_PLAYSTATION;
-                return;
-            }
+            layout = LAYOUT_PLAYSTATION;
         }
-        layout = LAYOUT_DECK;
+        else
+        {
+            layout = LAYOUT_DECK;
+        }
     }
     else if (vendor == 0x057e)
     {
