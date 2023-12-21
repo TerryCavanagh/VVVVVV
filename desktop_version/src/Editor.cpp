@@ -412,6 +412,8 @@ void editorclass::reset(void)
 
     state = EditorState_DRAW;
     substate = EditorSubState_MAIN;
+
+    undo_buffer.clear();
 }
 
 void editorclass::show_note(const char* text)
@@ -2260,11 +2262,30 @@ void editorclass::add_entity(int rx, int ry, int xp, int yp, int tp, int p1, int
     entity.p6 = p6;
     entity.scriptname = "";
 
+    EditorUndoInfo info;
+    info.room_x = rx;
+    info.room_y = ry;
+    info.type = EditorUndoType_ENTITY_ADDED;
+    info.entity = entity;
+    info.entity_id = customentities.size();
+    undo_buffer.push_back(info);
+    redo_buffer.clear();
+
     customentities.push_back(entity);
 }
 
 void editorclass::remove_entity(int t)
 {
+
+    EditorUndoInfo info;
+    info.room_x = levx;
+    info.room_y = levy;
+    info.type = EditorUndoType_ENTITY_REMOVED;
+    info.entity_id = t;
+    info.entity = customentities[t];
+    undo_buffer.push_back(info);
+    redo_buffer.clear();
+
     customentities.erase(customentities.begin() + t);
 }
 
@@ -2280,6 +2301,82 @@ int editorclass::get_entity_at(int rx, int ry, int xp, int yp)
         }
     }
     return -1;
+}
+
+static void update_old_tiles()
+{
+    extern editorclass ed;
+    for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
+    {
+        const int x = i % SCREEN_WIDTH_TILES;
+        const int y = i / SCREEN_WIDTH_TILES;
+
+        ed.old_tiles[y * SCREEN_WIDTH_TILES + x] = ed.get_tile(x, y);
+    }
+}
+
+static void commit_entity(int id)
+{
+    // We're gonna modify an entity, so save the old version
+    extern editorclass ed;
+
+    EditorUndoInfo info;
+
+    info.room_x = ed.levx;
+    info.room_y = ed.levy;
+    info.type = EditorUndoType_ENTITY_MODIFIED;
+    info.entity_id = id;
+    info.entity = customentities[id];
+    ed.undo_buffer.push_back(info);
+    ed.redo_buffer.clear();
+}
+
+static void commit_tiles()
+{
+    // We either let go of the mouse button, or we switched rooms, so we need to commit the tiles to the undo buffer
+    extern editorclass ed;
+
+    EditorUndoInfo info;
+
+    info.room_x = ed.levx;
+    info.room_y = ed.levy;
+    info.type = EditorUndoType_TILES;
+    SDL_memcpy(&info.tiles, &ed.old_tiles, sizeof(ed.old_tiles));
+
+    ed.undo_buffer.push_back(info);
+    ed.redo_buffer.clear();
+}
+
+static void commit_roomdata_change()
+{
+    extern editorclass ed;
+
+    EditorUndoInfo info;
+
+    info.room_x = ed.levx;
+    info.room_y = ed.levy;
+    info.type = EditorUndoType_ROOMDATA;
+    info.room_data = *cl.getroomprop(ed.levx, ed.levy);
+
+    ed.undo_buffer.push_back(info);
+    ed.redo_buffer.clear();
+}
+
+static void commit_roomdata_tiles_change()
+{
+    extern editorclass ed;
+
+    EditorUndoInfo info;
+
+    info.room_x = ed.levx;
+    info.room_y = ed.levy;
+    info.type = EditorUndoType_ROOMDATA_TILES;
+    update_old_tiles();
+    SDL_memcpy(&info.tiles, &ed.old_tiles, sizeof(ed.old_tiles));
+    info.room_data = *cl.getroomprop(ed.levx, ed.levy);
+
+    ed.undo_buffer.push_back(info);
+    ed.redo_buffer.clear();
 }
 
 static void set_tile_interpolated(const int x1, const int x2, const int y1, const int y2, const int tile)
@@ -2446,11 +2543,13 @@ void editorclass::entity_clicked(const int index)
     {
     case 1:
         // Enemies
+        commit_entity(index);
         entity->p1 = (entity->p1 + 1) % 4;
         break;
     case 2:
     {
         // Moving Platforms and Conveyors
+        commit_entity(index);
         const bool conveyor = entity->p1 >= 5;
         entity->p1++;
         if (conveyor)
@@ -2466,6 +2565,7 @@ void editorclass::entity_clicked(const int index)
     case 10:
         // Checkpoints
         // If it's not textured as a checkpoint, then just leave it be
+        commit_entity(index);
         if (entity->p1 == 0 || entity->p1 == 1)
         {
             entity->p1 = (entity->p1 + 1) % 2;
@@ -2474,27 +2574,34 @@ void editorclass::entity_clicked(const int index)
     case 11:
     case 16:
         // Gravity Lines, Start Point
+        commit_entity(index);
         entity->p1 = (entity->p1 + 1) % 2;
         break;
     case 15:
         // Crewmates
+        commit_entity(index);
         entity->p1 = (entity->p1 + 1) % 6;
         break;
     case 17:
         // Roomtext
+        commit_entity(index);
         get_input_line(TEXT_ROOMTEXT, "Enter roomtext:", &entity->scriptname);
         text_entity = index;
         break;
     case 18:
         // Terminals
+        commit_entity(index);
         if (entity->p1 == 0 || entity->p1 == 1)
         {
             // Flip the terminal, but if it's not textured as a terminal leave it alone
             entity->p1 = (entity->p1 + 1) % 2;
         }
-        SDL_FALLTHROUGH;
+        get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &entity->scriptname);
+        text_entity = index;
+        break;
     case 19:
         // Script Boxes (and terminals)
+        commit_entity(index);
         get_input_line(TEXT_SCRIPT, "Enter script name:", &entity->scriptname);
         text_entity = index;
         break;
@@ -2516,6 +2623,12 @@ void editorclass::tool_place()
     case EditorTool_BACKING:
     {
         int tile = 0;
+
+        if (!placing_tiles)
+        {
+            placing_tiles = true;
+            update_old_tiles();
+        }
 
         if (cl.getroomprop(levx, levy)->directmode >= 1)
         {
@@ -2634,17 +2747,22 @@ void editorclass::tool_place()
         }
         break;
     case EditorTool_START_POINT:
-        //If there is another start point, destroy it
+        lclickdelay = 1;
+        //If there is another start point, move it instead
         for (size_t i = 0; i < customentities.size(); i++)
         {
             if (customentities[i].t == 16)
             {
-                remove_entity(i);
-                i--;
+                commit_entity(i);
+                customentities[i].rx = levx;
+                customentities[i].ry = levy;
+                customentities[i].x = tilex;
+                customentities[i].y = tiley;
+                customentities[i].p1 = 0;
+                return;
             }
         }
         add_entity(levx, levy, tilex, tiley, 16, 0);
-        lclickdelay = 1;
         break;
     default:
         break;
@@ -2997,21 +3115,25 @@ static void handle_draw_input()
     {
         if (key.keymap[SDLK_F1])
         {
+            commit_roomdata_tiles_change();
             ed.switch_tileset(shift_down);
             ed.keydelay = 6;
         }
         if (key.keymap[SDLK_F2])
         {
+            commit_roomdata_tiles_change();
             ed.switch_tilecol(shift_down);
             ed.keydelay = 6;
         }
         if (key.keymap[SDLK_F3])
         {
+            commit_roomdata_change();
             ed.switch_enemy(shift_down);
             ed.keydelay = 6;
         }
         if (key.keymap[SDLK_F4])
         {
+            commit_roomdata_change();
             ed.keydelay = 6;
             ed.substate = EditorSubState_DRAW_BOX;
             ed.box_corner = BoxCorner_FIRST;
@@ -3019,6 +3141,7 @@ static void handle_draw_input()
         }
         if (key.keymap[SDLK_F5])
         {
+            commit_roomdata_change();
             ed.keydelay = 6;
             ed.substate = EditorSubState_DRAW_BOX;
             ed.box_corner = BoxCorner_FIRST;
@@ -3026,6 +3149,7 @@ static void handle_draw_input()
         }
         if (key.keymap[SDLK_F10])
         {
+            commit_roomdata_tiles_change();
             if (cl.getroomprop(ed.levx, ed.levy)->directmode == 1)
             {
                 cl.setroomdirectmode(ed.levx, ed.levy, 0);
@@ -3055,11 +3179,13 @@ static void handle_draw_input()
 
         if (key.keymap[SDLK_w])
         {
+            commit_roomdata_change();
             ed.switch_warpdir(shift_down);
             ed.keydelay = 6;
         }
         if (key.keymap[SDLK_e])
         {
+            commit_roomdata_change();
             ed.keydelay = 6;
             ed.get_input_line(TEXT_ROOMNAME, "Enter new room name:", const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
             game.mapheld = true;
@@ -3102,6 +3228,7 @@ static void handle_draw_input()
         const bool shift = key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT];
         if (key.keymap[SDLK_COMMA])
         {
+            commit_roomdata_change();
             if (ctrl)
             {
                 if (shift)
@@ -3121,6 +3248,7 @@ static void handle_draw_input()
         }
         else if (key.keymap[SDLK_PERIOD])
         {
+            commit_roomdata_change();
             if (ctrl)
             {
                 if (shift)
@@ -3192,6 +3320,115 @@ void editorclass::get_input_line(const enum TextMode mode, const std::string& pr
     old_entity_text = key.keybuffer;
 }
 
+void process_editor_buffer(const bool undo)
+{
+    extern editorclass ed;
+
+    std::vector<EditorUndoInfo>* buffer = undo ? &ed.undo_buffer : &ed.redo_buffer;
+
+    if (buffer->size() == 0)
+    {
+        ed.show_note(loc::gettext(undo ? "ERROR: Nothing to undo" : "ERROR: Nothing to redo"));
+        return;
+    }
+
+    EditorUndoInfo info = buffer->back();
+    buffer->pop_back();
+
+    ed.levx = info.room_x;
+    ed.levy = info.room_y;
+
+    EditorUndoInfo new_info;
+
+    new_info.room_x = info.room_x;
+    new_info.room_y = info.room_y;
+    new_info.type = info.type;
+
+    switch (info.type)
+    {
+    case EditorUndoType_TILES:
+        for (size_t i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
+        {
+            const int x = i % SCREEN_WIDTH_TILES;
+            const int y = i / SCREEN_WIDTH_TILES;
+            ed.old_tiles[i] = ed.get_tile(x, y);
+            cl.settile(ed.levx, ed.levy, x, y, info.tiles[i]);
+        }
+
+        SDL_memcpy(&new_info.tiles, &ed.old_tiles, sizeof(ed.old_tiles));
+
+        graphics.foregrounddrawn = false;
+        break;
+    case EditorUndoType_ENTITY_ADDED:
+        // Remove the entity
+
+        if (!INBOUNDS_VEC(info.entity_id, customentities))
+        {
+            return;
+        }
+
+        new_info.type = EditorUndoType_ENTITY_REMOVED;
+        new_info.entity = customentities[info.entity_id];
+        new_info.entity_id = info.entity_id;
+        customentities.erase(customentities.begin() + info.entity_id);
+        break;
+    case EditorUndoType_ENTITY_REMOVED:
+        // Add the entity back
+
+        customentities.insert(customentities.begin() + info.entity_id, info.entity);
+        new_info.type = EditorUndoType_ENTITY_ADDED;
+        new_info.entity_id = info.entity_id;
+        new_info.entity = info.entity;
+        break;
+    case EditorUndoType_ENTITY_MODIFIED:
+        // Restore the entity
+
+        if (!INBOUNDS_VEC(info.entity_id, customentities))
+        {
+            return;
+        }
+
+        new_info.entity = customentities[info.entity_id];
+        new_info.entity_id = info.entity_id;
+        customentities[info.entity_id] = info.entity;
+        break;
+    case EditorUndoType_ROOMDATA:
+        new_info.room_data = cl.roomproperties[info.room_x + info.room_y * cl.maxwidth];
+        cl.roomproperties[info.room_x + info.room_y * cl.maxwidth] = info.room_data;
+        graphics.backgrounddrawn = false;
+        break;
+    case EditorUndoType_ROOMDATA_TILES:
+        // Restore the room data
+
+        for (size_t i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
+        {
+            const int x = i % SCREEN_WIDTH_TILES;
+            const int y = i / SCREEN_WIDTH_TILES;
+            ed.old_tiles[i] = ed.get_tile(x, y);
+            cl.settile(ed.levx, ed.levy, x, y, info.tiles[i]);
+        }
+
+        SDL_memcpy(&new_info.tiles, &ed.old_tiles, sizeof(ed.old_tiles));
+
+        new_info.room_data = cl.roomproperties[info.room_x + info.room_y * cl.maxwidth];
+
+        cl.roomproperties[info.room_x + info.room_y * cl.maxwidth] = info.room_data;
+        graphics.backgrounddrawn = false;
+        graphics.foregrounddrawn = false;
+        ed.updatetiles = true;
+        break;
+    }
+
+    if (undo)
+    {
+        ed.redo_buffer.push_back(new_info);
+    }
+    else
+    {
+        ed.undo_buffer.push_back(new_info);
+    }
+}
+
 void editorinput(void)
 {
     extern editorclass ed;
@@ -3200,6 +3437,12 @@ void editorinput(void)
     {
         return;
     }
+
+    bool undo_pressed = false;
+    bool redo_pressed = false;
+
+    bool shift_down = key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT];
+    bool ctrl_down = key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL];
 
     ed.old_tilex = ed.tilex;
     ed.old_tiley = ed.tiley;
@@ -3226,10 +3469,22 @@ void editorinput(void)
     {
         game.press_right = true;
     }
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
+    if ((key.isDown(KEYBOARD_z) && !ctrl_down) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
     {
         game.press_action = true;
     };
+
+    if (key.isDown(KEYBOARD_z) && ctrl_down && (ed.keydelay == 0))
+    {
+        ed.keydelay = 6;
+        undo_pressed = true;
+    }
+
+    if (key.isDown(SDLK_y) && ctrl_down && (ed.keydelay == 0))
+    {
+        ed.keydelay = 6;
+        redo_pressed = true;
+    }
 
     if (key.keymap[SDLK_F9] && (ed.keydelay == 0)) {
         ed.keydelay = 30;
@@ -3261,9 +3516,6 @@ void editorinput(void)
         game.mapheld = false;
     }
 
-    bool shift_down = key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT];
-    bool ctrl_down = key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL];
-
     // Do different things depending on the current state (and substate)
     switch (ed.state)
     {
@@ -3272,6 +3524,16 @@ void editorinput(void)
         switch (ed.substate)
         {
         case EditorSubState_MAIN:
+
+            if (undo_pressed)
+            {
+                process_editor_buffer(true);
+            }
+            if (redo_pressed)
+            {
+                process_editor_buffer(false);
+            }
+
             if (escape_pressed)
             {
                 // We're just in draw mode, so go to the settings menu
@@ -3349,6 +3611,9 @@ void editorinput(void)
                 }
                 else
                 {
+                    commit_tiles();
+                    ed.placing_tiles = false;
+
                     ed.updatetiles = true;
                     ed.changeroom = true;
                     graphics.backgrounddrawn = false;
@@ -3377,6 +3642,11 @@ void editorinput(void)
             else if (!key.leftbutton)
             {
                 ed.lclickdelay = 0;
+                if (ed.placing_tiles)
+                {
+                    commit_tiles();
+                    ed.placing_tiles = false;
+                }
             }
 
             if (key.rightbutton)
