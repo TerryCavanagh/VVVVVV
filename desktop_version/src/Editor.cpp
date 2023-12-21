@@ -3417,6 +3417,14 @@ void process_editor_buffer(const bool undo)
         graphics.foregrounddrawn = false;
         ed.updatetiles = true;
         break;
+    case EditorUndoType_LEVEL_SIZE:
+        // Restore the level size
+        new_info.level_width = cl.mapwidth;
+        new_info.level_height = cl.mapheight;
+
+        cl.mapwidth = info.level_width;
+        cl.mapheight = info.level_height;
+        break;
     }
 
     if (undo)
@@ -3582,6 +3590,8 @@ void editorinput(void)
                 }
                 else if (shift_down)
                 {
+                    int old_width = cl.mapwidth;
+                    int old_height = cl.mapheight;
 
                     if (up_pressed) cl.mapheight--;
                     if (down_pressed) cl.mapheight++;
@@ -3591,23 +3601,37 @@ void editorinput(void)
                     cl.mapwidth = SDL_clamp(cl.mapwidth, 1, cl.maxwidth);
                     cl.mapheight = SDL_clamp(cl.mapheight, 1, cl.maxheight);
 
-                    ed.updatetiles = true;
-                    ed.changeroom = true;
-                    graphics.backgrounddrawn = false;
-                    graphics.foregrounddrawn = false;
+                    if (old_width != cl.mapwidth || old_height != cl.mapheight)
+                    {
 
-                    ed.levx = POS_MOD(ed.levx, cl.mapwidth);
-                    ed.levy = POS_MOD(ed.levy, cl.mapheight);
+                        ed.updatetiles = true;
+                        ed.changeroom = true;
+                        graphics.backgrounddrawn = false;
+                        graphics.foregrounddrawn = false;
 
-                    char buffer[3 * SCREEN_WIDTH_CHARS + 1];
-                    vformat_buf(
-                        buffer, sizeof(buffer),
-                        loc::gettext("Mapsize is now [{width},{height}]"),
-                        "width:int, height:int",
-                        cl.mapwidth, cl.mapheight
-                    );
+                        ed.levx = POS_MOD(ed.levx, cl.mapwidth);
+                        ed.levy = POS_MOD(ed.levy, cl.mapheight);
 
-                    ed.show_note(buffer);
+                        char buffer[3 * SCREEN_WIDTH_CHARS + 1];
+                        vformat_buf(
+                            buffer, sizeof(buffer),
+                            loc::gettext("Mapsize is now [{width},{height}]"),
+                            "width:int, height:int",
+                            cl.mapwidth, cl.mapheight
+                        );
+ 
+                        ed.show_note(buffer);
+
+                        EditorUndoInfo info;
+                        info.type = EditorUndoType_LEVEL_SIZE;
+                        info.level_width = old_width;
+                        info.level_height = old_height;
+                        info.room_x = ed.levx;
+                        info.room_y = ed.levy;
+
+                        ed.undo_buffer.push_back(info);
+                        ed.redo_buffer.clear();
+                    }
                 }
                 else
                 {
