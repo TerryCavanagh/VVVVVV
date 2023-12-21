@@ -142,6 +142,7 @@ enum EditorUndoTypes
     EditorUndoType_ENTITY_ADDED, // Entity added
     EditorUndoType_ENTITY_REMOVED, // Entity removed
     EditorUndoType_ENTITY_MODIFIED, // Entity properties modified
+    EditorUndoType_LEVEL_SIZE // Level size modified
 };
 
 struct EditorUndoInfo
@@ -155,7 +156,8 @@ struct EditorUndoInfo
     int entity_id;
     CustomEntity entity;
     RoomProperty room_data;
-
+    int level_width;
+    int level_height;
 };
 
 class editorclass
