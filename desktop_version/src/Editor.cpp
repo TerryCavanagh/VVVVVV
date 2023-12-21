@@ -3261,6 +3261,14 @@ void editorinput(void)
                     cl.mapwidth = SDL_clamp(cl.mapwidth, 1, cl.maxwidth);
                     cl.mapheight = SDL_clamp(cl.mapheight, 1, cl.maxheight);
 
+                    ed.updatetiles = true;
+                    ed.changeroom = true;
+                    graphics.backgrounddrawn = false;
+                    graphics.foregrounddrawn = false;
+
+                    ed.levx = POS_MOD(ed.levx, cl.mapwidth);
+                    ed.levy = POS_MOD(ed.levy, cl.mapheight);
+
                     char buffer[3 * SCREEN_WIDTH_CHARS + 1];
                     vformat_buf(
                         buffer, sizeof(buffer),
