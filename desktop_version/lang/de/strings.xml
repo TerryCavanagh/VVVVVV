@@ -478,7 +478,7 @@
     <string english="ERROR: Could not save settings file!" translation="FEHLER: Konnte die eingestellten Optionen nicht speichern!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Spiel gespeichert!" explanation="in-game menu" max="38*2"/>
     <string english="[Press ACTION to save your game]" translation="[Speichere mit HANDLUNG das Spiel]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to save your game]" translation="[Drücke {button}, um das Spiel zu speichern]" explanation="in-game menu. Expect `ACTION`" max="40"/>
+    <string english="[Press {button} to save your game]" translation="[Speichere mit {button} das Spiel]" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Hinweis: Das Spiel wird bei jedem Teleporter automatisch gespeichert)." explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Letzter Spielstand:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Zurück zum Hauptmenü?" explanation="in-game menu" max="38*4"/>
