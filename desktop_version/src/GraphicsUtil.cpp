@@ -81,6 +81,20 @@ SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, i
 
 void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_Color color)
 {
+    const SDL_Point point = {x, y};
+    const SDL_Rect rect = {0, 0, surface->w, surface->h};
+    const bool inbounds = SDL_PointInRect(&point, &rect);
+    if (!inbounds)
+    {
+        WHINE_ONCE_ARGS((
+            "Pixel draw is not inbounds: "
+            "Attempted to draw to %i,%i in %ix%i surface",
+            x, y, surface->w, surface->h
+        ));
+        SDL_assert(0 && "Pixel draw is not inbounds!");
+        return;
+    }
+
     const SDL_PixelFormat* fmt = surface->format;
     const int bpp = fmt->BytesPerPixel;
     Uint32* pixel = (Uint32*) ((Uint8*) surface->pixels + y * surface->pitch + x * bpp);
@@ -100,10 +114,24 @@ void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_Color c
 
 SDL_Color ReadPixel(const SDL_Surface* surface, const int x, const int y)
 {
+    SDL_Color color = {0, 0, 0, 0};
+    const SDL_Point point = {x, y};
+    const SDL_Rect rect = {0, 0, surface->w, surface->h};
+    const bool inbounds = SDL_PointInRect(&point, &rect);
+    if (!inbounds)
+    {
+        WHINE_ONCE_ARGS((
+            "Pixel read is not inbounds: "
+            "Attempted to read %i,%i in %ix%i surface",
+            x, y, surface->w, surface->h
+        ));
+        SDL_assert(0 && "Pixel read is not inbounds!");
+        return color;
+    }
+
     const SDL_PixelFormat* fmt = surface->format;
     const int bpp = surface->format->BytesPerPixel;
     const Uint32* pixel = (Uint32*) ((Uint8*) surface->pixels + y * surface->pitch + x * bpp);
-    SDL_Color color = {0, 0, 0, 0};
 
     switch (bpp)
     {
