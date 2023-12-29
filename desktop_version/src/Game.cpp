@@ -7503,6 +7503,14 @@ static inline int get_framerate(const int slowdown)
 
 int Game::get_timestep(void)
 {
+    if ((gamestate == GAMEMODE || (gamestate == TELEPORTERMODE && !useteleporter)) &&
+    level_debugger::is_active() &&
+    !level_debugger::is_pausing() &&
+    key.isDown(SDLK_f))
+    {
+        return 1;
+    }
+
     switch (gamestate)
     {
     case GAMEMODE:
