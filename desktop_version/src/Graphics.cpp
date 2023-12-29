@@ -2854,7 +2854,7 @@ void Graphics::drawtowerbackground(const TowerBG& bg_obj)
 {
     clear();
 
-    const int offset = (int) lerp(0, -bg_obj.bscroll);
+    const int offset = (int) lerp(-bg_obj.bscroll, 0);
     const SDL_Rect srcRect = {0, 8 + offset, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS};
 
     copy_texture(bg_obj.texture, &srcRect, NULL);
