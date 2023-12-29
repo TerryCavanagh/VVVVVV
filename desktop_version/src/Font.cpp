@@ -407,7 +407,7 @@ static uint8_t load_font(FontContainer* container, const char* name)
             const uint32_t chars_per_line = temp_surface->w / f->glyph_w;
             const uint32_t max_codepoint = (temp_surface->h / f->glyph_h) * chars_per_line;
 
-            for (uint32_t codepoint = 0x00; codepoint <= max_codepoint; codepoint++)
+            for (uint32_t codepoint = 0x00; codepoint < max_codepoint; codepoint++)
             {
                 if (codepoint > 0x7F)
                 {
