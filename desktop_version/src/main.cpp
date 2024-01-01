@@ -559,6 +559,7 @@ int main(int argc, char *argv[])
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir, fontsDir))
     {
         vlog_error("Unable to initialize filesystem!");
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Unable to initialize filesystem!", NULL);
         VVV_exit(1);
     }
 
