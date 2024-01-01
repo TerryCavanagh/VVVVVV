@@ -13,3 +13,6 @@
 [submodule "third_party/c-hashmap"]
 	path = third_party/c-hashmap
 	url = https://github.com/Mashpoe/c-hashmap
+[submodule "third_party/SheenBidi"]
+	path = third_party/SheenBidi
+	url = https://github.com/Tehreer/SheenBidi
