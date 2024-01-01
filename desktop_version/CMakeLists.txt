@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8.12...3.5)
 option(ENABLE_WARNINGS "Enable compilation warnings" ON)
 option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
-option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and FAudio (if disabled, TinyXML-2, PhysicsFS, and FAudio will be dynamically linked; LodePNG and C-HashMap will still be statically linked)" ON)
+option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and FAudio (if disabled, TinyXML-2, PhysicsFS, and FAudio will be dynamically linked; LodePNG, C-HashMap and SheenBidi will still be statically linked)" ON)
 
 option(STEAM "Use the Steam API" OFF)
 option(GOG "Use the GOG API" OFF)
@@ -147,6 +147,7 @@ if(BUNDLE_DEPENDENCIES)
         ../third_party/c-hashmap
         ../third_party/FAudio/include
         ../third_party/FAudio/src
+        ../third_party/SheenBidi/Headers
     )
 else()
     target_include_directories(
@@ -157,6 +158,7 @@ else()
         ../third_party/physfs/extras
         ../third_party/c-hashmap
         ../third_party/FAudio/src
+        ../third_party/SheenBidi/Headers
     )
 endif()
 
@@ -200,6 +202,7 @@ if(APPLE)
 endif()
 set(PNG_SRC src/lodepng_wrapper.c)
 set(CHM_SRC ../third_party/c-hashmap/map.c)
+set(SBIDI_SRC ../third_party/SheenBidi/Source/SheenBidi.c)
 
 if(NOT OFFICIAL_BUILD)
     # Add interim commit hash and its date to the build
@@ -317,10 +320,19 @@ target_compile_definitions(lodepng-static PRIVATE
 
 add_library(c-hashmap-static STATIC ${CHM_SRC})
 
+add_library(sheenbidi-static STATIC ${SBIDI_SRC})
+
+target_compile_definitions(sheenbidi-static PRIVATE
+    -DSB_CONFIG_UNITY
+)
+target_include_directories(sheenbidi-static PRIVATE
+    ../third_party/SheenBidi/Headers
+)
+
 if(BUNDLE_DEPENDENCIES)
-    list(APPEND STATIC_LIBRARIES physfs-static tinyxml2-static lodepng-static c-hashmap-static faudio-static)
+    list(APPEND STATIC_LIBRARIES physfs-static tinyxml2-static lodepng-static c-hashmap-static faudio-static sheenbidi-static)
 else()
-    list(APPEND STATIC_LIBRARIES lodepng-static c-hashmap-static)
+    list(APPEND STATIC_LIBRARIES lodepng-static c-hashmap-static sheenbidi-static)
 endif()
 
 if(BUNDLE_DEPENDENCIES)
