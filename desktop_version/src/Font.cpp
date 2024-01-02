@@ -6,6 +6,7 @@
 #include "Constants.h"
 #include "CustomLevels.h"
 #include "FileSystemUtils.h"
+#include "FontBidi.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
@@ -1299,6 +1300,11 @@ void print(
     else if (!pf.cjk_low)
     {
         y -= h_diff_8/2;
+    }
+
+    if (bidi_should_transform(text))
+    {
+        text = bidi_transform(text);
     }
 
     int position = 0;
