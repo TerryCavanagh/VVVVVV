@@ -13,6 +13,7 @@
 #include "Exit.h"
 #include "FileSystemUtils.h"
 #include "Font.h"
+#include "FontBidi.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
@@ -639,6 +640,7 @@ int main(int argc, char *argv[])
 
     BUTTONGLYPHS_init();
     font::load_main();
+    font::bidi_init();
 
     // This loads music too...
     if (!graphics.reloadresources())
@@ -843,6 +845,7 @@ static void cleanup(void)
     graphics.grphx.destroy();
     graphics.destroy_buffers();
     graphics.destroy();
+    font::bidi_destroy();
     font::destroy();
     gameScreen.destroy();
     music.destroy();
