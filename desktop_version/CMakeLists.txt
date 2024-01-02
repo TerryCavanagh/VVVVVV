@@ -77,6 +77,7 @@ set(VVV_SRC
     src/FileSystemUtils.cpp
     src/Finalclass.cpp
     src/Font.cpp
+    src/FontBidi.cpp
     src/Game.cpp
     src/Graphics.cpp
     src/GraphicsResources.cpp
