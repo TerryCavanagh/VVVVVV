@@ -34,7 +34,9 @@ cd build
 cmake -A Win32 -G "Visual Studio 10 2010" .. -DSDL2_INCLUDE_DIRS="C:\SDL2-2.24.0\include" -DSDL2_LIBRARIES="C:\SDL2-2.24.0\lib\x86\SDL2;C:\SDL2-2.24.0\lib\x86\SDL2main"
 ```
 
-For more detailed information and troubleshooting, see the [Compiling VVVVVV Guide](https://vsix.dev/wiki/Guide:Compiling_VVVVVV_on_Windows_with_Visual_Studio) on the vsix wiki.
+For more detailed information and troubleshooting, see the [Compiling VVVVVV
+Guide](https://vsix.dev/wiki/Guide:Compiling_VVVVVV_on_Windows_with_Visual_Studio)
+on the Viki.
 
 To generate everywhere else:
 ```
