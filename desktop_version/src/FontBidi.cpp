@@ -271,6 +271,84 @@ const char* bidi_transform(const char* text)
     for (SBUInteger i = 0; i < n_runs; i++)
     {
         bool is_ltr = runs[i].level % 2 == 0;
+        if (!is_ltr)
+        {
+            // Time for reshaping!
+            enum arabic_form { NONE, ISOLATED, INITIAL, MEDIAL, FINAL };
+            arabic_form forms[1024];
+            uint32_t replacements[1024];
+
+            const ArabicLetter* letter;
+            const ArabicLetter* previous_letter = NULL;
+            arabic_form previous_form = NONE;
+            for (size_t c = 0; c < runs[i].length; c++)
+            {
+                uintptr_t letter_ptr;
+                bool found = hashmap_get(arabic_letters_map, &utf32_in[runs[i].offset + c], sizeof(uint32_t), &letter_ptr);
+                if (!found)
+                {
+                    forms[c] = NONE;
+                    replacements[c] = 0;
+                    previous_form = NONE;
+                    previous_letter = NULL;
+                    continue;
+                }
+                letter = (const ArabicLetter*) letter_ptr;
+
+                if (previous_form == NONE)
+                {
+                    // Maybe the first letter, or the one after an unknown one
+                    forms[c] = ISOLATED;
+                    replacements[c] = 0;
+                }
+                else if (letter->final == 0 && letter->medial == 0)
+                {
+                    // letter doesn't connect with the one before
+                    forms[c] = ISOLATED;
+                    replacements[c] = 0;
+                }
+                else if (previous_letter->initial == 0 && previous_letter->medial == 0)
+                {
+                    // previous_letter doesn't connect with the one after
+                    forms[c] = ISOLATED;
+                    replacements[c] = 0;
+                }
+                else if (previous_form == FINAL && previous_letter->medial == 0)
+                {
+                    // previous_letter doesn't connect with the ones before and after
+                    forms[c] = ISOLATED;
+                    replacements[c] = 0;
+                }
+                else if (previous_form == ISOLATED)
+                {
+                    forms[c-1] = INITIAL;
+                    forms[c] = FINAL;
+                    replacements[c-1] = previous_letter->initial;
+                    replacements[c] = letter->final;
+                }
+                else
+                {
+                    /* Otherwise, we will change the previous letter
+                     * to connect to the current letter */
+                    forms[c-1] = MEDIAL;
+                    forms[c] = FINAL;
+                    replacements[c-1] = previous_letter->medial;
+                    replacements[c] = letter->final;
+                }
+
+                previous_form = forms[c];
+                previous_letter = (const ArabicLetter*) letter;
+            }
+
+            // Now that we have all the forms, time to change the codepoints!
+            for (size_t c = 0; c < runs[i].length; c++)
+            {
+                if (replacements[c] != 0)
+                {
+                    utf32_in[runs[i].offset + c] = replacements[c];
+                }
+            }
+        }
         for (size_t c = 0; c < runs[i].length; c++)
         {
             size_t ix;
@@ -288,8 +366,6 @@ const char* bidi_transform(const char* text)
             {
                 goto no_more_runs;
             }
-
-            // TODO prolly do something with reshaping here
 
             UTF8_encoding enc = UTF8_encode(utf32_in[ix]);
             size_t n_copy = SDL_min(enc.nbytes, (size_t) out_room_left);
