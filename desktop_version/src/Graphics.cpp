@@ -249,11 +249,11 @@ void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), "label:str", text);
-        font::print(PR_CEN | PR_CJK_LOW, x, 220, buffer, 196, 196, 255 - help.glow);
+        font::print(PR_CEN | PR_CJK_LOW | PR_RTL_XFLIP, x, 220, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
-        font::print(PR_CEN | PR_CJK_LOW, x, 220, text, 64, 64, 64);
+        font::print(PR_CEN | PR_CJK_LOW | PR_RTL_XFLIP, x, 220, text, 64, 64, 64);
     }
 }
 
