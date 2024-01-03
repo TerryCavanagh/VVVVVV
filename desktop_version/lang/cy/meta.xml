@@ -26,6 +26,9 @@
     <!-- When automatically uppercasing, allow ~ to be used to stop the next letter from being uppercased (for Irish) -->
     <toupper_lower_escape_char>0</toupper_lower_escape_char>
 
+    <!-- Enable for RTL languages like Arabic or Hebrew -->
+    <rtl>0</rtl>
+
     <!-- The indication that a certain menu option or button is selected -->
     <menu_select>[ {label} ]</menu_select>
     <menu_select_tight>[{label}]</menu_select_tight>

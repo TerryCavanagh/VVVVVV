@@ -67,6 +67,7 @@ static void loadmeta(LangMeta& meta, const std::string& langcode = lang)
     meta.toupper = true;
     meta.toupper_i_dot = false;
     meta.toupper_lower_escape_char = false;
+    meta.rtl = false;
     meta.menu_select = "[ {label} ]";
     meta.menu_select_tight = "[{label}]";
     meta.font_idx = font::get_font_idx_8x8();
@@ -107,6 +108,8 @@ static void loadmeta(LangMeta& meta, const std::string& langcode = lang)
             meta.toupper_i_dot = help.Int(pText);
         else if (SDL_strcmp(pKey, "toupper_lower_escape_char") == 0)
             meta.toupper_lower_escape_char = help.Int(pText);
+        else if (SDL_strcmp(pKey, "rtl") == 0)
+            meta.rtl = help.Int(pText);
         else if (SDL_strcmp(pKey, "menu_select") == 0)
             meta.menu_select = std::string(pText);
         else if (SDL_strcmp(pKey, "menu_select_tight") == 0)
