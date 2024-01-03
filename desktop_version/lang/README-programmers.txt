@@ -103,6 +103,9 @@ A not-technically-exhaustive list of all flags (which are defined in Font.h):
 - PR_CJK_LOW             Larger fonts should stick out fully on the bottom
                          (draw at Y)
 - PR_CJK_HIGH            Larger fonts should stick out fully on the top
+- PR_RTL_XFLIP           In RTL languages, mirror the X axis, so left is 320
+                         and right is 0, and invert the meaning of PR_LEFT and
+                         PR_RIGHT
 
 
 

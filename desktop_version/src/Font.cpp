@@ -86,6 +86,7 @@ struct PrintFlags
     bool cjk_low;
     bool cjk_high;
     bool rtl;
+    bool rtl_xflip;
 };
 
 static FontContainer fonts_main = {};
@@ -830,6 +831,7 @@ static PrintFlags decode_print_flags(uint32_t flags)
     pf.align_right = flags & PR_RIGHT;
     pf.cjk_low = flags & PR_CJK_LOW;
     pf.cjk_high = flags & PR_CJK_HIGH;
+    pf.rtl_xflip = flags & PR_RTL_XFLIP;
 
     if (pf.full_border)
     {
@@ -1269,6 +1271,12 @@ void print(
         return;
     }
 
+    if (pf.rtl && pf.rtl_xflip && (!pf.align_cen || x != -1))
+    {
+        x = SCREEN_WIDTH_PIXELS - x;
+        pf.align_right = !pf.align_right;
+    }
+
     if (pf.align_cen || pf.align_right)
     {
         const int textlen = len(flags, text);
@@ -1294,7 +1302,7 @@ void print(
         for (int offset = 0; offset < 4; offset++)
         {
             print(
-                flags & ~PR_BOR & ~PR_CEN & ~PR_RIGHT,
+                flags & ~PR_BOR & ~PR_CEN & ~PR_RIGHT & ~PR_RTL_XFLIP,
                 x + offsets[offset][0]*pf.scale,
                 y + offsets[offset][1]*pf.scale,
                 text,
@@ -1310,7 +1318,7 @@ void print(
         for (int offset = 0; offset < 8; offset++)
         {
             print(
-                flags & ~PR_FULLBOR & ~PR_CEN & ~PR_RIGHT,
+                flags & ~PR_FULLBOR & ~PR_CEN & ~PR_RIGHT & ~PR_RTL_XFLIP,
                 x + offsets[offset][0] * pf.scale,
                 y + offsets[offset][1] * pf.scale,
                 text,
