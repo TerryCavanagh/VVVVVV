@@ -263,6 +263,25 @@ void bidi_destroy(void)
 }
 
 
+bool is_directional_character(const uint32_t codepoint)
+{
+    // LEFT-TO-RIGHT MARK and RIGHT-TO-LEFT MARK
+    if (codepoint == 0x200E || codepoint == 0x200F) return true;
+
+    // Some other directional formatting: LRE, RLE, PDF, RLO, LRO
+    if (codepoint >= 0x202A && codepoint <= 0x202E) return true;
+
+    // The more recent isolates: LRI, RLI, FSI, PDI
+    if (codepoint >= 0x2066 && codepoint <= 0x2069) return true;
+
+    return false;
+}
+
+bool is_joiner(const uint32_t codepoint)
+{
+    return codepoint == 0x200C || codepoint == 0x200D;
+}
+
 bool bidi_should_transform(const char* text)
 {
     /* Just as an optimization, only run the whole bidi machinery if the
@@ -278,14 +297,8 @@ bool bidi_should_transform(const char* text)
         // Extended Arabic B and A
         if (ch >= 0x870 && ch <= 0x8FF) return true;
 
-        // LEFT-TO-RIGHT MARK and RIGHT-TO-LEFT MARK
-        if (ch == 0x200E || ch == 0x200F) return true;
-
-        // Some other directional formatting: LRE, RLE, PDF, RLO, LRO
-        if (ch >= 0x202A && ch <= 0x202E) return true;
-
-        // The more recent isolates: LRI, RLI, FSI, PDI
-        if (ch >= 0x2066 && ch <= 0x2069) return true;
+        // Any directional control character
+        if (is_directional_character(ch)) return true;
 
         // Hebrew presentation forms
         if (ch >= 0xFB1D && ch <= 0xFB4F) return true;
