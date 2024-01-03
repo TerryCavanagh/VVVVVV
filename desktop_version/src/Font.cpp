@@ -1247,6 +1247,12 @@ int height(const uint32_t flags)
     return pf.font_sel->glyph_h * pf.scale;
 }
 
+bool is_rtl(const uint32_t flags)
+{
+    PrintFlags pf = decode_print_flags(flags);
+    return pf.rtl;
+}
+
 void print(
     const uint32_t flags,
     int x,
