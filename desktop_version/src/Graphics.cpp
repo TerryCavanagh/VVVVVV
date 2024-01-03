@@ -871,6 +871,36 @@ void Graphics::drawgui(void)
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
 
+        int w = textboxes[i].w;
+        if (textboxes[i].fill_buttons)
+        {
+            /* If we can fill in buttons, the width of the box may change...
+             * This is Violet's fault. She decided to say a button name out loud. */
+            int max = 0;
+            for (size_t j = 0; j < textboxes[i].lines.size(); j++)
+            {
+                int len = font::len(textboxes[i].print_flags, textbox_line(buffer, sizeof(buffer), i, j));
+                if (len > max)
+                {
+                    max = len;
+                }
+            }
+            w = max + 16;
+        }
+
+        uint32_t print_flags = textboxes[i].print_flags | PR_CJK_LOW;
+        int text_xp;
+
+        if (font::is_rtl(print_flags))
+        {
+            print_flags |= PR_RIGHT;
+            text_xp = textboxes[i].xp + w - 8;
+        }
+        else
+        {
+            text_xp = textboxes[i].xp + 8;
+        }
+
         const bool transparent = (textboxes[i].r | textboxes[i].g | textboxes[i].b) == 0;
 
         if (transparent)
@@ -881,8 +911,8 @@ void Graphics::drawgui(void)
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
                 font::print(
-                    textboxes[i].print_flags | PR_CJK_LOW | PR_BOR,
-                    textboxes[i].xp + 8,
+                    print_flags | PR_BOR,
+                    text_xp,
                     yp + text_yoff + text_sign * (j * font_height),
                     textbox_line(buffer, sizeof(buffer), i, j),
                     0, 0, 0
@@ -891,8 +921,8 @@ void Graphics::drawgui(void)
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
                 font::print(
-                    textboxes[i].print_flags | PR_CJK_LOW,
-                    textboxes[i].xp + 8,
+                    print_flags,
+                    text_xp,
                     yp + text_yoff + text_sign * (j * font_height),
                     textbox_line(buffer, sizeof(buffer), i, j),
                     196, 196, 255 - help.glow
@@ -905,32 +935,14 @@ void Graphics::drawgui(void)
             const int r = textboxes[i].r * tl_lerp;
             const int g = textboxes[i].g * tl_lerp;
             const int b = textboxes[i].b * tl_lerp;
-            size_t j;
-
-            int w = textboxes[i].w;
-            if (textboxes[i].fill_buttons)
-            {
-                /* If we can fill in buttons, the width of the box may change...
-                 * This is Violet's fault. She decided to say a button name out loud. */
-                int max = 0;
-                for (j = 0; j < textboxes[i].lines.size(); j++)
-                {
-                    int len = font::len(textboxes[i].print_flags, textbox_line(buffer, sizeof(buffer), i, j));
-                    if (len > max)
-                    {
-                        max = len;
-                    }
-                }
-                w = max + 16;
-            }
 
             drawpixeltextbox(textboxes[i].xp, yp, w, textboxes[i].h, r, g, b);
 
-            for (j = 0; j < textboxes[i].lines.size(); j++)
+            for (size_t j = 0; j < textboxes[i].lines.size(); j++)
             {
                 font::print(
-                    textboxes[i].print_flags | PR_BRIGHTNESS(tl_lerp*255) | PR_CJK_LOW,
-                    textboxes[i].xp + 8,
+                    print_flags | PR_BRIGHTNESS(tl_lerp*255),
+                    text_xp,
                     yp + text_yoff + text_sign * (j * font_height),
                     textbox_line(buffer, sizeof(buffer), i, j),
                     textboxes[i].r, textboxes[i].g, textboxes[i].b
