@@ -14,7 +14,6 @@
 #include "Entity.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
-#include "Font.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "LevelDebugger.h"
@@ -6487,7 +6486,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         for (uint8_t i = 0; i < font::font_idx_options_n; i++)
         {
             uint8_t idx = font::font_idx_options[i];
-            option(font::get_main_font_display_name(idx), true, PR_FONT_IDX(idx, false));
+            option(font::get_main_font_display_name(idx), true, PR_FONT_IDX(idx, font::is_rtl(PR_FONT_INTERFACE)) | PR_RTL_XFLIP);
             if (font::level_font_is_main_idx(idx))
             {
                 option_match = i;

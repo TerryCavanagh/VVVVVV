@@ -285,11 +285,11 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
         // Account for brackets
         x -= (font::len(0, buffer) - font::len(0, text_upper.c_str())) / 2;
 
-        font::print(0, x, y, buffer, 196, 196, 255 - help.glow);
+        font::print(PR_RTL_XFLIP, x, y, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
-        font::print(0, x, y, loc::remove_toupper_escape_chars(text), 96, 96, 96);
+        font::print(PR_RTL_XFLIP, x, y, loc::remove_toupper_escape_chars(text), 96, 96, 96);
     }
 }
 

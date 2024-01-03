@@ -573,8 +573,16 @@ static void editormenurender(int tr, int tg, int tb)
         int len_label = font::len(0, label);
         const char* name = font::get_level_font_display_name();
 
-        font::print(0, 2, 230, label, tr / 2, tg / 2, tb / 2);
-        font::print(PR_FONT_LEVEL, 2 + len_label, 230, name, tr / 2, tg / 2, tb / 2);
+        int font_x = 2 + len_label;
+        uint32_t font_flags = PR_FONT_LEVEL;
+        if (font::is_rtl(PR_FONT_INTERFACE))
+        {
+            font_x = SCREEN_WIDTH_PIXELS - font_x;
+            font_flags |= PR_RIGHT;
+        }
+
+        font::print(PR_RTL_XFLIP, 2, 230, label, tr / 2, tg / 2, tb / 2);
+        font::print(font_flags, font_x, 230, name, tr / 2, tg / 2, tb / 2);
         break;
     }
     case Menu::ed_music:
@@ -652,8 +660,16 @@ static void editormenurender(int tr, int tg, int tb)
         int len_label = font::len(0, label);
         const char* name = font::get_level_font_display_name();
 
-        font::print(0, 2, 230, label, tr/2, tg/2, tb/2);
-        font::print(PR_FONT_LEVEL, 2+len_label, 230, name, tr/2, tg/2, tb/2);
+        int font_x = 2 + len_label;
+        uint32_t font_flags = PR_FONT_LEVEL;
+        if (font::is_rtl(PR_FONT_INTERFACE))
+        {
+            font_x = SCREEN_WIDTH_PIXELS - font_x;
+            font_flags |= PR_RIGHT;
+        }
+
+        font::print(PR_RTL_XFLIP, 2, 230, label, tr/2, tg/2, tb/2);
+        font::print(font_flags, font_x, 230, name, tr/2, tg/2, tb/2);
         break;
     }
     default:

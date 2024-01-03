@@ -1637,20 +1637,20 @@ static void menurender(void)
             {
                 int sp = SDL_max(10, font::height(0));
 
-                font::print(0, 32, 65, loc::gettext("RECORDS"), tr, tg, tb);
+                font::print(PR_RTL_XFLIP, 32, 65, loc::gettext("RECORDS"), tr, tg, tb);
                 const char* label = loc::gettext("TIME");
                 int label_len = font::len(0, label);
-                font::print(0, 32, 65+sp, label, tr, tg, tb);
+                font::print(PR_RTL_XFLIP, 32, 65+sp, label, tr, tg, tb);
                 label = loc::gettext("SHINY");
                 label_len = SDL_max(label_len, font::len(0, label));
-                font::print(0, 32, 65+sp*2, label, tr, tg, tb);
+                font::print(PR_RTL_XFLIP, 32, 65+sp*2, label, tr, tg, tb);
                 label = loc::gettext("LIVES");
                 label_len = SDL_max(label_len, font::len(0, label));
-                font::print(0, 32, 65+sp*3, label, tr, tg, tb);
+                font::print(PR_RTL_XFLIP, 32, 65+sp*3, label, tr, tg, tb);
 
                 char buffer[SCREEN_WIDTH_CHARS + 1];
                 help.format_time(buffer, sizeof(buffer), game.besttimes[id_trial], game.bestframes[id_trial], true);
-                font::print(0, label_len+48, 65+sp, buffer, tr, tg, tb);
+                font::print(PR_RTL_XFLIP, label_len+48, 65+sp, buffer, tr, tg, tb);
 
                 vformat_buf(
                     buffer, sizeof(buffer),
@@ -1658,8 +1658,8 @@ static void menurender(void)
                     "n_trinkets:int, max_trinkets:int",
                     game.besttrinkets[id_trial], max_trinkets
                 );
-                font::print(0, label_len+48, 65+sp*2, buffer, tr, tg, tb);
-                font::print(0, label_len+48, 65+sp*3, help.String(game.bestlives[id_trial]), tr, tg, tb);
+                font::print(PR_RTL_XFLIP, label_len+48, 65+sp*2, buffer, tr, tg, tb);
+                font::print(PR_RTL_XFLIP, label_len+48, 65+sp*3, help.String(game.bestlives[id_trial]), tr, tg, tb);
 
 
                 const char* str_par_time = loc::gettext("PAR TIME");
@@ -1700,11 +1700,11 @@ static void menurender(void)
                 }
                 int center_x = 288 - longest_w/2;
 
-                font::print(PR_CEN, center_x, 65, str_par_time, tr, tg, tb);
-                font::print(PR_CEN, center_x, 65+sp, par_time, tr, tg, tb);
-                font::print(PR_CEN, center_x, 65+sp*3, str_best_rank, tr, tg, tb);
+                font::print(PR_CEN | PR_RTL_XFLIP, center_x, 65, str_par_time, tr, tg, tb);
+                font::print(PR_CEN | PR_RTL_XFLIP, center_x, 65+sp, par_time, tr, tg, tb);
+                font::print(PR_CEN | PR_RTL_XFLIP, center_x, 65+sp*3, str_best_rank, tr, tg, tb);
                 font::print(
-                    PR_2X | PR_CEN,
+                    PR_2X | PR_CEN | PR_RTL_XFLIP,
                     center_x,
                     66+sp*4,
                     rank,
@@ -2229,10 +2229,10 @@ void gamerender(void)
     {
         const char* tempstring = loc::gettext("TIME:");
         int label_len = font::len(0, tempstring);
-        font::print(PR_BOR, 6, 6, tempstring, 255,255,255);
+        font::print(PR_BOR | PR_RTL_XFLIP, 6, 6, tempstring, 255,255,255);
         char buffer[SCREEN_WIDTH_CHARS + 1];
         game.timestringcenti(buffer, sizeof(buffer));
-        font::print(PR_BOR, 6+label_len, 6, buffer, 196,196,196);
+        font::print(PR_BOR | PR_RTL_XFLIP, 6+label_len, 6, buffer, 196,196,196);
     }
 
     bool force_roomname_hidden = false;
@@ -2480,29 +2480,29 @@ void gamerender(void)
             //Draw OSD stuff
             const char* tempstring = loc::gettext("TIME:");
             int label_len = font::len(0, tempstring);
-            font::print(PR_BOR, 6, 18, tempstring,  255,255,255);
+            font::print(PR_BOR | PR_RTL_XFLIP, 6, 18, tempstring,  255,255,255);
             tempstring = loc::gettext("DEATH:");
             label_len = SDL_max(label_len, font::len(0, tempstring));
-            font::print(PR_BOR, 6, 30, tempstring,  255,255,255);
+            font::print(PR_BOR | PR_RTL_XFLIP, 6, 30, tempstring,  255,255,255);
             tempstring = loc::gettext("SHINY:");
             label_len = SDL_max(label_len, font::len(0, tempstring));
-            font::print(PR_BOR, 6, 42, tempstring,  255,255,255);
+            font::print(PR_BOR | PR_RTL_XFLIP, 6, 42, tempstring,  255,255,255);
 
             if(game.timetrialparlost)
             {
-                font::print(PR_BOR, 8+label_len, 18, buffer,  196, 80, 80);
+                font::print(PR_BOR | PR_RTL_XFLIP, 8+label_len, 18, buffer,  196, 80, 80);
             }
             else
             {
-                font::print(PR_BOR, 8+label_len, 18, buffer,  196, 196, 196);
+                font::print(PR_BOR | PR_RTL_XFLIP, 8+label_len, 18, buffer,  196, 196, 196);
             }
             if(game.deathcounts>0)
             {
-                font::print(PR_BOR, 8+label_len, 30,help.String(game.deathcounts),  196, 80, 80);
+                font::print(PR_BOR | PR_RTL_XFLIP, 8+label_len, 30,help.String(game.deathcounts),  196, 80, 80);
             }
             else
             {
-                font::print(PR_BOR, 8+label_len, 30,help.String(game.deathcounts),  196, 196, 196);
+                font::print(PR_BOR | PR_RTL_XFLIP, 8+label_len, 30,help.String(game.deathcounts),  196, 196, 196);
             }
             vformat_buf(
                 buffer, sizeof(buffer),
@@ -2512,24 +2512,24 @@ void gamerender(void)
             );
             if(game.trinkets()<game.timetrialshinytarget)
             {
-                font::print(PR_BOR, 8+label_len, 42, buffer,  196, 80, 80);
+                font::print(PR_BOR | PR_RTL_XFLIP, 8+label_len, 42, buffer,  196, 80, 80);
             }
             else
             {
-                font::print(PR_BOR, 8+label_len, 42, buffer,  196, 196, 196);
+                font::print(PR_BOR | PR_RTL_XFLIP, 8+label_len, 42, buffer,  196, 196, 196);
             }
 
             std::string time = game.timetstring(game.timetrialpar);
             label_len = font::len(0, time.c_str());
             if(game.timetrialparlost)
             {
-                font::print(PR_BOR | PR_RIGHT, 307-label_len-8, 214, loc::gettext("PAR TIME:"),  80, 80, 80);
-                font::print(PR_BOR,            307-label_len,   214, time,  80, 80, 80);
+                font::print(PR_BOR | PR_RTL_XFLIP | PR_RIGHT, 307-label_len-8, 214, loc::gettext("PAR TIME:"),  80, 80, 80);
+                font::print(PR_BOR | PR_RTL_XFLIP,            307-label_len,   214, time,  80, 80, 80);
             }
             else
             {
-                font::print(PR_BOR | PR_RIGHT, 307-label_len-8, 214, loc::gettext("PAR TIME:"),  255, 255, 255);
-                font::print(PR_BOR,            307-label_len,   214, time,  196, 196, 196);
+                font::print(PR_BOR | PR_RTL_XFLIP | PR_RIGHT, 307-label_len-8, 214, loc::gettext("PAR TIME:"),  255, 255, 255);
+                font::print(PR_BOR | PR_RTL_XFLIP,            307-label_len,   214, time,  196, 196, 196);
             }
         }
     }
@@ -3190,8 +3190,8 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(0, 80-selection_offset, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(0, 80 + 32, 76, loc::gettext("yes, quit to menu"),  96, 96, 96);
+            font::print(PR_RTL_XFLIP, 80-selection_offset, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(PR_RTL_XFLIP, 80 + 32, 76, loc::gettext("yes, quit to menu"),  96, 96, 96);
         }
         else
         {
@@ -3205,8 +3205,8 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(0, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(0, 80 + 32, 142, loc::gettext("yes, quit to menu"),  96, 96, 96);
+            font::print(PR_RTL_XFLIP, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, quit to menu"),  96, 96, 96);
 
         }
         break;
@@ -3224,8 +3224,8 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(0, 80, 88, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(0, 80+32-selection_offset, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
+            font::print(PR_RTL_XFLIP, 80, 88, loc::gettext("no, keep playing"), 96,96,96);
+            font::print(PR_RTL_XFLIP, 80+32-selection_offset, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
         }
         else
         {
@@ -3238,8 +3238,8 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(0, 80, 130, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(0, 80+32-selection_offset, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96,96,96);
+            font::print(PR_RTL_XFLIP, 80+32-selection_offset, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
         }
         break;
     case 20:
@@ -3248,14 +3248,14 @@ void maprender(void)
         if (graphics.flipmode)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(0, 80-selection_offset, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(0, 80 + 32, 130, loc::gettext("yes, return"),  96, 96, 96);
+            font::print(PR_RTL_XFLIP, 80-selection_offset, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(PR_RTL_XFLIP, 80 + 32, 130, loc::gettext("yes, return"),  96, 96, 96);
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(0, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(0, 80 + 32, 142, loc::gettext("yes, return"),  96, 96, 96);
+            font::print(PR_RTL_XFLIP, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, return"),  96, 96, 96);
         }
 
         break;
@@ -3265,14 +3265,14 @@ void maprender(void)
         if (graphics.flipmode)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(0, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(0, 80 + 32-selection_offset, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            font::print(PR_RTL_XFLIP, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
+            font::print(PR_RTL_XFLIP, 80 + 32-selection_offset, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(0, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(0, 80 + 32-selection_offset, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
+            font::print(PR_RTL_XFLIP, 80 + 32-selection_offset, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
         }
 
     }
