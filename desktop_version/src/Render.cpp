@@ -266,7 +266,10 @@ static void menurender(void)
             }
             else
             {
-                uint32_t level_flags = PR_FONT_IDX(cl.ListOfMetaData[tmp].level_main_font_idx);
+                uint32_t level_flags = PR_FONT_IDX(
+                    cl.ListOfMetaData[tmp].level_main_font_idx,
+                    cl.ListOfMetaData[tmp].rtl
+                );
                 uint32_t title_flags = cl.ListOfMetaData[tmp].title_is_gettext ? PR_FONT_INTERFACE : level_flags;
                 uint32_t creator_flags = cl.ListOfMetaData[tmp].creator_is_gettext ? PR_FONT_INTERFACE : level_flags;
 

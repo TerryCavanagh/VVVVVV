@@ -85,6 +85,7 @@ struct PrintFlags
     bool align_right;
     bool cjk_low;
     bool cjk_high;
+    bool rtl;
 };
 
 static FontContainer fonts_main = {};
@@ -558,6 +559,8 @@ void set_level_font(const char* name)
             }
         }
     }
+
+    cl.rtl = SDL_strcmp(name, "font_ar") == 0; // FIXME: make different menu options for choosing LTR/RTL of the same font
 }
 
 void set_level_font_interface(void)
@@ -590,6 +593,7 @@ void set_level_font_new(void)
     }
 
     cl.level_font_name = get_main_font_name(font_idx_level);
+    cl.rtl = cl.level_font_name == "font_ar"; // FIXME: make different menu options for choosing LTR/RTL of the same font
 }
 
 static void fill_map_name_idx(FontContainer* container)
@@ -763,13 +767,19 @@ static Font* container_get(FontContainer* container, uint8_t idx)
     return NULL;
 }
 
-static Font* fontsel_to_font(int sel)
+static Font* fontsel_to_font(int sel, bool* rtl)
 {
     /* Take font selection integer (0-31) and turn it into the correct Font
      * 0: PR_FONT_INTERFACE - use interface font
      * 1: PR_FONT_LEVEL     - use level font
      * 2: PR_FONT_8X8       - use 8x8 font no matter what
-     * 3-31:                - use (main) font index 0-28 */
+     * 3-31:                - use (main) font index 0-28
+     *
+     * rtl will be set depending on whether we're requesting the interface
+     * font (take it from the lang attributes) or level font (take it from
+     * the level attributes), or false otherwise. */
+
+    *rtl = false;
 
     if (sel < 0)
     {
@@ -782,6 +792,7 @@ static Font* fontsel_to_font(int sel)
     case 1:
         if (!font_level_is_interface)
         {
+            *rtl = cl.rtl;
             if (font_idx_level_is_custom)
             {
                 return container_get(&fonts_custom, font_idx_level);
@@ -793,6 +804,7 @@ static Font* fontsel_to_font(int sel)
         }
         SDL_FALLTHROUGH;
     case 0:
+        *rtl = loc::get_langmeta()->rtl;
         return container_get(&fonts_main, loc::get_langmeta()->font_idx);
     case 2:
         return container_get(&fonts_main, font_idx_8x8);
@@ -806,7 +818,11 @@ static PrintFlags decode_print_flags(uint32_t flags)
 {
     PrintFlags pf;
     pf.scale = FLAG_PART(0, 3) + 1;
-    pf.font_sel = fontsel_to_font(FLAG_PART(3, 5));
+    pf.font_sel = fontsel_to_font(FLAG_PART(3, 5), &pf.rtl);
+    if (flags & PR_RTL_FORCE)
+    {
+        pf.rtl = true;
+    }
     pf.brightness = ~FLAG_PART(8, 8) & 0xff;
     pf.border = flags & PR_BOR;
     pf.full_border = flags & PR_FULLBOR;
@@ -1206,9 +1222,9 @@ int len(const uint32_t flags, const char* text)
 {
     PrintFlags pf = decode_print_flags(flags);
 
-    if (bidi_should_transform(text))
+    if (bidi_should_transform(pf.rtl, text))
     {
-        text = bidi_transform(text);
+        text = bidi_transform(pf.rtl, text);
     }
 
     int text_len = 0;
@@ -1313,9 +1329,9 @@ void print(
         y -= h_diff_8/2;
     }
 
-    if (bidi_should_transform(text))
+    if (bidi_should_transform(pf.rtl, text))
     {
-        text = bidi_transform(text);
+        text = bidi_transform(pf.rtl, text);
     }
 
     int position = 0;

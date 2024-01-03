@@ -282,10 +282,15 @@ bool is_joiner(const uint32_t codepoint)
     return codepoint == 0x200C || codepoint == 0x200D;
 }
 
-bool bidi_should_transform(const char* text)
+bool bidi_should_transform(const bool rtl, const char* text)
 {
     /* Just as an optimization, only run the whole bidi machinery if the
      * language is actually an RTL one, _or_ if an RTL character is found. */
+
+    if (rtl)
+    {
+        return true;
+    }
 
     const char* text_ptr = text;
     uint32_t ch;
@@ -313,7 +318,7 @@ bool bidi_should_transform(const char* text)
     return false;
 }
 
-const char* bidi_transform(const char* text)
+const char* bidi_transform(const bool rtl, const char* text)
 {
     uint32_t utf32_in[1024];
     int n_codepoints = 0;
@@ -345,7 +350,12 @@ const char* bidi_transform(const char* text)
     {
         return text;
     }
-    SBParagraphRef paragraph = SBAlgorithmCreateParagraph(algorithm, 0, INT32_MAX, SBLevelDefaultRTL);
+    SBParagraphRef paragraph = SBAlgorithmCreateParagraph(
+        algorithm,
+        0,
+        INT32_MAX,
+        rtl ? SBLevelDefaultRTL : SBLevelDefaultLTR
+    );
     SDL_assert(paragraph != NULL);
     SBUInteger paragraph_len = SBParagraphGetLength(paragraph);
     SBLineRef paragraph_line = SBParagraphCreateLine(paragraph, 0, paragraph_len);

@@ -64,7 +64,7 @@ static void sync_lang_file(const std::string& langcode)
     loadtext(false);
 
     uint8_t glyph_w = 8, glyph_h = 8;
-    font::glyph_dimensions(PR_FONT_IDX(langmeta.font_idx), &glyph_w, &glyph_h);
+    font::glyph_dimensions(PR_FONT_IDX(langmeta.font_idx, langmeta.rtl), &glyph_w, &glyph_h);
     bool max_local_needed = glyph_w != 8 || glyph_h != 8;
 
     tinyxml2::XMLDocument doc;
