@@ -1200,6 +1200,11 @@ int len(const uint32_t flags, const char* text)
 {
     PrintFlags pf = decode_print_flags(flags);
 
+    if (bidi_should_transform(text))
+    {
+        text = bidi_transform(text);
+    }
+
     int text_len = 0;
     uint32_t codepoint;
     while ((codepoint = UTF8_next(&text)))

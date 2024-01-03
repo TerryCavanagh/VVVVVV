@@ -185,7 +185,49 @@ static ArabicLetter arabic_letters[] = {
     {0x200D, 0x200D, 0x200D, 0x200D, 0x200D},
 };
 
+// Our ligatures are all simple A+B -> C conversions
+struct ArabicLigature
+{
+    uint32_t source[2];
+    uint32_t target;
+    bool mandatory;
+};
+
+static ArabicLigature arabic_ligatures[] = {
+    {{0xFEDF, 0xFE8E}, 0xFEFB, true},
+    {{0xFEDF, 0xFE82}, 0xFEF5, true},
+    {{0xFEDF, 0xFE84}, 0xFEF7, true},
+    {{0xFEDF, 0xFE88}, 0xFEF9, true},
+    {{0xFEE0, 0xFE8E}, 0xFEFC, true},
+    {{0xFEE0, 0xFE82}, 0xFEF6, true},
+    {{0xFEE0, 0xFE84}, 0xFEF8, true},
+    {{0xFEE0, 0xFE88}, 0xFEFA, true},
+    {{0xFE8D, 0xFEDF}, 0xFBF0, false},
+    {{0xFE8E, 0xFEDF}, 0xFBF0, false},
+    {{0xFEDF, 0xFEDF}, 0xFBF1, false},
+    {{0xFEE0, 0xFEDF}, 0xFBF1, false},
+    {{0xFE8B, 0xFE8E}, 0xFBF2, false},
+    {{0xFE8C, 0xFE8E}, 0xFBF2, false},
+    {{0xFEE7, 0xFE8E}, 0xFBF3, false},
+    {{0xFEE8, 0xFE8E}, 0xFBF3, false},
+    {{0xFE91, 0xFE8E}, 0xFBF4, false},
+    {{0xFE92, 0xFE8E}, 0xFBF4, false},
+    {{0xFEF3, 0xFE8E}, 0xFBF5, false},
+    {{0xFEF4, 0xFE8E}, 0xFBF5, false},
+    {{0xFEAD, 0xFE8D}, 0xFBF6, false},
+    {{0xFEAE, 0xFE8D}, 0xFBF6, false},
+    {{0xFEAF, 0xFE8D}, 0xFBF7, false},
+    {{0xFEB0, 0xFE8D}, 0xFBF7, false},
+    {{0xFEAD, 0xFEDF}, 0xFBF8, false},
+    {{0xFEAE, 0xFEDF}, 0xFBF8, false},
+    {{0xFEAF, 0xFEDF}, 0xFBF9, false},
+    {{0xFEB0, 0xFEDF}, 0xFBF9, false},
+    {{0xFEDF, 0xFEE0}, 0xFBF1, false},
+    {{0xFEE0, 0xFEE0}, 0xFBF1, false},
+};
+
 static hashmap* arabic_letters_map;
+static hashmap* arabic_ligatures_map;
 
 void bidi_init(void)
 {
@@ -200,10 +242,23 @@ void bidi_init(void)
             (uintptr_t) &arabic_letters[i]
         );
     }
+
+    arabic_ligatures_map = hashmap_create();
+
+    for (size_t i = 0; i < sizeof(arabic_ligatures)/sizeof(ArabicLigature); i++)
+    {
+        hashmap_set(
+            arabic_ligatures_map,
+            &arabic_ligatures[i].source,
+            sizeof(uint32_t) * 2,
+            (uintptr_t) &arabic_ligatures[i]
+        );
+    }
 }
 
 void bidi_destroy(void)
 {
+    VVV_freefunc(hashmap_free, arabic_ligatures_map);
     VVV_freefunc(hashmap_free, arabic_letters_map);
 }
 
@@ -299,25 +354,25 @@ const char* bidi_transform(const char* text)
                 {
                     // Maybe the first letter, or the one after an unknown one
                     forms[c] = ISOLATED;
-                    replacements[c] = 0;
+                    replacements[c] = letter->isolated;
                 }
                 else if (letter->final == 0 && letter->medial == 0)
                 {
                     // letter doesn't connect with the one before
                     forms[c] = ISOLATED;
-                    replacements[c] = 0;
+                    replacements[c] = letter->isolated;
                 }
                 else if (previous_letter->initial == 0 && previous_letter->medial == 0)
                 {
                     // previous_letter doesn't connect with the one after
                     forms[c] = ISOLATED;
-                    replacements[c] = 0;
+                    replacements[c] = letter->isolated;
                 }
                 else if (previous_form == FINAL && previous_letter->medial == 0)
                 {
                     // previous_letter doesn't connect with the ones before and after
                     forms[c] = ISOLATED;
-                    replacements[c] = 0;
+                    replacements[c] = letter->isolated;
                 }
                 else if (previous_form == ISOLATED)
                 {
@@ -348,6 +403,46 @@ const char* bidi_transform(const char* text)
                     utf32_in[runs[i].offset + c] = replacements[c];
                 }
             }
+
+            /* Ligature time! We have to do these after the reshaping process, that is, now!
+             * Again, all our ligatures are just A+B -> C, so we can just do a single pass,
+             * up until the second-to-last character (because the last character can't form
+             * a ligature with the character after).
+             * Actually, did I say single pass... The mandatory ligatures must be prioritized
+             * over the optional ones... */
+            for (char pass = 0; pass < 2; pass++)
+            {
+                for (size_t c = 0; c < runs[i].length - 1; c++)
+                {
+                    if (pass == 1 && utf32_in[runs[i].offset + c + 1] == 0xFFFFFFFF)
+                    {
+                        c++;
+                        continue;
+                    }
+
+                    uintptr_t ligature_ptr;
+                    bool found = hashmap_get(arabic_ligatures_map, &utf32_in[runs[i].offset + c], sizeof(uint32_t)*2, &ligature_ptr);
+                    if (!found)
+                    {
+                        continue;
+                    }
+
+                    const ArabicLigature* ligature = (const ArabicLigature*) ligature_ptr;
+                    if (pass == 0 && !ligature->mandatory)
+                    {
+                        continue;
+                    }
+
+                    /* We have a match, that means [c]+[c+1] needs to be replaced!
+                     * We'll use 0xFFFFFFFF as a special tombstone character,
+                     * otherwise we'd have to keep shifting the array contents... */
+                    utf32_in[runs[i].offset + c] = ligature->target;
+                    utf32_in[runs[i].offset + c + 1] = 0xFFFFFFFF;
+
+                    // Don't bother comparing the tombstone with the next letter
+                    c++;
+                }
+            }
         }
         for (size_t c = 0; c < runs[i].length; c++)
         {
@@ -359,6 +454,11 @@ const char* bidi_transform(const char* text)
             else
             {
                 ix = runs[i].offset + runs[i].length - 1 - c;
+            }
+
+            if (utf32_in[ix] == 0xFFFFFFFF)
+            {
+                continue;
             }
 
             int out_room_left = sizeof(utf8_out) - 1 - utf8_out_cur;
