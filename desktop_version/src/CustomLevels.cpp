@@ -227,6 +227,7 @@ TAG_FINDER(find_desc2, "Desc2")
 TAG_FINDER(find_desc3, "Desc3")
 TAG_FINDER(find_website, "website")
 TAG_FINDER(find_font, "font")
+TAG_FINDER(find_rtl, "rtl")
 
 /* For CliPlaytestArgs */
 TAG_FINDER(find_playtest, "Playtest")
@@ -315,6 +316,7 @@ bool customlevelclass::getLevelMetaDataAndPlaytestArgs(const std::string& _path,
     {
         _data.level_main_font_idx = font::get_font_idx_8x8();
     }
+    _data.rtl = help.Int(find_rtl(buf).c_str());
 
 
     if (pt_args != NULL)
@@ -1037,6 +1039,7 @@ bool customlevelclass::load(std::string _path)
 
     version = 0;
     level_font_name = "font";
+    rtl = false;
 
     for (pElem = hDoc
         .FirstChildElement()
@@ -1103,6 +1106,11 @@ bool customlevelclass::load(std::string _path)
                 if(SDL_strcmp(pKey_, "font") == 0)
                 {
                     level_font_name = pText_;
+                }
+
+                if(SDL_strcmp(pKey_, "rtl") == 0)
+                {
+                    rtl = help.Int(pText_);
                 }
             }
         }
@@ -1519,6 +1527,20 @@ bool customlevelclass::save(const std::string& _path)
         // Get rid of it completely, same as <onewaycol_override>
         tinyxml2::XMLElement* element;
         while ((element = msg->FirstChildElement("font")) != NULL)
+        {
+            doc.DeleteNode(element);
+        }
+    }
+
+    if (rtl)
+    {
+        xml::update_tag(msg, "rtl", rtl);
+    }
+    else
+    {
+        // Also get rid of this one...
+        tinyxml2::XMLElement* element;
+        while ((element = msg->FirstChildElement("rtl")) != NULL)
         {
             doc.DeleteNode(element);
         }

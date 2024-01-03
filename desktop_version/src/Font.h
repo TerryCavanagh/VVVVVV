@@ -42,7 +42,8 @@
 #define PR_FONT_INTERFACE (0 << 3) /* default, use interface font */
 #define PR_FONT_LEVEL (1 << 3) /* use level-specific font (room names, cutscene dialogue, etc) */
 #define PR_FONT_8X8 (2 << 3) /* use 8x8 font no matter what */
-#define PR_FONT_IDX(idx) ((SDL_clamp(idx, 0, 28) + 3) << 3) /* use given font index */
+#define PR_FONT_IDX(idx, rtl) /* use given font index */\
+    (((SDL_clamp(idx, 0, 28) + 3) << 3) | (rtl ? PR_RTL_FORCE : 0))
 #define PR_BRIGHTNESS(value) /* use this brightness 0-255 for the text (accounts for button glyphs correctly) */\
     (((~SDL_clamp((int)(value), 0, 255) & 0xff) << 8))
 #define PR_FULLBOR (1 << 16) /* draw a black border around the text, filling in the corners (for the map legend) */
@@ -53,6 +54,7 @@
 #define PR_CJK_CEN (0 << 20) /* default, larger fonts should stick out on top and bottom compared to 8x8 font */
 #define PR_CJK_LOW (1 << 20) /* larger fonts should stick out fully on the bottom (draw at Y) */
 #define PR_CJK_HIGH (2 << 20) /* larger fonts should stick out fully on the top */
+#define PR_RTL_FORCE (1 << 22) /* force the RTL flag, not needed if the font is set to INTERFACE or LEVEL */
 
 
 namespace font

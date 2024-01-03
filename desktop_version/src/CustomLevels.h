@@ -66,6 +66,7 @@ struct LevelMetaData
     /* This is for the metadata in the levels list,
      * so it will only be a main font (no custom ones). */
     uint8_t level_main_font_idx;
+    bool rtl;
 };
 
 struct CliPlaytestArgs
@@ -161,6 +162,7 @@ public:
     int mapwidth, mapheight; //Actual width and height of stage
 
     std::string level_font_name;
+    bool rtl;
 
     int version;
 

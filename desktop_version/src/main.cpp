@@ -937,7 +937,7 @@ static void unfocused_run(void)
 #define FLIP_PR_CJK_HIGH (graphics.flipmode ? PR_CJK_LOW : PR_CJK_HIGH)
         /* The pause screen can also appear on the language screen, where highlighting
          * a language changes the used language metadata but not the loaded strings... */
-        uint32_t flags = PR_CEN | PR_BOR | PR_FONT_IDX(loc::langmeta.font_idx);
+        uint32_t flags = PR_CEN | PR_BOR | PR_FONT_IDX(loc::langmeta.font_idx, loc::langmeta.rtl);
         font::print(flags | FLIP_PR_CJK_HIGH, -1, FLIP(110), loc::gettext("Game paused"), 196 - help.glow, 255 - help.glow, 196 - help.glow);
 
         if (BUTTONGLYPHS_keyboard_is_available())

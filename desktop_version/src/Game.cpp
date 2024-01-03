@@ -6357,7 +6357,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                         text,
                         true,
                         cl.ListOfMetaData[i].title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_IDX(
-                            cl.ListOfMetaData[i].level_main_font_idx
+                            cl.ListOfMetaData[i].level_main_font_idx, cl.ListOfMetaData[i].rtl
                         )
                     );
                 }
@@ -6487,7 +6487,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         for (uint8_t i = 0; i < font::font_idx_options_n; i++)
         {
             uint8_t idx = font::font_idx_options[i];
-            option(font::get_main_font_display_name(idx), true, PR_FONT_IDX(idx));
+            option(font::get_main_font_display_name(idx), true, PR_FONT_IDX(idx, false));
             if (font::level_font_is_main_idx(idx))
             {
                 option_match = i;
@@ -6586,9 +6586,17 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             for (size_t i = 0; i < loc::languagelist.size(); i++)
             {
                 if (loc::languagelist[i].nativename.empty())
+                {
                     option(loc::languagelist[i].code.c_str());
+                }
                 else
-                    option(loc::languagelist[i].nativename.c_str(), true, PR_FONT_IDX(loc::languagelist[i].font_idx));
+                {
+                    option(
+                        loc::languagelist[i].nativename.c_str(),
+                        true,
+                        PR_FONT_IDX(loc::languagelist[i].font_idx, loc::languagelist[i].rtl)
+                    );
+                }
             }
 
             menuyoff = 70-(menuoptions.size()*10);
