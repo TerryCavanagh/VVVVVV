@@ -2475,7 +2475,7 @@ void scriptclass::run(void)
                     position--;
                 }
             }
-            else if (words[0] == "setfont")
+            else if (words[0] == "setfont" || words[0] == "setrtl")
             {
                 // If any textbox is currently fading out, wait for that first
                 bool blocked = false;
@@ -2492,7 +2492,18 @@ void scriptclass::run(void)
 
                 if (!blocked)
                 {
-                    if (words[1] == "")
+                    if (words[0] == "setrtl")
+                    {
+                        if (words[1] == "on")
+                        {
+                            cl.rtl = true;
+                        }
+                        else if (words[1] == "off")
+                        {
+                            cl.rtl = false;
+                        }
+                    }
+                    else if (words[1] == "")
                     {
                         font::set_level_font(cl.level_font_name.c_str());
                     }
@@ -3526,6 +3537,9 @@ bool scriptclass::loadcustom(const std::string& t)
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);
         }else if(words[0] == "setfont"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
+        }else if(words[0] == "setrtl"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);
         }else if(words[0] == "destroy"){
