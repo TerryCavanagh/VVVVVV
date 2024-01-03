@@ -96,6 +96,8 @@ static void sync_lang_file(const std::string& langcode)
                 pElem->SetText((int) langmeta.toupper_i_dot);
             else if (SDL_strcmp(pKey, "toupper_lower_escape_char") == 0)
                 pElem->SetText((int) langmeta.toupper_lower_escape_char);
+            else if (SDL_strcmp(pKey, "rtl") == 0)
+                pElem->SetText((int) langmeta.rtl);
             else if (SDL_strcmp(pKey, "menu_select") == 0)
                 pElem->SetText(langmeta.menu_select.c_str());
             else if (SDL_strcmp(pKey, "menu_select_tight") == 0)

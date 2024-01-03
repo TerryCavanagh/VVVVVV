@@ -27,6 +27,7 @@ struct LangMeta
     bool toupper; // = true; enable automatic full-caps for menu options
     bool toupper_i_dot; // = false; enable Turkish i mapping when uppercasing
     bool toupper_lower_escape_char; // = false; enable ~ to mark lowercase letters for uppercasing
+    bool rtl; // = false; enable for RTL languages like Arabic or Hebrew
     std::string menu_select;
     std::string menu_select_tight;
     uint8_t font_idx;
