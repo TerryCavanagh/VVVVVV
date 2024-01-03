@@ -265,8 +265,39 @@ void bidi_destroy(void)
 
 bool bidi_should_transform(const char* text)
 {
-    // TODO
-    return true;
+    /* Just as an optimization, only run the whole bidi machinery if the
+     * language is actually an RTL one, _or_ if an RTL character is found. */
+
+    const char* text_ptr = text;
+    uint32_t ch;
+    while ((ch = UTF8_next(&text_ptr)))
+    {
+        // The standard Hebrew and Arabic blocks
+        if (ch >= 0x590 && ch <= 0x77F) return true;
+
+        // Extended Arabic B and A
+        if (ch >= 0x870 && ch <= 0x8FF) return true;
+
+        // LEFT-TO-RIGHT MARK and RIGHT-TO-LEFT MARK
+        if (ch == 0x200E || ch == 0x200F) return true;
+
+        // Some other directional formatting: LRE, RLE, PDF, RLO, LRO
+        if (ch >= 0x202A && ch <= 0x202E) return true;
+
+        // The more recent isolates: LRI, RLI, FSI, PDI
+        if (ch >= 0x2066 && ch <= 0x2069) return true;
+
+        // Hebrew presentation forms
+        if (ch >= 0xFB1D && ch <= 0xFB4F) return true;
+
+        // Arabic presentation forms A
+        if (ch >= 0xFB50 && ch <= 0xFDFF) return true;
+
+        // Arabic presentation forms B
+        if (ch >= 0xFE70 && ch <= 0xFEFE) return true;
+    }
+
+    return false;
 }
 
 const char* bidi_transform(const char* text)
