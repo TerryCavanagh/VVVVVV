@@ -55,6 +55,7 @@
 #define PR_CJK_LOW (1 << 20) /* larger fonts should stick out fully on the bottom (draw at Y) */
 #define PR_CJK_HIGH (2 << 20) /* larger fonts should stick out fully on the top */
 #define PR_RTL_FORCE (1 << 22) /* force the RTL flag, not needed if the font is set to INTERFACE or LEVEL */
+#define PR_RTL_XFLIP (1 << 23) /* in RTL languages, mirror the X axis, so left is 320 and right is 0, and invert the meaning of PR_LEFT and PR_RIGHT */
 
 
 namespace font
