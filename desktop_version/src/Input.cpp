@@ -2289,11 +2289,33 @@ void titleinput(void)
     }
     else
     {
-        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_w) || key.controllerWantsLeft(true))
+        SDL_Keycode left, right, a, d;
+        bool controller_up = key.controllerWantsUp();
+        bool controller_down = key.controllerWantsDown();
+        if (!font::is_rtl(PR_FONT_INTERFACE))
+        {
+            left = KEYBOARD_LEFT;
+            right = KEYBOARD_RIGHT;
+            a = KEYBOARD_a;
+            d = KEYBOARD_d;
+            controller_up |= key.controllerWantsLeft(false);
+            controller_down |= key.controllerWantsRight(false);
+        }
+        else
+        {
+            left = KEYBOARD_RIGHT;
+            right = KEYBOARD_LEFT;
+            a = KEYBOARD_d;
+            d = KEYBOARD_a;
+            controller_up |= key.controllerWantsRight(false);
+            controller_down |= key.controllerWantsLeft(false);
+        }
+
+        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w) || controller_up)
         {
             game.press_left = true;
         }
-        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_DOWN)  || key.isDown(KEYBOARD_d) ||  key.isDown(KEYBOARD_s) || key.controllerWantsRight(true))
+        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN)  || key.isDown(d) ||  key.isDown(KEYBOARD_s) || controller_down)
         {
             game.press_right = true;
         }
@@ -3019,11 +3041,33 @@ void mapinput(void)
     && ((!version2_2 && !game.fadetomenu && game.fadetomenudelay <= 0 && !game.fadetolab && game.fadetolabdelay <= 0)
     || graphics.fademode == FADE_NONE))
     {
-        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_w)|| key.controllerWantsLeft(true))
+        SDL_Keycode left, right, a, d;
+        bool controller_up = key.controllerWantsUp();
+        bool controller_down = key.controllerWantsDown();
+        if (!font::is_rtl(PR_FONT_INTERFACE))
+        {
+            left = KEYBOARD_LEFT;
+            right = KEYBOARD_RIGHT;
+            a = KEYBOARD_a;
+            d = KEYBOARD_d;
+            controller_up |= key.controllerWantsLeft(false);
+            controller_down |= key.controllerWantsRight(false);
+        }
+        else
+        {
+            left = KEYBOARD_RIGHT;
+            right = KEYBOARD_LEFT;
+            a = KEYBOARD_d;
+            d = KEYBOARD_a;
+            controller_up |= key.controllerWantsRight(false);
+            controller_down |= key.controllerWantsLeft(false);
+        }
+
+        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w)|| controller_up)
         {
             game.press_left = true;
         }
-        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_d) ||  key.isDown(KEYBOARD_s)|| key.controllerWantsRight(true))
+        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN) || key.isDown(d) ||  key.isDown(KEYBOARD_s)|| controller_down)
         {
             game.press_right = true;
         }
