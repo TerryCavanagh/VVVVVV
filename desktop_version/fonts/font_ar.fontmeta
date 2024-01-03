@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font_metadata>
+    <display_name>العربية</display_name>
+    <width>8</width>
+    <height>10</height>
+    <white_teeth>1</white_teeth>
+    <chars>
+        <range start="0x00" end="0x7F"/>
+        <range start="0xA0" end="0xFF"/>
+        <range start="0xFE80" end="0xFEFF"/>
+        <range start="0x0600" end="0x06FF"/>
+        <range start="0xFB50" end="0xFBFF"/>
+    </chars>
+    <special>
+    </special>
+    <fallback>buttons_8x8</fallback>
+</font_metadata>
