@@ -1074,6 +1074,12 @@ static int print_char(
 {
     /* Draws the glyph for a codepoint at x,y.
      * Returns the amount of pixels to advance the cursor. */
+    if (is_directional_character(codepoint) || is_joiner(codepoint))
+    {
+        // Some characters should be completely invisible
+        return 0;
+    }
+
     const Font* f_glyph;
     GlyphInfo* glyph = find_glyphinfo(f, codepoint, &f_glyph);
     if (glyph == NULL)
