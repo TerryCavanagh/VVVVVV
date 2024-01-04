@@ -1,6 +1,10 @@
 Translators
 ------------
 
+Arabic (Eternal Dream Arabization):
+ - Montassar Ghanmi
+ - Mohammed Seif Eddine Chaib
+
 Catalan:
  - Eduard Ereza Martínez
 
