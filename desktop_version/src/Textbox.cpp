@@ -165,7 +165,7 @@ void textboxclass::padtowidth(size_t new_w)
     size_t chars_w = SDL_max(w-16, new_w) / glyph_w;
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
-        size_t n_glyphs = UTF8_total_codepoints(lines[iter].c_str());
+        size_t n_glyphs = font::len(print_flags, lines[iter].c_str()) / glyph_w;
         signed int padding_needed = chars_w - n_glyphs;
         if (padding_needed < 0)
         {
