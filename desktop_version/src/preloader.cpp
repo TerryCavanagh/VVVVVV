@@ -135,7 +135,7 @@ void preloaderrender(void)
       pre_fakepercent
     );
 
-    font::print(PR_RIGHT | PR_CJK_HIGH, 282, 204, buffer, 124, 112, 218);
+    font::print(PR_RIGHT | PR_CJK_HIGH | PR_RTL_XFLIP, 282, 204, buffer, 124, 112, 218);
   }
 
   graphics.drawfade();
