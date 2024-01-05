@@ -702,9 +702,9 @@ static void menurender(void)
         {
         case 0:
         {
-            font::print(0, 32, 75, loc::gettext("Low"), tr, tg, tb);
+            font::print(PR_RTL_XFLIP, 32, 75, loc::gettext("Low"), tr, tg, tb);
             font::print(PR_CEN, -1, 75, loc::gettext("Medium"), tr, tg, tb);
-            font::print(PR_RIGHT, 288, 75, loc::gettext("High"), tr, tg, tb);
+            font::print(PR_RIGHT | PR_RTL_XFLIP, 288, 75, loc::gettext("High"), tr, tg, tb);
             char slider[SCREEN_WIDTH_CHARS + 1];
             slider_get(slider, sizeof(slider), key.sensitivity, 5, 240);
             font::print(PR_CEN, -1, 75+spacing, slider, tr, tg, tb);
