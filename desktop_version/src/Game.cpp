@@ -28,6 +28,7 @@
 #include "Screen.h"
 #include "Script.h"
 #include "Unused.h"
+#include "UTF8.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"
@@ -6346,8 +6347,22 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                         prefix = "";
                         break;
                     }
+                    /* We have to make sure the stars and spaces are consistently on the
+                     * correct side of the title, no matter what bidi characters are in there.
+                     * So just always let the bidi engine handle it, with a few control chars. */
                     char text[MENU_TEXT_BYTES];
-                    SDL_snprintf(text, sizeof(text), "%s%s", prefix, cl.ListOfMetaData[i].title.c_str());
+                    SDL_snprintf(
+                        text, sizeof(text),
+                        "%s%s%s%s%s",
+                        // LRM or RLM depending on UI language, to make the stars aligned to left or right
+                        UTF8_encode(font::is_rtl(PR_FONT_INTERFACE) ? 0x200F : 0x200E).bytes,
+                        prefix,
+                        // FIRST STRONG ISOLATE, to start an isolated block oriented however bidi sees fit
+                        UTF8_encode(0x2068).bytes,
+                        cl.ListOfMetaData[i].title.c_str(),
+                        // POP DIRECTIONAL ISOLATE, exit isolated level title
+                        UTF8_encode(0x2069).bytes
+                    );
                     for (size_t ii = 0; text[ii] != '\0'; ++ii)
                     {
                         text[ii] = SDL_tolower(text[ii]);
@@ -6355,9 +6370,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     option(
                         text,
                         true,
-                        cl.ListOfMetaData[i].title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_IDX(
-                            cl.ListOfMetaData[i].level_main_font_idx, cl.ListOfMetaData[i].rtl
-                        )
+                        (cl.ListOfMetaData[i].title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_IDX(
+                            cl.ListOfMetaData[i].level_main_font_idx, font::is_rtl(PR_FONT_INTERFACE)
+                        )) | PR_RTL_XFLIP
                     );
                 }
             }
