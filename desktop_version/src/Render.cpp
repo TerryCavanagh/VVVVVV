@@ -1444,7 +1444,7 @@ static void menurender(void)
 
         std::string tempstring = game.resulttimestring() + loc::gettext(" / ") + game.timetstring(game.timetrialresultpar) + loc::gettext(".99");
 
-        uint32_t plus1_flags = PR_RIGHT | PR_CJK_LOW;
+        uint32_t plus1_flags = PR_RIGHT | PR_CJK_LOW | PR_RTL_XFLIP;
         int plus1_offset = 0;
         if (font::len(0, tempstring.c_str()) + font::len(0, loc::gettext("+1 Rank!")) > (292-49))
         {
@@ -1453,18 +1453,32 @@ static void menurender(void)
             plus1_offset = -10;
         }
 
-        graphics.drawspritesetcol(22, 80-15, 50, 22);
-        font::print(PR_CJK_HIGH, 49, 80-15, loc::gettext("TIME TAKEN:"), 255, 255, 255);
-        font::print(PR_CJK_LOW, 49, 90-15, tempstring, tr, tg, tb);
+        /* sprite_x_1 is used for the clock and trinket,
+         * sprite_x_2 is used for the player. */
+        int sprite_x_1, sprite_x_2;
+        if (!font::is_rtl(PR_FONT_INTERFACE))
+        {
+            sprite_x_1 = 22;
+            sprite_x_2 = 22 - 4;
+        }
+        else
+        {
+            sprite_x_1 = SCREEN_WIDTH_PIXELS - 22 - 16;
+            sprite_x_2 = SCREEN_WIDTH_PIXELS - 22 - 16 - 4;
+        }
+
+        graphics.drawspritesetcol(sprite_x_1, 80-15, 50, 22);
+        font::print(PR_CJK_HIGH | PR_RTL_XFLIP, 49, 80-15, loc::gettext("TIME TAKEN:"), 255, 255, 255);
+        font::print(PR_CJK_LOW | PR_RTL_XFLIP, 49, 90-15, tempstring, tr, tg, tb);
         if (game.timetrialresulttime <= game.timetrialresultpar)
         {
             font::print(plus1_flags, 292, 90-15+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         tempstring = help.String(game.timetrialresultdeaths);
-        graphics.drawspritesetcol(22-4, 80+20-4, 12, 22);
-        font::print(PR_CJK_HIGH, 49, 80+20, loc::gettext("NUMBER OF DEATHS:"), 255, 255, 255);
-        font::print(PR_CJK_LOW, 49, 90+20, tempstring, tr, tg, tb);
+        graphics.drawspritesetcol(sprite_x_2, 80+20-4, 12, 22);
+        font::print(PR_CJK_HIGH | PR_RTL_XFLIP, 49, 80+20, loc::gettext("NUMBER OF DEATHS:"), 255, 255, 255);
+        font::print(PR_CJK_LOW | PR_RTL_XFLIP, 49, 90+20, tempstring, tr, tg, tb);
         if (game.timetrialresultdeaths == 0)
         {
             font::print(plus1_flags, 292, 90+20+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
@@ -1477,9 +1491,9 @@ static void menurender(void)
             "n_trinkets:int, max_trinkets:int",
             game.timetrialresulttrinkets, game.timetrialresultshinytarget
         );
-        graphics.drawspritesetcol(22, 80+55, 22, 22);
-        font::print(PR_CJK_HIGH, 49, 80+55, loc::gettext("SHINY TRINKETS:"), 255, 255, 255);
-        font::print(PR_CJK_LOW, 49, 90+55, buffer, tr, tg, tb);
+        graphics.drawspritesetcol(sprite_x_1, 80+55, 22, 22);
+        font::print(PR_CJK_HIGH | PR_RTL_XFLIP, 49, 80+55, loc::gettext("SHINY TRINKETS:"), 255, 255, 255);
+        font::print(PR_CJK_LOW | PR_RTL_XFLIP, 49, 90+55, buffer, tr, tg, tb);
         if (game.timetrialresulttrinkets >= game.timetrialresultshinytarget)
         {
             font::print(plus1_flags, 292, 90+55+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
@@ -1507,12 +1521,12 @@ static void menurender(void)
         int rankx = ranktextx + ranktextw - rankw;
         if (game.currentmenuname == Menu::timetrialcomplete2 || game.currentmenuname == Menu::timetrialcomplete3)
         {
-            font::print(PR_2X, ranktextx, 175, loc::gettext("Rank:"), tr, tg, tb);
+            font::print(PR_2X | PR_RTL_XFLIP, ranktextx, 175, loc::gettext("Rank:"), tr, tg, tb);
         }
 
         if (game.currentmenuname == Menu::timetrialcomplete3)
         {
-            font::print(PR_4X, rankx, 165, rank, 255, 255, 255);
+            font::print(PR_4X | PR_RTL_XFLIP, rankx, 165, rank, 255, 255, 255);
         }
         break;
     }
