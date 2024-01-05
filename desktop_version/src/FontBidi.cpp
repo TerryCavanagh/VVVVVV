@@ -324,9 +324,16 @@ const char* bidi_transform(const bool rtl, const char* text)
     int n_codepoints = 0;
 
     const char* text_ptr = text;
-    while ((utf32_in[n_codepoints] = UTF8_next(&text_ptr)))
+    uint32_t codepoint;
+    while ((codepoint = UTF8_next(&text_ptr)))
     {
-        n_codepoints++;
+        if (codepoint == '\r' || codepoint == '\n')
+        {
+            // Don't treat newlines in font::print differently in bidi
+            codepoint = ' ';
+        }
+
+        utf32_in[n_codepoints++] = codepoint;
 
         if (n_codepoints >= 1023)
         {
