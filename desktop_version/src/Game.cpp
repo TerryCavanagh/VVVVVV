@@ -2917,9 +2917,9 @@ void Game::updatestate(void)
                 trinkets()
             );
             graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 84, TEXT_COLOUR("transparent"));
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             graphics.createtextboxflipme(buffer, 180, 84, TEXT_COLOUR("transparent"));
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             break;
         }
         case 3504:
@@ -2930,9 +2930,9 @@ void Game::updatestate(void)
             const char* label = loc::gettext("Game Time:");
             std::string tempstring = savetime;
             graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 96, TEXT_COLOUR("transparent"));
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             graphics.createtextboxflipme(tempstring, 180, 96, TEXT_COLOUR("transparent"));
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             break;
         }
         case 3505:
@@ -2942,9 +2942,9 @@ void Game::updatestate(void)
 
             const char* label = loc::gettext("Total Flips:");
             graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 123, TEXT_COLOUR("transparent"));
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             graphics.createtextboxflipme(help.String(totalflips), 180, 123, TEXT_COLOUR("transparent"));
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             break;
         }
         case 3506:
@@ -2954,9 +2954,9 @@ void Game::updatestate(void)
 
             const char* label = loc::gettext("Total Deaths:");
             graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 135, TEXT_COLOUR("transparent"));
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             graphics.createtextboxflipme(help.String(deathcounts), 180, 135, TEXT_COLOUR("transparent"));
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
+            graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             break;
         }
         case 3507:
