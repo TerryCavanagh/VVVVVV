@@ -6,6 +6,7 @@
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
+#include "LevelDebugger.h"
 #include "Localization.h"
 #include "LocalizationMaint.h"
 #include "Map.h"
@@ -51,6 +52,11 @@ namespace roomname_translator
 
     void overlay_render(bool* force_roomname_hidden, bool* roomname_untranslated, int* roomname_r, int* roomname_g, int* roomname_b)
     {
+        if (level_debugger::is_active())
+        {
+            return;
+        }
+
         if (edit_mode || help_screen)
         {
             fullscreen_rect.x = 0;
@@ -369,7 +375,7 @@ namespace roomname_translator
             help_screen = true;
         }
 
-        if (key_pressed_once(SDLK_TAB, &held_tab))
+        if (key_pressed_once(SDLK_TAB, &held_tab) && !level_debugger::is_active())
         {
             edit_mode = !edit_mode;
         }
