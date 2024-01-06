@@ -2205,12 +2205,23 @@ void gamerender(void)
         }
     }
 
+    int return_editor_alpha = 0;
+    bool draw_return_editor_text = false;
+    if (map.custommode && !map.custommodeforreal && !game.advancetext)
+    {
+        return_editor_alpha = graphics.lerp(
+            ed.old_return_message_timer, ed.return_message_timer
+        );
+        draw_return_editor_text = return_editor_alpha > 100;
+    }
+
     if (graphics.fademode == FADE_NONE
     && !game.intimetrial
     && !game.isingamecompletescreen()
     && (!game.swnmode || game.swngame != SWN_SUPERGRAVITRON)
     && game.showingametimer
-    && !roomname_translator::enabled)
+    && !roomname_translator::enabled
+    && !draw_return_editor_text)
     {
         const char* tempstring = loc::gettext("TIME:");
         int label_len = font::len(0, tempstring);
@@ -2252,21 +2263,20 @@ void gamerender(void)
         }
     }
 
-    if(map.custommode && !map.custommodeforreal && !game.advancetext){
-        //Return to level editor
-        int alpha = graphics.lerp(ed.old_return_message_timer, ed.return_message_timer);
-
-        if (alpha > 100)
-        {
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(
-                buffer, sizeof(buffer),
-                loc::gettext("[Press {button} to return to editor]"),
-                "button:but",
-                vformat_button(ActionSet_InGame, Action_InGame_Map)
-            );
-            font::print(PR_BRIGHTNESS(alpha) | PR_BOR, 5, 5, buffer, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-        }
+    if (draw_return_editor_text)
+    {
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(
+            buffer, sizeof(buffer),
+            loc::gettext("[Press {button} to return to editor]"),
+            "button:but",
+            vformat_button(ActionSet_InGame, Action_InGame_Map)
+        );
+        font::print(
+            PR_BRIGHTNESS(return_editor_alpha) | PR_BOR,
+            5, 5, buffer,
+            220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2)
+        );
     }
 
     graphics.cutscenebars();
