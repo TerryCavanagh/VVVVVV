@@ -151,6 +151,7 @@ void vformat_cb_valist(
             size_t name_len = 0;
 
             bool flag_wordy = false;
+            bool flag_wordy2 = false;
             int flag_digits = 0;
             bool flag_spaces = false;
             bool flag_upper = false;
@@ -184,6 +185,10 @@ void vformat_cb_valist(
                 else if (flag_len == 5 && SDL_memcmp(cursor, "wordy", 5) == 0)
                 {
                     flag_wordy = true;
+                }
+                else if (flag_len == 6 && SDL_memcmp(cursor, "wordy2", 6) == 0)
+                {
+                    flag_wordy2 = true;
                 }
                 else if (flag_len >= 8 && SDL_memcmp(cursor, "digits=", 7) == 0)
                 {
@@ -253,9 +258,9 @@ void vformat_cb_valist(
 
                     if (match)
                     {
-                        if (flag_wordy)
+                        if (flag_wordy || flag_wordy2)
                         {
-                            char* number = HELP_number_words(value);
+                            char* number = HELP_number_words(value, flag_wordy2 ? "wordy2" : "wordy");
                             if (flag_upper)
                             {
                                 call_with_upper(callback, userdata, number, SDL_strlen(number));

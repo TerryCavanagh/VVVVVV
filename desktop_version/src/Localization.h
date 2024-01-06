@@ -82,7 +82,7 @@ const char* gettext(const char* eng);
 const char* gettext_case(const char* eng, char textcase);
 const char* gettext_plural(const char* eng_plural, const char* eng_singular, int count);
 void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, const char* args_index, ...);
-std::string getnumber(int n);
+std::string getnumber(int n, const char* number_class);
 const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng, char textcase);
 const char* get_roomname_explanation(bool custom_level, int roomx, int roomy);
 const char* get_roomname_translation(bool custom_level, int roomx, int roomy);
