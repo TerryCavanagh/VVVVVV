@@ -1233,7 +1233,10 @@ int len(const uint32_t flags, const char* text)
     uint32_t codepoint;
     while ((codepoint = UTF8_next(&text)))
     {
-        text_len += get_advance(pf.font_sel, codepoint);
+        if (!is_directional_character(codepoint) && !is_joiner(codepoint))
+        {
+            text_len += get_advance(pf.font_sel, codepoint);
+        }
     }
     return text_len * pf.scale;
 }
