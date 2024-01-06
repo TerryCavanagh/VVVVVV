@@ -5,12 +5,12 @@
 #include "Localization.h"
 #include "UtilityClass.h"
 
-char* HELP_number_words(int _t)
+char* HELP_number_words(int _t, const char* number_class)
 {
     /* C wrapper for UtilityClass::number_words.
      * Caller must VVV_free. */
 
-    std::string str = help.number_words(_t);
+    std::string str = help.number_words(_t, number_class);
 
     char* buffer = (char*) SDL_malloc(str.size() + 1);
     str.copy(buffer, str.size());

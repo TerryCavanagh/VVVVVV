@@ -125,18 +125,28 @@ void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, cons
     va_end(args);
 }
 
-std::string getnumber(int n)
+std::string getnumber(int n, const char* number_class)
 {
     if (n < 0 || n > 100)
     {
         return help.String(n);
     }
 
-    if (number[n].empty())
+    // FIXME: implement a more flexible system later, where translators define the classes
+    std::string (*number_ptr)[101];
+    if (SDL_strcmp(number_class, "wordy2") == 0)
+    {
+        number_ptr = &number2;
+    }
+    else
+    {
+        number_ptr = &number;
+    }
+    if ((*number_ptr)[n].empty())
     {
         return help.String(n);
     }
-    return number[n];
+    return (*number_ptr)[n];
 }
 
 static bool is_script_custom(const char* script_id)

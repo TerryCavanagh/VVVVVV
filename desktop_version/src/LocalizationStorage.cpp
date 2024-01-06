@@ -240,6 +240,7 @@ void resettext(bool final_shutdown)
         for (size_t i = 0; i <= 100; i++)
         {
             number[i] = "";
+            number2[i] = "";
         }
         SDL_zeroa(number_plural_form);
         number_plural_form[1] = 1;
@@ -743,6 +744,14 @@ static void loadtext_numbers(void)
             number[value] = std::string(tra);
 
             tally_untranslated(tra, &n_untranslated[UNTRANSLATED_NUMBERS]);
+
+            // FIXME: implement a more flexible system later, where translators define the classes
+            tra = pElem->Attribute("translation2");
+            if (tra == NULL)
+            {
+                tra = "";
+            }
+            number2[value] = std::string(tra);
         }
         if (value >= 0 && value <= 199)
         {

@@ -173,11 +173,11 @@ std::string UtilityClass::timestring( int t )
     return output;
 }
 
-std::string UtilityClass::number_words( int _t )
+std::string UtilityClass::number_words(int _t, const char* number_class)
 {
     if (loc::lang != "en")
     {
-        return loc::getnumber(_t);
+        return loc::getnumber(_t, number_class);
     }
 
     static const std::string ones_place[] = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
