@@ -361,6 +361,9 @@ void Game::init(void)
     old_skip_message_timer = 0;
     skip_message_timer = 0;
 
+    old_mode_indicator_timer = 0;
+    mode_indicator_timer = 0;
+
     setdefaultcontrollerbuttons();
 }
 

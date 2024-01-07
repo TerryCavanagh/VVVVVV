@@ -2175,6 +2175,87 @@ static const char* interact_prompt(
     return buffer;
 }
 
+static void mode_indicator_text(const int alpha)
+{
+    const int flags = PR_BRIGHTNESS(alpha) | PR_BOR | PR_RTL_XFLIP;
+    const int r = 220 - help.glow;
+    const int g = 220 - help.glow;
+    const int b = 255 - help.glow/2;
+    const int x = 5;
+    const int spacing = font::height(flags) + 2;
+    int y = 5;
+    if (game.advancetext)
+    {
+        /* Prevent clashing */
+        y += 15;
+    }
+
+    /* FIXME: Some strings have not yet been translated. In order to not have
+     * English text in other languages, they are substituted with existing
+     * ones. Remove all substitute text when they're fully translated. */
+
+    if (map.invincibility)
+    {
+        const char* english = "Invincibility mode enabled";
+        const char* text = loc::gettext(english);
+        if (loc::lang != "en" && SDL_strcmp(english, text) == 0)
+        {
+            /* Substitute text */
+            text = loc::gettext("Invincibility");
+        }
+        font::print(flags, x, y, text, r, g, b);
+        y += spacing;
+    }
+
+    enum GlitchrunnerMode mode = GlitchrunnerMode_get();
+    if (mode != GlitchrunnerNone)
+    {
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        const char* english = "Glitchrunner mode enabled ({version})";
+        const char* text = loc::gettext(english);
+        if (loc::lang != "en" && SDL_strcmp(english, text) == 0)
+        {
+            /* Substitute text */
+            SDL_strlcpy(buffer, loc::gettext("Glitchrunner Mode"), sizeof(buffer));
+        }
+        else
+        {
+            const char* mode_string = loc::gettext(GlitchrunnerMode_enum_to_string(mode));
+            vformat_buf(buffer, sizeof(buffer), text, "version:str", mode_string);
+        }
+        font::print(flags, x, y, buffer, r, g, b);
+        y += spacing;
+    }
+
+    if (graphics.flipmode)
+    {
+        const char* english = "Flip Mode enabled";
+        const char* text = loc::gettext(english);
+        if (loc::lang != "en" && SDL_strcmp(english, text) == 0)
+        {
+            /* Substitute text */
+            text = loc::gettext("Flip Mode");
+        }
+        font::print(flags, x, y, text, r, g, b);
+        y += spacing;
+    }
+
+    switch (game.slowdown)
+    {
+    case 24:
+        font::print(flags, x, y, loc::gettext("Game speed is at 80%"), r, g, b);
+        y += spacing;
+        break;
+    case 18:
+        font::print(flags, x, y, loc::gettext("Game speed is at 60%"), r, g, b);
+        y += spacing;
+        break;
+    case 12:
+        font::print(flags, x, y, loc::gettext("Game speed is at 40%"), r, g, b);
+        y += spacing;
+    }
+}
+
 void gamerender(void)
 {
     graphics.set_render_target(graphics.gameplayTexture);
@@ -2232,6 +2313,11 @@ void gamerender(void)
         draw_return_editor_text = return_editor_alpha > 100;
     }
 
+    int mode_indicator_alpha = graphics.lerp(
+        game.old_mode_indicator_timer, game.mode_indicator_timer
+    );
+    bool draw_mode_indicator_text = mode_indicator_alpha > 100;
+
     if (graphics.fademode == FADE_NONE
     && !game.intimetrial
     && !game.isingamecompletescreen()
@@ -2239,7 +2325,8 @@ void gamerender(void)
     && game.showingametimer
     && !roomname_translator::enabled
     && (!game.swnmode || game.swngame != SWN_START_GRAVITRON_STEP_3)
-    && !draw_return_editor_text)
+    && !draw_return_editor_text
+    && !draw_mode_indicator_text)
     {
         const char* tempstring = loc::gettext("TIME:");
         int label_len = font::len(0, tempstring);
@@ -2301,6 +2388,11 @@ void gamerender(void)
     graphics.drawfade();
 
     graphics.drawgui();
+
+    if (draw_mode_indicator_text && !draw_return_editor_text)
+    {
+        mode_indicator_text(mode_indicator_alpha);
+    }
 
     graphics.set_render_target(graphics.gameTexture);
 

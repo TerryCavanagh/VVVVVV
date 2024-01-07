@@ -2694,6 +2694,21 @@ void scriptclass::startgamemode(const enum StartMode mode)
         font::set_level_font_interface();
     }
 
+    /* Indicate invincibility, glitchrunner, etc. for all modes except these */
+    switch (mode)
+    {
+    case Start_EDITOR:
+    case Start_CUTSCENETEST:
+        break;
+    case Start_QUIT:
+        VVV_unreachable();
+
+    default:
+        /* If there's editor return text, make this show up after it */
+        game.mode_indicator_timer = ed.return_message_timer + 2000;
+        game.old_mode_indicator_timer = game.mode_indicator_timer;
+    }
+
     game.jumpheld = true;
 
     switch (mode)

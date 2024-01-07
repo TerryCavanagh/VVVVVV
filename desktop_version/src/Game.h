@@ -589,6 +589,9 @@ public:
 
     int old_skip_message_timer;
     int skip_message_timer;
+
+    int old_mode_indicator_timer;
+    int mode_indicator_timer;
 };
 
 #ifndef GAME_DEFINITION
