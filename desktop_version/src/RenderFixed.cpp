@@ -137,6 +137,12 @@ void gamerenderfixed(void)
         ed.return_message_timer -= 15;
     }
 
+    game.old_mode_indicator_timer = game.mode_indicator_timer;
+    if (game.mode_indicator_timer > 0)
+    {
+        game.mode_indicator_timer -= 15;
+    }
+
     // Editor ghosts!
     if (game.ghostsenabled)
     {
