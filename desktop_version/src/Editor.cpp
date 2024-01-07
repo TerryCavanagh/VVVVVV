@@ -1499,7 +1499,7 @@ static void draw_box_placer()
     graphics.fill_rect(0, 238 - textheight, 320, 240, graphics.getRGB(32, 32, 32));
     graphics.fill_rect(0, 239 - textheight, 320, 240, graphics.getRGB(0, 0, 0));
 
-    font::print_wrap(0, 4, 240 - textheight, message.c_str(), 255, 255, 255, 8, 312);
+    font::print_wrap(PR_RTL_XFLIP, 4, 240 - textheight, message.c_str(), 255, 255, 255, 8, 312);
 }
 
 static void draw_note()
@@ -1797,7 +1797,7 @@ void editorrender(void)
 
             graphics.fill_rect(0, 238 - textheight, 320, 240, graphics.getRGB(32, 32, 32));
             graphics.fill_rect(0, 239 - textheight, 320, 240, graphics.getRGB(0, 0, 0));
-            font::print_wrap(0, 4, 240 - textheight, wrapped.c_str(), 255, 255, 255, 8, 312);
+            font::print_wrap(PR_RTL_XFLIP, 4, 240 - textheight, wrapped.c_str(), 255, 255, 255, 8, 312);
             std::string input = key.keybuffer;
             if (ed.entframe < 2)
             {
@@ -1816,8 +1816,8 @@ void editorrender(void)
             int textheight = font::height(0);
             graphics.fill_rect(0, 237 - textheight * 2, 320, 240, graphics.getRGB(32, 32, 32));
             graphics.fill_rect(0, 238 - textheight * 2, 320, 240, graphics.getRGB(0, 0, 0));
-            font::print(PR_CJK_LOW, 4, 240 - textheight * 2, loc::gettext("Left click to place warp destination"), 196, 196, 255 - help.glow);
-            font::print(PR_CJK_LOW, 4, 240 - textheight, loc::gettext("Right click to cancel"), 196, 196, 255 - help.glow);
+            font::print(PR_CJK_LOW | PR_RTL_XFLIP, 4, 240 - textheight * 2, loc::gettext("Left click to place warp destination"), 196, 196, 255 - help.glow);
+            font::print(PR_CJK_LOW | PR_RTL_XFLIP, 4, 240 - textheight, loc::gettext("Right click to cancel"), 196, 196, 255 - help.glow);
 
             break;
         }
