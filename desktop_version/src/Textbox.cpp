@@ -148,6 +148,14 @@ void textboxclass::addline(const std::string& t)
 void textboxclass::pad(size_t left_pad, size_t right_pad)
 {
     // Pad the current text with a certain number of spaces on the left and right
+    if (font::is_rtl(print_flags))
+    {
+        // Swap left and right, because left will end up on the right and vice versa...
+        size_t old_left_pad = left_pad;
+        left_pad = right_pad;
+        right_pad = old_left_pad;
+    }
+
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
         lines[iter] = std::string(left_pad, ' ') + lines[iter] + std::string(right_pad, ' ');
