@@ -2221,6 +2221,7 @@ void gamerender(void)
     && (!game.swnmode || game.swngame != SWN_SUPERGRAVITRON)
     && game.showingametimer
     && !roomname_translator::enabled
+    && (!game.swnmode || game.swngame != SWN_START_GRAVITRON_STEP_3)
     && !draw_return_editor_text)
     {
         const char* tempstring = loc::gettext("TIME:");
