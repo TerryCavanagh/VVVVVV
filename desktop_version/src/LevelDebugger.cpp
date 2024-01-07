@@ -191,6 +191,11 @@ namespace level_debugger
 
     void logic(void)
     {
+        if (!active)
+        {
+            return;
+        }
+
         if (INBOUNDS_VEC(held_entity, obj.entities))
         {
             int new_xp = key.mousex - grabber_offset_x;
