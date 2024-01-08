@@ -1290,7 +1290,16 @@ void print(
             {
                 x = SCREEN_WIDTH_PIXELS / 2;
             }
-            x = SDL_max(x - textlen/2, 0);
+            x -= textlen/2;
+
+            if (!pf.rtl)
+            {
+                x = SDL_max(x, 0);
+            }
+            else
+            {
+                x = SDL_min(x, SCREEN_WIDTH_PIXELS - textlen);
+            }
         }
         else
         {
