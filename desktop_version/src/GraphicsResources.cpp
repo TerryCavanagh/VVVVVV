@@ -523,6 +523,19 @@ bool SaveScreenshot(void)
         return false;
     }
 
+    success = UpscaleScreenshot2x(graphics.tempScreenshot, &graphics.tempScreenshot2x);
+    if (!success)
+    {
+        vlog_error("Could not upscale screenshot to 2x");
+        return false;
+    }
+
+    success = SaveImage(graphics.tempScreenshot2x, "screenshots/test2x.png");
+    if (!success)
+    {
+        return false;
+    }
+
     vlog_info("Saved screenshot");
     return true;
 }

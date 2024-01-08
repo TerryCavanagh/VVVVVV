@@ -15,5 +15,6 @@ void UpdateFilter(void);
 void ApplyFilter(SDL_Surface** src, SDL_Surface** dest);
 
 bool TakeScreenshot(SDL_Surface** surface);
+bool UpscaleScreenshot2x(SDL_Surface* src, SDL_Surface** dest);
 
 #endif /* GRAPHICSUTIL_H */

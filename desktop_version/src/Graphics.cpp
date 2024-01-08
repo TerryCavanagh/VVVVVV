@@ -112,6 +112,7 @@ void Graphics::init(void)
     backgroundTexture = NULL;
     foregroundTexture = NULL;
     tempScreenshot = NULL;
+    tempScreenshot2x = NULL;
     towerbg = TowerBG();
     titlebg = TowerBG();
     trinketr = 0;
@@ -222,6 +223,7 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_FreeSurface, tempFilterSrc);
     VVV_freefunc(SDL_FreeSurface, tempFilterDest);
     VVV_freefunc(SDL_FreeSurface, tempScreenshot);
+    VVV_freefunc(SDL_FreeSurface, tempScreenshot2x);
 }
 
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
