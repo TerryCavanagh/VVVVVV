@@ -1,7 +1,45 @@
 name: CI (Android)
 
-# Trigger this workflow on push or pull request
-on: [push, pull_request]
+# Only trigger workflow when Android-specific code could have changed.
+# This includes C/C++ files that have __ANDROID__ ifdefs.
+# If adding new ifdefs, make sure to update these lists.
+on:
+  push:
+    paths:
+      - "desktop_version/CMakeLists.txt"
+      - "desktop_version/src/ButtonGlyphs.cpp"
+      - "desktop_version/src/FileSystemUtils.cpp"
+      - "desktop_version/src/Screen.cpp"
+      - "desktop_version/src/Vlogging.c"
+      - "desktop_version/VVVVVV-android/gradlew"
+      - "desktop_version/VVVVVV-android/gradlew.bat"
+      - "desktop_version/VVVVVV-android/**/CMakeLists.txt"
+      - "desktop_version/VVVVVV-android/**.java"
+      - "desktop_version/VVVVVV-android/**.xml"
+      - "desktop_version/VVVVVV-android/**.pro"
+      - "desktop_version/VVVVVV-android/**.mk"
+      - "desktop_version/VVVVVV-android/**.gradle"
+      - "desktop_version/VVVVVV-android/**.jar"
+      - "desktop_version/VVVVVV-android/**.properties"
+      - ".github/workflows/android.yml"
+  pull_request:
+    paths:
+      - "desktop_version/CMakeLists.txt"
+      - "desktop_version/src/ButtonGlyphs.cpp"
+      - "desktop_version/src/FileSystemUtils.cpp"
+      - "desktop_version/src/Screen.cpp"
+      - "desktop_version/src/Vlogging.c"
+      - "desktop_version/VVVVVV-android/gradlew"
+      - "desktop_version/VVVVVV-android/gradlew.bat"
+      - "desktop_version/VVVVVV-android/**/CMakeLists.txt"
+      - "desktop_version/VVVVVV-android/**.java"
+      - "desktop_version/VVVVVV-android/**.xml"
+      - "desktop_version/VVVVVV-android/**.pro"
+      - "desktop_version/VVVVVV-android/**.mk"
+      - "desktop_version/VVVVVV-android/**.gradle"
+      - "desktop_version/VVVVVV-android/**.jar"
+      - "desktop_version/VVVVVV-android/**.properties"
+      - ".github/workflows/android.yml"
 
 env:
   SRC_DIR_PATH: VVVVVV/desktop_version/VVVVVV-android

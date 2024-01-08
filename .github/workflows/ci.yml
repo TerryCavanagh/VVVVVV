@@ -1,7 +1,22 @@
 name: CI
 
-# Trigger this workflow on push or pull request
-on: [push, pull_request]
+# Only trigger workflow when code changes, or this file is changed.
+# Android has a different workflow and different rules.
+on:
+  push:
+    paths:
+      - "desktop_version/CMakeLists.txt"
+      - "desktop_version/src/**.cpp"
+      - "desktop_version/src/**.c"
+      - "desktop_version/src/**.h"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    paths:
+      - "desktop_version/CMakeLists.txt"
+      - "desktop_version/src/**.cpp"
+      - "desktop_version/src/**.c"
+      - "desktop_version/src/**.h"
+      - ".github/workflows/ci.yml"
 
 env:
   SRC_DIR_PATH: desktop_version
