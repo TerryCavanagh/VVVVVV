@@ -131,13 +131,19 @@ static void run_screenshot()
     {
         return;
     }
+    SDL_Surface* surface2x = GRAPHICS_tempScreenshot2x();
+    success = UTIL_UpscaleScreenshot2x(surface, &surface2x);
+    if (!success)
+    {
+        return;
+    }
 
     SteamAPI_ISteamScreenshots_WriteScreenshot(
         steamScreenshots,
-        surface->pixels,
-        surface->w * surface->h * surface->format->BytesPerPixel,
-        surface->w,
-        surface->h
+        surface2x->pixels,
+        surface2x->w * surface2x->h * surface2x->format->BytesPerPixel,
+        surface2x->w,
+        surface2x->h
     );
 }
 

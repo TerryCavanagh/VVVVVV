@@ -346,3 +346,40 @@ bool TakeScreenshot(SDL_Surface** surface)
 
     return true;
 }
+
+bool UpscaleScreenshot2x(SDL_Surface* src, SDL_Surface** dest)
+{
+    if (src == NULL)
+    {
+        SDL_assert(0 && "src is NULL!");
+        return false;
+    }
+    if (dest == NULL)
+    {
+        SDL_assert(0 && "dest is NULL!");
+        return false;
+    }
+
+    if (*dest == NULL)
+    {
+        *dest = SDL_CreateRGBSurface(
+            0, src->w * 2, src->h * 2, src->format->BitsPerPixel, 0, 0, 0, 0
+        );
+        if (*dest == NULL)
+        {
+            WHINE_ONCE_ARGS(
+                ("Could not create temporary surface: %s", SDL_GetError())
+            );
+            return false;
+        }
+    }
+
+    int result = SDL_BlitScaled(src, NULL, *dest, NULL);
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(("Could not blit surface: %s", SDL_GetError()));
+        return false;
+    }
+
+    return true;
+}

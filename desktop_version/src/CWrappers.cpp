@@ -34,9 +34,19 @@ SDL_Surface* GRAPHICS_tempScreenshot(void)
     return graphics.tempScreenshot;
 }
 
+SDL_Surface* GRAPHICS_tempScreenshot2x(void)
+{
+    return graphics.tempScreenshot2x;
+}
+
 uint8_t UTIL_TakeScreenshot(SDL_Surface** surface)
 {
     return TakeScreenshot(surface);
+}
+
+uint8_t UTIL_UpscaleScreenshot2x(SDL_Surface* src, SDL_Surface** dest)
+{
+    return UpscaleScreenshot2x(src, dest);
 }
 
 } /* extern "C" */
