@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<numbers>
+    <number value="0" form="0" english="Zero" translation="صفر" translation2="صفر"/>
+    <number value="1" form="1" english="One" translation="واحد" translation2="واحدة"/>
+    <number value="2" form="2" english="Two" translation="اثنان" translation2="اثنتان"/>
+    <number value="3" form="3" english="Three" translation="ثلاثة" translation2="ثلاث"/>
+    <number value="4" form="3" english="Four" translation="أربعة" translation2="أربع"/>
+    <number value="5" form="3" english="Five" translation="خمسة" translation2="خمس"/>
+    <number value="6" form="3" english="Six" translation="ستة" translation2="ست"/>
+    <number value="7" form="3" english="Seven" translation="سبعة" translation2="سبع"/>
+    <number value="8" form="3" english="Eight" translation="ثمانية" translation2="ثمان"/>
+    <number value="9" form="3" english="Nine" translation="تسعة" translation2="تسع"/>
+    <number value="10" form="3" english="Ten" translation="عشرة" translation2="عشر"/>
+    <number value="11" form="11" english="Eleven" translation="أحد عشر" translation2="إحدى عشرة"/>
+    <number value="12" form="11" english="Twelve" translation="إثنا عشر" translation2="إثنتا عشرة"/>
+    <number value="13" form="11" english="Thirteen" translation="ثلاثة عشر" translation2="ثلاث عشرة"/>
+    <number value="14" form="11" english="Fourteen" translation="أربعة عشر" translation2="أربع عشرة"/>
+    <number value="15" form="11" english="Fifteen" translation="خمسة عشر" translation2="خمس عشرة"/>
+    <number value="16" form="11" english="Sixteen" translation="ستة عشر" translation2="ست عشرة"/>
+    <number value="17" form="11" english="Seventeen" translation="سبعة عشر" translation2="سبع عشرة"/>
+    <number value="18" form="11" english="Eighteen" translation="ثمانية عشر" translation2="ثماني عشرة"/>
+    <number value="19" form="11" english="Nineteen" translation="تسعة عشر" translation2="تسع عشرة"/>
+    <number value="20" form="11" english="Twenty" translation="عشرين" translation2="عشرين"/>
+    <number value="21" form="11" english="Twenty One" translation="" translation2=""/>
+    <number value="22" form="11" english="Twenty Two" translation="" translation2=""/>
+    <number value="23" form="11" english="Twenty Three" translation="" translation2=""/>
+    <number value="24" form="11" english="Twenty Four" translation="" translation2=""/>
+    <number value="25" form="11" english="Twenty Five" translation="" translation2=""/>
+    <number value="26" form="11" english="Twenty Six" translation="" translation2=""/>
+    <number value="27" form="11" english="Twenty Seven" translation="" translation2=""/>
+    <number value="28" form="11" english="Twenty Eight" translation="" translation2=""/>
+    <number value="29" form="11" english="Twenty Nine" translation="" translation2=""/>
+    <number value="30" form="11" english="Thirty" translation="" translation2=""/>
+    <number value="31" form="11" english="Thirty One" translation="" translation2=""/>
+    <number value="32" form="11" english="Thirty Two" translation="" translation2=""/>
+    <number value="33" form="11" english="Thirty Three" translation="" translation2=""/>
+    <number value="34" form="11" english="Thirty Four" translation="" translation2=""/>
+    <number value="35" form="11" english="Thirty Five" translation="" translation2=""/>
+    <number value="36" form="11" english="Thirty Six" translation="" translation2=""/>
+    <number value="37" form="11" english="Thirty Seven" translation="" translation2=""/>
+    <number value="38" form="11" english="Thirty Eight" translation="" translation2=""/>
+    <number value="39" form="11" english="Thirty Nine" translation="" translation2=""/>
+    <number value="40" form="11" english="Forty" translation="" translation2=""/>
+    <number value="41" form="11" english="Forty One" translation="" translation2=""/>
+    <number value="42" form="11" english="Forty Two" translation="" translation2=""/>
+    <number value="43" form="11" english="Forty Three" translation="" translation2=""/>
+    <number value="44" form="11" english="Forty Four" translation="" translation2=""/>
+    <number value="45" form="11" english="Forty Five" translation="" translation2=""/>
+    <number value="46" form="11" english="Forty Six" translation="" translation2=""/>
+    <number value="47" form="11" english="Forty Seven" translation="" translation2=""/>
+    <number value="48" form="11" english="Forty Eight" translation="" translation2=""/>
+    <number value="49" form="11" english="Forty Nine" translation="" translation2=""/>
+    <number value="50" form="11" english="Fifty" translation="" translation2=""/>
+    <number value="51" form="11" english="Fifty One" translation="" translation2=""/>
+    <number value="52" form="11" english="Fifty Two" translation="" translation2=""/>
+    <number value="53" form="11" english="Fifty Three" translation="" translation2=""/>
+    <number value="54" form="11" english="Fifty Four" translation="" translation2=""/>
+    <number value="55" form="11" english="Fifty Five" translation="" translation2=""/>
+    <number value="56" form="11" english="Fifty Six" translation="" translation2=""/>
+    <number value="57" form="11" english="Fifty Seven" translation="" translation2=""/>
+    <number value="58" form="11" english="Fifty Eight" translation="" translation2=""/>
+    <number value="59" form="11" english="Fifty Nine" translation="" translation2=""/>
+    <number value="60" form="11" english="Sixty" translation="" translation2=""/>
+    <number value="61" form="11" english="Sixty One" translation="" translation2=""/>
+    <number value="62" form="11" english="Sixty Two" translation="" translation2=""/>
+    <number value="63" form="11" english="Sixty Three" translation="" translation2=""/>
+    <number value="64" form="11" english="Sixty Four" translation="" translation2=""/>
+    <number value="65" form="11" english="Sixty Five" translation="" translation2=""/>
+    <number value="66" form="11" english="Sixty Six" translation="" translation2=""/>
+    <number value="67" form="11" english="Sixty Seven" translation="" translation2=""/>
+    <number value="68" form="11" english="Sixty Eight" translation="" translation2=""/>
+    <number value="69" form="11" english="Sixty Nine" translation="" translation2=""/>
+    <number value="70" form="11" english="Seventy" translation="" translation2=""/>
+    <number value="71" form="11" english="Seventy One" translation="" translation2=""/>
+    <number value="72" form="11" english="Seventy Two" translation="" translation2=""/>
+    <number value="73" form="11" english="Seventy Three" translation="" translation2=""/>
+    <number value="74" form="11" english="Seventy Four" translation="" translation2=""/>
+    <number value="75" form="11" english="Seventy Five" translation="" translation2=""/>
+    <number value="76" form="11" english="Seventy Six" translation="" translation2=""/>
+    <number value="77" form="11" english="Seventy Seven" translation="" translation2=""/>
+    <number value="78" form="11" english="Seventy Eight" translation="" translation2=""/>
+    <number value="79" form="11" english="Seventy Nine" translation="" translation2=""/>
+    <number value="80" form="11" english="Eighty" translation="" translation2=""/>
+    <number value="81" form="11" english="Eighty One" translation="" translation2=""/>
+    <number value="82" form="11" english="Eighty Two" translation="" translation2=""/>
+    <number value="83" form="11" english="Eighty Three" translation="" translation2=""/>
+    <number value="84" form="11" english="Eighty Four" translation="" translation2=""/>
+    <number value="85" form="11" english="Eighty Five" translation="" translation2=""/>
+    <number value="86" form="11" english="Eighty Six" translation="" translation2=""/>
+    <number value="87" form="11" english="Eighty Seven" translation="" translation2=""/>
+    <number value="88" form="11" english="Eighty Eight" translation="" translation2=""/>
+    <number value="89" form="11" english="Eighty Nine" translation="" translation2=""/>
+    <number value="90" form="11" english="Ninety" translation="" translation2=""/>
+    <number value="91" form="11" english="Ninety One" translation="" translation2=""/>
+    <number value="92" form="11" english="Ninety Two" translation="" translation2=""/>
+    <number value="93" form="11" english="Ninety Three" translation="" translation2=""/>
+    <number value="94" form="11" english="Ninety Four" translation="" translation2=""/>
+    <number value="95" form="11" english="Ninety Five" translation="" translation2=""/>
+    <number value="96" form="11" english="Ninety Six" translation="" translation2=""/>
+    <number value="97" form="11" english="Ninety Seven" translation="" translation2=""/>
+    <number value="98" form="11" english="Ninety Eight" translation="" translation2=""/>
+    <number value="99" form="11" english="Ninety Nine" translation="" translation2=""/>
+    <number value="100" form="11" english="One Hundred" translation="" translation2=""/>
+    <number value="101" form="11"/>
+    <number value="102" form="11"/>
+    <number value="103" form="11"/>
+    <number value="104" form="11"/>
+    <number value="105" form="11"/>
+    <number value="106" form="11"/>
+    <number value="107" form="11"/>
+    <number value="108" form="11"/>
+    <number value="109" form="11"/>
+    <number value="110" form="11"/>
+    <number value="111" form="11"/>
+    <number value="112" form="11"/>
+    <number value="113" form="11"/>
+    <number value="114" form="11"/>
+    <number value="115" form="11"/>
+    <number value="116" form="11"/>
+    <number value="117" form="11"/>
+    <number value="118" form="11"/>
+    <number value="119" form="11"/>
+</numbers>
