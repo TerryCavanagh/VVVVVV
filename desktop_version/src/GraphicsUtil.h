@@ -14,4 +14,6 @@ SDL_Color ReadPixel(const SDL_Surface* surface, int x, int y);
 void UpdateFilter(void);
 void ApplyFilter(SDL_Surface** src, SDL_Surface** dest);
 
+bool TakeScreenshot(SDL_Surface** surface);
+
 #endif /* GRAPHICSUTIL_H */

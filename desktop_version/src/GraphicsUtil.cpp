@@ -257,3 +257,60 @@ void ApplyFilter(SDL_Surface** src, SDL_Surface** dest)
 
     SDL_UpdateTexture(graphics.gameTexture, NULL, (*dest)->pixels, (*dest)->pitch);
 }
+
+bool TakeScreenshot(SDL_Surface** surface)
+{
+    if (surface == NULL)
+    {
+        SDL_assert(0 && "surface is NULL!");
+        return false;
+    }
+
+    int width = 0;
+    int height = 0;
+    int result = graphics.query_texture(
+        graphics.gameTexture, NULL, NULL, &width, &height
+    );
+    if (result != 0)
+    {
+        return false;
+    }
+
+    if (*surface == NULL)
+    {
+        *surface = SDL_CreateRGBSurface(0, width, height, 24, 0, 0, 0, 0);
+        if (*surface == NULL)
+        {
+            WHINE_ONCE_ARGS(
+                ("Could not create temporary surface: %s", SDL_GetError())
+            );
+            return false;
+        }
+    }
+
+    if ((*surface)->w != width || (*surface)->h != height)
+    {
+        SDL_assert(0 && "Width and height of surface and texture mismatch!");
+        return false;
+    }
+
+    result = graphics.set_render_target(graphics.gameTexture);
+    if (result != 0)
+    {
+        return false;
+    }
+
+    result = SDL_RenderReadPixels(
+        gameScreen.m_renderer, NULL, SDL_PIXELFORMAT_RGB24,
+        (*surface)->pixels, (*surface)->pitch
+    );
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(
+            ("Could not read pixels from renderer: %s", SDL_GetError())
+        );
+        return false;
+    }
+
+    return true;
+}

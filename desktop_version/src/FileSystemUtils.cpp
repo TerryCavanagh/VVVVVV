@@ -48,6 +48,7 @@ static char* basePath = NULL;
 static char writeDir[MAX_PATH] = {'\0'};
 static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
+static char screenshotDir[MAX_PATH] = {'\0'};
 static char mainLangDir[MAX_PATH] = {'\0'};
 static bool isMainLangDirFromRepo = false;
 static bool doesLangDirExist = false;
@@ -259,6 +260,15 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     );
     mkdir(levelDir, 0777);
     vlog_info("Level directory: %s", levelDir);
+
+    /* Store full screenshot directory */
+    SDL_snprintf(screenshotDir, sizeof(screenshotDir), "%s%s%s",
+        writeDir,
+        "screenshots",
+        pathSep
+    );
+    mkdir(screenshotDir, 0777);
+    vlog_info("Screenshot directory: %s", screenshotDir);
 
     basePath = SDL_GetBasePath();
 
@@ -797,6 +807,38 @@ static PHYSFS_sint64 read_bytes(
         );
     }
     return bytes_read;
+}
+
+bool FILESYSTEM_saveFile(const char* name, const unsigned char* data, const size_t len)
+{
+    if (!isInit)
+    {
+        vlog_warn("Filesystem not initialized! Not writing just to be safe.");
+        return false;
+    }
+
+    PHYSFS_File* handle = PHYSFS_openWrite(name);
+    if (handle == NULL)
+    {
+        vlog_error(
+            "Could not open PHYSFS handle for %s: %s",
+            name, PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+        );
+        return false;
+    }
+    PHYSFS_sint64 bytes_written = PHYSFS_writeBytes(handle, data, len);
+    if ((size_t) bytes_written != len)
+    {
+        vlog_warn("%s: Number of bytes written is not as expected", name);
+    }
+
+    int success = PHYSFS_close(handle);
+    if (success == 0)
+    {
+        vlog_error("%s: Could not close handle", name);
+    }
+
+    return true;
 }
 
 void FILESYSTEM_loadFileToMemory(
