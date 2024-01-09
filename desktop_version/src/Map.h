@@ -16,6 +16,7 @@ struct Roomtext
 {
     int x, y;
     const char* text;
+    bool rtl;
 };
 
 enum RoomnameType

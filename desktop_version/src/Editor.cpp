@@ -1052,8 +1052,14 @@ static void draw_entities(void)
                     height = font::height(PR_FONT_LEVEL);
                 }
 
-                graphics.draw_rect(x, y, width, height, graphics.getRGB(96, 96, 96));
-                font::print(PR_FONT_LEVEL | PR_CJK_LOW, x, y, entity->scriptname, 196, 196, 255 - help.glow);
+                int rect_x = x;
+                if (entity->p1)
+                {
+                    // RTL. The 8 is the size of a tile, not font width!
+                    rect_x -= width - 8;
+                }
+                graphics.draw_rect(rect_x, y, width, height, graphics.getRGB(96, 96, 96));
+                graphics.print_roomtext(x, y, entity->scriptname.c_str(), entity->p1);
                 break;
             }
             case 18: // Terminals
@@ -2549,7 +2555,7 @@ void editorclass::tool_place()
     case EditorTool_ROOMTEXT:
         lclickdelay = 1;
         text_entity = customentities.size();
-        add_entity(levx, levy, tilex, tiley, 17);
+        add_entity(levx, levy, tilex, tiley, 17, cl.rtl ? 1 : 0);
         get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[text_entity].scriptname));
         break;
     case EditorTool_TERMINALS:

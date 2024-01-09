@@ -414,6 +414,8 @@ public:
     SDL_Color crewcolourreal(int t);
 
     void render_roomname(uint32_t font_flag, const char* roomname, int r, int g, int b);
+
+    void print_roomtext(int x, int y, const char* text, bool rtl);
 };
 
 #ifndef GRAPHICS_DEFINITION
