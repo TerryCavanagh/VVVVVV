@@ -32,7 +32,7 @@ If you're an official translator, you should have received a version of this spr
 
 The translator menu has options for both translators and maintainers - it allows testing menus, translating room names within the game, syncing all language files with the English template files, getting statistics on translation progress, and more. The translator menu is hidden from players in regular versions of the game.
 
-When the translator menu is unlocked, you can also press F12 anywhere in the game to reload the current language files. So you can save translations and immediately preview them (except for menu buttons and the current cutscene dialogue, which can't be reloaded on the fly). You will hear a coin sound when the language files have been reloaded via F12.
+When the translator menu is unlocked, you can also press F8 anywhere in the game to reload the current language files. So you can save translations and immediately preview them (except for menu buttons and the current cutscene dialogue, which can't be reloaded on the fly). You will hear a coin sound when the language files have been reloaded via F8.
 
 
 
