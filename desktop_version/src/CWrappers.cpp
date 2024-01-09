@@ -5,6 +5,9 @@
 #include "Localization.h"
 #include "UtilityClass.h"
 
+extern "C"
+{
+
 char* HELP_number_words(int _t, const char* number_class)
 {
     /* C wrapper for UtilityClass::number_words.
@@ -23,3 +26,5 @@ uint32_t LOC_toupper_ch(uint32_t ch)
 {
     return loc::toupper_ch(ch);
 }
+
+} /* extern "C" */
