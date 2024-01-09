@@ -5,12 +5,14 @@
 #include <stdint.h>
 #include <SDL.h>
 
+#include "CWrappers.h"
 #include "Vlogging.h"
 
 /* Steamworks interface versions */
 
 #define VVVVVV_STEAMCLIENT "SteamClient017"
 #define VVVVVV_STEAMUSERSTATS "STEAMUSERSTATS_INTERFACE_VERSION011"
+#define VVVVVV_STEAMSCREENSHOTS "STEAMSCREENSHOTS_INTERFACE_VERSION003"
 
 /* Shared object file name */
 
@@ -28,6 +30,20 @@
 
 struct ISteamClient;
 struct ISteamUserStats;
+struct ISteamScreenshots;
+struct CallbackMsg_t
+{
+    int32_t m_hSteamUser;
+    int32_t m_iCallback;
+    uint8_t* m_pubParam;
+    int32_t m_cubParam;
+};
+struct SteamAPICallCompleted_t
+{
+    uint64_t m_hAsyncCall;
+    int32_t m_iCallback;
+    uint32_t m_cubParam;
+};
 
 #define FUNC_LIST \
     FOREACH_FUNC(uint8_t, SteamAPI_Init, (void)) \
@@ -47,10 +63,42 @@ struct ISteamUserStats;
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_SetAchievement, ( \
         struct ISteamUserStats*, \
         const char* \
+    )) \
+    FOREACH_FUNC(struct ISteamScreenshots*, SteamAPI_ISteamClient_GetISteamScreenshots, ( \
+        struct ISteamClient*, \
+        int32_t, \
+        int32_t, \
+        const char* \
+    )) \
+    FOREACH_FUNC(void, SteamAPI_ISteamScreenshots_HookScreenshots, (\
+        struct ISteamScreenshots*, \
+        uint8_t \
+    )) \
+    FOREACH_FUNC(uint32_t, SteamAPI_ISteamScreenshots_WriteScreenshot, ( \
+        struct ISteamScreenshots*, \
+        void*, \
+        uint32_t, \
+        int32_t, \
+        int32_t \
+    )) \
+    FOREACH_FUNC(void, SteamAPI_ManualDispatch_Init, (void)) \
+    FOREACH_FUNC(void, SteamAPI_ManualDispatch_RunFrame, (int32_t)) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ManualDispatch_GetNextCallback, (int32_t, struct CallbackMsg_t*)) \
+    FOREACH_FUNC(void, SteamAPI_ManualDispatch_FreeLastCallback, (int32_t)) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ManualDispatch_GetAPICallResult, ( \
+        int32_t, \
+        uint64_t, \
+        void*, \
+        int32_t, \
+        int32_t, \
+        uint8_t* \
     ))
 
-static void *libHandle = NULL;
-static struct ISteamUserStats *steamUserStats = NULL;
+#define iScreenshotRequested 2302
+
+static void* libHandle = NULL;
+static struct ISteamUserStats* steamUserStats = NULL;
+static struct ISteamScreenshots* steamScreenshots = NULL;
 
 #define FOREACH_FUNC(rettype, name, params) static rettype (*name) params = NULL;
 FUNC_LIST
@@ -68,7 +116,34 @@ static void ClearPointers(void)
 #undef FOREACH_FUNC
 }
 
+static void run_screenshot()
+{
+    if (!libHandle)
+    {
+        return;
+    }
+
+    vlog_info("taking a screenshot");
+
+    SDL_Surface* surface = GRAPHICS_tempScreenshot();
+    uint8_t success = UTIL_TakeScreenshot(&surface);
+    if (!success)
+    {
+        return;
+    }
+
+    SteamAPI_ISteamScreenshots_WriteScreenshot(
+        steamScreenshots,
+        surface->pixels,
+        surface->w * surface->h * surface->format->BytesPerPixel,
+        surface->w,
+        surface->h
+    );
+}
+
 /* NETWORK API Implementation */
+
+static int32_t steamPipe = 0;
 
 int32_t STEAM_init(void)
 {
@@ -76,7 +151,7 @@ int32_t STEAM_init(void)
     return 0;
 #endif
     struct ISteamClient *steamClient;
-    int32_t steamUser, steamPipe;
+    int32_t steamUser;
 
     libHandle = SDL_LoadObject(STEAM_LIBRARY);
     if (!libHandle)
@@ -102,6 +177,7 @@ int32_t STEAM_init(void)
         ClearPointers();
         return 0;
     }
+    SteamAPI_ManualDispatch_Init();
     steamClient = SteamInternal_CreateInterface(VVVVVV_STEAMCLIENT);
     steamUser = SteamAPI_GetHSteamUser();
     steamPipe = SteamAPI_GetHSteamPipe();
@@ -126,6 +202,20 @@ int32_t STEAM_init(void)
         return 0;
     }
     SteamAPI_ISteamUserStats_RequestCurrentStats(steamUserStats);
+    steamScreenshots = SteamAPI_ISteamClient_GetISteamScreenshots(
+        steamClient,
+        steamUser,
+        steamPipe,
+        VVVVVV_STEAMSCREENSHOTS
+    );
+    if (!steamScreenshots)
+    {
+        SteamAPI_Shutdown();
+        vlog_error(VVVVVV_STEAMSCREENSHOTS " not created!");
+        ClearPointers();
+        return 0;
+    }
+    SteamAPI_ISteamScreenshots_HookScreenshots(steamScreenshots, 1);
     return 1;
 }
 
@@ -140,9 +230,21 @@ void STEAM_shutdown(void)
 
 void STEAM_update(void)
 {
-    if (libHandle)
+    if (!libHandle)
     {
-        SteamAPI_RunCallbacks();
+        return;
+    }
+
+    SteamAPI_ManualDispatch_RunFrame(steamPipe);
+    struct CallbackMsg_t callback;
+    SDL_zero(callback);
+    while (SteamAPI_ManualDispatch_GetNextCallback(steamPipe, &callback))
+    {
+        if (callback.m_iCallback == iScreenshotRequested)
+        {
+            run_screenshot();
+        }
+        SteamAPI_ManualDispatch_FreeLastCallback(steamPipe);
     }
 }
 

@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 
+#include "Graphics.h"
+#include "GraphicsUtil.h"
 #include "Localization.h"
 #include "UtilityClass.h"
 
@@ -25,6 +27,16 @@ char* HELP_number_words(int _t, const char* number_class)
 uint32_t LOC_toupper_ch(uint32_t ch)
 {
     return loc::toupper_ch(ch);
+}
+
+SDL_Surface* GRAPHICS_tempScreenshot(void)
+{
+    return graphics.tempScreenshot;
+}
+
+uint8_t UTIL_TakeScreenshot(SDL_Surface** surface)
+{
+    return TakeScreenshot(surface);
 }
 
 } /* extern "C" */
