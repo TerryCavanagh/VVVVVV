@@ -332,6 +332,7 @@ public:
     SDL_Texture* backgroundTexture;
     SDL_Texture* foregroundTexture;
     SDL_Texture* tempScrollingTexture;
+    SDL_Surface* tempScreenshot;
 
     TowerBG towerbg;
     TowerBG titlebg;

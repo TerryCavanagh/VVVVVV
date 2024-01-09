@@ -32,6 +32,7 @@ void FILESYSTEM_unmountAssets(void);
 bool FILESYSTEM_isAssetMounted(const char* filename);
 bool FILESYSTEM_areAssetsInSameRealDir(const char* filenameA, const char* filenameB);
 
+bool FILESYSTEM_saveFile(const char* name, const unsigned char* data, size_t len);
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
                                  size_t *len);
 void FILESYSTEM_loadAssetToMemory(

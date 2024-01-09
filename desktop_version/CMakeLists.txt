@@ -316,7 +316,6 @@ add_library(lodepng-static STATIC ${PNG_SRC})
 target_compile_definitions(lodepng-static PRIVATE
     -DLODEPNG_NO_COMPILE_ALLOCATORS
     -DLODEPNG_NO_COMPILE_DISK
-    -DLODEPNG_NO_COMPILE_ENCODER
 )
 
 add_library(c-hashmap-static STATIC ${CHM_SRC})

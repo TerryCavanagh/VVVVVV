@@ -10,12 +10,15 @@
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "GraphicsUtil.h"
 #include "Localization.h"
 #include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
 #include "UTF8.h"
 #include "Vlogging.h"
+
+bool SaveScreenshot(void);
 
 int inline KeyPoll::getThreshold(void)
 {
@@ -179,6 +182,11 @@ void KeyPoll::Poll(void)
                 loc::loadtext(false);
                 graphics.grphx.init_translations();
                 music.playef(Sound_COIN);
+            }
+
+            if (evt.key.keysym.sym == SDLK_F6 && !evt.key.repeat)
+            {
+                SaveScreenshot();
             }
 
             BUTTONGLYPHS_keyboard_set_active(true);

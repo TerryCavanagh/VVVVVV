@@ -4,6 +4,7 @@
 
 #include "Alloc.h"
 #include "FileSystemUtils.h"
+#include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
 #include "Vlogging.h"
@@ -19,6 +20,13 @@ extern "C"
         unsigned* h,
         const unsigned char* in,
         size_t insize
+    );
+    extern unsigned lodepng_encode24(
+        unsigned char** out,
+        size_t* outsize,
+        const unsigned char* image,
+        unsigned w,
+        unsigned h
     );
     extern const char* lodepng_error_text(unsigned code);
 }
@@ -468,4 +476,53 @@ void GraphicsResources::destroy(void)
 
     VVV_freefunc(SDL_FreeSurface, im_sprites_surf);
     VVV_freefunc(SDL_FreeSurface, im_flipsprites_surf);
+}
+
+bool SaveImage(const SDL_Surface* surface, const char* filename)
+{
+    unsigned char* out;
+    size_t outsize;
+    unsigned int error;
+    bool success;
+
+    error = lodepng_encode24(
+        &out, &outsize,
+        (const unsigned char*) surface->pixels,
+        surface->w, surface->h
+    );
+
+    if (error != 0)
+    {
+        vlog_error("Could not save image: %s", lodepng_error_text(error));
+        return false;
+    }
+
+    success = FILESYSTEM_saveFile(filename, out, outsize);
+    SDL_free(out);
+
+    if (!success)
+    {
+        vlog_error("Could not save image");
+    }
+
+    return success;
+}
+
+bool SaveScreenshot(void)
+{
+    bool success = TakeScreenshot(&graphics.tempScreenshot);
+    if (!success)
+    {
+        vlog_error("Could not take screenshot");
+        return false;
+    }
+    // TODO: Timestamp in filename
+    success = SaveImage(graphics.tempScreenshot, "screenshots/test.png");
+    if (!success)
+    {
+        return false;
+    }
+
+    vlog_info("Saved screenshot");
+    return true;
 }
