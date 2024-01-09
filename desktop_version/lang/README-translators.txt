@@ -97,7 +97,7 @@ In certain places, VVVVVV (perhaps unconventionally) writes out numbers as full 
 
 These words can be found in numbers.xml. The numbers Zero through Twenty will be the most commonly seen. It's always possible for numbers up to One Hundred to be seen though (players can put up to 100 trinkets and crewmates in a custom level).
 
-Your language may not allow the same word to be used for the same number in different scenarios. For example, in Polish, "twenty out of twenty" may be "dwadzieścia z dwudziestu". You can choose when these "wordy" numbers are used and when numeric forms (20 out of 20) are used (see "STRING FORMATTING" below). It's also possible to leave the translations for all the numbers empty. In that case, numeric forms will always be used.
+Your language may not allow the same word to be used for the same number in different scenarios. For example, in Polish, "twenty out of twenty" may be "dwadzieścia z dwudziestu". Right now, you have two sets of wordy numbers to choose from, `translation` and `translation2`, but this will likely change to a more customizable system in the future. You can choose when these "wordy" numbers are used and when numeric forms (20 out of 20) are used (see "STRING FORMATTING" below). It's also possible to leave the translations for all the numbers empty. In that case, numeric forms will always be used.
 
 In English, using Title Case is appropriate, but in most other languages, it probably isn't. Therefore, you may want to translate all numbers in lowercase, when it's more appropriate to use "twenty out of twenty" than "Twenty out of Twenty". You can then apply auto-uppercasing to any placeholder you choose (see "STRING FORMATTING" below), making it possible to display "Twenty out of twenty".
 
@@ -142,7 +142,8 @@ Placeholders can also have "flags" that modify their behavior. These can be adde
 For example, "{n_trinkets|wordy}" makes the number of trinkets display as a "wordy" number (twenty instead of 20) (See "NUMBERS AND PLURAL FORMS"). "{n_trinkets|wordy|upper}" makes that word start with a capital letter (Twenty instead of twenty). So for example, "{n_trinkets|wordy|upper} of {max_trinkets|wordy}" may be displayed as "Twenty out of twenty" - assuming numbers.xml is translated all-lowercase.
 
 The valid flags are:
-  - wordy         [ints only] use number words (Twenty) instead of digits (20)
+  - wordy         [ints only] use number words (Twenty) of the first set (translation), instead of digits (20)
+  - wordy2        [ints only] use number words of the second set (translation2), instead of digits
   - digits=n      [ints only] force minimum n digits, like n=5 --> 00031
   - spaces        [only if using digits=n] use leading spaces instead of 0s
   - upper         uppercase the first character with loc::toupper_ch
@@ -255,6 +256,8 @@ This file contains some general information about this translation. It contains 
 
 * action_hint: This is displayed at the bottom of the language screen when your language is highlighted, to show that Space/Z/V sets the selected option as the language. Max 40 @8x8
 
+* gamepad_hint: The same as action_hint, but now a gamepad button will be filled into {button}, such as (A), (X), etc
+
 * autowordwrap: Whether automatic wordwrapping is enabled. Can be disabled for CJK (in which case newlines have to be inserted manually in text)
 
 * toupper: Whether to enable automatic uppercasing of menu options (unselected, SELECTED). May be disabled for languages such as CJK that don't have lowercase and uppercase.
@@ -263,9 +266,13 @@ This file contains some general information about this translation. It contains 
 
 * toupper_lower_escape_char: When automatically uppercasing, allow ~ to be used to stop the next letter from being uppercased, for Irish.
 
+* rtl: This should be enabled for languages that are written right-to-left. It will horizontally flip many parts of the interface and allows text to be right-aligned in places like textboxes.
+
 * menu_select: The indication that a certain menu option or button is selected, in addition to the automatic uppercasing if "toupper" is enabled. For example, "[ {label} ]" looks like "[ SELECTED ]"
 
 * menu_select_tight: Similar to menu_select, except used in cases where space is a bit more limited (like the map screen). "[{label}]" looks like "[SELECTED]"
+
+* font: The filename of the font to use. The 8x8 font is called "font", the Japanese font is "font_ja", et cetera.
 
 
 == strings.xml ==
