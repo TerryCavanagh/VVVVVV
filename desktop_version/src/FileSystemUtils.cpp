@@ -270,6 +270,19 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     mkdir(screenshotDir, 0777);
     vlog_info("Screenshot directory: %s", screenshotDir);
 
+    /* We also need to make the subdirectories */
+    {
+        char temp[MAX_PATH];
+        SDL_snprintf(temp, sizeof(temp), "%s%s%s",
+            screenshotDir, "1x", pathSep
+        );
+        mkdir(temp, 0777);
+        SDL_snprintf(temp, sizeof(temp), "%s%s%s",
+            screenshotDir, "2x", pathSep
+        );
+        mkdir(temp, 0777);
+    }
+
     basePath = SDL_GetBasePath();
 
     if (basePath == NULL)

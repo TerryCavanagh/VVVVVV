@@ -1,5 +1,6 @@
 #include "GraphicsResources.h"
 
+#include <time.h>
 #include <tinyxml2.h>
 
 #include "Alloc.h"
@@ -516,8 +517,17 @@ bool SaveScreenshot(void)
         vlog_error("Could not take screenshot");
         return false;
     }
-    // TODO: Timestamp in filename
-    success = SaveImage(graphics.tempScreenshot, "screenshots/test.png");
+
+    const time_t now = time(NULL);
+    const tm* date = localtime(&now);
+
+    char timestamp[32];
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d_%H-%M-%S", date);
+
+    char filename[64];
+    SDL_snprintf(filename, sizeof(filename), "screenshots/1x/%s_1x.png", timestamp);
+
+    success = SaveImage(graphics.tempScreenshot, filename);
     if (!success)
     {
         return false;
@@ -530,12 +540,14 @@ bool SaveScreenshot(void)
         return false;
     }
 
-    success = SaveImage(graphics.tempScreenshot2x, "screenshots/test2x.png");
+    SDL_snprintf(filename, sizeof(filename), "screenshots/2x/%s_2x.png", timestamp);
+
+    success = SaveImage(graphics.tempScreenshot2x, filename);
     if (!success)
     {
         return false;
     }
 
-    vlog_info("Saved screenshot");
+    vlog_info("Saved screenshot %s", timestamp);
     return true;
 }
