@@ -3602,3 +3602,15 @@ void Graphics::render_roomname(uint32_t font_flag, const char* roomname, int r, 
     font::print(font_flag | PR_CEN | PR_BOR | PR_CJK_LOW, -1, footerrect.y+1, roomname, r, g, b);
     set_blendmode(SDL_BLENDMODE_NONE);
 }
+
+void Graphics::print_roomtext(int x, const int y, const char* text, const bool rtl)
+{
+    uint32_t flags = PR_FONT_LEVEL | PR_CJK_LOW;
+
+    if (rtl)
+    {
+        flags |= PR_RIGHT;
+        x += 8; // the size of a tile, not font width!
+    }
+    font::print(flags, x, y, text, 196, 196, 255 - help.glow);
+}

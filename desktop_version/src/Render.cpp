@@ -2364,7 +2364,7 @@ void gamerender(void)
         //Draw room text!
         for (size_t i = 0; i < map.roomtext.size(); i++)
         {
-            font::print(PR_FONT_LEVEL | PR_CJK_LOW, map.roomtext[i].x*8, (map.roomtext[i].y*8), map.roomtext[i].text, 196, 196, 255 - help.glow);
+            graphics.print_roomtext(map.roomtext[i].x*8, map.roomtext[i].y*8, map.roomtext[i].text, map.roomtext[i].rtl);
         }
     }
 
