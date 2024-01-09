@@ -364,6 +364,10 @@ void Game::init(void)
     old_mode_indicator_timer = 0;
     mode_indicator_timer = 0;
 
+    old_screenshot_border_timer = 0;
+    screenshot_border_timer = 0;
+    screenshot_saved_success = false;
+
     setdefaultcontrollerbuttons();
 }
 

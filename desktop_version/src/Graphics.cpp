@@ -3345,6 +3345,8 @@ void Graphics::screenshake(void)
 
     copy_texture(gameTexture, NULL, &shake);
 
+    draw_screenshot_border();
+
     set_render_target(gameTexture);
     clear();
 
@@ -3370,6 +3372,8 @@ void Graphics::updatescreenshake(void)
 
 void Graphics::render(void)
 {
+    draw_screenshot_border();
+
     if (gameScreen.badSignalEffect)
     {
         ApplyFilter(&tempFilterSrc, &tempFilterDest);
@@ -3423,6 +3427,46 @@ void Graphics::renderfixedpost(void)
     {
         --game.screenshake;
     }
+
+    game.old_screenshot_border_timer = game.screenshot_border_timer;
+    if (game.screenshot_border_timer > 0)
+    {
+        game.screenshot_border_timer -= 15;
+    }
+}
+
+void Graphics::draw_screenshot_border(void)
+{
+    const int border_alpha = lerp(game.old_screenshot_border_timer, game.screenshot_border_timer);
+
+    if (border_alpha <= 100)
+    {
+        return;
+    }
+
+    int width = 0;
+    int height = 0;
+    int result = query_texture(gameTexture, NULL, NULL, &width, &height);
+    if (result != 0)
+    {
+        return;
+    }
+
+    const SDL_Rect rect_inner = {1, 1, width - 2, height - 2};
+
+    if (game.screenshot_saved_success)
+    {
+        set_color(196, 196, 20, border_alpha);
+    }
+    else
+    {
+        set_color(196, 20, 20, border_alpha);
+    }
+
+    set_blendmode(SDL_BLENDMODE_BLEND);
+    draw_rect(NULL);
+    draw_rect(&rect_inner);
+    set_blendmode(SDL_BLENDMODE_NONE);
 }
 
 void Graphics::drawtele(int x, int y, int t, const SDL_Color color)
