@@ -592,6 +592,10 @@ public:
 
     int old_mode_indicator_timer;
     int mode_indicator_timer;
+
+    int old_screenshot_border_timer;
+    int screenshot_border_timer;
+    bool screenshot_saved_success;
 };
 
 #ifndef GAME_DEFINITION

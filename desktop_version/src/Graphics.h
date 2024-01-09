@@ -252,6 +252,8 @@ public:
     void renderfixedpre(void);
     void renderfixedpost(void);
 
+    void draw_screenshot_border(void);
+
     bool Hitest(SDL_Surface* surface1, SDL_Point p1, SDL_Surface* surface2, SDL_Point p2);
 
     void drawentities(void);
