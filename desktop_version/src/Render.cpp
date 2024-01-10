@@ -2325,6 +2325,7 @@ void gamerender(void)
     && game.showingametimer
     && !roomname_translator::enabled
     && (!game.swnmode || game.swngame != SWN_START_GRAVITRON_STEP_3)
+    && obj.trophytext <= 0 && obj.oldtrophytext <= 0
     && !draw_return_editor_text
     && !draw_mode_indicator_text)
     {
