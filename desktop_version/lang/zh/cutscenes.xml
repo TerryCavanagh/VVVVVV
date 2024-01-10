@@ -3,15 +3,15 @@
 <cutscenes>
     <cutscene id="intro" explanation="">
         <dialogue speaker="cyan" english="Uh oh..." translation="呃欧……"/>
-        <dialogue speaker="purple" english="Is everything ok?" translation="一切都还好吗？"/>
-        <dialogue speaker="cyan" english="No! We&apos;ve hit some kind of interference..." translation="一点也不好！我们遭遇了某种干扰……"/>
-        <dialogue speaker="cyan" english="Something&apos;s wrong! We&apos;re going to crash!" translation="出了大问题！我们要坠机了！"/>
+        <dialogue speaker="purple" english="Is everything ok?" translation="怎么了吗？"/>
+        <dialogue speaker="cyan" english="No! We&apos;ve hit some kind of interference..." translation="有情况！我们遭遇了某种干扰……"/>
+        <dialogue speaker="cyan" english="Something&apos;s wrong! We&apos;re going to crash!" translation="出大问题了！我们要坠机了！"/>
         <dialogue speaker="cyan" english="Evacuate!" translation="全员疏散！"/>
         <dialogue speaker="blue" english="Oh no!" translation="哦不！"/>
-        <dialogue speaker="red" english="Everyone off the ship!" translation="所有人都下船！"/>
-        <dialogue speaker="yellow" english="This shouldn&apos;t be happening!" translation="怎么会这样！"/>
-        <dialogue speaker="cyan" english="Phew! That was scary!" translation="嘿呦！真是吓死人了。"/>
-        <dialogue speaker="cyan" english="At least we all escaped, right guys?" translation="还好我们全都成功逃脱了，对吧伙计们？"/>
+        <dialogue speaker="red" english="Everyone off the ship!" translation="所有人立即下船！"/>
+        <dialogue speaker="yellow" english="This shouldn&apos;t be happening!" translation="怎么这样！"/>
+        <dialogue speaker="cyan" english="Phew! That was scary!" translation="呼！真是吓死人了！"/>
+        <dialogue speaker="cyan" english="At least we all escaped, right guys?" translation="还好我们都逃出来了，对吧伙计们？"/>
         <dialogue speaker="cyan" english="...guys?" translation="……伙计们？"/>
     </cutscene>
     <cutscene id="firststeps" explanation="">
@@ -75,7 +75,7 @@
         <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="扫描中发现的这几个地点，有高能的迹象！"/>
         <dialogue speaker="purple" english="There&apos;s a good chance they&apos;re teleporters - which means they&apos;re probably built near something important..." translation="这些地方很有可能都是传送器——而一般传送器都会建造在重要地点的附近……"/>
         <dialogue speaker="purple" english="They could be a very good place to start looking." translation="所以它们会是很好的搜索点。"/>
-        <dialogue speaker="player" english="Ok! I&apos;ll head out and see what I can find!" translation="好的！我会出发去看看自己能够找到什么！"/>
+        <dialogue speaker="player" english="Ok! I&apos;ll head out and see what I can find!" translation="好的！那我就出去看看能不能找到什么！"/>
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="假如你需要帮助的话，我随时都在这里！"/>
     </cutscene>
     <cutscene id="bigopenworldskip" explanation="">
