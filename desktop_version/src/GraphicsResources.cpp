@@ -510,6 +510,9 @@ bool SaveImage(const SDL_Surface* surface, const char* filename)
 
 bool SaveScreenshot(void)
 {
+    static time_t last_time = 0;
+    static int subsecond_counter = 0;
+
     bool success = TakeScreenshot(&graphics.tempScreenshot);
     if (!success)
     {
@@ -520,11 +523,28 @@ bool SaveScreenshot(void)
     const time_t now = time(NULL);
     const tm* date = localtime(&now);
 
+    if (now != last_time)
+    {
+        last_time = now;
+        subsecond_counter = 0;
+    }
+    subsecond_counter++;
+
     char timestamp[32];
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d_%H-%M-%S", date);
 
+    char name[32];
+    if (subsecond_counter > 1)
+    {
+        SDL_snprintf(name, sizeof(name), "%s_%i", timestamp, subsecond_counter);
+    }
+    else
+    {
+        SDL_strlcpy(name, timestamp, sizeof(name));
+    }
+
     char filename[64];
-    SDL_snprintf(filename, sizeof(filename), "screenshots/1x/%s_1x.png", timestamp);
+    SDL_snprintf(filename, sizeof(filename), "screenshots/1x/%s_1x.png", name);
 
     success = SaveImage(graphics.tempScreenshot, filename);
     if (!success)
@@ -539,7 +559,7 @@ bool SaveScreenshot(void)
         return false;
     }
 
-    SDL_snprintf(filename, sizeof(filename), "screenshots/2x/%s_2x.png", timestamp);
+    SDL_snprintf(filename, sizeof(filename), "screenshots/2x/%s_2x.png", name);
 
     success = SaveImage(graphics.tempScreenshot2x, filename);
     if (!success)
@@ -547,6 +567,6 @@ bool SaveScreenshot(void)
         return false;
     }
 
-    vlog_info("Saved screenshot %s", timestamp);
+    vlog_info("Saved screenshot %s", name);
     return true;
 }
