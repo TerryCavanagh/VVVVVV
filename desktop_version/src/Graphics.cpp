@@ -973,6 +973,7 @@ void Graphics::drawgui(void)
             opacity = tl_lerp;
         }
 
+        const int alpha = opacity * 255;
         if (textboxes[i].image == TEXTIMAGE_LEVELCOMPLETE)
         {
             // Level complete
@@ -996,7 +997,6 @@ void Graphics::drawgui(void)
                     y = 240 - y - 8 * sc;
                 }
                 SDL_Color color = TEXT_COLOUR("cyan");
-                const int alpha = opacity * 255;
                 font::print(
                     (sc == 2 ? PR_2X : PR_1X) | PR_CEN | PR_BRIGHTNESS(alpha),
                     -1, y, translation, color.r, color.g, color.b
@@ -1004,7 +1004,7 @@ void Graphics::drawgui(void)
             }
             else
             {
-                const SDL_Color color = {255, 255, 255, (Uint8) (opacity * 255)};
+                const SDL_Color color = {alpha, alpha, alpha};
                 if (flipmode)
                 {
                     drawimagecol(IMAGE_FLIPLEVELCOMPLETE, 0, 180, color, true);
