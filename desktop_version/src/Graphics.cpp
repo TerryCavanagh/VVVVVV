@@ -1004,7 +1004,7 @@ void Graphics::drawgui(void)
             }
             else
             {
-                const SDL_Color color = {alpha, alpha, alpha};
+                const SDL_Color color = {(Uint8) alpha, (Uint8) alpha, (Uint8) alpha, 255};
                 if (flipmode)
                 {
                     drawimagecol(IMAGE_FLIPLEVELCOMPLETE, 0, 180, color, true);
