@@ -3524,11 +3524,23 @@ void editorinput(void)
 
                 if (game.menustart)
                 {
-                    if (game.press_left || up_pressed)
+                    bool left, right;
+                    if (!font::is_rtl(PR_FONT_INTERFACE))
+                    {
+                        left = game.press_left;
+                        right = game.press_right;
+                    }
+                    else
+                    {
+                        left = game.press_right;
+                        right = game.press_left;
+                    }
+
+                    if (left || up_pressed)
                     {
                         game.currentmenuoption--;
                     }
-                    else if (game.press_right || down_pressed)
+                    else if (right || down_pressed)
                     {
                         game.currentmenuoption++;
                     }
