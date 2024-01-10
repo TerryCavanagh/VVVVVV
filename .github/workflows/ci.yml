@@ -9,6 +9,7 @@ on:
       - "desktop_version/src/**.cpp"
       - "desktop_version/src/**.c"
       - "desktop_version/src/**.h"
+      - "third_party/**"
       - ".github/workflows/ci.yml"
   pull_request:
     paths:
@@ -16,6 +17,7 @@ on:
       - "desktop_version/src/**.cpp"
       - "desktop_version/src/**.c"
       - "desktop_version/src/**.h"
+      - "third_party/**"
       - ".github/workflows/ci.yml"
 
 env:
