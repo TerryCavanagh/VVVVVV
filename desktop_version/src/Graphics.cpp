@@ -1048,7 +1048,9 @@ void Graphics::drawgui(void)
             TextboxSprite* sprite = &textboxes[i].sprites[index];
             int y = sprite->y + yp;
             SDL_Color color = getcol(sprite->col);
-            color.a = opacity * 255;
+            color.r *= opacity;
+            color.g *= opacity;
+            color.b *= opacity;
 
             if (flipmode)
             {
