@@ -2321,7 +2321,11 @@ void gamerender(void)
     int mode_indicator_alpha = graphics.lerp(
         game.old_mode_indicator_timer, game.mode_indicator_timer
     );
-    bool draw_mode_indicator_text = mode_indicator_alpha > 100;
+    bool any_mode_active = map.invincibility
+        || GlitchrunnerMode_get() != GlitchrunnerNone
+        || graphics.flipmode
+        || game.slowdown < 30;
+    bool draw_mode_indicator_text = mode_indicator_alpha > 100 && any_mode_active;
 
     if (graphics.fademode == FADE_NONE
     && !game.intimetrial
