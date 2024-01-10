@@ -906,6 +906,7 @@ void Graphics::drawgui(void)
         }
 
         const bool transparent = (textboxes[i].r | textboxes[i].g | textboxes[i].b) == 0;
+        float opacity;
 
         if (transparent)
         {
@@ -932,6 +933,8 @@ void Graphics::drawgui(void)
                     196, 196, 255 - help.glow
                 );
             }
+
+            opacity = 1.0f;
         }
         else
         {
@@ -952,14 +955,8 @@ void Graphics::drawgui(void)
                     textboxes[i].r, textboxes[i].g, textboxes[i].b
                 );
             }
-        }
 
-        const bool opaque = textboxes[i].tl >= 1.0;
-        const bool draw_overlays = opaque || transparent;
-
-        if (!draw_overlays)
-        {
-            continue;
+            opacity = tl_lerp;
         }
 
         if (textboxes[i].image == TEXTIMAGE_LEVELCOMPLETE)
@@ -985,17 +982,22 @@ void Graphics::drawgui(void)
                     y = 240 - y - 8 * sc;
                 }
                 SDL_Color color = TEXT_COLOUR("cyan");
-                font::print((sc == 2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, color.r, color.g, color.b);
+                const int alpha = opacity * 255;
+                font::print(
+                    (sc == 2 ? PR_2X : PR_1X) | PR_CEN | PR_BRIGHTNESS(alpha),
+                    -1, y, translation, color.r, color.g, color.b
+                );
             }
             else
             {
+                const SDL_Color color = {255, 255, 255, (Uint8) (opacity * 255)};
                 if (flipmode)
                 {
-                    drawimage(IMAGE_FLIPLEVELCOMPLETE, 0, 180, true);
+                    drawimagecol(IMAGE_FLIPLEVELCOMPLETE, 0, 180, color, true);
                 }
                 else
                 {
-                    drawimage(IMAGE_LEVELCOMPLETE, 0, 12, true);
+                    drawimagecol(IMAGE_LEVELCOMPLETE, 0, 12, color, true);
                 }
             }
         }
@@ -1021,17 +1023,22 @@ void Graphics::drawgui(void)
                 {
                     y = 240 - y - 8 * sc;
                 }
-                font::print((sc == 2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, 196, 196, 243);
+                const int alpha = opacity * 255;
+                font::print(
+                    (sc == 2 ? PR_2X : PR_1X) | PR_CEN | PR_BRIGHTNESS(alpha),
+                    -1, y, translation, 196, 196, 243
+                );
             }
             else
             {
+                const SDL_Color color = {255, 255, 255, (Uint8) (opacity * 255)};
                 if (flipmode)
                 {
-                    drawimage(IMAGE_FLIPGAMECOMPLETE, 0, 180, true);
+                    drawimagecol(IMAGE_FLIPGAMECOMPLETE, 0, 180, color, true);
                 }
                 else
                 {
-                    drawimage(IMAGE_GAMECOMPLETE, 0, 12, true);
+                    drawimagecol(IMAGE_GAMECOMPLETE, 0, 12, color, true);
                 }
             }
         }
@@ -1040,6 +1047,8 @@ void Graphics::drawgui(void)
         {
             TextboxSprite* sprite = &textboxes[i].sprites[index];
             int y = sprite->y + yp;
+            SDL_Color color = getcol(sprite->col);
+            color.a = opacity * 255;
 
             if (flipmode)
             {
@@ -1053,7 +1062,7 @@ void Graphics::drawgui(void)
                 y,
                 sprites_rect.w,
                 sprites_rect.h,
-                getcol(sprite->col),
+                color,
                 1,
                 (flipmode ? -1 : 1)
             );
