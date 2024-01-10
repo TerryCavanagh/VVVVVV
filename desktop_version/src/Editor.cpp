@@ -3472,10 +3472,9 @@ void editorinput(void)
 
         case EditorSubState_DRAW_INPUT:
             // We're taking input!
-            if (INBOUNDS_VEC(ed.text_entity, customentities)
-            && (customentities[ed.text_entity].t == 18 || customentities[ed.text_entity].t == 19))
+            if (ed.current_text_mode == TEXT_SCRIPT)
             {
-                // This is a terminal or script box, so this is a script name.
+                // This is editing an entity's text field, currently only used as a script name.
                 // Remove all pipes, they are the line separator in the XML.
                 // When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0
                 for (size_t i = key.keybuffer.length() - 1; i + 1 > 0; i--)
