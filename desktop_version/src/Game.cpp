@@ -6199,6 +6199,13 @@ void Game::returnmenu(void)
     {
         music.fadeout();
     }
+    else if (currentmenuname == Menu::gamecompletecontinue
+    || currentmenuname == Menu::timetrialcomplete3
+    || currentmenuname == Menu::gameover2
+    || currentmenuname == Menu::nodeathmodecomplete2)
+    {
+        music.play(Music_PRESENTINGVVVVVV);
+    }
 
     MenuStackFrame& frame = menustack[menustack.size()-1];
 
