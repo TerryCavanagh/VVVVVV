@@ -214,6 +214,8 @@ public:
     void returnmenu(void);
     void returntomenu(enum Menu::MenuName t);
     void  createmenu(enum Menu::MenuName t, bool samemenu = false);
+    bool can_unlock_ndm(void);
+    void unlock_ndm(void);
 
     void lifesequence(void);
 

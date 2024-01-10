@@ -2217,6 +2217,15 @@ static void menuactionpress(void)
             music.play(Music_PRESENTINGVVVVVV);
             game.returntomenu(Menu::timetrials);
             map.nexttowercolour();
+
+            /* FIXME: This is kinda bad kludge... but if we unlocked No Death Mode
+             * while in a Time Trial, the player wouldn't be notified until they went
+             * back to Menu::play first. This is the only case where something can be
+             * unlocked without being immediately notified after returning to title. */
+            if (game.can_unlock_ndm())
+            {
+                game.unlock_ndm();
+            }
             break;
         case 1:
             /* Replay time trial */
