@@ -2457,7 +2457,11 @@ void scriptclass::run(void)
             else if (words[0] == "textcase")
             {
                 // Used to disambiguate identical textboxes for translations (1 by default)
-                textcase = ss_toi(words[1]);
+                const int number = ss_toi(words[1]);
+                if (number >= 1 && number <= 255)
+                {
+                    textcase = number;
+                }
             }
             else if (words[0] == "loadtext")
             {
