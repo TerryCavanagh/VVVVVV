@@ -82,7 +82,6 @@ static SDL_Surface* LoadSurfaceFromRaw(SDL_Surface* loadedImage)
     return optimizedImage;
 }
 
-/* Can't be static, used in Screen.h */
 SDL_Surface* LoadImageSurface(const char* filename)
 {
     unsigned char* data;

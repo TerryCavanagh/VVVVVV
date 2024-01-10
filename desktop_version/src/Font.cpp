@@ -8,6 +8,7 @@
 #include "FileSystemUtils.h"
 #include "FontBidi.h"
 #include "Graphics.h"
+#include "GraphicsResources.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
 #include "UTF8.h"
@@ -19,10 +20,6 @@ extern "C"
 {
 #include <c-hashmap/map.h>
 }
-
-// Sigh... This is the second forward-declaration, we need to put this in a header file
-SDL_Texture* LoadImage(const char *filename, TextureLoadType loadtype);
-SDL_Surface* LoadImageSurface(const char* filename);
 
 namespace font
 {

@@ -10,6 +10,9 @@
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
+#ifndef __APPLE__
+#include "GraphicsResources.h"
+#endif
 #include "InterimVersion.h"
 #include "Render.h"
 #include "Vlogging.h"
@@ -118,8 +121,6 @@ void Screen::LoadIcon(void)
 
 }
 #else
-SDL_Surface* LoadImageSurface(const char* filename);
-
 void Screen::LoadIcon(void)
 {
     SDL_Surface* icon = LoadImageSurface("VVVVVV.png");
