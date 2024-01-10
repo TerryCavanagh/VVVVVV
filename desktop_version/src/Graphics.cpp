@@ -407,7 +407,7 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
 }
 
 void Graphics::print_level_creator(
-    const uint32_t print_flags,
+    uint32_t print_flags,
     const int y,
     const std::string& creator,
     const uint8_t r,
@@ -423,11 +423,25 @@ void Graphics::print_level_creator(
      * - if anyone is sad about this decision, the happy face will cheer them up anyway :D */
     int width_for_face = 17;
     int total_width = width_for_face + font::len(print_flags, creator.c_str());
-    int face_x = (SCREEN_WIDTH_PIXELS - total_width) / 2;
+    int face_x, text_x, sprite_x;
+    if (!font::is_rtl(print_flags))
+    {
+        face_x = (SCREEN_WIDTH_PIXELS - total_width) / 2;
+        text_x = face_x + width_for_face;
+        sprite_x = 7;
+    }
+    else
+    {
+        face_x = (SCREEN_WIDTH_PIXELS + total_width) / 2;
+        text_x = face_x - width_for_face;
+        face_x -= 10; // sprite origin
+        sprite_x = 103;
+        print_flags |= PR_RIGHT;
+    }
     set_texture_color_mod(grphx.im_sprites, r, g, b);
-    draw_texture_part(grphx.im_sprites, face_x, y - 1, 7, 2, 10, 10, 1, 1);
+    draw_texture_part(grphx.im_sprites, face_x, y - 1, sprite_x, 2, 10, 10, 1, 1);
     set_texture_color_mod(grphx.im_sprites, 255, 255, 255);
-    font::print(print_flags, face_x + width_for_face, y, creator, r, g, b);
+    font::print(print_flags, text_x, y, creator, r, g, b);
 }
 
 int Graphics::set_render_target(SDL_Texture* texture)
