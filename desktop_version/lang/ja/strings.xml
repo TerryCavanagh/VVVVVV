@@ -850,6 +850,7 @@ You have found the secret lab!" translation="よくやった!
     <string english="Pan-European Font Design by" translation="欧米フォントデザイン" explanation="" max="40" max_local="40"/>
     <string english="Fonts by" translation="フォントデザイン" explanation=""/>
     <string english="Other Fonts by" translation="他言語フォントデザイン" explanation=""/>
+    <string english="Arabic" translation="アラビア語" explanation=""/>
     <string english="Catalan" translation="カタロニア語" explanation=""/>
     <string english="Welsh" translation="ウェールズ語" explanation=""/>
     <string english="German" translation="ドイツ語" explanation=""/>

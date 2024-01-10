@@ -778,6 +778,7 @@ You have found the secret lab!" translation="Llongyfarchiadau! Rwyt ti wedi dod 
     <string english="Pan-European Font Design by" translation="Dyluniad Ffont Pan-Ewropeaidd gan" explanation="" max="40"/>
     <string english="Fonts by" translation="Ffontiau gan" explanation=""/>
     <string english="Other Fonts by" translation="Ffontiau Eraill gan" explanation=""/>
+    <string english="Arabic" translation="Arabeg" explanation=""/>
     <string english="Catalan" translation="Catalaneg" explanation=""/>
     <string english="Welsh" translation="Cymraeg" explanation=""/>
     <string english="German" translation="Almaeneg" explanation=""/>

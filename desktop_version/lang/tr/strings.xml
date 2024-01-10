@@ -784,6 +784,7 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Pan-European Yazı Tipi Tasarımı" explanation="" max="40"/>
     <string english="Fonts by" translation="Yazı Tipleri" explanation=""/>
     <string english="Other Fonts by" translation="Diğer Yazı Tipleri" explanation=""/>
+    <string english="Arabic" translation="Arapça" explanation=""/>
     <string english="Catalan" translation="Katalanca" explanation=""/>
     <string english="Welsh" translation="Galce" explanation=""/>
     <string english="German" translation="Almanca" explanation=""/>

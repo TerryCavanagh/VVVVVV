@@ -784,6 +784,7 @@ Du hast das Geheimlabor gefunden!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Pan-European Font Design von" explanation="" max="40"/>
     <string english="Fonts by" translation="Schriftarten von" explanation=""/>
     <string english="Other Fonts by" translation="Andere Schriftarten von" explanation=""/>
+    <string english="Arabic" translation="Arabisch" explanation=""/>
     <string english="Catalan" translation="Katalanisch" explanation=""/>
     <string english="Welsh" translation="Walisisch" explanation=""/>
     <string english="German" translation="Deutsch" explanation=""/>

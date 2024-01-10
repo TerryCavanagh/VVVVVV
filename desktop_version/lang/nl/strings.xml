@@ -785,6 +785,7 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Ontwerp pan-Europees lettertype door" explanation="" max="40"/>
     <string english="Fonts by" translation="Lettertypen door" explanation=""/>
     <string english="Other Fonts by" translation="Overige lettertypen door" explanation=""/>
+    <string english="Arabic" translation="Arabisch" explanation=""/>
     <string english="Catalan" translation="Catalaans" explanation=""/>
     <string english="Welsh" translation="Welsh" explanation=""/>
     <string english="German" translation="Duits" explanation=""/>

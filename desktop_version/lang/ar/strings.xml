@@ -793,6 +793,7 @@ You have found the secret lab!" translation="تهانينا!
     <string english="Pan-European Font Design by" translation="تصميم الخط الأوروبي من" explanation="" max="40" max_local="40"/>
     <string english="Fonts by" translation="الخطوط من" explanation=""/>
     <string english="Other Fonts by" translation="الخطوط الأخرى من" explanation=""/>
+    <string english="Arabic" translation="العربية" explanation=""/>
     <string english="Catalan" translation="الكاتالونية" explanation=""/>
     <string english="Welsh" translation="الويلزية" explanation=""/>
     <string english="German" translation="الألمانية" explanation=""/>

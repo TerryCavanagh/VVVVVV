@@ -784,6 +784,7 @@ Vous avez trouvé le labo secret !" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Police paneuropéenne par" explanation="" max="40"/>
     <string english="Fonts by" translation="Polices par" explanation=""/>
     <string english="Other Fonts by" translation="Autres polices par" explanation=""/>
+    <string english="Arabic" translation="Arabe" explanation=""/>
     <string english="Catalan" translation="Catalan" explanation=""/>
     <string english="Welsh" translation="Gallois" explanation=""/>
     <string english="German" translation="Allemand" explanation=""/>
