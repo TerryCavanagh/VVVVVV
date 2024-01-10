@@ -2187,7 +2187,12 @@ static void mode_indicator_text(const int alpha)
     if (game.advancetext)
     {
         /* Prevent clashing */
-        y += 15;
+        y = 20;
+    }
+    if (game.act_fade > 5 || game.prev_act_fade > 5)
+    {
+        /* Prevent clashing */
+        y = 37;
     }
 
     /* FIXME: Some strings have not yet been translated. In order to not have
