@@ -13,6 +13,7 @@
     </chars>
     <special>
         <range start="0x064B" end="0x065F" advance="0"/>
+        <range start="0xFBB2" end="0xFBC1" advance="0"/>
     </special>
     <fallback>buttons_8x8</fallback>
 </font_metadata>
