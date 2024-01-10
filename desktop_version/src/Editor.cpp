@@ -3504,6 +3504,8 @@ void editorinput(void)
 
     // We're in the menu!
     case EditorState_MENU:
+        up_pressed |= key.isDown(KEYBOARD_w);
+        down_pressed |= key.isDown(KEYBOARD_s);
 
         switch (ed.substate)
         {
@@ -3614,6 +3616,9 @@ void editorinput(void)
         {
         case EditorSubState_MAIN:
         {
+            up_pressed |= key.isDown(KEYBOARD_w);
+            down_pressed |= key.isDown(KEYBOARD_s);
+
             if (escape_pressed)
             {
                 music.playef(Sound_VIRIDIAN);
