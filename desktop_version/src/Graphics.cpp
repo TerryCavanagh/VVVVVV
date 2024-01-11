@@ -920,7 +920,6 @@ void Graphics::drawgui(void)
         }
 
         const bool transparent = (textboxes[i].r | textboxes[i].g | textboxes[i].b) == 0;
-        float opacity;
 
         if (transparent)
         {
@@ -947,8 +946,6 @@ void Graphics::drawgui(void)
                     196, 196, 255 - help.glow
                 );
             }
-
-            opacity = 1.0f;
         }
         else
         {
@@ -969,11 +966,16 @@ void Graphics::drawgui(void)
                     textboxes[i].r, textboxes[i].g, textboxes[i].b
                 );
             }
-
-            opacity = tl_lerp;
         }
 
-        const int alpha = opacity * 255;
+        const bool opaque = textboxes[i].tl >= 1.0;
+        const bool draw_overlays = opaque || transparent;
+
+        if (!draw_overlays)
+        {
+            continue;
+        }
+
         if (textboxes[i].image == TEXTIMAGE_LEVELCOMPLETE)
         {
             // Level complete
@@ -997,21 +999,17 @@ void Graphics::drawgui(void)
                     y = 240 - y - 8 * sc;
                 }
                 SDL_Color color = TEXT_COLOUR("cyan");
-                font::print(
-                    (sc == 2 ? PR_2X : PR_1X) | PR_CEN | PR_BRIGHTNESS(alpha),
-                    -1, y, translation, color.r, color.g, color.b
-                );
+                font::print((sc == 2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, color.r, color.g, color.b);
             }
             else
             {
-                const SDL_Color color = {(Uint8) alpha, (Uint8) alpha, (Uint8) alpha, 255};
                 if (flipmode)
                 {
-                    drawimagecol(IMAGE_FLIPLEVELCOMPLETE, 0, 180, color, true);
+                    drawimage(IMAGE_FLIPLEVELCOMPLETE, 0, 180, true);
                 }
                 else
                 {
-                    drawimagecol(IMAGE_LEVELCOMPLETE, 0, 12, color, true);
+                    drawimage(IMAGE_LEVELCOMPLETE, 0, 12, true);
                 }
             }
         }
@@ -1037,22 +1035,17 @@ void Graphics::drawgui(void)
                 {
                     y = 240 - y - 8 * sc;
                 }
-                const int alpha = opacity * 255;
-                font::print(
-                    (sc == 2 ? PR_2X : PR_1X) | PR_CEN | PR_BRIGHTNESS(alpha),
-                    -1, y, translation, 196, 196, 243
-                );
+                font::print((sc == 2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, 196, 196, 243);
             }
             else
             {
-                const SDL_Color color = {255, 255, 255, (Uint8) (opacity * 255)};
                 if (flipmode)
                 {
-                    drawimagecol(IMAGE_FLIPGAMECOMPLETE, 0, 180, color, true);
+                    drawimage(IMAGE_FLIPGAMECOMPLETE, 0, 180, true);
                 }
                 else
                 {
-                    drawimagecol(IMAGE_GAMECOMPLETE, 0, 12, color, true);
+                    drawimage(IMAGE_GAMECOMPLETE, 0, 12, true);
                 }
             }
         }
@@ -1061,10 +1054,6 @@ void Graphics::drawgui(void)
         {
             TextboxSprite* sprite = &textboxes[i].sprites[index];
             int y = sprite->y + yp;
-            SDL_Color color = getcol(sprite->col);
-            color.r *= opacity;
-            color.g *= opacity;
-            color.b *= opacity;
 
             if (flipmode)
             {
@@ -1078,7 +1067,7 @@ void Graphics::drawgui(void)
                 y,
                 sprites_rect.w,
                 sprites_rect.h,
-                color,
+                getcol(sprite->col),
                 1,
                 (flipmode ? -1 : 1)
             );
