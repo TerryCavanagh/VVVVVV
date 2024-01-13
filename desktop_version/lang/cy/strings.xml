@@ -699,7 +699,7 @@ You have found a lost crewmate!" translation="Llongyfarchiadau! Rwyt ti wedi dod
 You have found the secret lab!" translation="Llongyfarchiadau! Rwyt ti wedi dod o hyd i&apos;r labordy cyfrinachol!" explanation="" max="34*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="Mae&apos;r labordy cyfrinachol ar wahân i weddill y gêm. Gallwch nawr ddod yn ôl yma ar unrhyw adeg trwy ddewis yr opsiwn LAB CYFRINACHOL newydd yn y ddewislen chwarae." explanation="" max="36*10"/>
     <string english="Viridian" translation="Viridian" explanation="crewmate name (player)" max="15"/>
-    <string english="Violet" translation="Violed" explanation="crewmate name" max="15"/>
+    <string english="Violet" translation="Violet" explanation="crewmate name" max="15"/>
     <string english="Vitellary" translation="Vitellary" case="0" explanation="crewmate name" max="15"/>
     <string english="Vermilion" translation="Vermilion" case="0" explanation="crewmate name" max="15"/>
     <string english="Verdigris" translation="Verdigris" case="0" explanation="crewmate name" max="15"/>

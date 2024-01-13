@@ -44,7 +44,7 @@
         <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="Mae&apos;n debyg nad oes ei angen arnaf mewn gwirionedd, ond efallai y byddai&apos;n braf mynd ag ef yn ôl i&apos;r llong i&apos;w astudio ..."/>
     </cutscene>
     <cutscene id="teleporterback" explanation="">
-        <dialogue speaker="cyan" english="A teleporter!" translation="Mae&apos;n teleporter!"/>
+        <dialogue speaker="cyan" english="A teleporter!" translation="Mae yna deleporter!"/>
         <dialogue speaker="cyan" english="I can get back to the ship with this!" translation="Gallaf fynd yn ôl at y llong gyda hyn!"/>
     </cutscene>
     <cutscene id="levelonecomplete_ending" explanation="">
@@ -131,7 +131,7 @@
         <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation="Ydw i&apos;n falch o dy weld di! Roeddwn i&apos;n meddwl mai fi oedd yr unig un i ddianc o&apos;r llong ..."/>
         <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="Vermilion! Roeddwn i&apos;n gwybod y byddet ti&apos;n iawn!"/>
         <dialogue speaker="red" english="So, what&apos;s the situation?" translation="Felly, beth yw&apos;r sefyllfa?"/>
-        <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation="Dwi&apos;n gweld! Wel, gwell i ni gyrraedd yn ôl te."/>
+        <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation="Dwi&apos;n gweld! Wel, gwell i ni fynd yn ôl te."/>
         <dialogue speaker="red" english="There&apos;s a teleporter in the next room." translation="Mae teleporter yn yr ystafell nesaf."/>
     </cutscene>
     <cutscene id="rescueyellow" explanation="">
