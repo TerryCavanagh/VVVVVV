@@ -172,6 +172,7 @@ static const char* githubfriends[] = {
     "Pierre-Alain TORET",
     "Reese Rivers",
     "Rémi Verschelde",
+    "Space-G",
     "Thomas Sänger",
     "Tynan Richards",
     "Wouter",
