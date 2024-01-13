@@ -548,7 +548,7 @@
     <string english="Current map music:" translation="Текущая музыка карты:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="Без фоновой музыки" explanation="editor, level starts with no song playing" max="38*2"/>
     <string english="1: Pushing Onwards" translation="1: Pushing Onwards
-(Потенциал для всего)" explanation="editor, song name should probably not be translated" max="38*2"/>
+(Преодолевая трудности)" explanation="editor, song name should probably not be translated" max="38*2"/>
     <string english="2: Positive Force" translation="2: Positive Force
 (Положительная сила)" explanation="editor, song name should probably not be translated" max="38*2"/>
     <string english="3: Potential for Anything" translation="3: Potential for Anything
