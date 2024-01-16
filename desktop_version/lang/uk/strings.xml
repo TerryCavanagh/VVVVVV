@@ -584,8 +584,8 @@
     <string english="NO SCRIPT IDS FOUND" translation="НЕ ЗНАЙДЕНО ІДЕНТИФІКАТОРІВ СКРИПТІВ" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
     <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="СТВОРІТЬ СКРИПТ ЗА ДОПОМОГОЮ ТЕРМІНАЛУ АБО ІНСТРУМЕНТІВ БЛОКІВ ДЛЯ СКРИПТІВ" explanation="Commodore 64-style script editor" max="36*5"/>
     <string english="CURRENT SCRIPT: {name}" translation="ПОТОЧНИЙ СКРИПТ: {name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20"/>
-    <string english="Left click to place warp destination" translation="ЛКМ – кінцева точка варп-стрибка" explanation="warp token: small teleporter with entrance and destination" max="39"/>
-    <string english="Right click to cancel" translation="ПКМ – скасувати" explanation="" max="39"/>
+    <string english="Left click to place warp destination" translation="ЛКМ - кінцева точка варп-стрибка" explanation="warp token: small teleporter with entrance and destination" max="39"/>
+    <string english="Right click to cancel" translation="ПКМ - скасувати" explanation="" max="39"/>
     <string english="{button1} and {button2} keys change tool" translation="Кнопки {button1} і {button2} змінюють інструмент" explanation="These keys can be used to switch between tools" max="36"/>
     <string english="1: Walls" translation="1: Стіни" explanation="editor tool. Solid tiles" max="32"/>
     <string english="2: Backing" translation="2: Задник" explanation="editor tool. Non-solid background tiles" max="32"/>
