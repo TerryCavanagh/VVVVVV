@@ -34,5 +34,5 @@
     <menu_select_tight>[{label}]</menu_select_tight>
 
     <!-- The filename of the font to use. For example, "font_cn" means font_cn.png and font_cn.fontmeta. -->
-    <font>font_sc</font>
+    <font>font_tc</font>
 </langmeta>
