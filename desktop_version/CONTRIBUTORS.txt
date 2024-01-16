@@ -31,6 +31,7 @@ Contributors
 * Pierre-Alain TORET (@daftaupe)
 * Reese Rivers (@ReeseTheRivers)
 * Rémi Verschelde (@akien-mga)
+* SnDream (@SnDream)
 * Space-G (@Space-G)
 * Thomas Sänger (@HorayNarea)
 * Tynan Richards (@tzann)
