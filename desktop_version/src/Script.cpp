@@ -569,18 +569,21 @@ void scriptclass::run(void)
                     }
                 }
 
+                int linegap = graphics.getlinegap();
+
                 //next is whether to position above or below
                 if (INBOUNDS_VEC(i, obj.entities) && words[2] == "above")
                 {
                     if (j == 1)    //left
                     {
                         textx = obj.entities[i].xp -10000; //tells the box to be oriented correctly later
-                        texty = obj.entities[i].yp - 16 - (txt.size() * font::height(PR_FONT_LEVEL));
+                        texty = obj.entities[i].yp - 16 - (txt.size() * (font::height(PR_FONT_LEVEL) + linegap) - linegap);
+
                     }
                     else if (j == 0)     //Right
                     {
                         textx = obj.entities[i].xp - 16;
-                        texty = obj.entities[i].yp - 18 - (txt.size() * font::height(PR_FONT_LEVEL));
+                        texty = obj.entities[i].yp - 18 - (txt.size() * (font::height(PR_FONT_LEVEL) + linegap) - linegap);
                     }
                 }
                 else if (INBOUNDS_VEC(i, obj.entities))
@@ -666,18 +669,20 @@ void scriptclass::run(void)
                     texty = -500;
                 }
 
+                int linegap = graphics.getlinegap();
+                
                 //next is whether to position above or below
                 if (INBOUNDS_VEC(i, obj.entities) && words[2] == "above")
                 {
                     if (j == 1)    //left
                     {
                         textx = obj.entities[i].xp -10000; //tells the box to be oriented correctly later
-                        texty = obj.entities[i].yp - 16 - (txt.size() * font::height(PR_FONT_LEVEL));
+                        texty = obj.entities[i].yp - 16 - (txt.size() * (font::height(PR_FONT_LEVEL) + linegap) - linegap);
                     }
                     else if (j == 0)     //Right
                     {
                         textx = obj.entities[i].xp - 16;
-                        texty = obj.entities[i].yp - 18 - (txt.size() * font::height(PR_FONT_LEVEL));
+                        texty = obj.entities[i].yp - 18 - (txt.size() * (font::height(PR_FONT_LEVEL) + linegap) - linegap);
                     }
                 }
                 else if (INBOUNDS_VEC(i, obj.entities))

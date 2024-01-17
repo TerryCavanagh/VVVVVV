@@ -65,6 +65,7 @@ public:
 
     void drawfade(void);
 
+    int getlinegap(void);
     void createtextboxreal(
         const std::string& t,
         int xp, int yp,
