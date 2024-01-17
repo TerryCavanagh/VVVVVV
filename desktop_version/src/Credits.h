@@ -8,6 +8,7 @@ namespace Credits {
 /* Translators list; lines prefaced with a space aren't translatable */
 static const char* translators[] = {
     "Arabic",
+    " Eternal Dream Arabization",
     " Montassar Ghanmi",
     " Mohammed Seif Eddine Chaib",
     "Catalan",
@@ -63,7 +64,7 @@ static const char* translators[] = {
 };
 
 /* Hardcoded pagesizes for the translator credits. Simplifies paging backwards and forwards */
-static const int translator_pagesize[] = { 7, 9, 10, 10, 9, 8 };
+static const int translator_pagesize[] = { 8, 9, 10, 10, 9, 8 };
 
 /* Terry's Patrons... */
 static const char* superpatrons[] = {
