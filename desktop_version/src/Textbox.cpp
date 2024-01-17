@@ -5,7 +5,7 @@
 #include "Font.h"
 #include "UTF8.h"
 
-textboxclass::textboxclass(void)
+textboxclass::textboxclass(int gap)
 {
     w = 0;
     h = 0;
@@ -19,6 +19,7 @@ textboxclass::textboxclass(void)
     r = 0;
     g = 0;
     b = 0;
+    linegap = gap;
 
     flipme = false;
 
@@ -132,7 +133,7 @@ void textboxclass::resize(void)
 
     // 16 for the borders
     w = max + 16;
-    h = lines.size()*font::height(print_flags) + 16;
+    h = lines.size()*(font::height(print_flags) + linegap) + 16 - linegap;
 }
 
 void textboxclass::addline(const std::string& t)

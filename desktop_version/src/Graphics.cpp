@@ -874,7 +874,7 @@ void Graphics::drawgui(void)
         int font_height = font::height(textboxes[i].print_flags);
         if (flipmode)
         {
-            text_yoff = 8 + (textboxes[i].lines.size() - 1) * font_height;
+            text_yoff = 8 + (textboxes[i].lines.size() - 1) * (font_height + textboxes[i].linegap);
         }
         else
         {
@@ -884,7 +884,7 @@ void Graphics::drawgui(void)
         yp = textboxes[i].yp;
         if (flipmode && textboxes[i].flipme)
         {
-            yp = SCREEN_HEIGHT_PIXELS - yp - 16 - textboxes[i].lines.size() * font_height;
+            yp = SCREEN_HEIGHT_PIXELS - yp - 16 - textboxes[i].lines.size() * (font_height + textboxes[i].linegap);
         }
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -931,7 +931,7 @@ void Graphics::drawgui(void)
                 font::print(
                     print_flags | PR_BOR,
                     text_xp,
-                    yp + text_yoff + text_sign * (j * font_height),
+                    yp + text_yoff + text_sign * (j * (font_height + textboxes[i].linegap)),
                     textbox_line(buffer, sizeof(buffer), i, j),
                     0, 0, 0
                 );
@@ -941,7 +941,7 @@ void Graphics::drawgui(void)
                 font::print(
                     print_flags,
                     text_xp,
-                    yp + text_yoff + text_sign * (j * font_height),
+                    yp + text_yoff + text_sign * (j * (font_height + textboxes[i].linegap)),
                     textbox_line(buffer, sizeof(buffer), i, j),
                     196, 196, 255 - help.glow
                 );
@@ -961,7 +961,7 @@ void Graphics::drawgui(void)
                 font::print(
                     print_flags | PR_BRIGHTNESS(tl_lerp*255),
                     text_xp,
-                    yp + text_yoff + text_sign * (j * font_height),
+                    yp + text_yoff + text_sign * (j * (font_height + textboxes[i].linegap)),
                     textbox_line(buffer, sizeof(buffer), i, j),
                     textboxes[i].r, textboxes[i].g, textboxes[i].b
                 );
@@ -1506,6 +1506,12 @@ void Graphics::textboxadjust(void)
     textboxes[m].adjust();
 }
 
+int Graphics::getlinegap(void) 
+{
+    // Don't use linegaps in custom levels, for now anyway
+    if (map.custommode) return 0;
+    return 1;
+}
 
 void Graphics::createtextboxreal(
     const std::string& t,
@@ -1517,7 +1523,7 @@ void Graphics::createtextboxreal(
 
     if (m < 20)
     {
-        textboxclass text;
+        textboxclass text(getlinegap());
         text.lines.push_back(t);
         text.xp = xp;
         if (xp == -1) text.xp = 160 - ((font::len(PR_FONT_LEVEL, t.c_str()) / 2) + 8);

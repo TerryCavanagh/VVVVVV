@@ -23,7 +23,7 @@ enum TextboxImage
 class textboxclass
 {
 public:
-    textboxclass(void);
+    textboxclass(int gap);
 
     void addsprite(int x, int y, int tile, int col);
 
@@ -57,6 +57,7 @@ public:
     std::vector<std::string> lines;
     int xp, yp, w, h;
     int r,g,b;
+    int linegap;
     int timer;
 
     float tl;
