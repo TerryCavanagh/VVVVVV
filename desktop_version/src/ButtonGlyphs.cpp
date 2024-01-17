@@ -62,6 +62,15 @@ typedef enum
     GLYPH_NINTENDO_GENERIC_STICK,
     GLYPH_UNKNOWN,
 
+    /* Added after 2.4 */
+    GLYPH_NINTENDO_GAMECUBE_A,
+    GLYPH_NINTENDO_GAMECUBE_B,
+    GLYPH_NINTENDO_GAMECUBE_X,
+    GLYPH_NINTENDO_GAMECUBE_Y,
+    GLYPH_NINTENDO_GAMECUBE_L,
+    GLYPH_NINTENDO_GAMECUBE_R,
+    GLYPH_NINTENDO_GAMECUBE_Z,
+
     GLYPH_TOTAL
 }
 ButtonGlyphKey;
@@ -77,6 +86,9 @@ typedef enum
     LAYOUT_PLAYSTATION,
     LAYOUT_XBOX,
     LAYOUT_GENERIC,
+
+    /* Added after 2.4 */
+    LAYOUT_GAMECUBE,
 
     LAYOUT_TOTAL
 }
@@ -133,6 +145,13 @@ static const char* glyph_layout[LAYOUT_TOTAL][SDL_CONTROLLER_BUTTON_RIGHTSHOULDE
         "SELECT", "GUIDE", "START",
         glyph[GLYPH_NINTENDO_XBOX_LSTICK], glyph[GLYPH_NINTENDO_XBOX_RSTICK],
         glyph[GLYPH_GENERIC_L], glyph[GLYPH_GENERIC_R]
+    },
+    { // GAMECUBE
+        glyph[GLYPH_NINTENDO_GAMECUBE_A], glyph[GLYPH_NINTENDO_GAMECUBE_X],
+        glyph[GLYPH_NINTENDO_GAMECUBE_B], glyph[GLYPH_NINTENDO_GAMECUBE_Y],
+        glyph[GLYPH_UNKNOWN], glyph[GLYPH_UNKNOWN], "START",
+        glyph[GLYPH_UNKNOWN], glyph[GLYPH_UNKNOWN],
+        glyph[GLYPH_UNKNOWN], glyph[GLYPH_NINTENDO_GAMECUBE_Z]
     }
 };
 
@@ -215,8 +234,7 @@ void BUTTONGLYPHS_update_layout(SDL_GameController *c)
         }
         else if (product == 0x0337)
         {
-            /* FIXME: GameCube glyphs? -flibit */
-            layout = LAYOUT_XBOX;
+            layout = LAYOUT_GAMECUBE;
         }
         else
         {
