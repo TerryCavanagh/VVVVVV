@@ -1048,8 +1048,16 @@ std::string string_unwordwrap(const std::string& s)
             }
             else if (consecutive_newlines == 1)
             {
-                // The last character was already a newline, so change it back from the space we thought it should have become.
-                result[result.size()-1] = '\n';
+                if (!result.empty())
+                {
+                    // The last character was already a newline, so change it back from the space we thought it should have become.
+                    result[result.size()-1] = '\n';
+                }
+                else
+                {
+                    // The string starts with two or more newlines, in this case we didn't add the first one at all.
+                    result.append("\n\n");
+                }
             }
             consecutive_newlines++;
         }
