@@ -76,10 +76,9 @@
     <cutscene id="bigopenworldskip" explanation="">
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="Beidh mé anseo má bhíonn cúnamh uait!"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
+    <cutscene id="talkpurple_intro" explanation="">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Tá mé thar mo riocht, a Dhochtúir."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Cá dtosóidh mé?"/>
-        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Ná déan dearmad gur féidir ENTER a bhrú le breathnú ar an mapa."/>
         <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="Ná dearmad go bhfuil tú in ann brú ar {b_map} le breathnú ar an áit ina bhfuil tú ar an mapa!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Cuardaigh áiteanna arbh fhéidir go bhfuil daoine eile den chriú iontu..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Má théann tú ar strae, is féidir dul ar ais chun na loinge le haon teiliompróir."/>

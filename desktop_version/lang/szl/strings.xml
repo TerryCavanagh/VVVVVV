@@ -431,14 +431,10 @@
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Coby zainsztalować nowe poziōmy ekstra, przekopiuj pliki .vvvvvv do folderu z poziōmami." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Chcesz na zicher pokŏzać ściyżka do poziōmōw? To poradzi pokŏzać wrażliwe dane, kej streamujesz." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Ściyżka do poziōmōw:" explanation="" max="40"/>
-    <string english="[ Press ACTION to Start ]" translation="[ Tyknij AKCYJO, coby sztartnōńć ]" explanation="***OUTDATED***" max="38*2"/>
     <string english="[ Press {button} to Start ]" translation="[ Tyknij {button}, coby sztartnōńć ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="AKCYJO = Spacyjo, Z, abo V" explanation="title screen" max="38*3"/>
-    <string english="[Press ENTER to return to editor]" translation="[Tyknij ENTER, coby iś nazŏd do edytora]" explanation="***OUTDATED***" max="40"/>
     <string english="[Press {button} to return to editor]" translation="[Tyknij {button}, coby iś nazŏd do edytora]" explanation="`to editor` is sorta redundant" max="40"/>
-    <string english="- Press ACTION to advance text -" translation="- Przelyź bez dialog: AKCYJO -" explanation="***OUTDATED***" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Przelyź bez dialog: {button} -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
-    <string english="Press ACTION to continue" translation="Tyknij AKCYJO, coby iś dalij" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="Tyknij {button}, coby iś dalij" explanation="Expect `ACTION`" max="34"/>
     <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
     <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
@@ -453,7 +449,6 @@
     <string english="All Trophies collected!" translation="Wszyjske trofea szafniynte!" explanation="" max="38*2"/>
     <string english="New Record!" translation="Nowy Rekord!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Nowe Trofeum!" explanation="" max="20"/>
-    <string english="[Press ENTER to stop]" translation="[Tyknij ENTER, coby sztopnōńć]" explanation="***OUTDATED***" max="40"/>
     <string english="[Press {button} to stop]" translation="[Tyknij {button}, coby sztopnōńć]" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="SUPER GRAWITRON" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="NOJLEPSZY WYNIK W SUPER GRAWITRONIE" explanation="" max="38*4"/>
@@ -467,7 +462,6 @@
     <string english="[ QUIT ]" translation="[ WYLYŹ ]" explanation="in-game menu" max="40"/>
     <string english="[ GRAVITRON ]" translation="[ GRAWITRŌN ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="NIY MA SYGNOŁU" explanation="map screen. So like a TV/computer monitor" max="29"/>
-    <string english="Press ACTION to warp to the ship." translation="Tyknij AKCYJO, coby przelyź na Szif." explanation="***OUTDATED***" max="38*7"/>
     <string english="Press {button} to warp to the ship." translation="Tyknij {button}, coby przelyź na Szif." explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
     <string english="Missing..." translation="Tego niy ma..." case="1" explanation="this male crew member is missing" max="15"/>
     <string english="Missing..." translation="Tyj niy ma..." case="2" explanation="this female crew member is missing" max="15"/>
@@ -482,7 +476,6 @@
     <string english="ERROR: Could not save game!" translation="FELER: Niy zachowano szpila!" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="FELER: Niy zachowano sztalowań!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Zachowano szpil!" explanation="in-game menu" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Tyknij AKCYJO by zachować szpil]" explanation="***OUTDATED***" max="40"/>
     <string english="[Press {button} to save your game]" translation="[Tyknij {button} by zachować szpil]" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Szpil je autozachowany przi|kŏżdym teleporterze.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Ôstatni zachowany szpil:" explanation="in-game menu" max="40"/>
@@ -568,21 +561,13 @@
     <string english="Untitled Level" translation="Poziōm bez miana" explanation="" max="20"/>
     <string english="Unknown" translation="niyznany" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="Klocek:" explanation="editor, selected " max="34"/>
-    <string english="SCRIPT BOX: Click on top left" translation="POLE SKRYPTOWE: liknij na lewyj wiyrchnij" explanation="***OUTDATED***"/>
     <string english="SCRIPT BOX: Click on the first corner" translation="POLE SKRYPTOWE: Kliknij w piyrszo eka" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
-    <string english="SCRIPT BOX: Click on bottom right" translation="POLE SKRYPTOWE: Kliknij na prawyj spodnij" explanation="***OUTDATED***"/>
     <string english="SCRIPT BOX: Click on the last corner" translation="POLE SKRYPTOWE: Kliknij w zadnio eka" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
-    <string english="ENEMY BOUNDS: Click on top left" translation="GRANICE WROGŌW: Kliknij na lewyj wiyrchnij" explanation="***OUTDATED***"/>
     <string english="ENEMY BOUNDS: Click on the first corner" translation="GRANICE WROGŌW: Kliknij w piyrszo eka" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
-    <string english="ENEMY BOUNDS: Click on bottom right" translation="GRANICE WROGŌW: Kliknij na prawyj spodnij" explanation="***OUTDATED***"/>
     <string english="ENEMY BOUNDS: Click on the last corner" translation="GRANICE WROGŌW: Kliknij w zadnio eka" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
-    <string english="PLATFORM BOUNDS: Click on top left" translation="GRANICE PLATFORM: Kliknij na lewyj wiyrchnij" explanation="***OUTDATED***"/>
     <string english="PLATFORM BOUNDS: Click on the first corner" translation="GRANICE PLATFORM: Kliknij w piyrszo eka" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="PLATFORM BOUNDS: Click on bottom right" translation="GRANICE PLATFORM: Kliknij na prawyj spodnij" explanation="***OUTDATED***"/>
     <string english="PLATFORM BOUNDS: Click on the last corner" translation="GRANICE PLATFORM: Kliknij w zadnio eka" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="Click on top left" translation="Kliknij na lewyj wiyrchnij" explanation="***OUTDATED***"/>
     <string english="Click on the first corner" translation="Kliknij na piyrszo eka" explanation="" max="39*3"/>
-    <string english="Click on bottom right" translation="Kliknij na prawyj spodnij" explanation="***OUTDATED***"/>
     <string english="Click on the last corner" translation="Kliknij w zadnio eka" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** EDYTOR SKRYPTŌW VVVVVV ****" explanation="supposed to look like a Commodore 64 screen" max="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="TYKNIJ ESC COBY IŚ NAZŎD DO MENU" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
@@ -596,25 +581,17 @@
     <string english="2: Backing" translation="2: Tła" explanation="editor tool. Non-solid background tiles" max="32"/>
     <string english="3: Spikes" translation="3: Żgaczki" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Dinksy" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
-    <string english="5: Checkpoint" translation="5: Pōnkt Przywrōcenio" explanation="***OUTDATED***"/>
     <string english="5: Checkpoints" translation="5: Pōnkty Przywrōcenio" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
-    <string english="6: Disappear" translation="6: Znikajōnce" explanation="***OUTDATED***"/>
     <string english="6: Disappearing Platforms" translation="6: Znikajōnce Platformy" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
     <string english="7: Conveyors" translation="7: Taśmociōngi" explanation="editor tool. Conveyor belt" max="32"/>
-    <string english="8: Moving" translation="8: Ruchōme" explanation="***OUTDATED***"/>
     <string english="8: Moving Platforms" translation="8: Ruchōme Platformy" explanation="editor tool. Moving platform" max="32"/>
     <string english="9: Enemies" translation="9: Niyprzociele" explanation="editor tool" max="32"/>
-    <string english="0: Grav Line" translation="0: Lińje Grawitacyjne" explanation="***OUTDATED***"/>
     <string english="0: Gravity Lines" translation="0: Lińje Grawitacyjne" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Tekst" explanation="editor tool. Freely typed text, consider just Text" max="32"/>
-    <string english="T: Terminal" translation="T: Terminal" explanation="***OUTDATED***"/>
     <string english="T: Terminals" translation="T: Terminale" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
-    <string english="Y: Script Box" translation="Y: Plac skryptowy" explanation="***OUTDATED***"/>
     <string english="Y: Script Boxes" translation="Y: Place skryptowe" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
-    <string english="U: Warp Token" translation="U: Skrziwiynie" explanation="***OUTDATED***"/>
     <string english="U: Warp Tokens" translation="U: Skrziwiynia" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
     <string english="I: Warp Lines" translation="I: Skrziwiej Ranty" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
-    <string english="O: Crewmate" translation="O: Człōnek ekipy" explanation="***OUTDATED***"/>
     <string english="O: Crewmates" translation="O: Człōnki ekipy" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Pōnkt sztartu" explanation="editor tool" max="32"/>
     <string english="START" translation="SZTART" explanation="start point in level editor" max="10"/>
@@ -681,9 +658,7 @@
     <string english="Game Saved" translation="Zachowano" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="Ruszej sie strzałkami abo kneflami WASD" explanation="" max="32*2"/>
     <string english="Press left/right to move" translation="Tyknij lewo/prawo, coby sie ruszać" explanation="" max="32*2"/>
-    <string english="Press ACTION to flip" translation="Tyknij AKCYJO coby sie zwyrtnōńć" explanation="***OUTDATED***" max="32*3"/>
     <string english="Press {button} to flip" translation="Tyknij {button}, coby sie zwyrtnōńć" explanation="expect `ACTION`" max="32*3"/>
-    <string english="Press ENTER to view map and quicksave" translation="Tyknij ENTER, coby zachować szpil i ôbejrzeć mapa" explanation="***OUTDATED***" max="32*3"/>
     <string english="Press {button} to view map and quicksave" translation="Tyknij {button}, coby zachować szpil i ôbejrzeć mapa" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Kej wolisz, poradzisz tyż zwyrtać sie bez knefle WIYRCH i SPODEK." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="Pōmocy! Ftoś mie słyszy?" explanation="Violet speaking via Comms Relay" max="25*4"/>

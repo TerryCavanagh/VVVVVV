@@ -76,10 +76,9 @@
     <cutscene id="bigopenworldskip" explanation="">
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="도움이 필요하면 언제든 말해줘!"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
+    <cutscene id="talkpurple_intro" explanation="">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="지금 뭘 어떻게 해야 할지 모르겠어, 박사."/>
         <dialogue speaker="player" english="Where do I begin?" translation="어디서부터 시작해야 하지?"/>
-        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="지도에 있는 지점에서 ENTER 버튼을 눌러 확인을 해볼 수 있다는 걸 명심해!"/>
         <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="지도에 있는 지점에서 {b_map} 버튼을 눌러 확인을 해볼 수 있다는 걸 명심해!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="다른 선원들이 있을만한 구역을 찾아봐..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="길을 잃으면 아무 텔레포터나 사용해서 함선으로 돌아올 수 있어."/>
