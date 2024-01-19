@@ -340,6 +340,9 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="Currently ENABLED!" translation="現在の設定: ON" explanation="flip mode" max="38*3" max_local="38*2"/>
     <string english="Currently Disabled." translation="現在の設定: OFF" explanation="flip mode" max="38*3" max_local="38*2"/>
     <string english="TO UNLOCK: Complete the game." translation="解除方法: ストーリーをクリア" explanation="" max="38*3" max_local="38*2"/>
+    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39" max_local="39"/>
     <string english="Are you sure you want to quit?" translation="ゲームを終了しますか?" explanation="quit the program" max="38*4" max_local="38*3"/>
     <string english="GAME OVER" translation="GAME OVER" explanation="bigger title" max="13" max_local="13"/>
     <string english="You managed to reach:" translation="たどり着いた部屋:" explanation="you managed to reach the following room" max="40" max_local="40"/>

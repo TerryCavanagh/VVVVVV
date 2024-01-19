@@ -317,6 +317,9 @@
     <string english="Currently ENABLED!" translation="현재 활성화 됨!" explanation="flip mode" max="38*3" max_local="30*3"/>
     <string english="Currently Disabled." translation="현재 비활성화 됨." explanation="flip mode" max="38*3" max_local="30*3"/>
     <string english="TO UNLOCK: Complete the game." translation="해금 방법: 게임을 완료합니다." explanation="" max="38*3" max_local="30*3"/>
+    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39" max_local="31"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39" max_local="31"/>
+    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39" max_local="31"/>
     <string english="Are you sure you want to quit?" translation="정말로 종료하시겠습니까?" explanation="quit the program" max="38*4" max_local="30*4"/>
     <string english="GAME OVER" translation="게임 오버" explanation="bigger title" max="13" max_local="10"/>
     <string english="You managed to reach:" translation="가장 멀리까지 도달한 방 이름:" explanation="you managed to reach the following room" max="40" max_local="32"/>
