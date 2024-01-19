@@ -81,11 +81,9 @@
     <cutscene id="bigopenworldskip" explanation="">
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="假如你需要帮助的话，我随时都在这里！"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
+    <cutscene id="talkpurple_intro" explanation="">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="我有点不知该怎么办好，博士。"/>
         <dialogue speaker="player" english="Where do I begin?" translation="我应该从哪里开始呢？"/>
-        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="别忘了你可以按 回车 键
-来检查自己在地图上的位置！"/>
         <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="别忘了你可以按 {b_map} 键
 来检查自己在地图上的位置！" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="去找一找其他船员们可能会在的地区……"/>

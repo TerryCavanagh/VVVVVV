@@ -120,12 +120,10 @@
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="何か必要だったら言ってね。
 ここで待ってるから!"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
+    <cutscene id="talkpurple_intro" explanation="">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="まいったよヴァイオレット。
 何が何だかサッパリだ。"/>
         <dialogue speaker="player" english="Where do I begin?" translation="何から始めりゃいいんだ?"/>
-        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="ENTERを押すとセンチョーが
-今ドコにいるか分かるよ。"/>
         <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="{b_map}を押すとセンチョーが
 今ドコにいるか分かるよ。" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="クルーのみんながいそうな
