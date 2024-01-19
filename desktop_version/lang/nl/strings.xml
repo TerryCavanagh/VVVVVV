@@ -317,9 +317,9 @@
     <string english="Currently ENABLED!" translation="Momenteel INGESCHAKELD!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Momenteel uitgeschakeld." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="OM TE ONTGRENDELEN: Voltooi het spel." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Onkwetsbaarheid staat aan" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Glitchrunmodus staat aan ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Spiegelmodus staat aan" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="Weet je zeker dat je wilt afsluiten?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="GAME OVER" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Je wist te bereiken:" explanation="you managed to reach the following room" max="40"/>
@@ -440,8 +440,8 @@
     <string english="- Press {button} to advance text -" translation="- Druk op {button} om verder te gaan -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="Druk op ACTIE om verder te gaan" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="Druk op {button} om verder te gaan" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[{button}: bewegingen vrijgeven]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[{button}: bewegingen bevriezen]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Huidige tijd" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Beste tijd" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Volgende trofee bij 5 seconden" explanation="" max="38*2"/>
