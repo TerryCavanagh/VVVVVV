@@ -42,14 +42,12 @@ scriptclass::scriptclass(void)
     r = 0;
     textx = 0;
     texty = 0;
+    textcrewmateposition = TextboxCrewmatePosition();
+    textoriginalcontext = TextboxOriginalContext();
     textbox_colours.clear();
     add_default_colours();
     textflipme = false;
-    textcentertext = false;
     textboxtimer = 0;
-    textpad_left = 0;
-    textpad_right = 0;
-    textpadtowidth = 0;
     textcase = 1;
     textbuttons = false;
     textlarge = false;
@@ -525,15 +523,10 @@ void scriptclass::run(void)
                     }
                 }
 
-                textcentertext = false;
-                textpad_left = 0;
-                textpad_right = 0;
-                textpadtowidth = 0;
                 textboxtimer = 0;
+                textcrewmateposition = TextboxCrewmatePosition();
                 textbox_sprites.clear();
                 textbox_image = TEXTIMAGE_NONE;
-
-                translate_dialogue();
             }
             else if (words[0] == "position")
             {
@@ -569,35 +562,19 @@ void scriptclass::run(void)
                     }
                 }
 
-                int linegap = graphics.getlinegap();
-
-                //next is whether to position above or below
-                if (INBOUNDS_VEC(i, obj.entities) && words[2] == "above")
+                if (INBOUNDS_VEC(i, obj.entities) && (j == 0 || j == 1))
                 {
-                    if (j == 1)    //left
+                    if (words[2] == "above")
                     {
-                        textx = obj.entities[i].xp -10000; //tells the box to be oriented correctly later
-                        texty = obj.entities[i].yp - 16 - (txt.size() * (font::height(PR_FONT_LEVEL) + linegap) - linegap);
+                        textcrewmateposition.text_above = true;
+                    }
 
-                    }
-                    else if (j == 0)     //Right
-                    {
-                        textx = obj.entities[i].xp - 16;
-                        texty = obj.entities[i].yp - 18 - (txt.size() * (font::height(PR_FONT_LEVEL) + linegap) - linegap);
-                    }
-                }
-                else if (INBOUNDS_VEC(i, obj.entities))
-                {
-                    if (j == 1)    //left
-                    {
-                        textx = obj.entities[i].xp -10000; //tells the box to be oriented correctly later
-                        texty = obj.entities[i].yp + 26;
-                    }
-                    else if (j == 0)     //Right
-                    {
-                        textx = obj.entities[i].xp - 16;
-                        texty = obj.entities[i].yp + 26;
-                    }
+                    textcrewmateposition.x = obj.entities[i].xp;
+                    textcrewmateposition.override_x = true;
+                    textcrewmateposition.y = obj.entities[i].yp;
+                    textcrewmateposition.override_y = true;
+
+                    textcrewmateposition.dir = j;
                 }
             }
             else if (words[0] == "customposition")
@@ -669,34 +646,19 @@ void scriptclass::run(void)
                     texty = -500;
                 }
 
-                int linegap = graphics.getlinegap();
-                
-                //next is whether to position above or below
-                if (INBOUNDS_VEC(i, obj.entities) && words[2] == "above")
+                if (INBOUNDS_VEC(i, obj.entities) && (j == 0 || j == 1))
                 {
-                    if (j == 1)    //left
+                    if (words[2] == "above")
                     {
-                        textx = obj.entities[i].xp -10000; //tells the box to be oriented correctly later
-                        texty = obj.entities[i].yp - 16 - (txt.size() * (font::height(PR_FONT_LEVEL) + linegap) - linegap);
+                        textcrewmateposition.text_above = true;
                     }
-                    else if (j == 0)     //Right
-                    {
-                        textx = obj.entities[i].xp - 16;
-                        texty = obj.entities[i].yp - 18 - (txt.size() * (font::height(PR_FONT_LEVEL) + linegap) - linegap);
-                    }
-                }
-                else if (INBOUNDS_VEC(i, obj.entities))
-                {
-                    if (j == 1)    //left
-                    {
-                        textx = obj.entities[i].xp -10000; //tells the box to be oriented correctly later
-                        texty = obj.entities[i].yp + 26;
-                    }
-                    else if (j == 0)     //Right
-                    {
-                        textx = obj.entities[i].xp - 16;
-                        texty = obj.entities[i].yp + 26;
-                    }
+
+                    textcrewmateposition.x = obj.entities[i].xp;
+                    textcrewmateposition.override_x = true;
+                    textcrewmateposition.y = obj.entities[i].xp;
+                    textcrewmateposition.override_y = true;
+
+                    textcrewmateposition.dir = j;
                 }
             }
             else if (words[0] == "backgroundtext")
@@ -769,40 +731,26 @@ void scriptclass::run(void)
 
                 graphics.setimage(textbox_image);
 
-                // Some textbox formatting that can be set by translations...
-                if (textcentertext)
-                {
-                    graphics.textboxcentertext();
-                }
-                if (textpad_left > 0 || textpad_right > 0)
-                {
-                    graphics.textboxpad(textpad_left, textpad_right);
-                }
-                if (textpadtowidth > 0)
-                {
-                    graphics.textboxpadtowidth(textpadtowidth);
-                }
-
-                //the textbox cannot be outside the screen. Fix if it is.
-                if (textx <= -1000)
-                {
-                    //position to the left of the player
-                    textx += 10000;
-                    textx -= graphics.textboxwidth();
-                    textx += 16;
-                    graphics.textboxmoveto(textx);
-                }
-
                 if (textx == -500 || textx == -1)
                 {
                     graphics.textboxcenterx();
+                    textcrewmateposition.override_x = false;
                 }
 
                 if (texty == -500)
                 {
                     graphics.textboxcentery();
+                    textcrewmateposition.override_y = false;
                 }
 
+                TextboxOriginalContext context = TextboxOriginalContext();
+                context.text_case = textcase;
+                context.lines = std::vector<std::string>(txt);
+                context.script_name = scriptname;
+
+                graphics.textboxcrewmateposition(&textcrewmateposition);
+                graphics.textboxoriginalcontext(&context);
+                graphics.textboxcase(textcase);
                 if (map.custommode)
                 {
                     uint32_t flags = PR_FONT_IDX(font::font_idx_level, cl.rtl);
@@ -812,6 +760,7 @@ void scriptclass::run(void)
                     }
                     graphics.textboxprintflags(flags);
                 }
+                graphics.textboxtranslate();
 
                 graphics.textboxadjust();
                 if (words[0] == "speak_active")
@@ -1985,8 +1934,6 @@ void scriptclass::run(void)
                     }
                     break;
                 }
-
-                translate_dialogue();
             }
             else if (words[0] == "trinketbluecontrol")
             {
@@ -2555,68 +2502,6 @@ void scriptclass::run(void)
     {
         scriptdelay--;
     }
-}
-
-void scriptclass::translate_dialogue(void)
-{
-    char tc = textcase;
-    textcase = 1;
-
-    if (!loc::is_cutscene_translated(scriptname))
-    {
-        return;
-    }
-
-    // English text needs to be un-wordwrapped, translated, and re-wordwrapped
-    std::string eng;
-    for (size_t i = 0; i < txt.size(); i++)
-    {
-        if (i != 0)
-        {
-            eng.append("\n");
-        }
-        eng.append(txt[i]);
-    }
-
-    eng = font::string_unwordwrap(eng);
-    const loc::TextboxFormat* format = loc::gettext_cutscene(scriptname, eng, tc);
-    if (format == NULL || format->text == NULL || format->text[0] == '\0')
-    {
-        return;
-    }
-    std::string tra;
-    if (format->tt)
-    {
-        tra = std::string(format->text);
-        size_t pipe;
-        while (true)
-        {
-            pipe = tra.find('|', 0);
-            if (pipe == std::string::npos)
-            {
-                break;
-            }
-            tra.replace(pipe, 1, "\n");
-        }
-    }
-    else
-    {
-        tra = font::string_wordwrap_balanced(PR_FONT_LEVEL, format->text, format->wraplimit);
-    }
-
-    textcentertext = format->centertext;
-    textpad_left = format->pad_left;
-    textpad_right = format->pad_right;
-    textpadtowidth = format->padtowidth;
-
-    txt.clear();
-    size_t startline = 0;
-    size_t newline;
-    do {
-        newline = tra.find('\n', startline);
-        txt.push_back(tra.substr(startline, newline-startline));
-        startline = newline+1;
-    } while (newline != std::string::npos);
 }
 
 static void gotoerrorloadinglevel(void)

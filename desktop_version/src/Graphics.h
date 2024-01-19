@@ -114,6 +114,14 @@ public:
 
     void textboxbuttons(void);
 
+    void textboxcrewmateposition(const TextboxCrewmatePosition* crewmate_position);
+
+    void textboxoriginalcontext(const TextboxOriginalContext* original_context);
+
+    void textboxcase(char text_case);
+
+    void textboxtranslate(void);
+
     void textboxcommsrelay(void);
 
     void textboxadjust(void);

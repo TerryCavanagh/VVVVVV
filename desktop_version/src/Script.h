@@ -91,8 +91,6 @@ public:
 
     void run(void);
 
-    void translate_dialogue(void);
-
     void startgamemode(enum StartMode mode);
 
     void teleport(void);
@@ -114,12 +112,10 @@ public:
     std::map<std::string, SDL_Color> textbox_colours;
     int textx;
     int texty;
+    TextboxCrewmatePosition textcrewmateposition;
+    TextboxOriginalContext textoriginalcontext;
     int r,g,b;
     bool textflipme;
-    bool textcentertext;
-    size_t textpad_left;
-    size_t textpad_right;
-    size_t textpadtowidth;
     char textcase;
     bool textbuttons;
     bool textlarge;

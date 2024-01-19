@@ -3320,6 +3320,50 @@ void Graphics::textboxbuttons(void)
     textboxes[m].fill_buttons = true;
 }
 
+void Graphics::textboxcrewmateposition(const TextboxCrewmatePosition* crewmate_position)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxcrewmateposition() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].crewmate_position = *crewmate_position;
+}
+
+void Graphics::textboxoriginalcontext(const TextboxOriginalContext* original_context)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxoriginalcontext() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].original = *original_context;
+}
+
+void Graphics::textboxcase(char text_case)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxcase() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].original.text_case = text_case;
+}
+
+void Graphics::textboxtranslate(void)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxtranslate() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].translate();
+}
+
 void Graphics::textboxcommsrelay(void)
 {
     // Special treatment for the gamestate textboxes in Comms Relay
