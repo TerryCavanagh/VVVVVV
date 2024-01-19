@@ -471,6 +471,8 @@ Steam Deckには対応していません。" explanation="" max="38*5" max_local
     <string english="- Press {button} to advance text -" translation="- {button} を押して進む -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="40"/>
     <string english="Press ACTION to continue" translation="ACTION を押して完了" explanation="***OUTDATED***" max="34" max_local="34"/>
     <string english="Press {button} to continue" translation="{button} を押して完了" explanation="Expect `ACTION`" max="34" max_local="34"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
     <string english="Current Time" translation="今回のタイム" explanation="super gravitron, stopwatch time" max="20" max_local="20"/>
     <string english="Best Time" translation="ベストタイム" explanation="super gravitron, best stopwatch time" max="20" max_local="20"/>
     <string english="Next Trophy at 5 seconds" translation="5秒で次のトロフィー" explanation="" max="38*2" max_local="38*1"/>

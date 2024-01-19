@@ -437,6 +437,8 @@
     <string english="- Press {button} to advance text -" translation="- {button} 버튼을 눌러 텍스트를 진행합니다 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="32"/>
     <string english="Press ACTION to continue" translation="행동을 눌러 계속" explanation="***OUTDATED***" max="34" max_local="27"/>
     <string english="Press {button} to continue" translation="{button} 버튼을 눌러 계속" explanation="Expect `ACTION`" max="34" max_local="27"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="31"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="31"/>
     <string english="Current Time" translation="현재 시간" explanation="super gravitron, stopwatch time" max="20" max_local="16"/>
     <string english="Best Time" translation="최고 시간" explanation="super gravitron, best stopwatch time" max="20" max_local="16"/>
     <string english="Next Trophy at 5 seconds" translation="5초 후 다음 트로피" explanation="" max="38*2" max_local="30*2"/>

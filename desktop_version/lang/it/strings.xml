@@ -423,8 +423,8 @@
     <string english="start from beginning" translation="comincia dall&apos;inizio" explanation="menu option"/>
     <string english="delete save" translation="elimina salvataggio" explanation="menu option"/>
     <string english="back to levels" translation="torna ai livelli" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="L'editor di livelli non è al momento supportato su Steam Deck, dato che richiede l'uso di tastiera e mouse." explanation="" max="38*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="L'editor di livelli non è al momento supportato su questo dispositivo, dato che richiede l'uso di tastiera e mouse." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="L&apos;editor di livelli non è al momento supportato su Steam Deck, dato che richiede l&apos;uso di tastiera e mouse." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="L&apos;editor di livelli non è al momento supportato su questo dispositivo, dato che richiede l&apos;uso di tastiera e mouse." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Per installare nuovi livelli giocatore, copia i file .vvvvvv nella cartella dei livelli." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Vuoi davvero mostrare il percorso dei livelli? Potrebbe rivelare informazioni sensibili durante lo streaming." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Il percorso dei livelli è:" explanation="" max="40"/>
@@ -437,6 +437,8 @@
     <string english="- Press {button} to advance text -" translation="- Premi {button} per scorrere il testo -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="Premi AZIONE per continuare" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="Premi {button} per continuare" explanation="Expect `ACTION`" max="34"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Tempo attuale" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Miglior tempo" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Prossimo trofeo a 5 secondi" explanation="" max="38*2"/>

@@ -52,7 +52,7 @@
     <string english="language" translation="langue" explanation="menu option"/>
     <string english="Language" translation="Langue" explanation="title" max="20"/>
     <string english="Change the language." translation="Changez de langue." explanation="" max="38*2"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="Impossible de changer de langue lorsqu'une boîte de texte est affichée à l'écran." explanation="" max="38*3"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="Impossible de changer de langue lorsqu&apos;une boîte de texte est affichée à l&apos;écran." explanation="" max="38*3"/>
     <string english="clear main game data" translation="effacer les données principales" explanation="menu option"/>
     <string english="clear custom level data" translation="effacer les données de niveaux" explanation="menu option"/>
     <string english="Clear Data" translation="Effacer les données" explanation="title" max="20"/>
@@ -423,8 +423,8 @@
     <string english="start from beginning" translation="reprendre du début" explanation="menu option"/>
     <string english="delete save" translation="effacer sauvegarde" explanation="menu option"/>
     <string english="back to levels" translation="retour aux niveaux" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="L'éditeur de niveaux n'est actuellement pas compatible Steam Deck, étant donné qu'il nécessite un clavier et une souris pour être utilisé." explanation="" max="38*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="L'éditeur de niveaux n'est actuellement pas compatible avec cet appareil, étant donné qu'il nécessite un clavier et une souris pour être utilisé." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="L&apos;éditeur de niveaux n&apos;est actuellement pas compatible Steam Deck, étant donné qu&apos;il nécessite un clavier et une souris pour être utilisé." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="L&apos;éditeur de niveaux n&apos;est actuellement pas compatible avec cet appareil, étant donné qu&apos;il nécessite un clavier et une souris pour être utilisé." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Pour installer de nouveaux niveaux de joueurs, copiez les fichiers .vvvvvv dans le dossier « Levels »." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Souhaitez-vous vraiment afficher le chemin des niveaux ? Ceci pourrait révéler des informations sensibles si vous êtes en train de streamer..." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Le chemin des niveaux est :" explanation="" max="40"/>
@@ -437,6 +437,8 @@
     <string english="- Press {button} to advance text -" translation="- {button} pour faire avancer le texte -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="Appuyez sur ACTION pour continuer" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="{button} pour continuer" explanation="Expect `ACTION`" max="34"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Temps actuel" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Meilleur temps" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Prochain trophée à 5 secondes" explanation="" max="38*2"/>

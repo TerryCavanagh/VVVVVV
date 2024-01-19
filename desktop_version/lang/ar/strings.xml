@@ -443,7 +443,8 @@
     <string english="- Press {button} to advance text -" translation="- نضغط {button} للتقدم في النص -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="40"/>
     <string english="Press ACTION to continue" translation="(لا يحتاج ترجمة)" explanation="***OUTDATED***" max="34" max_local="34"/>
     <string english="Press {button} to continue" translation="نضغط {button} للمواصلة" explanation="Expect `ACTION`" max="34" max_local="34"/>
-    <string english="[Press {button} to toggle gameplay]" translation="[نضغط {button} للمرور للعب العادي]" explanation="Tab toggles whether the game is paused or not" max="39" max_local="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
     <string english="Current Time" translation="وقتك الحالي" explanation="super gravitron, stopwatch time" max="20" max_local="20"/>
     <string english="Best Time" translation="أفضل وقت" explanation="super gravitron, best stopwatch time" max="20" max_local="20"/>
     <string english="Next Trophy at 5 seconds" translation="الجائزة القادمة بعد 5 ثوان" explanation="" max="38*2" max_local="38*2"/>

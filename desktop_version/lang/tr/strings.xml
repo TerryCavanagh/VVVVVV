@@ -423,7 +423,7 @@
     <string english="start from beginning" translation="baştan başla" explanation="menu option"/>
     <string english="delete save" translation="kaydı sil" explanation="menu option"/>
     <string english="back to levels" translation="bölümlere dön" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="Bölüm Düzenleyici klavye ve fare gerektirdiği için şu an için Steam Deck'te desteklenmiyor." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="Bölüm Düzenleyici klavye ve fare gerektirdiği için şu an için Steam Deck&apos;te desteklenmiyor." explanation="" max="38*5"/>
     <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="Bölüm Düzenleyici klavye ve fare gerektirdiği için şu an için bu cihazda desteklenmiyor." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation=".vvvvvv dosyalarını &quot;levels&quot; klasörüne kopyalayarak oyuncuların hazırladığı yeni bölümleri yükleyebilirsin." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="&quot;levels&quot; klasörünün yolunu göstermek istediğinden emin misin? Bu işlem, yayın yapıyorsan hassas bilgilerin görünmesine neden olabilir." explanation="" max="38*4"/>
@@ -437,6 +437,8 @@
     <string english="- Press {button} to advance text -" translation="- Metni geçmek için {button} tuşuna bas -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="AKSİYON tuşuna basarak devam et" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="Devam etmek için {button} tuşuna bas" explanation="Expect `ACTION`" max="34"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Mevcut Süre" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="En İyi Süre" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Sıradaki Ödüle 5 Saniye" explanation="" max="38*2"/>
