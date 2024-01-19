@@ -437,6 +437,8 @@
     <string english="- Press {button} to advance text -" translation="- Premu {button} por daŭrigi -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="Premu AGOKLAVON por daŭrigi" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="Premu {button} por daŭrigi" explanation="Expect `ACTION`" max="34"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Nuna tempo" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Plej bona tempo" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Sekva trofeo je 5 sekundoj" explanation="" max="38*2"/>

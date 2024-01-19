@@ -447,6 +447,8 @@
     <string english="- Press {button} to advance text -" translation="按 {button} 来推进文本 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="26"/>
     <string english="Press ACTION to continue" translation="." explanation="***OUTDATED***" max="34" max_local="22"/>
     <string english="Press {button} to continue" translation="按 {button} 继续" explanation="Expect `ACTION`" max="34" max_local="22"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="26"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="26"/>
     <string english="Current Time" translation="当前时间" explanation="super gravitron, stopwatch time" max="20" max_local="13"/>
     <string english="Best Time" translation="最佳时间" explanation="super gravitron, best stopwatch time" max="20" max_local="13"/>
     <string english="Next Trophy at 5 seconds" translation="5秒时获得下一个奖杯" explanation="" max="38*2" max_local="25*1"/>

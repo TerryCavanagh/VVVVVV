@@ -437,6 +437,8 @@
     <string english="- Press {button} to advance text -" translation="- Prime {button} para avançar o texto -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="Prime AÇÃO para continuar" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="Prime {button} para continuar" explanation="Expect `ACTION`" max="34"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Tempo Atual" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Recorde" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Troféu seguinte aos cinco segundos" explanation="" max="38*2"/>
