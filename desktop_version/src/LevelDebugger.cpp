@@ -445,10 +445,19 @@ namespace level_debugger
             }
         }
 
+        const char* text;
+        if (should_pause)
+        {
+            text = loc::gettext("[Press {button} to unfreeze gameplay]");
+        }
+        else
+        {
+            text = loc::gettext("[Press {button} to freeze gameplay]");
+        }
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(
             buffer, sizeof(buffer),
-            loc::gettext("[Press {button} to toggle gameplay]"),
+            text,
             "button:str",
             "TAB"
         );
