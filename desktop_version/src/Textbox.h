@@ -5,6 +5,25 @@
 #include <string>
 #include <vector>
 
+/* Position of the crewmate that the text box position is based off of.
+ * NOT a crewmate sprite inside the text box (that's a TextboxSprite). */
+struct TextboxCrewmatePosition
+{
+    bool override_x;
+    bool override_y;
+    int x;
+    int y;
+    int dir;
+    bool text_above;
+};
+
+struct TextboxOriginalContext
+{
+    std::vector<std::string> lines;
+    std::string script_name;
+    char text_case;
+};
+
 struct TextboxSprite
 {
     int x;
@@ -45,6 +64,8 @@ public:
 
     void resize(void);
 
+    void repositionfromcrewmate(void);
+
     void addline(const std::string& t);
 
     void pad(size_t left_pad, size_t right_pad);
@@ -52,6 +73,8 @@ public:
     void padtowidth(size_t new_w);
 
     void centertext(void);
+
+    void translate(void);
 public:
     //Fundamentals
     std::vector<std::string> lines;
@@ -76,6 +99,9 @@ public:
 
     std::vector<TextboxSprite> sprites;
     TextboxImage image;
+
+    TextboxCrewmatePosition crewmate_position;
+    TextboxOriginalContext original;
 };
 
 #endif /* TEXTBOX_H */

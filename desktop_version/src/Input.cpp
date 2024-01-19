@@ -1044,19 +1044,12 @@ static void menuactionpress(void)
             break;
         case 5:
             //language options
-            if (graphics.textboxes.empty())
-            {
-                music.playef(Sound_VIRIDIAN);
-                loc::loadlanguagelist();
-                loc::pre_title_lang_menu = false;
-                game.createmenu(Menu::language);
-                game.currentmenuoption = loc::languagelist_curlang;
-                map.nexttowercolour();
-            }
-            else
-            {
-                music.playef(Sound_CRY);
-            }
+            music.playef(Sound_VIRIDIAN);
+            loc::loadlanguagelist();
+            loc::pre_title_lang_menu = false;
+            game.createmenu(Menu::language);
+            game.currentmenuoption = loc::languagelist_curlang;
+            map.nexttowercolour();
             break;
         default:
             /* Return */
@@ -1115,6 +1108,8 @@ static void menuactionpress(void)
         break;
     case Menu::language:
     {
+        std::string prev_lang = std::string(loc::lang);
+
         music.playef(Sound_VIRIDIAN);
 
         if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
@@ -1133,6 +1128,17 @@ static void menuactionpress(void)
             game.menustart = false;
             loc::pre_title_lang_menu = false;
         }
+
+        if (prev_lang != loc::lang)
+        {
+            /* Retranslate and reposition all text boxes. */
+            for (size_t i = 0; i < graphics.textboxes.size(); i++)
+            {
+                graphics.textboxes[i].translate();
+                graphics.textboxes[i].adjust(); // FIXME: not all textboxes obey the 10-pixel inner border!
+            }
+        }
+
         game.returnmenu();
         map.nexttowercolour();
         game.savestatsandsettings_menu();

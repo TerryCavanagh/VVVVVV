@@ -3,6 +3,7 @@
 #include <SDL.h>
 
 #include "Font.h"
+#include "Localization.h"
 #include "UTF8.h"
 
 textboxclass::textboxclass(int gap)
@@ -33,6 +34,10 @@ textboxclass::textboxclass(int gap)
     sprites.clear();
 
     image = TEXTIMAGE_NONE;
+
+    crewmate_position = TextboxCrewmatePosition();
+    original = TextboxOriginalContext();
+    original.text_case = 1;
 }
 
 void textboxclass::addsprite(int x, int y, int tile, int col)
@@ -66,6 +71,7 @@ void textboxclass::centery(void)
 void textboxclass::adjust(void)
 {
     resize();
+    repositionfromcrewmate();
     if (xp < 10) xp = 10;
     if (yp < 10) yp = 10;
     if (xp + w > 310) xp = 310 - w;
@@ -136,6 +142,42 @@ void textboxclass::resize(void)
     h = lines.size()*(font::height(print_flags) + linegap) + 16 - linegap;
 }
 
+void textboxclass::repositionfromcrewmate(void)
+{
+    const int font_height = font::height(print_flags);
+
+    // Reposition based off crewmate position, if applicable
+    if (crewmate_position.override_x)
+    {
+        if (crewmate_position.dir == 1) // left
+        {
+            xp = crewmate_position.x - w + 16;
+        }
+        else if (crewmate_position.dir == 0) // right
+        {
+            xp = crewmate_position.x - 16;
+        }
+    }
+    if (crewmate_position.override_y)
+    {
+        if (crewmate_position.text_above)
+        {
+            if (crewmate_position.dir == 1) // left
+            {
+                yp = crewmate_position.y - 16 - (lines.size() * (font_height + linegap) - linegap);
+            }
+            else if (crewmate_position.dir == 0) // right
+            {
+                yp = crewmate_position.y - 18 - (lines.size() * (font_height + linegap) - linegap);
+            }
+        }
+        else
+        {
+            yp = crewmate_position.y + 26;
+        }
+    }
+}
+
 void textboxclass::addline(const std::string& t)
 {
     lines.push_back(t);
@@ -191,4 +233,76 @@ void textboxclass::padtowidth(size_t new_w)
 void textboxclass::centertext(void)
 {
     padtowidth(w-16);
+}
+
+void textboxclass::translate(void)
+{
+    if (!loc::is_cutscene_translated(original.script_name))
+    {
+        // Copy the original back
+        lines = std::vector<std::string>(original.lines);
+        return;
+    }
+
+    // English text needs to be un-wordwrapped, translated, and re-wordwrapped
+    std::string eng;
+    for (size_t i = 0; i < original.lines.size(); i++)
+    {
+        if (i != 0)
+        {
+            eng.append("\n");
+        }
+        eng.append(original.lines[i]);
+    }
+
+    eng = font::string_unwordwrap(eng);
+    const loc::TextboxFormat* format = loc::gettext_cutscene(original.script_name, eng, original.text_case);
+    if (format == NULL || format->text == NULL || format->text[0] == '\0')
+    {
+        return;
+    }
+
+    std::string tra;
+    if (format->tt)
+    {
+        tra = std::string(format->text);
+        size_t pipe;
+        while (true)
+        {
+            pipe = tra.find('|', 0);
+            if (pipe == std::string::npos)
+            {
+                break;
+            }
+            tra.replace(pipe, 1, "\n");
+        }
+    }
+    else
+    {
+        tra = font::string_wordwrap_balanced(PR_FONT_LEVEL, format->text, format->wraplimit);
+    }
+
+    lines.clear();
+    size_t startline = 0;
+    size_t newline;
+    do
+    {
+        newline = tra.find('\n', startline);
+        lines.push_back(tra.substr(startline, newline - startline));
+        startline = newline + 1;
+    }
+    while (newline != std::string::npos);
+
+    if (format->centertext)
+    {
+        centertext();
+    }
+    if (format->pad_left > 0 || format->pad_right > 0)
+    {
+        pad(format->pad_left, format->pad_right);
+    }
+    if (format->padtowidth > 0)
+    {
+        padtowidth(format->padtowidth);
+    }
 }
