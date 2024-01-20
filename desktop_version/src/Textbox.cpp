@@ -239,8 +239,12 @@ void textboxclass::translate(void)
 {
     if (!loc::is_cutscene_translated(original.script_name))
     {
-        // Copy the original back
-        lines = std::vector<std::string>(original.lines);
+        // Copy the original back, but keep the limit of lines in mind
+        lines.clear();
+        for (size_t i = 0; i < original.lines.size(); i++)
+        {
+            addline(original.lines[i]);
+        }
         return;
     }
 
