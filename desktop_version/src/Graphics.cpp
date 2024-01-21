@@ -3361,6 +3361,11 @@ void Graphics::textboxtranslate(const TextboxTranslate translate, const TextboxF
         SDL_assert(0 && "function is NULL!");
         return;
     }
+    if (translate != TEXTTRANSLATE_FUNCTION && function != NULL)
+    {
+        SDL_assert(0 && "function provided when it won't be used!");
+        return;
+    }
 
     textboxes[m].translate = translate;
     textboxes[m].function = function;
