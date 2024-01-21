@@ -269,7 +269,8 @@ static void updatebuttonmappings(int bind)
     }
 }
 
-static void recomputetextboxes(void)
+/* Also used in KeyPoll.cpp. */
+void recomputetextboxes(void)
 {
     /* Retranslate and reposition all text boxes.
      * WARNING: Needs to update in linear order, starting from 0. */
@@ -1131,6 +1132,8 @@ static void menuactionpress(void)
 
         if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
         {
+            /* Update code also used in KeyPoll.cpp. */
+            loc::languagelist_curlang = game.currentmenuoption;
             loc::lang = loc::languagelist[game.currentmenuoption].code;
             loc::loadtext(false);
             loc::lang_set = true;
