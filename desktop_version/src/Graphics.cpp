@@ -1525,6 +1525,17 @@ int Graphics::getlinegap(void)
     return 1;
 }
 
+void Graphics::textboxindex(const int index)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxindex() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].other_textbox_index = index;
+}
+
 void Graphics::createtextboxreal(
     const std::string& t,
     int xp, int yp,

@@ -158,6 +158,10 @@ static int getcrewmanfromname(std::string name)
 }
 
 
+/* Also used in gamestate 1001. */
+void foundtrinket_textbox1(textboxclass* THIS);
+void foundtrinket_textbox2(textboxclass* THIS);
+
 void scriptclass::run(void)
 {
     if (!running)
@@ -1783,37 +1787,18 @@ void scriptclass::run(void)
 
                 graphics.textboxremovefast();
 
-                graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, TEXT_COLOUR("gray"));
+                graphics.createtextboxflipme("", 50, 85, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
-                int h = graphics.textboxwrap(2);
-                graphics.textboxcentertext();
-                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
+                graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, foundtrinket_textbox1);
+                graphics.textboxapplyposition();
 
-                int max_trinkets;
-
-                if (map.custommode)
-                {
-                    max_trinkets = cl.numtrinkets();
-                }
-                else
-                {
-                    max_trinkets = 20;
-                }
-
-                char buffer[SCREEN_WIDTH_CHARS + 1];
-                vformat_buf(
-                    buffer, sizeof(buffer),
-                    loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
-                    "n_trinkets:int, max_trinkets:int",
-                    game.trinkets(), max_trinkets
-                );
-                graphics.createtextboxflipme(buffer, 50, 95+h, TEXT_COLOUR("gray"));
+                graphics.createtextboxflipme("", 50, 95, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
-                graphics.textboxwrap(2);
-                graphics.textboxcentertext();
-                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
+                graphics.textboxindex(graphics.textboxes.size() - 2);
+                graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, foundtrinket_textbox2);
+                graphics.textboxapplyposition();
 
                 if (!game.backgroundtext)
                 {

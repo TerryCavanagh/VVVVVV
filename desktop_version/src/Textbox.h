@@ -137,6 +137,8 @@ public:
     TextboxOriginalContext original;
     TextboxSpacing spacing;
     TextboxFunction function;
+
+    int other_textbox_index;
 };
 
 #endif /* TEXTBOX_H */
