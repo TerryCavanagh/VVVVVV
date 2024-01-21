@@ -1081,6 +1081,7 @@ void Game::updatestate(void)
             setstate(3);
             graphics.createtextbox("To do: write quick", 50, 80, TEXT_COLOUR("cyan"));
             graphics.addline("intro to story!");
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             //Oh no! what happen to rest of crew etc crash into dimension
             break;
@@ -1920,6 +1921,7 @@ void Game::updatestate(void)
             hascontrol = false;
 
             graphics.createtextbox("Captain! I've been so worried!", 60, 90, 164, 255, 164);
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VERDIGRIS);
@@ -1927,6 +1929,7 @@ void Game::updatestate(void)
         break;
         case 104:
             graphics.createtextbox("I'm glad you're ok!", 135, 152, TEXT_COLOUR("cyan"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VIRIDIAN);
@@ -1937,6 +1940,7 @@ void Game::updatestate(void)
             graphics.createtextbox("I've been trying to find a", 74, 70, 164, 255, 164);
             graphics.addline("way out, but I keep going");
             graphics.addline("around in circles...");
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_CRY);
@@ -1952,6 +1956,7 @@ void Game::updatestate(void)
         case 108:
             graphics.createtextbox("Don't worry! I have a", 125, 152, TEXT_COLOUR("cyan"));
             graphics.addline("teleporter key!");
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VIRIDIAN);
@@ -1967,6 +1972,7 @@ void Game::updatestate(void)
                 obj.entities[i].state = 1;
             }
             graphics.createtextbox("Follow me!", 185, 154, TEXT_COLOUR("cyan"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VIRIDIAN);
@@ -1995,6 +2001,7 @@ void Game::updatestate(void)
 
             graphics.createtextbox("Sorry Eurogamers! Teleporting around", 60 - 20, 200, 255, 64, 64);
             graphics.addline("the map doesn't work in this version!");
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             incstate();
@@ -2049,6 +2056,7 @@ void Game::updatestate(void)
             hascontrol = false;
 
             graphics.createtextbox("Captain! You're ok!", 60-10, 90-40, TEXT_COLOUR("yellow"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VITELLARY);
@@ -2058,6 +2066,7 @@ void Game::updatestate(void)
         {
             graphics.createtextbox("I've found a teleporter, but", 60-20, 90 - 40, TEXT_COLOUR("yellow"));
             graphics.addline("I can't get it to go anywhere...");
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_CRY);
@@ -2066,6 +2075,7 @@ void Game::updatestate(void)
         }
         case 126:
             graphics.createtextbox("I can help with that!", 125, 152-40, TEXT_COLOUR("cyan"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VIRIDIAN);
@@ -2074,6 +2084,7 @@ void Game::updatestate(void)
         case 128:
             graphics.createtextbox("I have the teleporter", 130, 152-35, TEXT_COLOUR("cyan"));
             graphics.addline("codex for our ship!");
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VIRIDIAN);
@@ -2083,6 +2094,7 @@ void Game::updatestate(void)
         case 130:
         {
             graphics.createtextbox("Yey! Let's go home!", 60-30, 90-35, TEXT_COLOUR("yellow"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VITELLARY);
@@ -2472,6 +2484,7 @@ void Game::updatestate(void)
             advancetext = true;
             hascontrol = false;
             graphics.createtextbox("Hello?", 125+24, 152-20, TEXT_COLOUR("cyan"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VIRIDIAN);
@@ -2481,6 +2494,7 @@ void Game::updatestate(void)
             advancetext = true;
             hascontrol = false;
             graphics.createtextbox("Is anyone there?", 125+8, 152-24, TEXT_COLOUR("cyan"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(Sound_VIRIDIAN);
