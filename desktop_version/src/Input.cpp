@@ -269,6 +269,16 @@ static void updatebuttonmappings(int bind)
     }
 }
 
+static void recomputetextboxes(void)
+{
+    /* Retranslate and reposition all text boxes. */
+    for (size_t i = 0; i < graphics.textboxes.size(); i++)
+    {
+        graphics.textboxes[i].updatetext();
+        graphics.textboxes[i].applyposition();
+    }
+}
+
 static void toggleflipmode(void)
 {
     graphics.setflipmode = !graphics.setflipmode;
@@ -283,6 +293,12 @@ static void toggleflipmode(void)
     {
         music.playef(Sound_VIRIDIAN);
     }
+
+    /* Some text boxes change depending on Flip Mode, so update text boxes. */
+    const bool temp = graphics.flipmode;
+    graphics.flipmode = graphics.setflipmode;
+    recomputetextboxes();
+    graphics.flipmode = temp;
 }
 
 static bool fadetomode = false;
@@ -1131,12 +1147,7 @@ static void menuactionpress(void)
 
         if (prev_lang != loc::lang)
         {
-            /* Retranslate and reposition all text boxes. */
-            for (size_t i = 0; i < graphics.textboxes.size(); i++)
-            {
-                graphics.textboxes[i].updatetext();
-                graphics.textboxes[i].applyposition();
-            }
+            recomputetextboxes();
         }
 
         game.returnmenu();
