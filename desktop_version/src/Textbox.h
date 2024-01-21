@@ -95,6 +95,8 @@ public:
 
     void centertext(void);
 
+    int wrap(int pad);
+
     void copyoriginaltext(void);
 
     void applyoriginalspacing(void);
