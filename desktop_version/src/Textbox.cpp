@@ -32,6 +32,8 @@ textboxclass::textboxclass(int gap)
     should_centery = false;
 
     print_flags = PR_FONT_LEVEL;
+    translate = TEXTTRANSLATE_NONE;
+    function = NULL;
     fill_buttons = false;
 
     sprites.clear();
@@ -41,6 +43,7 @@ textboxclass::textboxclass(int gap)
     crewmate_position = TextboxCrewmatePosition();
     original = TextboxOriginalContext();
     original.text_case = 1;
+    spacing = TextboxSpacing();
 }
 
 void textboxclass::addsprite(int x, int y, int tile, int col)
@@ -71,7 +74,7 @@ void textboxclass::centery(void)
     resize();
 }
 
-void textboxclass::adjust(void)
+void textboxclass::applyposition(void)
 {
     resize();
     repositionfromcrewmate();
@@ -83,6 +86,12 @@ void textboxclass::adjust(void)
     {
         centery();
     }
+}
+
+void textboxclass::adjust(void)
+{
+    resize();
+    applyposition();
     if (xp < 10) xp = 10;
     if (yp < 10) yp = 10;
     if (xp + w > 310) xp = 310 - w;
@@ -246,16 +255,59 @@ void textboxclass::centertext(void)
     padtowidth(w-16);
 }
 
-void textboxclass::translate(void)
+void textboxclass::copyoriginaltext(void)
+{
+    // Copy the original back, but keep the limit of lines in mind
+    lines.clear();
+    for (size_t i = 0; i < original.lines.size(); i++)
+    {
+        addline(original.lines[i]);
+    }
+}
+
+void textboxclass::applyoriginalspacing(void)
+{
+    if (spacing.centertext)
+    {
+        centertext();
+    }
+    if (spacing.pad_left > 0 || spacing.pad_right > 0)
+    {
+        pad(spacing.pad_left, spacing.pad_right);
+    }
+    if (spacing.padtowidth > 0)
+    {
+        padtowidth(spacing.padtowidth);
+    }
+}
+
+void textboxclass::updatetext(void)
+{
+    switch (translate)
+    {
+    case TEXTTRANSLATE_NONE:
+        copyoriginaltext();
+        applyoriginalspacing();
+        break;
+    case TEXTTRANSLATE_CUTSCENE:
+        translatecutscene();
+        break;
+    case TEXTTRANSLATE_FUNCTION:
+        if (function == NULL)
+        {
+            SDL_assert(0 && "function is NULL!");
+            break;
+        }
+        function(this);
+    }
+}
+
+void textboxclass::translatecutscene(void)
 {
     if (!loc::is_cutscene_translated(original.script_name))
     {
-        // Copy the original back, but keep the limit of lines in mind
-        lines.clear();
-        for (size_t i = 0; i < original.lines.size(); i++)
-        {
-            addline(original.lines[i]);
-        }
+        copyoriginaltext();
+        applyoriginalspacing();
         return;
     }
 
@@ -274,6 +326,8 @@ void textboxclass::translate(void)
     const loc::TextboxFormat* format = loc::gettext_cutscene(original.script_name, eng, original.text_case);
     if (format == NULL || format->text == NULL || format->text[0] == '\0')
     {
+        copyoriginaltext();
+        applyoriginalspacing();
         return;
     }
 

@@ -1495,6 +1495,17 @@ void Graphics::setlarge(bool large)
     textboxes[m].large = large;
 }
 
+void Graphics::textboxapplyposition(void)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxapplyposition() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].applyposition();
+}
+
 void Graphics::textboxadjust(void)
 {
     if (!INBOUNDS_VEC(m, textboxes))
@@ -3272,7 +3283,8 @@ void Graphics::textboxpad(size_t left_pad, size_t right_pad)
         return;
     }
 
-    textboxes[m].pad(left_pad, right_pad);
+    textboxes[m].spacing.pad_left = left_pad;
+    textboxes[m].spacing.pad_right = right_pad;
 }
 
 void Graphics::textboxpadtowidth(size_t new_w)
@@ -3283,7 +3295,7 @@ void Graphics::textboxpadtowidth(size_t new_w)
         return;
     }
 
-    textboxes[m].padtowidth(new_w);
+    textboxes[m].spacing.padtowidth = new_w;
 }
 
 void Graphics::textboxcentertext(void)
@@ -3294,7 +3306,7 @@ void Graphics::textboxcentertext(void)
         return;
     }
 
-    textboxes[m].centertext();
+    textboxes[m].spacing.centertext = true;
 }
 
 void Graphics::textboxprintflags(const uint32_t flags)
@@ -3342,6 +3354,25 @@ void Graphics::textboxoriginalcontext(const TextboxOriginalContext* original_con
     textboxes[m].original = *original_context;
 }
 
+void Graphics::textboxoriginalcontextauto(void)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxoriginalcontextauto() out-of-bounds!");
+        return;
+    }
+
+    TextboxOriginalContext context = TextboxOriginalContext();
+    context.text_case = 1;
+    context.lines = textboxes[m].lines;
+    if (script.running)
+    {
+        context.script_name = script.scriptname;
+    }
+
+    textboxes[m].original = context;
+}
+
 void Graphics::textboxcase(char text_case)
 {
     if (!INBOUNDS_VEC(m, textboxes))
@@ -3353,7 +3384,7 @@ void Graphics::textboxcase(char text_case)
     textboxes[m].original.text_case = text_case;
 }
 
-void Graphics::textboxtranslate(void)
+void Graphics::textboxtranslate(const TextboxTranslate translate, const TextboxFunction function)
 {
     if (!INBOUNDS_VEC(m, textboxes))
     {
@@ -3361,7 +3392,15 @@ void Graphics::textboxtranslate(void)
         return;
     }
 
-    textboxes[m].translate();
+    if (translate == TEXTTRANSLATE_FUNCTION && function == NULL)
+    {
+        SDL_assert(0 && "function is NULL!");
+        return;
+    }
+
+    textboxes[m].translate = translate;
+    textboxes[m].function = function;
+    textboxes[m].updatetext();
 }
 
 void Graphics::textboxcommsrelay(void)

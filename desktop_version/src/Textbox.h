@@ -24,6 +24,15 @@ struct TextboxOriginalContext
     char text_case;
 };
 
+/* Similar to, but NOT the same as a loc::TextboxFormat. */
+struct TextboxSpacing
+{
+    bool centertext;
+    unsigned char pad_left;
+    unsigned char pad_right;
+    unsigned short padtowidth;
+};
+
 struct TextboxSprite
 {
     int x;
@@ -39,6 +48,16 @@ enum TextboxImage
     TEXTIMAGE_GAMECOMPLETE
 };
 
+enum TextboxTranslate
+{
+    TEXTTRANSLATE_NONE,
+    TEXTTRANSLATE_CUTSCENE,
+    TEXTTRANSLATE_FUNCTION
+};
+
+class textboxclass;
+typedef void (*TextboxFunction)(textboxclass* THIS);
+
 class textboxclass
 {
 public:
@@ -51,6 +70,8 @@ public:
     void centerx(void);
 
     void centery(void);
+
+    void applyposition(void);
 
     void adjust(void);
 
@@ -74,7 +95,13 @@ public:
 
     void centertext(void);
 
-    void translate(void);
+    void copyoriginaltext(void);
+
+    void applyoriginalspacing(void);
+
+    void updatetext(void);
+
+    void translatecutscene(void);
 public:
     //Fundamentals
     std::vector<std::string> lines;
@@ -98,6 +125,7 @@ public:
     bool should_centery;
 
     uint32_t print_flags;
+    TextboxTranslate translate;
     bool fill_buttons;
 
     std::vector<TextboxSprite> sprites;
@@ -105,6 +133,8 @@ public:
 
     TextboxCrewmatePosition crewmate_position;
     TextboxOriginalContext original;
+    TextboxSpacing spacing;
+    TextboxFunction function;
 };
 
 #endif /* TEXTBOX_H */
