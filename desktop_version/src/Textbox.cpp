@@ -399,6 +399,8 @@ void textboxclass::translatecutscene(void)
     }
     while (newline != std::string::npos);
 
+    resize();
+
     if (format->centertext)
     {
         centertext();
