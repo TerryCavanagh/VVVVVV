@@ -153,6 +153,9 @@ void KeyPoll::Poll(void)
     bool fullscreenkeybind = false;
     SDL_GameController *controller = NULL;
     SDL_Event evt;
+    bool should_recompute_textboxes = false;
+    bool active_input_device_changed = false;
+    bool keyboard_was_active = BUTTONGLYPHS_keyboard_is_active();
     while (SDL_PollEvent(&evt))
     {
         switch (evt.type)
@@ -206,7 +209,7 @@ void KeyPoll::Poll(void)
                         loc::loadtext(false);
                         graphics.grphx.init_translations();
 
-                        recomputetextboxes();
+                        should_recompute_textboxes = true;
                     }
                 }
                 else
@@ -513,6 +516,13 @@ void KeyPoll::Poll(void)
     {
         mousex = raw_mousex;
         mousey = raw_mousey;
+    }
+
+    active_input_device_changed = keyboard_was_active != BUTTONGLYPHS_keyboard_is_active();
+    should_recompute_textboxes |= active_input_device_changed;
+    if (should_recompute_textboxes)
+    {
+        recomputetextboxes();
     }
 }
 
