@@ -66,13 +66,11 @@ void textboxclass::centerx(void)
 {
     resize();
     xp = 160 - (w / 2);
-    resize();
 }
 void textboxclass::centery(void)
 {
     resize();
     yp = 120 - (h / 2);
-    resize();
 }
 
 void textboxclass::applyposition(void)
@@ -100,7 +98,6 @@ void textboxclass::adjust(void)
     if (yp < 10) yp = 10;
     if (xp + w > 310) xp = 310 - w;
     if (yp + h > 230) yp = 230 - h;
-    resize();
 }
 
 void textboxclass::initcol(int rr, int gg, int bb)
