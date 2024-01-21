@@ -45,6 +45,8 @@ textboxclass::textboxclass(int gap)
     original = TextboxOriginalContext();
     original.text_case = 1;
     spacing = TextboxSpacing();
+
+    other_textbox_index = -1;
 }
 
 void textboxclass::addsprite(int x, int y, int tile, int col)

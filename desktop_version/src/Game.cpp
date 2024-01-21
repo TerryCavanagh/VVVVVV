@@ -1000,6 +1000,86 @@ static void im1_instructions_textbox3(textboxclass* THIS)
     THIS->padtowidth(36*8);
 }
 
+/* Also used in foundtrinket() script command. */
+void foundtrinket_textbox1(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    THIS->lines.push_back(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"));
+    THIS->wrap(2);
+    THIS->centertext();
+    THIS->pad(1, 1);
+}
+
+/* Also used in foundtrinket() script command. */
+void foundtrinket_textbox2(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    const int max_trinkets = map.custommode ? cl.numtrinkets() : 20;
+
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(
+        buffer, sizeof(buffer),
+        loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
+        "n_trinkets:int, max_trinkets:int",
+        game.trinkets(), max_trinkets
+    );
+    THIS->lines.push_back(buffer);
+
+    if (INBOUNDS_VEC(THIS->other_textbox_index, graphics.textboxes)
+    && &graphics.textboxes[THIS->other_textbox_index] != THIS)
+    {
+        THIS->yp = 95 + graphics.textboxes[THIS->other_textbox_index].h;
+    }
+    THIS->wrap(2);
+    THIS->centertext();
+    THIS->pad(1, 1);
+}
+
+static void foundcrewmate_textbox1(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    THIS->lines.push_back(loc::gettext("Congratulations!\n\nYou have found a lost crewmate!"));
+    THIS->wrap(2);
+    THIS->centertext();
+    THIS->pad(1, 1);
+}
+
+static void foundcrewmate_textbox2(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    const int num_remaining = cl.numcrewmates() - game.crewmates();
+    if (num_remaining == 0)
+    {
+        THIS->lines.push_back(loc::gettext("All crewmates rescued!"));
+    }
+    else
+    {
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        loc::gettext_plural_fill(
+            buffer, sizeof(buffer),
+            "{n_crew|wordy} remain", "{n_crew|wordy} remains",
+            "n_crew:int",
+            num_remaining
+        );
+        THIS->lines.push_back(buffer);
+    }
+
+    if (INBOUNDS_VEC(THIS->other_textbox_index, graphics.textboxes)
+    && &graphics.textboxes[THIS->other_textbox_index] != THIS)
+    {
+        THIS->yp = 95 + graphics.textboxes[THIS->other_textbox_index].h;
+    }
+    THIS->wrap(4);
+    THIS->centertext();
+    THIS->pad(2, 2);
+}
+
 void Game::setstate(const int gamestate)
 {
     if (!statelocked || GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
@@ -2189,43 +2269,22 @@ void Game::updatestate(void)
             setstatedelay(15);
             break;
         case 1001:
-        {
             //Found a trinket!
             advancetext = true;
             incstate();
-            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, TEXT_COLOUR("gray"));
+            graphics.createtextboxflipme("", 50, 85, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            int h = graphics.textboxwrap(2);
-            graphics.textboxcentertext();
-            graphics.textboxpad(1, 1);
             graphics.textboxcenterx();
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, foundtrinket_textbox1);
+            graphics.textboxapplyposition();
 
-            int max_trinkets;
-
-            if(map.custommode)
-            {
-                max_trinkets = cl.numtrinkets();
-            }
-            else
-            {
-                max_trinkets = 20;
-            }
-
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(
-                buffer, sizeof(buffer),
-                loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
-                "n_trinkets:int, max_trinkets:int",
-                trinkets(), max_trinkets
-            );
-            graphics.createtextboxflipme(buffer, 50, 95+h, TEXT_COLOUR("gray"));
+            graphics.createtextboxflipme("", 50, 95, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.textboxwrap(2);
-            graphics.textboxcentertext();
-            graphics.textboxpad(1, 1);
             graphics.textboxcenterx();
+            graphics.textboxindex(graphics.textboxes.size() - 2);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, foundtrinket_textbox2);
+            graphics.textboxapplyposition();
             break;
-        }
         case 1002:
             if (!advancetext)
             {
@@ -2254,39 +2313,22 @@ void Game::updatestate(void)
             setstatedelay(15);
             break;
         case 1011:
-        {
             //Found a crewmate!
             advancetext = true;
             incstate();
-            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a lost crewmate!"), 50, 85, TEXT_COLOUR("gray"));
+            graphics.createtextboxflipme("", 50, 85, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            int h = graphics.textboxwrap(2);
-            graphics.textboxcentertext();
-            graphics.textboxpad(1, 1);
             graphics.textboxcenterx();
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, foundcrewmate_textbox1);
+            graphics.textboxapplyposition();
 
-            if(cl.numcrewmates()-crewmates()==0)
-            {
-                graphics.createtextboxflipme(loc::gettext("All crewmates rescued!"), 50, 95+h, TEXT_COLOUR("gray"));
-            }
-            else
-            {
-                char buffer[SCREEN_WIDTH_CHARS + 1];
-                loc::gettext_plural_fill(
-                    buffer, sizeof(buffer),
-                    "{n_crew|wordy} remain", "{n_crew|wordy} remains",
-                    "n_crew:int",
-                    cl.numcrewmates()-crewmates()
-                );
-                graphics.createtextboxflipme(buffer, 50, 95+h, TEXT_COLOUR("gray"));
-            }
+            graphics.createtextboxflipme("", 50, 95, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.textboxwrap(4);
-            graphics.textboxcentertext();
-            graphics.textboxpad(2, 2);
             graphics.textboxcenterx();
+            graphics.textboxindex(graphics.textboxes.size() - 2);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, foundcrewmate_textbox2);
+            graphics.textboxapplyposition();
             break;
-        }
         case 1012:
             if (!advancetext)
             {

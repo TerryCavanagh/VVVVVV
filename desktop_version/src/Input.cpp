@@ -271,7 +271,8 @@ static void updatebuttonmappings(int bind)
 
 static void recomputetextboxes(void)
 {
-    /* Retranslate and reposition all text boxes. */
+    /* Retranslate and reposition all text boxes.
+     * WARNING: Needs to update in linear order, starting from 0. */
     for (size_t i = 0; i < graphics.textboxes.size(); i++)
     {
         graphics.textboxes[i].updatetext();
