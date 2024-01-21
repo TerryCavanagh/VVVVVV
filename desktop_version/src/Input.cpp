@@ -1134,8 +1134,8 @@ static void menuactionpress(void)
             /* Retranslate and reposition all text boxes. */
             for (size_t i = 0; i < graphics.textboxes.size(); i++)
             {
-                graphics.textboxes[i].translate();
-                graphics.textboxes[i].adjust(); // FIXME: not all textboxes obey the 10-pixel inner border!
+                graphics.textboxes[i].updatetext();
+                graphics.textboxes[i].applyposition();
             }
         }
 

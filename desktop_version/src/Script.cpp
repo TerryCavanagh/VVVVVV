@@ -764,7 +764,7 @@ void scriptclass::run(void)
                     }
                     graphics.textboxprintflags(flags);
                 }
-                graphics.textboxtranslate();
+                graphics.textboxtranslate(TEXTTRANSLATE_CUTSCENE, NULL);
 
                 graphics.textboxadjust();
                 if (words[0] == "speak_active")

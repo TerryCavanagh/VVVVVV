@@ -117,12 +117,15 @@ public:
     void textboxcrewmateposition(const TextboxCrewmatePosition* crewmate_position);
 
     void textboxoriginalcontext(const TextboxOriginalContext* original_context);
+    void textboxoriginalcontextauto(void);
 
     void textboxcase(char text_case);
 
-    void textboxtranslate(void);
+    void textboxtranslate(TextboxTranslate translate, TextboxFunction function);
 
     void textboxcommsrelay(void);
+
+    void textboxapplyposition(void);
 
     void textboxadjust(void);
 

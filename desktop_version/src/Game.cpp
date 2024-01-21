@@ -695,16 +695,21 @@ void Game::levelcomplete_textbox(void)
     graphics.addline("                                    ");
     graphics.addline("");
     graphics.addline("");
+    graphics.textboxoriginalcontextauto();
     graphics.textboxprintflags(PR_FONT_8X8);
     graphics.textboxcenterx();
     graphics.setimage(TEXTIMAGE_LEVELCOMPLETE);
     graphics.setlinegap(0);
+    graphics.textboxapplyposition();
 }
 
-void Game::crewmate_textbox(const int color)
+static void compute_crewmate_textbox(textboxclass* THIS)
 {
+    THIS->lines.clear();
+    THIS->addline("");
+
     const int extra_cjk_height = (font::height(PR_FONT_INTERFACE) * 4) - 32;
-    graphics.createtextboxflipme("", -1, 64 + 8 + 16 - extra_cjk_height/2, TEXT_COLOUR("gray"));
+    THIS->yp = 64 + 8 + 16 - extra_cjk_height/2;
 
     /* This is a special case for wrapping, we MUST have two lines.
      * So just make sure it can't fit in one line. */
@@ -717,23 +722,36 @@ void Game::crewmate_textbox(const int color)
         size_t pos_n = wrapped.find('\n', startline);
         size_t pos_p = wrapped.find('|', startline);
         newline = SDL_min(pos_n, pos_p);
-        graphics.addline(wrapped.substr(startline, newline-startline));
+        THIS->addline(wrapped.substr(startline, newline-startline));
         startline = newline+1;
     } while (newline != std::string::npos);
 
-    graphics.addline("");
-    graphics.textboxprintflags(PR_FONT_INTERFACE);
-    graphics.textboxcentertext();
+    THIS->addline("");
+    THIS->centertext();
     float spaces_per_8 = font::len(PR_FONT_INTERFACE, " ")/8.0f;
-    graphics.textboxpad(SDL_ceilf(5/spaces_per_8), SDL_ceilf(2/spaces_per_8));
-    graphics.textboxcenterx();
-    graphics.addsprite(14, 12 + extra_cjk_height/2, 0, color);
-    graphics.setlinegap(0);
+    THIS->pad(SDL_ceilf(5/spaces_per_8), SDL_ceilf(2/spaces_per_8));
+    if (!THIS->sprites.empty())
+    {
+        THIS->sprites[0].y = 12 + extra_cjk_height/2;
+    }
 }
 
-void Game::remaining_textbox(void)
+void Game::crewmate_textbox(const int color)
 {
-    const int remaining = 6 - crewrescued();
+    const int extra_cjk_height = (font::height(PR_FONT_INTERFACE) * 4) - 32;
+    graphics.createtextboxflipme("", -1, 64 + 8 + 16, TEXT_COLOUR("gray"));
+    graphics.textboxprintflags(PR_FONT_INTERFACE);
+    graphics.textboxcenterx();
+    graphics.addsprite(14, 12 + extra_cjk_height/2, 0, color);
+    graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, compute_crewmate_textbox);
+    graphics.setlinegap(0);
+    graphics.textboxapplyposition();
+}
+
+static void compute_remaining_textbox(textboxclass* THIS)
+{
+    extern Game game;
+    const int remaining = 6 - game.crewrescued();
     char buffer[SCREEN_WIDTH_CHARS + 1];
     if (remaining > 0)
     {
@@ -744,16 +762,29 @@ void Game::remaining_textbox(void)
         SDL_strlcpy(buffer, loc::gettext("All Crew Members Rescued!"), sizeof(buffer));
     }
 
+    THIS->lines.clear();
+    THIS->lines.push_back(buffer);
+
     // In CJK, the "You have rescued" box becomes so big we should lower this one a bit...
     const int cjk_lowering = font::height(PR_FONT_INTERFACE) - 8;
-    graphics.createtextboxflipme(buffer, -1, 128 + 16 + cjk_lowering, TEXT_COLOUR("gray"));
-    graphics.textboxprintflags(PR_FONT_INTERFACE);
-    graphics.textboxpad(2, 2);
-    graphics.textboxcenterx();
+    THIS->yp = 128 + 16 + cjk_lowering;
+    THIS->pad(2, 2);
+
 }
 
-void Game::actionprompt_textbox(void)
+void Game::remaining_textbox(void)
 {
+    graphics.createtextboxflipme("", -1, 128 + 16, TEXT_COLOUR("gray"));
+    graphics.textboxprintflags(PR_FONT_INTERFACE);
+    graphics.textboxcenterx();
+    graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, compute_remaining_textbox);
+    graphics.textboxapplyposition();
+}
+
+static void compute_actionprompt_textbox(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
     char buffer[SCREEN_WIDTH_CHARS + 1];
     vformat_buf(
         buffer, sizeof(buffer),
@@ -761,10 +792,18 @@ void Game::actionprompt_textbox(void)
         "button:but",
         vformat_button(ActionSet_InGame, Action_InGame_ACTION)
     );
-    graphics.createtextboxflipme(buffer, -1, 196, TEXT_COLOUR("cyan"));
+
+    THIS->lines.push_back(buffer);
+    THIS->pad(1, 1);
+}
+
+void Game::actionprompt_textbox(void)
+{
+    graphics.createtextboxflipme("", -1, 196, TEXT_COLOUR("cyan"));
     graphics.textboxprintflags(PR_FONT_INTERFACE);
-    graphics.textboxpad(1, 1);
     graphics.textboxcenterx();
+    graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, compute_actionprompt_textbox);
+    graphics.textboxapplyposition();
 }
 
 void Game::savetele_textbox(void)
@@ -2896,10 +2935,12 @@ void Game::updatestate(void)
             graphics.addline("                                    ");
             graphics.addline("");
             graphics.addline("");
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             graphics.setimage(TEXTIMAGE_GAMECOMPLETE);
             graphics.setlinegap(0);
+            graphics.textboxapplyposition();
             break;
         case 3502:
         {
