@@ -19,6 +19,8 @@ struct TextboxCrewmatePosition
 
 struct TextboxOriginalContext
 {
+    int x;
+    int y;
     std::vector<std::string> lines;
     std::string script_name;
     char text_case;
@@ -85,7 +87,7 @@ public:
 
     void resize(void);
 
-    void repositionfromcrewmate(void);
+    void reposition(void);
 
     void addline(const std::string& t);
 
