@@ -162,6 +162,24 @@ static int getcrewmanfromname(std::string name)
 void foundtrinket_textbox1(textboxclass* THIS);
 void foundtrinket_textbox2(textboxclass* THIS);
 
+static void foundlab_textbox1(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    THIS->lines.push_back(loc::gettext("Congratulations!\n\nYou have found the secret lab!"));
+    THIS->wrap(2);
+    THIS->centertext();
+    THIS->pad(1, 1);
+}
+
+static void foundlab_textbox2(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    THIS->lines.push_back(loc::gettext("The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu."));
+    THIS->wrap(0);
+}
+
 void scriptclass::run(void)
 {
     if (!running)
@@ -1816,13 +1834,12 @@ void scriptclass::run(void)
 
                 graphics.textboxremovefast();
 
-                graphics.createtextbox(loc::gettext("Congratulations!\n\nYou have found the secret lab!"), 50, 85, TEXT_COLOUR("gray"));
+                graphics.createtextbox("", 50, 85, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
-                graphics.textboxwrap(2);
-                graphics.textboxcentertext();
-                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
                 graphics.textboxcentery();
+                graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, foundlab_textbox1);
+                graphics.textboxapplyposition();
 
                 if (!game.backgroundtext)
                 {
@@ -1838,11 +1855,12 @@ void scriptclass::run(void)
             {
                 graphics.textboxremovefast();
 
-                graphics.createtextbox(loc::gettext("The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu."), 50, 85, TEXT_COLOUR("gray"));
+                graphics.createtextbox("", 50, 85, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
-                graphics.textboxwrap(0);
                 graphics.textboxcenterx();
                 graphics.textboxcentery();
+                graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, foundlab_textbox2);
+                graphics.textboxapplyposition();
 
                 if (!game.backgroundtext)
                 {
