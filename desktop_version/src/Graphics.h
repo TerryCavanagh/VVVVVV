@@ -127,8 +127,6 @@ public:
 
     void textboxapplyposition(void);
 
-    void textboxadjust(void);
-
     void addline(const std::string& t);
 
     void setlarge(bool large);

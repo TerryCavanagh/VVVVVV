@@ -1506,17 +1506,6 @@ void Graphics::textboxapplyposition(void)
     textboxes[m].applyposition();
 }
 
-void Graphics::textboxadjust(void)
-{
-    if (!INBOUNDS_VEC(m, textboxes))
-    {
-        vlog_error("textboxadjust() out-of-bounds!");
-        return;
-    }
-
-    textboxes[m].adjust();
-}
-
 void Graphics::setlinegap(int customvalue)
 {
     if (!INBOUNDS_VEC(m, textboxes))

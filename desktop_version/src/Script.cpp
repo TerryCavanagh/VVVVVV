@@ -766,7 +766,7 @@ void scriptclass::run(void)
                 }
                 graphics.textboxtranslate(TEXTTRANSLATE_CUTSCENE, NULL);
 
-                graphics.textboxadjust();
+                graphics.textboxapplyposition();
                 if (words[0] == "speak_active")
                 {
                     graphics.textboxactive();
