@@ -87,12 +87,15 @@ void textboxclass::applyposition(void)
     {
         centery();
     }
+    if (translate == TEXTTRANSLATE_CUTSCENE)
+    {
+        adjust();
+    }
 }
 
 void textboxclass::adjust(void)
 {
     resize();
-    applyposition();
     if (xp < 10) xp = 10;
     if (yp < 10) yp = 10;
     if (xp + w > 310) xp = 310 - w;
