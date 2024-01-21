@@ -34,6 +34,8 @@ cd build
 cmake -A Win32 -G "Visual Studio 10 2010" .. -DSDL2_INCLUDE_DIRS="C:\SDL2-2.24.0\include" -DSDL2_LIBRARIES="C:\SDL2-2.24.0\lib\x86\SDL2;C:\SDL2-2.24.0\lib\x86\SDL2main"
 ```
 
+Then to compile the game, open the solution and click Build.
+
 For more detailed information and troubleshooting, see the [Compiling VVVVVV
 Guide](https://vsix.dev/wiki/Guide:Compiling_VVVVVV_on_Windows_with_Visual_Studio)
 on the Viki.
@@ -44,6 +46,8 @@ mkdir build
 cd build
 cmake ..
 ```
+
+Then to compile the game, type `make`.
 
 Including data.zip
 ------------
