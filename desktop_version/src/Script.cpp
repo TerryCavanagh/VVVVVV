@@ -569,6 +569,8 @@ void scriptclass::run(void)
                         textcrewmateposition.text_above = true;
                     }
 
+                    textx = 0;
+                    texty = 0;
                     textcrewmateposition.x = obj.entities[i].xp;
                     textcrewmateposition.override_x = true;
                     textcrewmateposition.y = obj.entities[i].yp;
@@ -653,6 +655,8 @@ void scriptclass::run(void)
                         textcrewmateposition.text_above = true;
                     }
 
+                    textx = 0;
+                    texty = 0;
                     textcrewmateposition.x = obj.entities[i].xp;
                     textcrewmateposition.override_x = true;
                     textcrewmateposition.y = obj.entities[i].xp;

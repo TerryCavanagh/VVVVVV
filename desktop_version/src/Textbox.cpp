@@ -28,6 +28,9 @@ textboxclass::textboxclass(int gap)
 
     large = false;
 
+    should_centerx = false;
+    should_centery = false;
+
     print_flags = PR_FONT_LEVEL;
     fill_buttons = false;
 
@@ -72,6 +75,14 @@ void textboxclass::adjust(void)
 {
     resize();
     repositionfromcrewmate();
+    if (should_centerx)
+    {
+        centerx();
+    }
+    if (should_centery)
+    {
+        centery();
+    }
     if (xp < 10) xp = 10;
     if (yp < 10) yp = 10;
     if (xp + w > 310) xp = 310 - w;
