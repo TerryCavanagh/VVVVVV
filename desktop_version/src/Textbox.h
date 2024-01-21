@@ -94,6 +94,9 @@ public:
 
     bool large;
 
+    bool should_centerx;
+    bool should_centery;
+
     uint32_t print_flags;
     bool fill_buttons;
 

@@ -3191,7 +3191,7 @@ void Graphics::textboxcenterx(void)
         return;
     }
 
-    textboxes[m].centerx();
+    textboxes[m].should_centerx = true;
 }
 
 int Graphics::textboxwidth(void)
@@ -3224,7 +3224,7 @@ void Graphics::textboxcentery(void)
         return;
     }
 
-    textboxes[m].centery();
+    textboxes[m].should_centery = true;
 }
 
 int Graphics::textboxwrap(int pad)
