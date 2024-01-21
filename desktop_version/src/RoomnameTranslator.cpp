@@ -271,6 +271,8 @@ namespace roomname_translator
             graphics.textboxcenterx();
             graphics.textboxtimer(50);
         }
+        graphics.textboxoriginalcontextauto();
+        graphics.textboxapplyposition();
     }
 
     static void save_translation(const char* translation)
@@ -293,6 +295,8 @@ namespace roomname_translator
             graphics.textboxcenterx();
             graphics.textboxtimer(180);
         }
+        graphics.textboxoriginalcontextauto();
+        graphics.textboxapplyposition();
     }
 
     bool held_tab = false;
@@ -349,9 +353,11 @@ namespace roomname_translator
                     if (loc::lang == "en")
                     {
                         graphics.createtextboxflipme("ERROR: Can't add EN-EN translation", -1, 176, TEXT_COLOUR("red"));
+                        graphics.textboxoriginalcontextauto();
                         graphics.textboxprintflags(PR_FONT_8X8);
                         graphics.textboxcenterx();
                         graphics.textboxtimer(50);
+                        graphics.textboxapplyposition();
                     }
                     else
                     {
