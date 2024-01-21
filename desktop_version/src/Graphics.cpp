@@ -3238,18 +3238,6 @@ void Graphics::textboxcentery(void)
     textboxes[m].should_centery = true;
 }
 
-int Graphics::textboxwrap(int pad)
-{
-    // TODO: delete this function?
-    if (!INBOUNDS_VEC(m, textboxes))
-    {
-        vlog_error("textboxwrap() out-of-bounds!");
-        return 16;
-    }
-
-    return textboxes[m].wrap(pad);
-}
-
 void Graphics::textboxpad(size_t left_pad, size_t right_pad)
 {
     if (!INBOUNDS_VEC(m, textboxes))

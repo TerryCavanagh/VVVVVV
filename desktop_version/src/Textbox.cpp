@@ -274,7 +274,7 @@ void textboxclass::centertext(void)
     padtowidth(w-16);
 }
 
-int textboxclass::wrap(int pad)
+void textboxclass::wrap(int pad)
 {
     /* This function just takes a single-line textbox and wraps it...
      * pad = the total number of characters we are going to pad this textbox.
@@ -285,7 +285,7 @@ int textboxclass::wrap(int pad)
     if (lines.empty())
     {
         vlog_error("textboxclass::wrap() has no first line!");
-        return 16;
+        return;
     }
 
     std::string wrapped = font::string_wordwrap_balanced(
@@ -304,8 +304,6 @@ int textboxclass::wrap(int pad)
         addline(wrapped.substr(startline, newline-startline));
         startline = newline + 1;
     } while (newline != std::string::npos);
-
-    return h;
 }
 
 void textboxclass::copyoriginaltext(void)
