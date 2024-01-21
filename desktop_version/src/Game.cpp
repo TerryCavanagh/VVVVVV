@@ -262,6 +262,10 @@ void Game::init(void)
     savetime = "00:00";
     savetrinkets = 0;
 
+    /* These are only used some of the time. */
+    saveframes = 0;
+    saveseconds = 0;
+
     intimetrial = false;
     timetrialcountdown = 0;
     timetrialshinytarget = 0;
@@ -1078,6 +1082,102 @@ static void foundcrewmate_textbox2(textboxclass* THIS)
     THIS->wrap(4);
     THIS->centertext();
     THIS->pad(2, 2);
+}
+
+static void gamecomplete_textbox2(textboxclass* THIS)
+{
+    THIS->lines.clear();
+    THIS->lines.push_back(loc::gettext("All Crew Members Rescued!"));
+}
+
+static void gamecomplete_textbox3(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    const char* label = loc::gettext("Trinkets Found:");
+    THIS->lines.push_back(label);
+    THIS->xp = 170 - font::len(PR_FONT_INTERFACE, label);
+}
+
+static void gamecomplete_textbox4(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(buffer, sizeof(buffer),
+        loc::gettext("{gamecomplete_n_trinkets|wordy}"),
+        "gamecomplete_n_trinkets:int",
+        game.trinkets()
+    );
+    THIS->lines.push_back(buffer);
+}
+
+static void gamecomplete_textbox5(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    const char* label = loc::gettext("Game Time:");
+    THIS->lines.push_back(label);
+    THIS->xp = 170 - font::len(PR_FONT_INTERFACE, label);
+}
+
+static void gamecomplete_textbox6(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    help.format_time(buffer, sizeof(buffer), game.saveseconds, game.saveframes, true);
+    THIS->lines.push_back(buffer);
+}
+
+static void gamecomplete_textbox7(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    const char* label = loc::gettext("Total Flips:");
+    THIS->lines.push_back(label);
+    THIS->xp = 170 - font::len(PR_FONT_INTERFACE, label);
+}
+
+static void gamecomplete_textbox9(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    const char* label = loc::gettext("Total Deaths:");
+    THIS->lines.push_back(label);
+    THIS->xp = 170 - font::len(PR_FONT_INTERFACE, label);
+}
+
+static void gamecomplete_textbox11(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    loc::gettext_plural_fill(
+        buffer, sizeof(buffer),
+        "Hardest Room (with {n_deaths} deaths)",
+        "Hardest Room (with {n_deaths} death)",
+        "n_deaths:int",
+        game.hardestroomdeaths
+    );
+    THIS->lines.push_back(buffer);
+}
+
+static void gamecomplete_textbox12(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    THIS->lines.push_back(
+        loc::gettext_roomname(
+            map.custommode,
+            game.hardestroom_x, game.hardestroom_y,
+            game.hardestroom.c_str(), game.hardestroom_specialname
+        )
+    );
 }
 
 void Game::setstate(const int gamestate)
@@ -3077,97 +3177,82 @@ void Game::updatestate(void)
             graphics.textboxapplyposition();
             break;
         case 3502:
-        {
             incstate();
             setstatedelay(45+15);
 
-            graphics.createtextboxflipme(loc::gettext("All Crew Members Rescued!"), -1, 64, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme("", -1, 64, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxcenterx();
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            timestringcenti(buffer, sizeof(buffer));
-            savetime = buffer;
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox2);
+            graphics.textboxapplyposition();
+            saveframes = frames;
+            saveseconds = help.hms_to_seconds(hours, minutes, seconds);
             break;
-        }
         case 3503:
-        {
             incstate();
             setstatedelay(45);
 
-            const char* label = loc::gettext("Trinkets Found:");
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(buffer, sizeof(buffer),
-                loc::gettext("{gamecomplete_n_trinkets|wordy}"),
-                "gamecomplete_n_trinkets:int",
-                trinkets()
-            );
-            graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 84, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme("", 170, 84, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
-            graphics.createtextboxflipme(buffer, 180, 84, TEXT_COLOUR("transparent"));
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox3);
+            graphics.textboxapplyposition();
+            graphics.createtextboxflipme("", 180, 84, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox4);
+            graphics.textboxapplyposition();
             break;
-        }
         case 3504:
-        {
             incstate();
             setstatedelay(45+15);
 
-            const char* label = loc::gettext("Game Time:");
-            std::string tempstring = savetime;
-            graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 96, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme("", 170, 96, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
-            graphics.createtextboxflipme(tempstring, 180, 96, TEXT_COLOUR("transparent"));
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox5);
+            graphics.textboxapplyposition();
+            graphics.createtextboxflipme("", 180, 96, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox6);
+            graphics.textboxapplyposition();
             break;
-        }
         case 3505:
-        {
             incstate();
             setstatedelay(45);
 
-            const char* label = loc::gettext("Total Flips:");
-            graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 123, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme("", 170, 123, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox7);
+            graphics.textboxapplyposition();
             graphics.createtextboxflipme(help.String(totalflips), 180, 123, TEXT_COLOUR("transparent"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             break;
-        }
         case 3506:
-        {
             incstate();
             setstatedelay(45+15);
 
-            const char* label = loc::gettext("Total Deaths:");
-            graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 135, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme("", 170, 135, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox9);
+            graphics.textboxapplyposition();
             graphics.createtextboxflipme(help.String(deathcounts), 180, 135, TEXT_COLOUR("transparent"));
+            graphics.textboxoriginalcontextauto();
             graphics.textboxprintflags(PR_FONT_INTERFACE | PR_RTL_XFLIP);
             break;
-        }
         case 3507:
-        {
             incstate();
             setstatedelay(45+15);
 
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            loc::gettext_plural_fill(
-                buffer, sizeof(buffer),
-                "Hardest Room (with {n_deaths} deaths)",
-                "Hardest Room (with {n_deaths} death)",
-                "n_deaths:int",
-                hardestroomdeaths
-            );
-            graphics.createtextboxflipme(buffer, -1, 158, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme("", -1, 158, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxcenterx();
-            graphics.createtextboxflipme(
-                loc::gettext_roomname(map.custommode, hardestroom_x, hardestroom_y, hardestroom.c_str(), hardestroom_specialname),
-                -1, 170, TEXT_COLOUR("transparent")
-            );
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox11);
+            graphics.textboxapplyposition();
+            graphics.createtextboxflipme("", -1, 170, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxcenterx();
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, gamecomplete_textbox12);
+            graphics.textboxapplyposition();
             break;
-        }
         case 3508:
             incstate();
             setstatedelay(0);

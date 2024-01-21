@@ -359,6 +359,7 @@ public:
     bool gamesaved;
     bool gamesavefailed;
     std::string savetime;
+    int saveframes, saveseconds;
     int savetrinkets;
     bool startscript;
     std::string newscript;
