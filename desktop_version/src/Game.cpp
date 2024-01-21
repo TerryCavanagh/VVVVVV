@@ -806,6 +806,21 @@ void Game::actionprompt_textbox(void)
     graphics.textboxapplyposition();
 }
 
+static void savetele_textbox_success(textboxclass* THIS)
+{
+    THIS->lines.clear();
+    THIS->lines.push_back(loc::gettext("Game Saved"));
+    THIS->pad(3, 3);
+}
+
+static void savetele_textbox_fail(textboxclass* THIS)
+{
+    THIS->lines.clear();
+    THIS->lines.push_back(loc::gettext("ERROR: Could not save game!"));
+    THIS->wrap(2);
+    THIS->pad(1, 1);
+}
+
 void Game::savetele_textbox(void)
 {
     if (inspecial() || map.custommode)
@@ -815,21 +830,174 @@ void Game::savetele_textbox(void)
 
     if (savetele())
     {
-        graphics.createtextboxflipme(loc::gettext("Game Saved"), -1, 12, TEXT_COLOUR("gray"));
+        graphics.createtextboxflipme("", -1, 12, TEXT_COLOUR("gray"));
         graphics.textboxprintflags(PR_FONT_INTERFACE);
-        graphics.textboxpad(3, 3);
         graphics.textboxcenterx();
         graphics.textboxtimer(25);
+        graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, savetele_textbox_success);
     }
     else
     {
-        graphics.createtextboxflipme(loc::gettext("ERROR: Could not save game!"), -1, 12, TEXT_COLOUR("red"));
+        graphics.createtextboxflipme("", -1, 12, TEXT_COLOUR("red"));
         graphics.textboxprintflags(PR_FONT_INTERFACE);
-        graphics.textboxwrap(2);
-        graphics.textboxpad(1, 1);
         graphics.textboxcenterx();
         graphics.textboxtimer(50);
+        graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, savetele_textbox_fail);
     }
+    graphics.textboxapplyposition();
+}
+
+static void wasd_textbox(textboxclass* THIS)
+{
+    THIS->lines.clear();
+    THIS->lines.push_back(BUTTONGLYPHS_get_wasd_text());
+    THIS->wrap(4);
+    THIS->centertext();
+    THIS->pad(2, 2);
+}
+
+static void flip_textbox(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    char buffer[SCREEN_WIDTH_CHARS*3 + 1];
+    vformat_buf(
+        buffer, sizeof(buffer),
+        loc::gettext("Press {button} to flip"),
+        "button:but",
+        vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+    );
+    THIS->lines.push_back(buffer);
+    THIS->wrap(4);
+    THIS->centertext();
+    THIS->pad(2, 2);
+}
+
+static void arrowkey_textbox(textboxclass* THIS)
+{
+    THIS->lines.clear();
+    THIS->lines.push_back(loc::gettext("If you prefer, you can press UP or DOWN instead of ACTION to flip."));
+    THIS->wrap(2);
+    THIS->centertext();
+    THIS->pad(1, 1);
+}
+
+static void map_textbox(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    char buffer[SCREEN_WIDTH_CHARS*3 + 1];
+    vformat_buf(
+        buffer, sizeof(buffer),
+        loc::gettext("Press {button} to view map and quicksave"),
+        "button:but",
+        vformat_button(ActionSet_InGame, Action_InGame_Map)
+    );
+
+    THIS->lines.push_back(buffer);
+    THIS->wrap(4);
+    THIS->centertext();
+    THIS->pad(2, 2);
+}
+
+static void im1_instructions_textbox1(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    // Intermission 1 instructional textbox, depends on last saved
+    const char* floorceiling = graphics.flipmode ? "ceiling" : "floor";
+    const char* crewmate;
+    switch (game.lastsaved)
+    {
+    case 2:
+        crewmate = "Vitellary";
+        break;
+    case 3:
+        crewmate = "Vermilion";
+        break;
+    case 4:
+        crewmate = "Verdigris";
+        break;
+    case 5:
+        crewmate = "Victoria";
+        break;
+    default:
+        crewmate = "your companion";
+    }
+    char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
+    vformat_buf(english, sizeof(english),
+        "When you're standing on the {floorceiling}, {crewmate} will try to walk to you.",
+        "floorceiling:str, crewmate:str",
+        floorceiling, crewmate
+    );
+
+    THIS->lines.push_back(loc::gettext(english));
+    THIS->wrap(2);
+    THIS->padtowidth(36*8);
+}
+
+static void im1_instructions_textbox2(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    // Intermission 1 instructional textbox, depends on last saved
+    const char* floorceiling = graphics.flipmode ? "ceiling" : "floor";
+    const char* crewmate;
+    switch (game.lastsaved)
+    {
+    case 2:
+        crewmate = "Vitellary";
+        break;
+    case 3:
+        crewmate = "Vermilion";
+        break;
+    case 4:
+        crewmate = "Verdigris";
+        break;
+    case 5:
+        crewmate = "Victoria";
+        break;
+    default:
+        crewmate = "your companion";
+    }
+    char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
+    vformat_buf(english, sizeof(english),
+        "When you're NOT standing on the {floorceiling}, {crewmate} will stop and wait for you.",
+        "floorceiling:str, crewmate:str",
+        floorceiling, crewmate
+    );
+
+    THIS->lines.push_back(loc::gettext(english));
+    THIS->wrap(2);
+    THIS->padtowidth(36*8);
+}
+
+static void im1_instructions_textbox3(textboxclass* THIS)
+{
+    extern Game game;
+    THIS->lines.clear();
+
+    // Intermission 1 instructional textbox, depends on last saved
+    const char* english;
+    switch (game.lastsaved)
+    {
+    case 2:
+    case 3:
+    case 4:
+        english = "You can't continue to the next room until he is safely across.";
+        break;
+    case 5:
+        english = "You can't continue to the next room until she is safely across.";
+        break;
+    default:
+        english = "You can't continue to the next room until they are safely across.";
+    }
+
+    THIS->lines.push_back(loc::gettext(english));
+    THIS->wrap(2);
+    THIS->padtowidth(36*8);
 }
 
 void Game::setstate(const int gamestate)
@@ -918,13 +1086,12 @@ void Game::updatestate(void)
             break;
         case 4:
             //End of opening cutscene for now
-            graphics.createtextbox(BUTTONGLYPHS_get_wasd_text(), -1, 195, TEXT_COLOUR("gray"));
+            graphics.createtextbox("", -1, 195, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.textboxwrap(4);
-            graphics.textboxcentertext();
-            graphics.textboxpad(2, 2);
             graphics.textboxcenterx();
             graphics.textboxtimer(60);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, wasd_textbox);
+            graphics.textboxapplyposition();
             setstate(0);
             break;
         case 5:
@@ -951,21 +1118,12 @@ void Game::updatestate(void)
             {
                 obj.flags[13] = true;
 
-                char buffer[SCREEN_WIDTH_CHARS*3 + 1];
-                vformat_buf(
-                    buffer, sizeof(buffer),
-                    loc::gettext("Press {button} to view map and quicksave"),
-                    "button:but",
-                    vformat_button(ActionSet_InGame, Action_InGame_Map)
-                );
-
-                graphics.createtextbox(buffer, -1, 155, TEXT_COLOUR("gray"));
+                graphics.createtextbox("", -1, 155, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
-                graphics.textboxwrap(4);
-                graphics.textboxcentertext();
-                graphics.textboxpad(2, 2);
                 graphics.textboxcenterx();
                 graphics.textboxtimer(60);
+                graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, map_textbox);
+                graphics.textboxapplyposition();
             }
             setstate(0);
             break;
@@ -1024,70 +1182,27 @@ void Game::updatestate(void)
             break;
 
         case 11:
-        {
-            //Intermission 1 instructional textbox, depends on last saved
             graphics.textboxremovefast();
-            const char* floorceiling = graphics.flipmode ? "ceiling" : "floor";
-            const char* crewmate;
-            switch (lastsaved)
-            {
-            case 2:
-                crewmate = "Vitellary";
-                break;
-            case 3:
-                crewmate = "Vermilion";
-                break;
-            case 4:
-                crewmate = "Verdigris";
-                break;
-            case 5:
-                crewmate = "Victoria";
-                break;
-            default:
-                crewmate = "your companion";
-            }
-            char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
-            vformat_buf(english, sizeof(english),
-                "When you're NOT standing on the {floorceiling}, {crewmate} will stop and wait for you.",
-                "floorceiling:str, crewmate:str",
-                floorceiling, crewmate
-            );
-            graphics.createtextbox(loc::gettext(english), -1, 3, TEXT_COLOUR("gray"));
+            graphics.createtextbox("", -1, 3, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.textboxwrap(2);
-            graphics.textboxpadtowidth(36*8);
             graphics.textboxcenterx();
             graphics.textboxtimer(180);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, im1_instructions_textbox2);
+            graphics.textboxapplyposition();
             setstate(0);
             break;
-        }
         case 12:
-            //Intermission 1 instructional textbox, depends on last saved
             obj.removetrigger(12);
             if (!obj.flags[61])
             {
                 obj.flags[61] = true;
                 graphics.textboxremovefast();
-                const char* english;
-                switch (lastsaved)
-                {
-                case 2:
-                case 3:
-                case 4:
-                    english = "You can't continue to the next room until he is safely across.";
-                    break;
-                case 5:
-                    english = "You can't continue to the next room until she is safely across.";
-                    break;
-                default:
-                    english = "You can't continue to the next room until they are safely across.";
-                }
-                graphics.createtextbox(loc::gettext(english), -1, 3, TEXT_COLOUR("gray"));
+                graphics.createtextbox("", -1, 3, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
-                graphics.textboxwrap(2);
-                graphics.textboxpadtowidth(36*8);
                 graphics.textboxcenterx();
                 graphics.textboxtimer(120);
+                graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, im1_instructions_textbox3);
+                graphics.textboxapplyposition();
             }
             setstate(0);
             break;
@@ -1098,43 +1213,15 @@ void Game::updatestate(void)
             setstate(0);
             break;
         case 14:
-        {
-            //Intermission 1 instructional textbox, depends on last saved
-            const char* floorceiling = graphics.flipmode ? "ceiling" : "floor";
-            const char* crewmate;
-            switch (lastsaved)
-            {
-            case 2:
-                crewmate = "Vitellary";
-                break;
-            case 3:
-                crewmate = "Vermilion";
-                break;
-            case 4:
-                crewmate = "Verdigris";
-                break;
-            case 5:
-                crewmate = "Victoria";
-                break;
-            default:
-                crewmate = "your companion";
-            }
-            char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
-            vformat_buf(english, sizeof(english),
-                "When you're standing on the {floorceiling}, {crewmate} will try to walk to you.",
-                "floorceiling:str, crewmate:str",
-                floorceiling, crewmate
-            );
-            graphics.createtextbox(loc::gettext(english), -1, 3, TEXT_COLOUR("gray"));
+            graphics.createtextbox("", -1, 3, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.textboxwrap(2);
-            graphics.textboxpadtowidth(36*8);
             graphics.textboxcenterx();
             graphics.textboxtimer(280);
+            graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, im1_instructions_textbox1);
+            graphics.textboxapplyposition();
 
             setstate(0);
             break;
-        }
         case 15:
         {
             //leaving the naughty corner
@@ -1164,13 +1251,12 @@ void Game::updatestate(void)
             obj.removetrigger(17);
             if (BUTTONGLYPHS_keyboard_is_active())
             {
-                graphics.createtextbox(loc::gettext("If you prefer, you can press UP or DOWN instead of ACTION to flip."), -1, 187, TEXT_COLOUR("gray"));
+                graphics.createtextbox("", -1, 187, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
-                graphics.textboxwrap(2);
-                graphics.textboxcentertext();
-                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
                 graphics.textboxtimer(100);
+                graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, arrowkey_textbox);
+                graphics.textboxapplyposition();
             }
             setstate(0);
             break;
@@ -1200,20 +1286,12 @@ void Game::updatestate(void)
                 obj.flags[3] = true;
                 setstate(0);
 
-                char buffer[SCREEN_WIDTH_CHARS*3 + 1];
-                vformat_buf(
-                    buffer, sizeof(buffer),
-                    loc::gettext("Press {button} to flip"),
-                    "button:but",
-                    vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-                );
-                graphics.createtextbox(buffer, -1, 25, TEXT_COLOUR("gray"));
+                graphics.createtextbox("", -1, 25, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
-                graphics.textboxwrap(4);
-                graphics.textboxcentertext();
-                graphics.textboxpad(2, 2);
                 graphics.textboxcenterx();
                 graphics.textboxtimer(60);
+                graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, flip_textbox);
+                graphics.textboxapplyposition();
             }
             obj.removetrigger(22);
             break;

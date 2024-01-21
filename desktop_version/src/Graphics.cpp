@@ -3240,39 +3240,14 @@ void Graphics::textboxcentery(void)
 
 int Graphics::textboxwrap(int pad)
 {
-    /* This function just takes a single-line textbox and wraps it...
-     * pad = the total number of characters we are going to pad this textbox.
-     * (or how many characters we should stay clear of 288 pixels width in general)
-     * Only to be used after a manual graphics.createtextbox[flipme] call.
-     * Returns the new, total height of the textbox. */
+    // TODO: delete this function?
     if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxwrap() out-of-bounds!");
         return 16;
     }
-    if (textboxes[m].lines.empty())
-    {
-        vlog_error("textboxwrap() has no first line!");
-        return 16;
-    }
-    std::string wrapped = font::string_wordwrap_balanced(
-        textboxes[m].print_flags,
-        textboxes[m].lines[0],
-        36 * 8 - pad * 8
-    );
-    textboxes[m].lines.clear();
 
-    size_t startline = 0;
-    size_t newline;
-    do {
-        size_t pos_n = wrapped.find('\n', startline);
-        size_t pos_p = wrapped.find('|', startline);
-        newline = SDL_min(pos_n, pos_p);
-        addline(wrapped.substr(startline, newline-startline));
-        startline = newline + 1;
-    } while (newline != std::string::npos);
-
-    return textboxes[m].h;
+    return textboxes[m].wrap(pad);
 }
 
 void Graphics::textboxpad(size_t left_pad, size_t right_pad)

@@ -5,6 +5,7 @@
 #include "Font.h"
 #include "Localization.h"
 #include "UTF8.h"
+#include "Vlogging.h"
 
 textboxclass::textboxclass(int gap)
 {
@@ -253,6 +254,40 @@ void textboxclass::padtowidth(size_t new_w)
 void textboxclass::centertext(void)
 {
     padtowidth(w-16);
+}
+
+int textboxclass::wrap(int pad)
+{
+    /* This function just takes a single-line textbox and wraps it...
+     * pad = the total number of characters we are going to pad this textbox.
+     * (or how many characters we should stay clear of 288 pixels width in general)
+     * Only to be used after a manual graphics.createtextbox[flipme] call,
+     * or the retranslation of a text box created with said call.
+     * Returns the new, total height of the textbox. */
+    if (lines.empty())
+    {
+        vlog_error("textboxclass::wrap() has no first line!");
+        return 16;
+    }
+
+    std::string wrapped = font::string_wordwrap_balanced(
+        print_flags,
+        lines[0],
+        36 * 8 - pad * 8
+    );
+    lines.clear();
+
+    size_t startline = 0;
+    size_t newline;
+    do {
+        size_t pos_n = wrapped.find('\n', startline);
+        size_t pos_p = wrapped.find('|', startline);
+        newline = SDL_min(pos_n, pos_p);
+        addline(wrapped.substr(startline, newline-startline));
+        startline = newline + 1;
+    } while (newline != std::string::npos);
+
+    return h;
 }
 
 void textboxclass::copyoriginaltext(void)
