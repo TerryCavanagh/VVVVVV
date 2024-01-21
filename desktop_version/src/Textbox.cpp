@@ -78,7 +78,7 @@ void textboxclass::centery(void)
 void textboxclass::applyposition(void)
 {
     resize();
-    repositionfromcrewmate();
+    reposition();
     if (should_centerx)
     {
         centerx();
@@ -165,11 +165,18 @@ void textboxclass::resize(void)
     h = lines.size()*(font::height(print_flags) + linegap) + 16 - linegap;
 }
 
-void textboxclass::repositionfromcrewmate(void)
+void textboxclass::reposition(void)
 {
+    // Function-based translation overrides position.
+    if (translate == TEXTTRANSLATE_FUNCTION)
+    {
+        return;
+    }
+
     const int font_height = font::height(print_flags);
 
     // Reposition based off crewmate position, if applicable
+    // Otherwise use original position, if applicable
     if (crewmate_position.override_x)
     {
         if (crewmate_position.dir == 1) // left
@@ -181,6 +188,11 @@ void textboxclass::repositionfromcrewmate(void)
             xp = crewmate_position.x - 16;
         }
     }
+    else
+    {
+        xp = original.x;
+    }
+
     if (crewmate_position.override_y)
     {
         if (crewmate_position.text_above)
@@ -198,6 +210,10 @@ void textboxclass::repositionfromcrewmate(void)
         {
             yp = crewmate_position.y + 26;
         }
+    }
+    else
+    {
+        yp = original.y;
     }
 }
 

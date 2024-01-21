@@ -3344,6 +3344,8 @@ void Graphics::textboxoriginalcontextauto(void)
     {
         context.script_name = script.scriptname;
     }
+    context.x = textboxes[m].xp;
+    context.y = textboxes[m].yp;
 
     textboxes[m].original = context;
 }

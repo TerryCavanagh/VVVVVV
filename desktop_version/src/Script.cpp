@@ -773,6 +773,8 @@ void scriptclass::run(void)
                 context.text_case = textcase;
                 context.lines = std::vector<std::string>(txt);
                 context.script_name = scriptname;
+                context.x = textx;
+                context.y = texty;
 
                 graphics.textboxcrewmateposition(&textcrewmateposition);
                 graphics.textboxoriginalcontext(&context);
