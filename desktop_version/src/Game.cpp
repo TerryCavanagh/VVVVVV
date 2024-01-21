@@ -1632,56 +1632,56 @@ void Game::updatestate(void)
 
         case 50:
             music.playef(Sound_VIOLET);
-            graphics.createtextbox(loc::gettext("Help! Can anyone hear this message?"), 5, 8, TEXT_COLOUR("purple"));
-            graphics.textboxcommsrelay();
+            graphics.createtextbox("", 5, 8, TEXT_COLOUR("purple"));
+            graphics.textboxcommsrelay("Help! Can anyone hear this message?");
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 51:
             music.playef(Sound_VIOLET);
-            graphics.createtextbox(loc::gettext("Verdigris? Are you out there? Are you ok?"), 5, 8, TEXT_COLOUR("purple"));
-            graphics.textboxcommsrelay();
+            graphics.createtextbox("", 5, 8, TEXT_COLOUR("purple"));
+            graphics.textboxcommsrelay("Verdigris? Are you out there? Are you ok?");
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 52:
             music.playef(Sound_VIOLET);
-            graphics.createtextbox(loc::gettext("Please help us! We've crashed and need assistance!"), 5, 8, TEXT_COLOUR("purple"));
-            graphics.textboxcommsrelay();
+            graphics.createtextbox("", 5, 8, TEXT_COLOUR("purple"));
+            graphics.textboxcommsrelay("Please help us! We've crashed and need assistance!");
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 53:
             music.playef(Sound_VIOLET);
-            graphics.createtextbox(loc::gettext("Hello? Anyone out there?"), 5, 8, TEXT_COLOUR("purple"));
-            graphics.textboxcommsrelay();
+            graphics.createtextbox("", 5, 8, TEXT_COLOUR("purple"));
+            graphics.textboxcommsrelay("Hello? Anyone out there?");
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 54:
             music.playef(Sound_VIOLET);
-            graphics.createtextbox(loc::gettext("This is Doctor Violet from the D.S.S. Souleye! Please respond!"), 5, 8, TEXT_COLOUR("purple"));
-            graphics.textboxcommsrelay();
+            graphics.createtextbox("", 5, 8, TEXT_COLOUR("purple"));
+            graphics.textboxcommsrelay("This is Doctor Violet from the D.S.S. Souleye! Please respond!");
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 55:
             music.playef(Sound_VIOLET);
-            graphics.createtextbox(loc::gettext("Please... Anyone..."), 5, 8, TEXT_COLOUR("purple"));
-            graphics.textboxcommsrelay();
+            graphics.createtextbox("", 5, 8, TEXT_COLOUR("purple"));
+            graphics.textboxcommsrelay("Please... Anyone...");
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 56:
             music.playef(Sound_VIOLET);
-            graphics.createtextbox(loc::gettext("Please be alright, everyone..."), 5, 8, TEXT_COLOUR("purple"));
-            graphics.textboxcommsrelay();
+            graphics.createtextbox("", 5, 8, TEXT_COLOUR("purple"));
+            graphics.textboxcommsrelay("Please be alright, everyone...");
             graphics.textboxtimer(60);
             setstate(50);
             setstatedelay(100);

@@ -123,7 +123,7 @@ public:
 
     void textboxtranslate(TextboxTranslate translate, TextboxFunction function);
 
-    void textboxcommsrelay(void);
+    void textboxcommsrelay(const char* text);
 
     void textboxapplyposition(void);
 

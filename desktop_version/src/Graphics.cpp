@@ -3367,7 +3367,21 @@ void Graphics::textboxtranslate(const TextboxTranslate translate, const TextboxF
     textboxes[m].updatetext();
 }
 
-void Graphics::textboxcommsrelay(void)
+static void commsrelay_textbox(textboxclass* THIS)
+{
+    THIS->lines.clear();
+
+    if (THIS->original.lines.empty())
+    {
+        return;
+    }
+    THIS->lines.push_back(loc::gettext(THIS->original.lines[0].c_str()));
+    THIS->wrap(11);
+    THIS->resize();
+    THIS->xp = 224 - THIS->w;
+}
+
+void Graphics::textboxcommsrelay(const char* text)
 {
     // Special treatment for the gamestate textboxes in Comms Relay
     if (!INBOUNDS_VEC(m, textboxes))
@@ -3376,8 +3390,8 @@ void Graphics::textboxcommsrelay(void)
         return;
     }
     textboxprintflags(PR_FONT_INTERFACE);
-    textboxwrap(11);
-    textboxes[m].xp = 224 - textboxes[m].w;
+    textboxes[m].original.lines.push_back(text);
+    textboxtranslate(TEXTTRANSLATE_FUNCTION, commsrelay_textbox);
 }
 
 int Graphics::crewcolour(const int t)
