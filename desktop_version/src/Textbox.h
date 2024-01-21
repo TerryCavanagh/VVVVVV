@@ -97,7 +97,7 @@ public:
 
     void centertext(void);
 
-    int wrap(int pad);
+    void wrap(int pad);
 
     void copyoriginaltext(void);
 
