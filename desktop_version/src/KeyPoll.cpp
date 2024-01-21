@@ -16,6 +16,7 @@
 #include "Music.h"
 #include "Screen.h"
 #include "UTF8.h"
+#include "UtilityClass.h"
 #include "Vlogging.h"
 
 bool SaveScreenshot(void);
@@ -138,6 +139,9 @@ static int changemousestate(
     return timeout;
 }
 
+/* Also used in Input.cpp. */
+void recomputetextboxes(void);
+
 void KeyPoll::Poll(void)
 {
     static int raw_mousex = 0;
@@ -178,10 +182,40 @@ void KeyPoll::Poll(void)
 
             if (loc::show_translator_menu && evt.key.keysym.sym == SDLK_F8 && !evt.key.repeat)
             {
-                /* Reload language files */
-                loc::loadtext(false);
-                graphics.grphx.init_translations();
-                music.playef(Sound_COIN);
+                if (keymap[SDLK_LCTRL])
+                {
+                    /* Debug keybind to cycle language.
+                     * Not really meant to be used inside menus. */
+                    int i = loc::languagelist_curlang;
+                    if (keymap[SDLK_LSHIFT])
+                    {
+                        /* Backwards */
+                        i--;
+                    }
+                    else
+                    {
+                        /* Forwards */
+                        i++;
+                    }
+                    if (!loc::languagelist.empty())
+                    {
+                        i = POS_MOD(i, (int) loc::languagelist.size());
+
+                        loc::languagelist_curlang = i;
+                        loc::lang = loc::languagelist[i].code;
+                        loc::loadtext(false);
+                        graphics.grphx.init_translations();
+
+                        recomputetextboxes();
+                    }
+                }
+                else
+                {
+                    /* Reload language files */
+                    loc::loadtext(false);
+                    graphics.grphx.init_translations();
+                    music.playef(Sound_COIN);
+                }
             }
 
             if (evt.key.keysym.sym == SDLK_F6 && !evt.key.repeat)
