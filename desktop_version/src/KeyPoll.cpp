@@ -12,6 +12,7 @@
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
+#include "LocalizationMaint.h"
 #include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
@@ -189,6 +190,11 @@ bool cycle_language(bool should_recompute_textboxes)
 
     if (game.gamestate == TITLEMODE)
     {
+        if (game.currentmenuname == Menu::translator_options_limitscheck)
+        {
+            loc::local_limits_check();
+        }
+
         int temp = game.menucountdown;
         game.createmenu(game.currentmenuname, true);
         game.menucountdown = temp;
