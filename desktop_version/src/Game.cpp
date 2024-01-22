@@ -221,6 +221,10 @@ void Game::init(void)
     nocutscenes = false;
     ndmresultcrewrescued = 0;
     ndmresulttrinkets = 0;
+    ndmresulthardestroom.clear();
+    ndmresulthardestroom_x = hardestroom_x;
+    ndmresulthardestroom_y = hardestroom_y;
+    ndmresulthardestroom_specialname = false;
 
     customcol=0;
 
@@ -7798,7 +7802,10 @@ void Game::copyndmresults(void)
 {
     ndmresultcrewrescued = crewrescued();
     ndmresulttrinkets = trinkets();
-    ndmresulthardestroom = loc::gettext_roomname(false, hardestroom_x, hardestroom_y, hardestroom.c_str(), hardestroom_specialname);
+    ndmresulthardestroom = hardestroom;
+    ndmresulthardestroom_x = hardestroom_x;
+    ndmresulthardestroom_y = hardestroom_y;
+    ndmresulthardestroom_specialname = hardestroom_specialname;
     SDL_memcpy(ndmresultcrewstats, crewstats, sizeof(ndmresultcrewstats));
 }
 
