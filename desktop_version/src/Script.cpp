@@ -811,6 +811,8 @@ void scriptclass::run(void)
                     graphics.textboxbuttons();
                 }
                 textbuttons = false;
+
+                textcase = 1;
             }
             else if (words[0] == "endtext")
             {
