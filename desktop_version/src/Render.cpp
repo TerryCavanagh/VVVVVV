@@ -1382,7 +1382,15 @@ static void menurender(void)
         font::print_wrap(PR_CEN | PR_CJK_LOW, -1, 110, buffer, tr, tg, tb);
 
         font::print(PR_CEN, -1, 145, loc::gettext("You managed to reach:"), tr, tg, tb);
-        font::print(PR_CEN | PR_CJK_LOW, -1, 155, game.ndmresulthardestroom, tr, tg, tb);
+        font::print(
+            PR_CEN | PR_CJK_LOW, -1, 155,
+            loc::gettext_roomname(
+                false,
+                game.ndmresulthardestroom_x, game.ndmresulthardestroom_y,
+                game.ndmresulthardestroom.c_str(), game.ndmresulthardestroom_specialname
+            ),
+            tr, tg, tb
+        );
 
         const char* encouragement;
         switch (game.ndmresultcrewrescued)

@@ -428,6 +428,9 @@ public:
     int ndmresultcrewrescued;
     int ndmresulttrinkets;
     std::string ndmresulthardestroom;
+    int ndmresulthardestroom_x;
+    int ndmresulthardestroom_y;
+    bool ndmresulthardestroom_specialname;
     void copyndmresults(void);
 
     //Time Trials
