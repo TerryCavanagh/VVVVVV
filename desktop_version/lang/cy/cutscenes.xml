@@ -774,7 +774,11 @@ SEFYDLOGWR DIMENSIWN ALLANOL" centertext="1" pad="1"/>
 
 Songs will continue to play until you leave the ship.
 
-Collect trinkets to unlock new songs!" translation="-= JIWCBOCS =-  Bydd caneuon yn parhau i chwarae nes i chi adael y llong. Casglwch dlysau i ddatgloi caneuon newydd!" centertext="1" padtowidth="264"/>
+Collect trinkets to unlock new songs!" translation="-= JIWCBOCS =-
+
+Bydd caneuon yn parhau i chwarae nes i chi adael y llong.
+
+Casglwch dlysau i ddatgloi caneuon newydd!" centertext="1" padtowidth="272"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock1" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
