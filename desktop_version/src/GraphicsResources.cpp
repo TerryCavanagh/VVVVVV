@@ -65,7 +65,11 @@ static SDL_Surface* LoadImageRaw(const char* filename, unsigned char** data)
         height,
         32,
         width * 4,
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+        SDL_PIXELFORMAT_RGBA8888
+#else
         SDL_PIXELFORMAT_ABGR8888
+#endif
     );
 
     return loadedImage;
