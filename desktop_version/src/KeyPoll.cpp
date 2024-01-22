@@ -187,8 +187,7 @@ void KeyPoll::Poll(void)
             {
                 if (keymap[SDLK_LCTRL])
                 {
-                    /* Debug keybind to cycle language.
-                     * Not really meant to be used inside menus. */
+                    /* Debug keybind to cycle language. */
                     int i = loc::languagelist_curlang;
                     if (keymap[SDLK_LSHIFT])
                     {
@@ -210,6 +209,18 @@ void KeyPoll::Poll(void)
                         graphics.grphx.init_translations();
 
                         should_recompute_textboxes = true;
+                    }
+
+                    if (game.gamestate == TITLEMODE)
+                    {
+                        int temp = game.menucountdown;
+                        game.createmenu(game.currentmenuname, true);
+                        game.menucountdown = temp;
+
+                        if (game.currentmenuname == Menu::language)
+                        {
+                            game.currentmenuoption = i;
+                        }
                     }
                 }
                 else
