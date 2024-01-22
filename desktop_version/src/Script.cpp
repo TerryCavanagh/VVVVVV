@@ -798,6 +798,16 @@ void scriptclass::run(void)
                     graphics.textboxcentery();
                 }
 
+                if (map.custommode)
+                {
+                    uint32_t flags = PR_FONT_IDX(font::font_idx_level, cl.rtl);
+                    if (font::font_idx_level_is_custom)
+                    {
+                        flags |= PR_FONT_IDX_IS_CUSTOM;
+                    }
+                    graphics.textboxprintflags(flags);
+                }
+
                 graphics.textboxadjust();
                 if (words[0] == "speak_active")
                 {
@@ -2481,39 +2491,38 @@ void scriptclass::run(void)
             }
             else if (words[0] == "setfont" || words[0] == "setrtl")
             {
-                // If any textbox is currently fading out, wait for that first
-                bool blocked = false;
-                for (size_t i = 0; i < graphics.textboxes.size(); i++)
+                if (words[0] == "setrtl")
                 {
-                    if (graphics.textboxes[i].tm == 2)
+                    if (words[1] == "on")
                     {
-                        scriptdelay = 1;
-                        position--;
-                        blocked = true;
-                        break;
+                        cl.rtl = true;
+                    }
+                    else if (words[1] == "off")
+                    {
+                        cl.rtl = false;
                     }
                 }
-
-                if (!blocked)
+                else if (words[1] == "")
                 {
-                    if (words[0] == "setrtl")
+                    font::set_level_font(cl.level_font_name.c_str());
+                }
+                else
+                {
+                    font::set_level_font(raw_words[1].c_str());
+                }
+                if (argexists[2] && words[2] == "all")
+                {
+                    /* Immediately update all text boxes. */
+                    uint32_t flags = PR_FONT_IDX(font::font_idx_level, cl.rtl);
+                    if (font::font_idx_level_is_custom)
                     {
-                        if (words[1] == "on")
-                        {
-                            cl.rtl = true;
-                        }
-                        else if (words[1] == "off")
-                        {
-                            cl.rtl = false;
-                        }
+                        flags |= PR_FONT_IDX_IS_CUSTOM;
                     }
-                    else if (words[1] == "")
+
+                    for (size_t i = 0; i < graphics.textboxes.size(); i++)
                     {
-                        font::set_level_font(cl.level_font_name.c_str());
-                    }
-                    else
-                    {
-                        font::set_level_font(raw_words[1].c_str());
+                        graphics.textboxes[i].print_flags = flags;
+                        graphics.textboxes[i].resize();
                     }
                 }
             }
