@@ -304,9 +304,9 @@
     <string english="unlock intermissions" translation="intermissies ontgrendelen" explanation="menu option"/>
     <string english="TO UNLOCK: Complete the intermission levels in-game." translation="OM TE ONTGRENDELEN: Voltooi de intermissielevels in het spel." explanation="" max="38*4"/>
     <string english="no death mode" translation="éénlevenmodus" explanation="menu option"/>
-    <string english="No Death Mode" translation="Éénlevenmodus" explanation="title" max="20"/>
+    <string english="No Death Mode" translation="Eénlevenmodus" explanation="title" max="20"/>
     <string english="Play the entire game without dying once." translation="Speel het gehele spel zonder ook maar één keer dood te gaan." explanation="" max="38*4"/>
-    <string english="No Death Mode is not available with slowdown or invincibility." translation="Éénlevenmodus is niet beschikbaar met vertraging of onkwetsbaarheid." explanation="" max="38*3"/>
+    <string english="No Death Mode is not available with slowdown or invincibility." translation="Eénlevenmodus is niet beschikbaar met vertraging of onkwetsbaarheid." explanation="" max="38*3"/>
     <string english="unlock no death mode" translation="éénlevenmodus ontgrendelen" explanation="menu option"/>
     <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="OM TE ONTGRENDELEN: Behaal een S-score of hoger in ten minste 4 races tegen de klok." explanation="ranks are B A S V, see below" max="38*3"/>
     <string english="flip mode" translation="spiegelmodus" explanation="menu option, mirrors the entire game vertically"/>
