@@ -793,7 +793,7 @@ void Game::savetele_textbox(void)
 
 void Game::setstate(const int gamestate)
 {
-    if (!statelocked)
+    if (!statelocked || GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
     {
         state = gamestate;
     }
@@ -801,7 +801,7 @@ void Game::setstate(const int gamestate)
 
 void Game::incstate(void)
 {
-    if (!statelocked)
+    if (!statelocked || GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
     {
         state++;
     }
@@ -809,7 +809,7 @@ void Game::incstate(void)
 
 void Game::setstatedelay(const int delay)
 {
-    if (!statelocked)
+    if (!statelocked || GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
     {
         statedelay = delay;
     }
