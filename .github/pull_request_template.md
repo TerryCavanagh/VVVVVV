@@ -34,4 +34,4 @@ By submitting this pull request, I confirm that...
 - [ ] My changes may be used in a future commercial release of VVVVVV
 - [ ] I will be credited in a `CONTRIBUTORS` file and the "GitHub Friends"
   section of the credits for all of said releases, but will NOT be compensated
-  for these changes
+  for these changes unless there is a prior written agreement
