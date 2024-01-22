@@ -672,13 +672,19 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="Please be alright, everyone..." translation="Go raibh sibh slán, a chairde..." explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Congratulations!
 
-You have found a shiny trinket!" translation="Comhghairdeas! Fuair tú ornáid lonrach!" explanation="" max="34*4"/>
+You have found a shiny trinket!" translation="Comhghairdeas!
+
+Fuair tú ornáid lonrach!" explanation="" max="34*4"/>
     <string english="Congratulations!
 
-You have found a lost crewmate!" translation="Comhghairdeas! Fuair tú leathbhádóir a bhí ar strae!" explanation="" max="34*4"/>
+You have found a lost crewmate!" translation="Comhghairdeas!
+
+Fuair tú leathbhádóir a bhí ar strae!" explanation="" max="34*4"/>
     <string english="Congratulations!
 
-You have found the secret lab!" translation="Comhghairdeas! Fuair tú an tsaotharlann rúnda!" explanation="" max="34*4"/>
+You have found the secret lab!" translation="Comhghairdeas!
+
+Fuair tú an tsaotharlann rúnda!" explanation="" max="34*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="Tá an tsaotharlann rúnda scartha ón gcuid eile den chluiche. Is féidir filleadh uirthi trí SAOTHARLANN RÚNDA a roghnú ar an roghchlár imeartha." explanation="" max="36*10"/>
     <string english="Viridian" translation="Virideach" explanation="crewmate name (player)" max="15"/>
     <string english="Violet" translation="Vialait" explanation="crewmate name" max="15"/>
