@@ -56,6 +56,7 @@
 #define PR_CJK_HIGH (2 << 20) /* larger fonts should stick out fully on the top */
 #define PR_RTL_FORCE (1 << 22) /* force the RTL flag, not needed if the font is set to INTERFACE or LEVEL */
 #define PR_RTL_XFLIP (1 << 23) /* in RTL languages, mirror the X axis, so left is 320 and right is 0, and invert the meaning of PR_LEFT and PR_RIGHT */
+#define PR_FONT_IDX_IS_CUSTOM (1 << 24) /* with PR_FONT_IDX, mark that the font index is of a custom font */
 
 
 namespace font
@@ -63,6 +64,9 @@ namespace font
 // Options in font selection menu
 extern uint8_t font_idx_options_n;
 extern uint8_t font_idx_options[20];
+
+extern uint8_t font_idx_level;
+extern bool font_idx_level_is_custom;
 
 bool find_main_font_by_name(const char* name, uint8_t* idx);
 const char* get_main_font_name(uint8_t idx);

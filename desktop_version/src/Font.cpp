@@ -95,8 +95,8 @@ uint8_t font_idx_options_n = 0;
 uint8_t font_idx_options[20];
 
 static bool font_level_is_interface = false;
-static bool font_idx_level_is_custom = false;
-static uint8_t font_idx_level = 0;
+bool font_idx_level_is_custom = false;
+uint8_t font_idx_level = 0;
 
 static void codepoint_split(
     const uint32_t codepoint,
@@ -765,13 +765,14 @@ static Font* container_get(FontContainer* container, uint8_t idx)
     return NULL;
 }
 
-static Font* fontsel_to_font(int sel, bool* rtl)
+static Font* fontsel_to_font(int sel, bool* rtl, bool custom)
 {
     /* Take font selection integer (0-31) and turn it into the correct Font
      * 0: PR_FONT_INTERFACE - use interface font
      * 1: PR_FONT_LEVEL     - use level font
      * 2: PR_FONT_8X8       - use 8x8 font no matter what
-     * 3-31:                - use (main) font index 0-28
+     * 3-31:                - use font index 0-28 (depending on custom, from
+     *                        PR_FONT_IDX_IS_CUSTOM)
      *
      * rtl will be set depending on whether we're requesting the interface
      * font (take it from the lang attributes) or level font (take it from
@@ -808,6 +809,10 @@ static Font* fontsel_to_font(int sel, bool* rtl)
         return container_get(&fonts_main, font_idx_8x8);
     }
 
+    if (custom)
+    {
+        return container_get(&fonts_custom, sel-3);
+    }
     return container_get(&fonts_main, sel-3);
 }
 
@@ -816,7 +821,9 @@ static PrintFlags decode_print_flags(uint32_t flags)
 {
     PrintFlags pf;
     pf.scale = FLAG_PART(0, 3) + 1;
-    pf.font_sel = fontsel_to_font(FLAG_PART(3, 5), &pf.rtl);
+    pf.font_sel = fontsel_to_font(
+        FLAG_PART(3, 5), &pf.rtl, flags & PR_FONT_IDX_IS_CUSTOM
+    );
     if (flags & PR_RTL_FORCE)
     {
         pf.rtl = true;
