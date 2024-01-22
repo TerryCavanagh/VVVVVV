@@ -1338,6 +1338,7 @@ static void menuactionpress(void)
         else if (game.currentmenuoption == (int)game.menuoptions.size()-2)
         {
             // play the cutscene, from clipboard
+            music.playef(Sound_VIRIDIAN);
             game.cutscenetest_menu_play_id = std::string(SDL_GetClipboardText());
             startmode(Start_CUTSCENETEST);
         }
@@ -1351,6 +1352,7 @@ static void menuactionpress(void)
         else
         {
             // play the cutscene!
+            music.playef(Sound_VIRIDIAN);
             game.cutscenetest_menu_play_id = loc::testable_script_ids[(game.cutscenetest_menu_page*14)+game.currentmenuoption];
             startmode(Start_CUTSCENETEST);
         }
