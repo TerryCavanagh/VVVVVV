@@ -1062,6 +1062,12 @@ static void menuactionpress(void)
             break;
         case 5:
             //language options
+            if (game.translator_cutscene_test)
+            {
+                music.playef(Sound_CRY);
+                break;
+            }
+
             music.playef(Sound_VIRIDIAN);
             loc::loadlanguagelist();
             loc::pre_title_lang_menu = false;

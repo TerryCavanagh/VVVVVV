@@ -142,6 +142,66 @@ static int changemousestate(
 /* Also used in Input.cpp. */
 void recomputetextboxes(void);
 
+bool cycle_language(bool should_recompute_textboxes)
+{
+    extern KeyPoll key;
+
+    if (game.gamestate == TITLEMODE
+    && game.currentmenuname == Menu::translator_options_cutscenetest)
+    {
+        /* Unfortunately, despite how it may appear to be working, the options
+         * are actually language-specific, and the order could be totally
+         * different between languages too. So we can't cycle in this menu. */
+        music.playef(Sound_CRY);
+        return should_recompute_textboxes;
+    }
+    if (game.translator_cutscene_test)
+    {
+        /* Refuse cycling here for similar reasons, even if it seems like it's
+         * working. The text boxes are based off of the language XML and
+         * could be completely different between languages. */
+        music.playef(Sound_CRY);
+        return should_recompute_textboxes;
+    }
+
+    int i = loc::languagelist_curlang;
+    if (key.keymap[SDLK_LSHIFT])
+    {
+        /* Backwards */
+        i--;
+    }
+    else
+    {
+        /* Forwards */
+        i++;
+    }
+    if (!loc::languagelist.empty())
+    {
+        i = POS_MOD(i, (int) loc::languagelist.size());
+
+        loc::languagelist_curlang = i;
+        loc::lang = loc::languagelist[i].code;
+        loc::loadtext(false);
+        graphics.grphx.init_translations();
+
+        should_recompute_textboxes = true;
+    }
+
+    if (game.gamestate == TITLEMODE)
+    {
+        int temp = game.menucountdown;
+        game.createmenu(game.currentmenuname, true);
+        game.menucountdown = temp;
+
+        if (game.currentmenuname == Menu::language)
+        {
+            game.currentmenuoption = i;
+        }
+    }
+
+    return should_recompute_textboxes;
+}
+
 void KeyPoll::Poll(void)
 {
     static int raw_mousex = 0;
@@ -188,40 +248,7 @@ void KeyPoll::Poll(void)
                 if (keymap[SDLK_LCTRL])
                 {
                     /* Debug keybind to cycle language. */
-                    int i = loc::languagelist_curlang;
-                    if (keymap[SDLK_LSHIFT])
-                    {
-                        /* Backwards */
-                        i--;
-                    }
-                    else
-                    {
-                        /* Forwards */
-                        i++;
-                    }
-                    if (!loc::languagelist.empty())
-                    {
-                        i = POS_MOD(i, (int) loc::languagelist.size());
-
-                        loc::languagelist_curlang = i;
-                        loc::lang = loc::languagelist[i].code;
-                        loc::loadtext(false);
-                        graphics.grphx.init_translations();
-
-                        should_recompute_textboxes = true;
-                    }
-
-                    if (game.gamestate == TITLEMODE)
-                    {
-                        int temp = game.menucountdown;
-                        game.createmenu(game.currentmenuname, true);
-                        game.menucountdown = temp;
-
-                        if (game.currentmenuname == Menu::language)
-                        {
-                            game.currentmenuoption = i;
-                        }
-                    }
+                    should_recompute_textboxes = cycle_language(should_recompute_textboxes);
                 }
                 else
                 {
