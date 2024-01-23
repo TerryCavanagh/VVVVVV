@@ -7,7 +7,7 @@ The following is a list of projects which have been given permission by Terry to
 
 Exceptions granted to the VVVVVV source code license
 -------
-Last updated on November 22nd, 2020.
+Last updated on January 23rd, 2024.
 
 | Project | Creator | Description | Conditions | Link |
 |---|---|---|---|---|
@@ -20,3 +20,4 @@ Last updated on November 22nd, 2020.
 | Haiku Port | [Julius C. Enriquez](https://github.com/win8linux) | Port for the Haiku operating system. | Display the following text in the Haiku package to make it clear that this is an exception: "VVVVVV is a commercial game! The author has given special permission to make this Haiku version available for free. If you enjoy the game, please consider purchasing a copy at [thelettervsixtim.es](http://thelettervsixtim.es)." | [haiku recipe](https://github.com/haikuports/haikuports/tree/master/games-arcade/vvvvvv), [haiku data.zip recipe](https://github.com/haikuports/haikuports/tree/master/games-arcade/vvvvvv_data) |
 | Dreamcast Port | [Gustavo Aranda](https://github.com/gusarba/) | Port for the Sega Dreamcast. | Permission is given to distribute a ready-to-use CD image file for the Sega Dreamcast containing the data.zip assets for non commercial use only. | [github repo](https://github.com/gusarba/VVVVVVDC)|
 | XBox One/UWP Port | [tunip3](https://github.com/tunip3) | Port for XBOX ONE (DURANGO) via UWP. | Permission is given to distribute a pre-compiled package (containing the data.zip assets) for people to run on development mode xboxes, for non commercial use only. | [github repo](https://github.com/tunip3/DURANGO-V6)|
+| armhf Port | [johnnyonFlame](https://github.com/johnnyonFlame/) | Armhf port for Raspberry PI and other Single SBC devices| Permission is for non commercial use only. Display the following text in the readme to make it clear that this is an exception: "VVVVVV is a commercial game! The author has given special permission to make this port available for free. If you enjoy the game, please consider purchasing a copy at [thelettervsixtim.es](http://thelettervsixtim.es)."| (no link yet) |
