@@ -2177,7 +2177,7 @@ static const char* interact_prompt(
 
 static void mode_indicator_text(const int alpha)
 {
-    const int flags = PR_BRIGHTNESS(alpha) | PR_BOR | PR_RTL_XFLIP;
+    const uint32_t flags = PR_BRIGHTNESS(alpha) | PR_BOR | PR_RTL_XFLIP;
     const int r = 220 - help.glow;
     const int g = 220 - help.glow;
     const int b = 255 - help.glow/2;
