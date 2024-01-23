@@ -25,7 +25,7 @@ option(REMOVE_ABSOLUTE_PATHS "If supported by the compiler, replace all absolute
 
 
 # Architecture Flags
-if(APPLE)
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     # Wow, Apple is a huge jerk these days huh?
     set(OSX_10_9_SDK_PATH /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk)
     if(NOT CMAKE_OSX_SYSROOT)
@@ -47,7 +47,7 @@ if(APPLE)
 endif()
 
 # RPATH
-if(NOT WIN32)
+if(NOT WIN32 AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
     if(APPLE)
         set(BIN_LIBROOT "osx")
         set(BIN_RPATH "@executable_path/osx")
@@ -128,6 +128,9 @@ endif()
 if(GOG)
     list(APPEND VVV_C_SRC src/GOGNetwork.c)
 endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    list(APPEND VVV_C_SRC src/SDL_uikit_main.c)
+endif()
 
 set(VVV_SRC ${VVV_CXX_SRC} ${VVV_C_SRC})
 
@@ -136,6 +139,15 @@ if(WIN32)
     add_executable(VVVVVV WIN32 ${VVV_SRC} icon.rc)
 elseif(ANDROID)
     add_library(VVVVVV SHARED ${VVV_SRC})
+elseif(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    add_executable(VVVVVV MACOSX_BUNDLE ${VVV_SRC})
+    set_target_properties(VVVVVV PROPERTIES
+        MACOSX_BUNDLE_BUNDLE_NAME "VVVVVV"
+        MACOSX_BUNDLE_BUNDLE_VERSION "2.4" # TODO: fill out automatically
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "2.4" # TODO: fill out automatically
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.distractionware.vvvvvvmobile"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "com.distractionware.vvvvvvmobile"
+    )
 else()
     add_executable(VVVVVV ${VVV_SRC})
 endif()
@@ -427,6 +439,15 @@ elseif (EMSCRIPTEN)
         target_compile_options(faudio-static PUBLIC -sUSE_SDL=2)
         target_link_libraries(faudio-static -sUSE_SDL=2)
     endif()
+elseif(DEFINED SDL2_FRAMEWORK)
+    message(STATUS "Using pre-defined SDL2 variable SDL2_FRAMEWORK")
+    target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_FRAMEWORK}/Headers>")
+    target_link_libraries(VVVVVV ${SDL2_FRAMEWORK})
+    if(BUNDLE_DEPENDENCIES)
+        target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_FRAMEWORK}/Headers>")
+        target_link_libraries(faudio-static ${SDL2_FRAMEWORK})
+    endif()
+    set_target_properties(VVVVVV PROPERTIES XCODE_EMBED_FRAMEWORKS ${SDL2_FRAMEWORK})
 else()
     # Only try to autodetect if both SDL2 variables aren't explicitly set
     find_package(SDL2 CONFIG)
