@@ -140,14 +140,26 @@ if(WIN32)
 elseif(ANDROID)
     add_library(VVVVVV SHARED ${VVV_SRC})
 elseif(CMAKE_SYSTEM_NAME STREQUAL "iOS")
-    add_executable(VVVVVV MACOSX_BUNDLE ${VVV_SRC})
+    file(GLOB_RECURSE REPO_RESOURCES "fonts/*" "lang/*")
+
+    add_executable(VVVVVV MACOSX_BUNDLE ${VVV_SRC} ${DATA_ZIP} AppIcon.xcassets ${REPO_RESOURCES})
     set_target_properties(VVVVVV PROPERTIES
-        MACOSX_BUNDLE_BUNDLE_NAME "VVVVVV"
-        MACOSX_BUNDLE_BUNDLE_VERSION "2.4" # TODO: fill out automatically
-        MACOSX_BUNDLE_SHORT_VERSION_STRING "2.4" # TODO: fill out automatically
         XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.distractionware.vvvvvvmobile"
-        MACOSX_BUNDLE_GUI_IDENTIFIER "com.distractionware.vvvvvvmobile"
+        XCODE_ATTRIBUTE_PRODUCT_NAME "VVVVVV"
+        XCODE_ATTRIBUTE_CURRENT_PROJECT_VERSION "2.4"
+        XCODE_ATTRIBUTE_MARKETING_VERSION "2.4"
+        XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME AppIcon
+        XCODE_ATTRIBUTE_GENERATE_INFOPLIST_FILE YES
+        XCODE_ATTRIBUTE_INFOPLIST_FILE ""
+        RESOURCE "${DATA_ZIP};AppIcon.xcassets"
     )
+
+    foreach(REPO_FILE ${REPO_RESOURCES})
+        file(RELATIVE_PATH REPO_FILE_REL "${CMAKE_CURRENT_SOURCE_DIR}" ${REPO_FILE})
+        get_filename_component(REPO_FILE_DIR ${REPO_FILE_REL} DIRECTORY)
+        set_property(SOURCE ${REPO_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${REPO_FILE_DIR}")
+        source_group("Resources/${REPO_FILE_DIR}" FILES "${REPO_FILE}")
+    endforeach()
 else()
     add_executable(VVVVVV ${VVV_SRC})
 endif()
