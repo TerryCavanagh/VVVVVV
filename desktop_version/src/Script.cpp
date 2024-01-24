@@ -2510,7 +2510,7 @@ void scriptclass::run(void)
                 {
                     font::set_level_font(raw_words[1].c_str());
                 }
-                if (argexists[2] && words[2] == "all")
+                if (words[0] == "setfont" && argexists[2] && words[2] == "all")
                 {
                     /* Immediately update all text boxes. */
                     uint32_t flags = PR_FONT_IDX(font::font_idx_level, cl.rtl);
