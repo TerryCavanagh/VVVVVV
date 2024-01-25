@@ -5,7 +5,7 @@
     <string english="Game paused" translation="راحة" explanation="pause screen" max="40" max_local="40"/>
     <string english="[click to resume]" translation="[نضغط أي زر للمواصلة]" explanation="pause screen" max="40" max_local="40"/>
     <string english="Press M to mute in game" translation="نضغط M لكتم الصوت أثناء اللعب" explanation="pause screen" max="40" max_local="40"/>
-    <string english="Press N to mute music only" translation="نضغط N لكتم الموسيقى التصويرية فقط" explanation="pause screen" max="40" max_local="40"/>
+    <string english="Press N to mute music only" translation="نضغط N لكتم الموسيقى فقط" explanation="pause screen" max="40" max_local="40"/>
     <string english="MAKE AND PLAY EDITION" translation="إصدار اصنع والعب" explanation="" max="27" max_local="27"/>
     <string english="[MMMMMM Mod Installed]" translation="[تعديل MMMMMM منصب]" explanation="" max="32" max_local="32"/>
     <string english="play" translation="لعب" explanation="main menu option"/>
@@ -61,8 +61,8 @@
     <string english="Delete your custom level save data and completion stars." translation="حذف بيانات المراحل الاختيارية وما يخص نجوم الإكمال." explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5" max_local="38*5"/>
     <string english="Are you sure? This will delete your current saves..." translation="أحقا قررت ذلك؟
 	ستحذف تخزيناتك الحالية..." explanation="" max="38*7" max_local="38*7"/>
-    <string english="Are you sure you want to delete all your saved data?" translation="هل تأكدت من قرارك حذف كل بياناتك المحفوظة؟" explanation="" max="38*7" max_local="38*7"/>
-    <string english="Are you sure you want to delete your quicksave?" translation="هل تأكدت من قرارك حذف تخزينتك السريعة؟" explanation="only the quicksave of a custom level" max="38*7" max_local="38*7"/>
+    <string english="Are you sure you want to delete all your saved data?" translation="هل تأكدت من قرارك بحذف كل بياناتك المحفوظة؟" explanation="" max="38*7" max_local="38*7"/>
+    <string english="Are you sure you want to delete your quicksave?" translation="هل تأكدت من قرارك بحذف تخزينتك السريعة؟" explanation="only the quicksave of a custom level" max="38*7" max_local="38*7"/>
     <string english="no! don&apos;t delete" translation="لا! دعها ولا تحذفها" explanation="menu option"/>
     <string english="yes, delete everything" translation="أجل، احذف كل شيء" explanation="menu option"/>
     <string english="yes, delete save" translation="أجل، احذف التخزينة" explanation="menu option"/>
@@ -113,7 +113,7 @@
     <string english="Sound Volume" translation="مستوى الأصوات" explanation="title" max="20" max_local="20"/>
     <string english="Change the volume of sound effects." translation="تغيير مستوى مؤثرات الصوت." explanation="" max="38*3" max_local="38*3"/>
     <string english="Credits" translation="فريق العمل" explanation="credits" max="20" max_local="20"/>
-    <string english="VVVVVV is a game by" translation="لعبة VVVVVV من تقديم" explanation="credits" max="40" max_local="40"/>
+    <string english="VVVVVV is a game by" translation="لعبة VVVVVV من" explanation="credits" max="40" max_local="40"/>
     <string english="and features music by" translation="ومن تلحين" explanation="credits" max="40" max_local="40"/>
     <string english="Roomnames are by" translation="وأسماء غرفها من إعداد" explanation="credits" max="40" max_local="40"/>
     <string english="C++ version by" translation="ونسخة ++C من تطوير" explanation="credits" max="40" max_local="40"/>
@@ -127,15 +127,15 @@
     <string english="VVVVVV is supported by the following patrons" translation="لعبة VVVVVV يدعمها المتبرعون المذكورون" explanation="credits" max="38*3" max_local="38*3"/>
     <string english="and also by" translation="علاوة على" explanation="credits, VVVVVV is also supported by the following people" max="38*2" max_local="38*2"/>
     <string english="and" translation="ومعهم" explanation="credits. This list of names, AND furthermore, this other list of names" max="38" max_local="38"/>
-    <string english="GitHub Contributors" translation="مساهمو جيتهب" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20" max_local="20"/>
-    <string english="With contributions on GitHub from" translation="مع مساهمات برمجة جيتهب من" explanation="credits" max="40" max_local="40"/>
+    <string english="GitHub Contributors" translation="مساهمو غيتهب" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20" max_local="20"/>
+    <string english="With contributions on GitHub from" translation="مع مساهمات برمجة غيتهب من" explanation="credits" max="40" max_local="40"/>
     <string english="and thanks also to:" translation="مع شكر خاص كذلك:" explanation="credits, and thanks also to ... you!" max="38*3" max_local="38*3"/>
     <string english="You!" translation="لك أنت!" explanation="credits, and thanks also to ... you!" max="20" max_local="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="دعمكم يمكنني من الاستمرار في صنع الألعاب التي أريدها اليوم ومستقبلا." explanation="credits" max="38*5" max_local="38*5"/>
     <string english="Thank you!" translation="أشكركم!" explanation="credits" max="38*5" max_local="38*5"/>
     <string english="Good luck!" translation="حظا موفقا!" explanation="" max="38*3" max_local="38*3"/>
     <string english="You cannot save in this mode." translation="لا يمكنك الحفظ في هذا الطور." explanation="" max="38*3" max_local="38*3"/>
-    <string english="Would you like to disable the cutscenes during the game?" translation="هل تأكدت من قرارك تعطيل المشاهد أثناء اللعبة؟" explanation="" max="38*6" max_local="38*6"/>
+    <string english="Would you like to disable the cutscenes during the game?" translation="هل تأكدت من قرارك بتعطيل المشاهد أثناء اللعبة؟" explanation="" max="38*6" max_local="38*6"/>
     <string english="disable cutscenes" translation="تعطيل المشاهد" explanation="menu option"/>
     <string english="enable cutscenes" translation="تفعيل المشاهد" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="حساسية عصا يد التحكم" explanation="menu option"/>
@@ -154,14 +154,14 @@
     <string english="Interact is bound to: " translation="التفاعل معين للزر: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="ERROR: No language files found." translation="خطأ: لم نجد ملفات اللغة." explanation="" max="38*3" max_local="38*3"/>
     <string english="Language folder:" translation="مجلد اللغة: " explanation="" max="39" max_local="39"/>
-    <string english="Repository language folder:" translation="مجلد اللغة في جيتهب: " explanation="Language folder from the Git repository" max="39" max_local="39"/>
+    <string english="Repository language folder:" translation="مجلد اللغة في غيتهب: " explanation="Language folder from the Git repository" max="39" max_local="39"/>
     <string english="translator options" translation="إعدادات المترجم" explanation="menu option"/>
     <string english="Translator options" translation="إعدادات المترجم" explanation="title" max="20" max_local="20"/>
     <string english="Some options that are useful for translators and developers." translation="بعض الاختيارات التي قد تفيد المترجمين والمطورين" explanation="" max="38*6" max_local="38*6"/>
     <string english="maintenance" translation="صيانة" explanation="menu option, menu that allows you to apply maintenance to translations"/>
     <string english="Maintenance" translation="صيانة" explanation="title" max="20" max_local="20"/>
     <string english="open lang folder" translation="فتح مجلد اللغة" explanation="menu option. Button that opens the folder with language files (which is called lang) in a file explorer"/>
-    <string english="Sync all language files after adding new strings." translation="تزمين كل ملفات اللغة بعد إضافة سطور جديدة." explanation="" max="38*6" max_local="38*6"/>
+    <string english="Sync all language files after adding new strings." translation="مزامنة كل ملفات اللغة بعد إضافة سطور جديدة." explanation="" max="38*6" max_local="38*6"/>
     <string english="translate room names" translation="ترجمة أسماء الغرف" explanation="menu option"/>
     <string english="Translate rooms" translation="ترجمة الغرف" explanation="title" max="20" max_local="20"/>
     <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="تفعيل وضع ترجمة أسماء الغرف، حتى تترجمها في سياقها. اضغط I للحصانة." explanation="" max="38*4" max_local="38*4"/>
@@ -182,19 +182,19 @@
     <string english="Find translations that don&apos;t fit within their defined bounds." translation="البحث عن ترجمات جاوزت حدودها." explanation="" max="38*6" max_local="38*6"/>
     <string english="No text overflows found!" translation="لم نجد فيضان نصوص!" explanation="limits check. no strings go outside their max bounds" max="38*6" max_local="38*6"/>
     <string english="No text overflows left!" translation="لم نبق على فيضان نصوص!" explanation="limits check. we have seen all strings that go outside their max bounds" max="38*6" max_local="38*6"/>
-    <string english="Note that this detection isn&apos;t perfect." translation="يلاحظ أن هذا التحقق ليس متقنا." explanation="limits check" max="38*6" max_local="38*6"/>
-    <string english="sync language files" translation="تزمين ملفات اللغة" explanation="menu option"/>
-    <string english="Sync language files" translation="تزمين ملفات اللغة" explanation="title, translation maintenance menu" max="20" max_local="20"/>
-    <string english="sync" translation="تزمين " explanation="menu option, verb"/>
+    <string english="Note that this detection isn&apos;t perfect." translation="مع الملاحظة أن هذا التحقق ليس متقنا." explanation="limits check" max="38*6" max_local="38*6"/>
+    <string english="sync language files" translation="مزامنة ملفات اللغة" explanation="menu option"/>
+    <string english="Sync language files" translation="مزامنة ملفات اللغة" explanation="title, translation maintenance menu" max="20" max_local="20"/>
+    <string english="sync" translation="مزامنة " explanation="menu option, verb"/>
     <string english="Merge all new strings from the template files into the translation files, keeping existing translations." translation="توحيد كل السطور الجديدة من ملفات التمبليت إلى ملفات الترجمة بالحفاظ على السطور الكاملة السابقة." explanation="translation maintenance menu" max="38*6" max_local="38*6"/>
-    <string english="language statistics" translation="احصائيات اللغة" explanation="menu option"/>
-    <string english="global statistics" translation="احصائيات عامة" explanation="menu option"/>
-    <string english="Statistics" translation="احصائيات" explanation="title, translation maintenance menu" max="20" max_local="20"/>
+    <string english="language statistics" translation="إحصائيات اللغة" explanation="menu option"/>
+    <string english="global statistics" translation="إحصائيات عامة" explanation="menu option"/>
+    <string english="Statistics" translation="إحصائيات" explanation="title, translation maintenance menu" max="20" max_local="20"/>
     <string english="Count the amount of untranslated strings for this language." translation="عدد السطور التي لم تترجم لهذه اللغة" explanation="" max="38*6" max_local="38*6"/>
     <string english="Count the amount of untranslated strings for each language." translation="عدد السطور التي لم تترجم لكل لغة" explanation="translation maintenance menu" max="38*6" max_local="38*6"/>
     <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case." translation="لو أضيفت سطور إنكليزية، تضيفها هذه الميزة لنصوص اللغات الأخرى. احتياطا، احتفظ بنسخة سلفا." explanation="translation maintenance menu" max="38*7" max_local="38*7"/>
-    <string english="Full syncing EN→All:" translation="تزمين شامل من الانكليزية للكل:" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages" max="40" max_local="40"/>
-    <string english="Syncing not supported:" translation="التزمين غير مدعوم:" explanation="translation maintenance menu. The following list of language files are untouched by the sync button" max="40" max_local="40"/>
+    <string english="Full syncing EN→All:" translation="مزامنة شاملة من الانكليزية للكل:" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages" max="40" max_local="40"/>
+    <string english="Syncing not supported:" translation="المزامنة غير مدعومة:" explanation="translation maintenance menu. The following list of language files are untouched by the sync button" max="40" max_local="40"/>
     <string english="advanced options" translation="إعدادات متقدمة" explanation="menu option"/>
     <string english="Advanced Options" translation="إعدادات متقدمة" explanation="title" max="20" max_local="20"/>
     <string english="All other gameplay settings." translation="كل إعدادات اللعبة الأخرى" explanation="description for advanced options" max="38*5" max_local="38*5"/>
@@ -205,10 +205,10 @@
     <string english="Unfocus pause is ON" translation="تركيز الراحة مفعل" explanation="Making another window active will show the pause screen." max="38*2" max_local="38*2"/>
     <string english="unfocus audio pause" translation="الكتم عند زوال التركيز" explanation="menu option. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause"/>
     <string english="Unfocus Audio" translation="الكتم عند زوال التركيز" explanation="title. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" max="20" max_local="20"/>
-    <string english="Toggle if the audio will pause when the window is unfocused." translation="يحدد هل سيكتم صوت اللعبة لو زال تركيز النافذة." explanation="" max="38*3" max_local="38*3"/>
+    <string english="Toggle if the audio will pause when the window is unfocused." translation="يحدد هل سيكتم صوت اللعبة لو زال التركيز عن النافذة." explanation="" max="38*3" max_local="38*3"/>
     <string english="Unfocus audio pause is OFF" translation="الصمت عند زوال التركيز معطل" explanation="Making another window active will leave the music keep playing." max="38*2" max_local="38*2"/>
     <string english="Unfocus audio pause is ON" translation="الصمت عند زوال التركيز مفعل" explanation="Making another window active will pause the music." max="38*2" max_local="38*2"/>
-    <string english="toggle in-game timer" translation="إظهار المؤقت أثناء اللعبة" explanation="menu option"/>
+    <string english="toggle in-game timer" translation="خيار إظهار المؤقت أثناء اللعبة" explanation="menu option"/>
     <string english="In-Game Timer" translation="المؤقت أثناء اللعبة" explanation="title" max="20" max_local="20"/>
     <string english="Toggle the in-game timer outside of time trials." translation="إظهار المؤقت في اللعبة حتى لغير التحدي ضد الساعة." explanation="" max="38*3" max_local="38*3"/>
     <string english="In-Game Timer is ON" translation="المؤقت أثناء اللعبة مفعل" explanation="" max="38*2" max_local="38*2"/>
@@ -242,7 +242,7 @@
 	من يختمون الألعاب بسرعة." explanation="description for speedrunner options" max="38*5" max_local="38*5"/>
     <string english="glitchrunner mode" translation="إعدادات صائد العيوب" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
     <string english="Glitchrunner Mode" translation="إعدادات صائد العيوب" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" max_local="20"/>
-    <string english="Re-enable glitches that existed in previous versions of the game." translation="تفعيل عيوب برمجية معطلة سبق أن وجدت في تحديثات سابقة." explanation="glitchrunner mode" max="38*3" max_local="38*3"/>
+    <string english="Re-enable glitches that existed in previous versions of the game." translation="صائد العيوب يستغلها ليختم اللعبة بسرعة. هذا الوضع يعيد تفعيل عيوب برمجية من إصدارات سابقة سبق إصلاحها." explanation="glitchrunner mode" max="38*3" max_local="38*3"/>
     <string english="Glitchrunner mode is OFF" translation="وضع صائد العيوب السريع معطل." explanation="" max="38*2" max_local="38*2"/>
     <string english="Glitchrunner mode is {version}" translation="وضع صائد العيوب السريع مفعل." explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2" max_local="38*2"/>
     <string english="Select a new glitchrunner version below." translation="يرجى اختيار إصدار جديد لصائد العيوب السريع." explanation="" max="38*3" max_local="38*3"/>
@@ -274,7 +274,7 @@
     <string english="Text outlines are OFF." translation="برواز الحروف معطل." explanation="" max="40" max_local="40"/>
     <string english="invincibility" translation="حصانة" explanation="menu option"/>
     <string english="Invincibility" translation="حصانة" explanation="title" max="20" max_local="20"/>
-    <string english="Explore the game freely without dying. (Can cause glitches.)" translation="للتجول بحرية في اللعبة بدون أن تموت. قد يظهر عيوبا برمجية." explanation="invincibility mode" max="38*3" max_local="38*3"/>
+    <string english="Explore the game freely without dying. (Can cause glitches.)" translation="للتجول بحرية في اللعبة بدون أن تموت. قد تظهر عيوب برمجية." explanation="invincibility mode" max="38*3" max_local="38*3"/>
     <string english="Invincibility is ON." translation="الحصانة تعمل." explanation="" max="38*2" max_local="38*2"/>
     <string english="Invincibility is OFF." translation="الحصانة معطلة." explanation="" max="38*2" max_local="38*2"/>
     <string english="Are you sure you want to enable invincibility?" translation="ستفعل الحصانة من الأضرار.
@@ -312,7 +312,7 @@
     <string english="no death mode" translation="تحدي بدون الموت" explanation="menu option"/>
     <string english="No Death Mode" translation="تحدي بدون الموت" explanation="title" max="20" max_local="20"/>
     <string english="Play the entire game without dying once." translation="تختيم اللعبة بأكملها دون الموت ولا مرة." explanation="" max="38*4" max_local="38*4"/>
-    <string english="No Death Mode is not available with slowdown or invincibility." translation="تحدي بدون موت لا يتوفر مع الحصانة أو التبطئة." explanation="" max="38*3" max_local="38*3"/>
+    <string english="No Death Mode is not available with slowdown or invincibility." translation="تحدي بدون الموت لا يتوفر مع الحصانة أو التبطئة." explanation="" max="38*3" max_local="38*3"/>
     <string english="unlock no death mode" translation="فتح تحدي بدون الموت" explanation="menu option"/>
     <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="الشرط: تحقيق الرتبة S أو ما فوق في 4 تحديات ضد الساعة على الأقل." explanation="ranks are B A S V, see below" max="38*3" max_local="38*3"/>
     <string english="flip mode" translation="الوضع المعكوس" explanation="menu option, mirrors the entire game vertically"/>
@@ -323,9 +323,9 @@
     <string english="Currently ENABLED!" translation="حاليا مفعل!" explanation="flip mode" max="38*3" max_local="38*3"/>
     <string english="Currently Disabled." translation="حاليا معطل." explanation="flip mode" max="38*3" max_local="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="الشرط: ختم اللعبة." explanation="" max="38*3" max_local="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39" max_local="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39" max_local="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Invincibility mode enabled" translation="فعلت وضع الحصانة" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="فعلت وضع صائد العيوب ({version})" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Flip Mode enabled" translation="فعلت الوضع المعكوس" explanation="in-game message" max="39" max_local="39"/>
     <string english="Are you sure you want to quit?" translation="هل قررت المغادرة حقا؟" explanation="quit the program" max="38*4" max_local="38*4"/>
     <string english="GAME OVER" translation="انتهت اللعبة" explanation="bigger title" max="13" max_local="13"/>
     <string english="You managed to reach:" translation="نجحت في وصول الغرفة:" explanation="you managed to reach the following room" max="40" max_local="40"/>
@@ -347,7 +347,7 @@
     <string english="Total Deaths:" translation="مجموع الميتات:" explanation="game complete screen" max="22" max_local="22"/>
     <string english="Results" translation="النتائج:" explanation="bigger title" max="13" max_local="13"/>
     <string english="TIME TAKEN:" translation="الوقت المستغرق:" explanation="time the player took playing the level" max="32" max_local="32"/>
-    <string english="NUMBER OF DEATHS:" translation="كم الميتات:" explanation="amount of times the player died" max="32" max_local="32"/>
+    <string english="NUMBER OF DEATHS:" translation="عدد الميتات:" explanation="amount of times the player died" max="32" max_local="32"/>
     <string english="SHINY TRINKETS:" translation="التذكارات اللماعات:" explanation="amount of trinkets collected" max="32" max_local="32"/>
     <string english=" / " translation="/" explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
     <string english="{n_trinkets}/{max_trinkets}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: 2/5"/>
@@ -427,14 +427,14 @@
     <string english="previous page" translation="الصفحة السابقة" explanation="menu option"/>
     <string english="first page" translation="الصفحة الأولى" explanation="menu option"/>
     <string english="last page" translation="الصفحة الأخيرة" explanation="menu option"/>
-    <string english="silence" translation="صمت" explanation="menu option, silence error message - do not show this message again"/>
+    <string english="silence" translation="تجاهل" explanation="menu option, silence error message - do not show this message again"/>
     <string english="continue from save" translation="المواصلة من التخزينة" explanation="menu option"/>
     <string english="start from beginning" translation="البدء من البداية" explanation="menu option"/>
     <string english="delete save" translation="حذف التخزينة" explanation="menu option"/>
     <string english="back to levels" translation="العودة للمستويات" explanation="menu option"/>
     <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="محرر المستويات يحتاج لوح مفاتيح وفأرة. لهذا السبب، ليس مدعوما على منصة Steam Deck." explanation="" max="38*5" max_local="38*5"/>
     <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="محرر المستويات يحتاج لوح مفاتيح وفأرة. لهذا السبب، ليس مدعوما على جهازك." explanation="" max="38*5" max_local="38*5"/>
-    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="لتنصيب مراحل جديدة للاعب، تنسخ ملفات .vvvvvv إلى مجلد levels." explanation="" max="38*5" max_local="38*5"/>
+    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="لتنصيب مراحل اللاعبين الجديدة، تنسخ ملفات .vvvvvv إلى مجلد levels." explanation="" max="38*5" max_local="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="قبل إظهار مسار المستويات، يرجى التأكد لتجنب افتضاح أي معلومات حساسة أثناء البثوث. هل نظهره؟" explanation="" max="38*4" max_local="38*4"/>
     <string english="The levels path is:" translation="مسار مجلد levels للمستويات:" explanation="" max="40" max_local="40"/>
     <string english="[ Press {button} to Start ]" translation="[ نضغط {button} للبدء]" explanation="title screen. Expect `ACTION`" max="38*2" max_local="38*2"/>
@@ -442,8 +442,8 @@
     <string english="[Press {button} to return to editor]" translation="[نضغط {button} للعودة للمحرر]" explanation="`to editor` is sorta redundant" max="40" max_local="40"/>
     <string english="- Press {button} to advance text -" translation="- نضغط {button} للتقدم في النص -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="40"/>
     <string english="Press {button} to continue" translation="نضغط {button} للمواصلة" explanation="Expect `ACTION`" max="34" max_local="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[نضغط {button} لوقف تجميد اللعب العادي]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[نضغط {button} لتجميد اللعب العادي]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
     <string english="Current Time" translation="وقتك الحالي" explanation="super gravitron, stopwatch time" max="20" max_local="20"/>
     <string english="Best Time" translation="أفضل وقت" explanation="super gravitron, best stopwatch time" max="20" max_local="20"/>
     <string english="Next Trophy at 5 seconds" translation="الجائزة القادمة بعد 5 ثوان" explanation="" max="38*2" max_local="38*2"/>
@@ -456,12 +456,12 @@
     <string english="New Record!" translation="رقم قياسي جديد!" explanation="" max="20" max_local="20"/>
     <string english="New Trophy!" translation="جائزة جديدة!" explanation="" max="20" max_local="20"/>
     <string english="[Press {button} to stop]" translation="[نضغط {button} للتوقف]" explanation="stop super gravitron" max="40" max_local="40"/>
-    <string english="SUPER GRAVITRON" translation="أتون الجاذبية" explanation="" max="20" max_local="20"/>
-    <string english="SUPER GRAVITRON HIGHSCORE" translation="أفضل نتيجة لأتون الجاذبية" explanation="" max="38*4" max_local="38*4"/>
+    <string english="SUPER GRAVITRON" translation="أتون الجاذبية الخارق" explanation="" max="20" max_local="20"/>
+    <string english="SUPER GRAVITRON HIGHSCORE" translation="أفضل نتيجة لأتون الجاذبية الخارق" explanation="" max="38*4" max_local="38*4"/>
     <string english="MAP" translation="خريطة" explanation="in-game menu" max="8" max_local="8"/>
     <string english="GRAV" translation="جاذبية" explanation="in-game menu, Gravitron" max="8" max_local="8"/>
     <string english="SHIP" translation="سفينة" explanation="in-game menu, spaceship" max="8" max_local="8"/>
-    <string english="CREW" translation="طقم" explanation="in-game menu" max="8" max_local="8"/>
+    <string english="CREW" translation="طاقم" explanation="in-game menu" max="8" max_local="8"/>
     <string english="STATS" translation="إحصاء" explanation="in-game menu" max="8" max_local="8"/>
     <string english="SAVE" translation="حفظ" explanation="in-game menu" max="8" max_local="8"/>
     <string english="[ PAUSE ]" translation="[ راحة ]" explanation="in-game menu" max="40" max_local="40"/>
@@ -476,7 +476,7 @@
     <string english="Rescued!" translation="أنقذتها!" case="2" explanation="this female crew member is not missing anymore" max="15" max_local="15"/>
     <string english="(that&apos;s you!)" translation="(ها أنت!)" explanation="this crew member is you (Viridian)" max="15" max_local="15"/>
     <string english="Cannot Save in Level Replay" translation="لا يحق الحفظ عند مشاهدة المستوى" explanation="in-game menu" max="38*7" max_local="38*7"/>
-    <string english="Cannot Save in No Death Mode" translation="لا يحق الحفظ في تحدي بدون موت" explanation="in-game menu" max="38*7" max_local="38*7"/>
+    <string english="Cannot Save in No Death Mode" translation="لا يحق الحفظ في تحدي بدون الموت" explanation="in-game menu" max="38*7" max_local="38*7"/>
     <string english="How&apos;d you get here?" translation="كيف وصلت هنا؟" explanation="in-game menu" max="38*7" max_local="38*7"/>
     <string english="Cannot Save in Secret Lab" translation="لا يحق الحفظ في المخبر السري" explanation="in-game menu" max="38*7" max_local="38*7"/>
     <string english="ERROR: Could not save game!" translation="خطأ: فشل حفظ تقدم اللعبة!" explanation="in-game menu" max="34*2" max_local="34*2"/>
@@ -499,7 +499,7 @@
     <string english="yes, quit" translation="نعم، سأخرج" explanation="quit program menu option"/>
     <string english="return to game" translation="العودة للعبة" explanation="pause menu option" max="27" max_local="27"/>
     <string english="quit to menu" translation="الخروج للقائمة" explanation="pause menu option" max="19" max_local="19"/>
-    <string english="Press Left/Right to choose a Teleporter" translation="نضغط يسار/يمين لاختيار التنقيلة" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40" max_local="40"/>
+    <string english="Press Left/Right to choose a Teleporter" translation="نضغط يسار/يمين لاختيار آلة تنقيل" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40" max_local="40"/>
     <string english="Press {button} to Teleport" translation="نضغط {button} للتنقل" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40" max_local="40"/>
     <string english="- Press {button} to Teleport -" translation="- نضغط {button} للتنقل -" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40" max_local="40"/>
     <string english="Press {button} to explode" translation="نضغط {button} للتفجر" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37" max_local="37"/>
@@ -523,7 +523,7 @@
     <string english="Pressure Cooker" translation="Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="37*2"/>
     <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="37*2"/>
     <string english="Map Settings" translation="إعدادات الغرفة" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20" max_local="20"/>
-    <string english="edit scripts" translation="تحرير الاسكربتات" explanation="level editor menu option"/>
+    <string english="edit scripts" translation="تحرير السكربتات" explanation="level editor menu option"/>
     <string english="change music" translation="تغيير الموسيقى" explanation="level editor menu option"/>
     <string english="editor ghosts" translation="أشباح المحرر" explanation="level editor menu option. Toggles option to show a repetition of the player&apos;s path after playtesting"/>
     <string english="Editor ghost trail is OFF" translation="مسار شبح المحرر معطل" explanation="level editor. Repetition of the player&apos;s path after playtesting is disabled" max="40" max_local="40"/>
@@ -561,45 +561,45 @@
     <string english="next song" translation="اللحن التالي" explanation="level editor menu option"/>
     <string english="previous song" translation="اللحن السابق" explanation="level editor menu option"/>
     <string english="back" translation="عودة" explanation="level editor menu option"/>
-    <string english="Save before quitting?" translation="حفظ قبل الخروج؟" explanation="level editor" max="38*4" max_local="38*4"/>
+    <string english="Save before quitting?" translation="هل تود الحفظ قبل الخروج؟" explanation="level editor" max="38*4" max_local="38*4"/>
     <string english="yes, save and quit" translation="أجل، حفظ ثم خروج" explanation="level editor menu option"/>
     <string english="no, quit without saving" translation="لا، خروج بدون حفظ" explanation="level editor menu option"/>
     <string english="return to editor" translation="عودة للمحرر" explanation="level editor menu option"/>
     <string english="Untitled Level" translation="مستوى بلا عنوان" explanation="" max="20" max_local="20"/>
     <string english="Unknown" translation="مجهول" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="خلية: " explanation="editor, selected " max="34" max_local="34"/>
-    <string english="SCRIPT BOX: Click on the first corner" translation="هامش الاسكربت: انقر الزاوية الأولى للصندوق" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="39*3"/>
-    <string english="SCRIPT BOX: Click on the last corner" translation="هامش الاسكربت: انقر الزاوية المقابلة للصندوق" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="39*3"/>
+    <string english="SCRIPT BOX: Click on the first corner" translation="هامش السكربت: انقر الزاوية الأولى للصندوق" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="39*3"/>
+    <string english="SCRIPT BOX: Click on the last corner" translation="هامش السكربت: انقر الزاوية المقابلة للصندوق" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="39*3"/>
     <string english="ENEMY BOUNDS: Click on the first corner" translation="هامش الأعداء: انقر الزاوية الأولى للصندوق" explanation="editor, invisible box which enemies always stay inside of" max="39*3" max_local="39*3"/>
     <string english="ENEMY BOUNDS: Click on the last corner" translation="هامش الأعداء: انقر الزاوية المقابلة للصندوق" explanation="editor, invisible box which enemies always stay inside of" max="39*3" max_local="39*3"/>
     <string english="PLATFORM BOUNDS: Click on the first corner" translation="هامش المنصات: انقر الزاوية الأولى للصندوق" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3" max_local="39*3"/>
     <string english="PLATFORM BOUNDS: Click on the last corner" translation="هامش المنصات: انقر الزاوية المقابلة للصندوق" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3" max_local="39*3"/>
     <string english="Click on the first corner" translation="انقر الزاوية الأولى" explanation="" max="39*3" max_local="39*3"/>
     <string english="Click on the last corner" translation="انقر الزاوية الأخيرة" explanation="" max="39*3" max_local="39*3"/>
-    <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** محرر اسكربتات VVVVVV ****" explanation="supposed to look like a Commodore 64 screen" max="36" max_local="36"/>
+    <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** محرر سكربتات VVVVVV ****" explanation="supposed to look like a Commodore 64 screen" max="36" max_local="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="اضغط ESC للعودة للقائمة" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36" max_local="36"/>
-    <string english="NO SCRIPT IDS FOUND" translation="لم نجد معرف ID للاسكربتات" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36" max_local="36"/>
-    <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="أنشئ اسكربتا إما بالواجهة النصية أو بأدوات الاسكربتات" explanation="Commodore 64-style script editor" max="36*5" max_local="36*5"/>
-    <string english="CURRENT SCRIPT: {name}" translation="الاسكربت الحالي: {name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20" max_local="20"/>
+    <string english="NO SCRIPT IDS FOUND" translation="لم نجد معرف ID للسكربتات" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36" max_local="36"/>
+    <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="أنشئ سكربتا إما بالواجهة النصية أو بأدوات السكربتات" explanation="Commodore 64-style script editor" max="36*5" max_local="36*5"/>
+    <string english="CURRENT SCRIPT: {name}" translation="السكربت الحالي: {name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20" max_local="20"/>
     <string english="Left click to place warp destination" translation="نقرة يسرى بالفأرة لوضع وجهة التنقيل" explanation="warp token: small teleporter with entrance and destination" max="39" max_local="39"/>
     <string english="Right click to cancel" translation="نقرة يمنى بالفأرة للتراجع" explanation="" max="39" max_local="39"/>
     <string english="{button1} and {button2} keys change tool" translation="الأزرار {button1} و {button2} لتغيير الأداة" explanation="These keys can be used to switch between tools" max="36" max_local="36"/>
-    <string english="1: Walls" translation="1: جدران" explanation="editor tool. Solid tiles" max="32" max_local="32"/>
-    <string english="2: Backing" translation="2: خلفيات" explanation="editor tool. Non-solid background tiles" max="32" max_local="32"/>
-    <string english="3: Spikes" translation="3: أشواك" explanation="editor tool" max="32" max_local="32"/>
-    <string english="4: Trinkets" translation="4: مقتنيات" explanation="editor tool. Shiny trinkets/collectibles" max="32" max_local="32"/>
-    <string english="5: Checkpoints" translation="5: نقاط حفظ" explanation="editor tool. You restart at the last checkpoint after death" max="32" max_local="32"/>
-    <string english="6: Disappearing Platforms" translation="6: منصات تتلاشى" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32" max_local="32"/>
-    <string english="7: Conveyors" translation="7: بساط متحرك" explanation="editor tool. Conveyor belt" max="32" max_local="32"/>
-    <string english="8: Moving Platforms" translation="8: منصات تتحرك" explanation="editor tool. Moving platform" max="32" max_local="32"/>
-    <string english="9: Enemies" translation="9: أعداء" explanation="editor tool" max="32" max_local="32"/>
-    <string english="0: Gravity Lines" translation="0: خطوط جاذبية" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32" max_local="32"/>
+    <string english="1: Walls" translation="‎1: جدران" explanation="editor tool. Solid tiles" max="32" max_local="32"/>
+    <string english="2: Backing" translation="‎2: خلفيات" explanation="editor tool. Non-solid background tiles" max="32" max_local="32"/>
+    <string english="3: Spikes" translation="‎3: أشواك" explanation="editor tool" max="32" max_local="32"/>
+    <string english="4: Trinkets" translation="‎4: مقتنيات" explanation="editor tool. Shiny trinkets/collectibles" max="32" max_local="32"/>
+    <string english="5: Checkpoints" translation="‎5: نقاط حفظ" explanation="editor tool. You restart at the last checkpoint after death" max="32" max_local="32"/>
+    <string english="6: Disappearing Platforms" translation="‎6: منصات تتلاشى" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32" max_local="32"/>
+    <string english="7: Conveyors" translation="‎7: بساط متحرك" explanation="editor tool. Conveyor belt" max="32" max_local="32"/>
+    <string english="8: Moving Platforms" translation="‎8: منصات تتحرك" explanation="editor tool. Moving platform" max="32" max_local="32"/>
+    <string english="9: Enemies" translation="‎9: أعداء" explanation="editor tool" max="32" max_local="32"/>
+    <string english="0: Gravity Lines" translation="‎0: خطوط جاذبية" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32" max_local="32"/>
     <string english="R: Roomtext" translation="R: نصوص حرة" explanation="editor tool. Freely typed text, consider just Text" max="32" max_local="32"/>
     <string english="T: Terminals" translation="T: حواسيب" explanation="editor tool. Computer which can be activated by the player to run a script" max="32" max_local="32"/>
-    <string english="Y: Script Boxes" translation="Y: هامش اسكربت" explanation="editor tool. Invisible box that runs a script when touched" max="32" max_local="32"/>
+    <string english="Y: Script Boxes" translation="Y: هامش سكربت" explanation="editor tool. Invisible box that runs a script when touched" max="32" max_local="32"/>
     <string english="U: Warp Tokens" translation="U: نائب تنقيل" explanation="editor tool. Small teleporter with entrance and destination" max="32" max_local="32"/>
     <string english="I: Warp Lines" translation="I: خط تنقيل" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32" max_local="32"/>
-    <string english="O: Crewmates" translation="O: عضو طقم" explanation="editor tool. Crewmate that can be rescued" max="32" max_local="32"/>
+    <string english="O: Crewmates" translation="O: عضو طاقم" explanation="editor tool. Crewmate that can be rescued" max="32" max_local="32"/>
     <string english="P: Start Point" translation="P: نقطة بدء" explanation="editor tool" max="32" max_local="32"/>
     <string english="START" translation="بدء" explanation="start point in level editor" max="10" max_local="10"/>
     <string english="SPACE ^  SHIFT ^" translation="SPACE ^  SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32" max_local="32"/>
@@ -618,7 +618,7 @@
     <string english="Enter map filename to load:" translation="اكتب مسار ملف الغرفة لفتحه:" explanation="level editor text input, load level file" max="39*3" max_local="39*3"/>
     <string english="Enter new room name:" translation="اكتب اسم الغرفة الجديدة:" explanation="level editor text input, the name of the room appears at the bottom" max="39*3" max_local="39*3"/>
     <string english="Enter room coordinates x,y:" translation="اكتب احداثيات الغرفة س,ص:" explanation="level editor text input, go to another room by its coordinates, for example, 9,15" max="39*3" max_local="39*3"/>
-    <string english="Enter script name:" translation="اكتب اسم الاسكربت:" explanation="level editor text input, enter name of newly created script, or edit the script name of a terminal/script box" max="39*3" max_local="39*3"/>
+    <string english="Enter script name:" translation="اكتب اسم السكربت:" explanation="level editor text input, enter name of newly created script, or edit the script name of a terminal/script box" max="39*3" max_local="39*3"/>
     <string english="Enter roomtext:" translation="اكتب النص:" explanation="level editor text input, enter text to place in the room" max="39*3" max_local="39*3"/>
     <string english="Space Station" translation="المحطة الفضائية " explanation="editor tileset name, Now using Space Station Tileset"/>
     <string english="Outside" translation="الفضاء الخارجي" explanation="editor tileset name, Now using Outside Tileset"/>
@@ -646,7 +646,7 @@
     <string english="Room warping disabled" translation="الغرفة لا تلتف على نفسها" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3" max_local="38*3"/>
     <string english="ERROR: No checkpoint to spawn at" translation="خطأ: لا نقطة حفظ يبعث اللاعب منها" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3" max_local="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="خطأ: أقصى عدد للمقتنيات 100" explanation="editor, user tried to place another trinket" max="38*3" max_local="38*3"/>
-    <string english="ERROR: Max number of crewmates is 100" translation="خطأ: أقصى عدد لأفراد الطقم 100" explanation="editor, user tried to place another crewmate" max="38*3" max_local="38*3"/>
+    <string english="ERROR: Max number of crewmates is 100" translation="خطأ: أقصى عدد لأفراد الطاقم 100" explanation="editor, user tried to place another crewmate" max="38*3" max_local="38*3"/>
     <string english="Level quits to menu" translation="يغادر المستوى إلى القائمة" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3" max_local="38*3"/>
     <string english="Level completed" translation="يختم المستوى" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3" max_local="38*3"/>
     <string english="Rolled credits" translation="تظهر شاشة فريق العمل" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3" max_local="38*3"/>
@@ -660,9 +660,9 @@
     <string english="{area}, {time}" translation="{area} / {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="ختمت المستوى!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="Game Complete!" translation="ختمت اللعبة!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
-    <string english="You have rescued a crew member!" translation="أنقذت أحد أفراد طقمك!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2" max_local="30*2"/>
-    <string english="All Crew Members Rescued!" translation="أنقذت جميع طقمك!" explanation="" max="32" max_local="32"/>
-    <string english="All crewmates rescued!" translation="أنقذت جميع طقمك!" explanation="" max="32" max_local="32"/>
+    <string english="You have rescued a crew member!" translation="أنقذت أحد أفراد طاقمك!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2" max_local="30*2"/>
+    <string english="All Crew Members Rescued!" translation="أنقذت جميع طاقمك!" explanation="" max="32" max_local="32"/>
+    <string english="All crewmates rescued!" translation="أنقذت جميع طاقمك!" explanation="" max="32" max_local="32"/>
     <string english="Game Saved" translation="حفظت اللعبة" explanation="" max="30" max_local="30"/>
     <string english="Press arrow keys or WASD to move" translation="تضغط الأسهم أو WASD للحركة" explanation="" max="32*2" max_local="32*2"/>
     <string english="Press left/right to move" translation="نضغط يسار/يمين للحركة" explanation="" max="32*2" max_local="32*2"/>
@@ -685,7 +685,7 @@ You have found a shiny trinket!" translation="تهانينا!
 
 You have found a lost crewmate!" translation="تهانينا!
 
-وجدت أحد أفراد الطقم التائهين!" explanation="" max="34*4" max_local="34*4"/>
+وجدت أحد أفراد الطاقم التائهين!" explanation="" max="34*4" max_local="34*4"/>
     <string english="Congratulations!
 
 You have found the secret lab!" translation="تهانينا!
@@ -742,23 +742,23 @@ You have found the secret lab!" translation="تهانينا!
     <string english="SPACE STATION 2 MASTERED" translation="احترفت المحطة الفضائية 2" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="38*2"/>
     <string english="WARP ZONE MASTERED" translation="احترفت منطقة التنقيل" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="38*2"/>
     <string english="FINAL LEVEL MASTERED" translation="احترفت المستوى الأخير" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="38*2"/>
-    <string english="Obtain a V Rank in this Time Trial" translation="الحصول على رتبة V في هذا التحدي ضد الساعة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Obtain a V Rank in this Time Trial" translation="حصلت على رتبة V في هذا التحدي ضد الساعة." explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
     <string english="GAME COMPLETE" translation="ختم اللعبة" explanation="achievement/trophy title" max="38*2" max_local="38*2"/>
-    <string english="Complete the game" translation="ختم اللعبة" case="1" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Complete the game" translation="ختمت اللعبة" case="1" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="ختم الوضع المعكوس" explanation="achievement/trophy title" max="38*2" max_local="38*2"/>
-    <string english="Complete the game in flip mode" translation="ختم اللعبة في الوضع المعكوس" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Win with less than 50 deaths" translation="الفوز وبأقل من 50 ميتة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Win with less than 100 deaths" translation="الفوز وبأقل من 100 ميتة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Win with less than 250 deaths" translation="الفوز وبأقل من 250 ميتة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Win with less than 500 deaths" translation="الفوز وبأقل من 500 ميتة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Last 5 seconds on the Super Gravitron" translation="الصمود 5 ثوان في أتون الجاذبية" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Last 10 seconds on the Super Gravitron" translation="الصمود 10 ثوان في أتون الجاذبية" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Last 15 seconds on the Super Gravitron" translation="الصمود 15 ثانية في أتون الجاذبية" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Last 20 seconds on the Super Gravitron" translation="الصمود 20 ثانية في أتون الجاذبية" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Last 30 seconds on the Super Gravitron" translation="الصمود 30 ثانية في أتون الجاذبية" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
-    <string english="Last 1 minute on the Super Gravitron" translation="الصمود دقيقة في أتون الجاذبية" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Complete the game in flip mode" translation="ختمت اللعبة في الوضع المعكوس" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Win with less than 50 deaths" translation="ختمت اللعبة بأقل من 50 ميتة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Win with less than 100 deaths" translation="ختمت اللعبة بأقل من 100 ميتة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Win with less than 250 deaths" translation="ختمت اللعبة بأقل من 250 ميتة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Win with less than 500 deaths" translation="ختمت اللعبة بأقل من 500 ميتة" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Last 5 seconds on the Super Gravitron" translation="صمدت 5 ثوان في أتون الجاذبية الخارق" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Last 10 seconds on the Super Gravitron" translation="صمدت 10 ثوان في أتون الجاذبية الخارق" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Last 15 seconds on the Super Gravitron" translation="صمدت 15 ثانية في أتون الجاذبية الخارق" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Last 20 seconds on the Super Gravitron" translation="صمدت 20 ثانية في أتون الجاذبية الخارق" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Last 30 seconds on the Super Gravitron" translation="صمدت 30 ثانية في أتون الجاذبية الخارق" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Last 1 minute on the Super Gravitron" translation="صمدت دقيقة في أتون الجاذبية الخارق" explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="المحترف الكوني" explanation="achievement/trophy title - no death mode complete" max="38*2" max_local="38*2"/>
-    <string english="Complete the game in no death mode" translation="ختم اللعبة في تحدي بدون الموت." explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
+    <string english="Complete the game in no death mode" translation="ختمت اللعبة في تحدي بدون الموت." explanation="achievement/trophy description" max="38*2" max_local="38*2"/>
     <string english="Something went wrong, but we forgot the error message." translation="حصلت مشكلة، لكن نسينا كتابة رسالة خطأ مناسبة." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6" max_local="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="فشل ربط المسار {path}: لا وجود للمجلد الحقيقي" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6" max_local="38*6"/>
     <string english="Level {path} not found" translation="لا وجود للمرحلة {path}" explanation="" max="38*6" max_local="38*6"/>
@@ -776,10 +776,10 @@ You have found the secret lab!" translation="تهانينا!
     <string english="Catalan" translation="الكاتالونية" explanation=""/>
     <string english="Welsh" translation="الويلزية" explanation=""/>
     <string english="German" translation="الألمانية" explanation=""/>
-    <string english="Esperanto" translation="الإسبيرنتو" explanation=""/>
+    <string english="Esperanto" translation="الإسبرانتو" explanation=""/>
     <string english="Spanish" translation="الإسبانية" explanation=""/>
     <string english="French" translation="الفرنسية" explanation=""/>
-    <string english="Irish" translation="الإرلندية" explanation=""/>
+    <string english="Irish" translation="الإيرلندية" explanation=""/>
     <string english="Italian" translation="الإيطالية" explanation=""/>
     <string english="Japanese" translation="اليابانية" explanation=""/>
     <string english="Korean" translation="الكورية" explanation=""/>

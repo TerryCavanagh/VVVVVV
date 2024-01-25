@@ -16,13 +16,13 @@
     </cutscene>
     <cutscene id="firststeps" explanation="">
         <dialogue speaker="cyan" english="I wonder why the ship teleported me here alone?" translation="يا ترى لماذا نقلتني السفينة إلى هنا لوحدي؟"/>
-        <dialogue speaker="cyan" english="I hope everyone else got out ok..." translation="أتمنى أن بقية الطقم خرجوا دون أن يصيبهم أذى..."/>
+        <dialogue speaker="cyan" english="I hope everyone else got out ok..." translation="أتمنى أن بقية الطاقم خرجوا دون أن يصيبهم أذى..."/>
     </cutscene>
     <cutscene id="communicationstation" explanation="">
         <dialogue speaker="cyan" english="Violet! Is that you?" translation="فايولت! أليس كذلك؟"/>
         <dialogue speaker="purple" english="Captain! You&apos;re ok!" translation="قبطان! يسعدني أنك بخير!"/>
-        <dialogue speaker="purple" english="Something has gone horribly wrong with the ship&apos;s teleporter!" translation="حصل خلل رهيب في جهاز تنقيل السفينة!"/>
-        <dialogue speaker="purple" english="I think everyone has been teleported away randomly! They could be anywhere!" translation="أظن أنه بعثر أفراد طقمنا إلى أماكن عشوائية! لا أستغرب أي مكان أرسلوا إليه!"/>
+        <dialogue speaker="purple" english="Something has gone horribly wrong with the ship&apos;s teleporter!" translation="حصل خلل رهيب في آلة تنقيل السفينة!"/>
+        <dialogue speaker="purple" english="I think everyone has been teleported away randomly! They could be anywhere!" translation="أظن أنه بعثر أفراد طاقمنا إلى أماكن عشوائية! لا أستغرب أي مكان أرسلوا إليه!"/>
         <dialogue speaker="cyan" english="Oh no!" translation="أه لا!"/>
         <dialogue speaker="purple" english="I&apos;m on the ship - it&apos;s damaged badly, but it&apos;s still intact!" translation="أنا قرب السفينة. صحيح أنها تضررت كثيرا، لكنها لا تزال صالحة!"/>
         <dialogue speaker="purple" english="Where are you, Captain?" translation="أين أنت يا قبطان؟"/>
@@ -30,10 +30,10 @@
         <dialogue speaker="purple" english="There seems to be some sort of interference in this dimension..." translation="يبدو أن في هذا البعد نوعا ما من التشويش..."/>
         <dialogue speaker="purple" english="I&apos;m broadcasting the coordinates of the ship to you now." translation="سأرسل إليك إحداثيات السفينة."/>
         <dialogue speaker="purple" english="I can&apos;t teleport you back, but..." translation="لا يمكنني أن أجلبك بآلة التنقيل، لكن على الأقل..."/>
-        <dialogue speaker="purple" english="If YOU can find a teleporter anywhere nearby, you should be able to teleport back to me!" translation="لو عثرت بنفسك على جهاز تنقيل قريب منك، يمكنك التنقل والعودة إلي!"/>
+        <dialogue speaker="purple" english="If YOU can find a teleporter anywhere nearby, you should be able to teleport back to me!" translation="لو عثرت بنفسك على آلة تنقيل قريبة منك، يمكنك التنقل والعودة إلي!"/>
         <dialogue speaker="cyan" english="Ok! I&apos;ll try to find one!" translation="حاضر! سأحاول أن أجد أحد هذه الأجهزة!"/>
         <dialogue speaker="purple" english="Good luck, Captain!" translation="حظا موفقا، يا قبطان!"/>
-        <dialogue speaker="purple" english="I&apos;ll keep trying to find the rest of the crew..." translation="أما أنا، سأواصل البحث عن بقية أفراد الطقم..."/>
+        <dialogue speaker="purple" english="I&apos;ll keep trying to find the rest of the crew..." translation="أما أنا، سأواصل البحث عن بقية أفراد الطاقم..."/>
     </cutscene>
     <cutscene id="trenchwarfare" explanation="player finds Trench Warfare trinket, if no trinkets found yet">
         <dialogue speaker="cyan" english="Ohh! I wonder what that is?" translation="أوووه! يا ترى ما هذا الشيء اللماع؟"/>
@@ -44,7 +44,7 @@
         <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="لا أظنني بحاجة إليه، لكن لا بأس في العودة به للسفينة كي نتفحصه هناك..."/>
     </cutscene>
     <cutscene id="teleporterback" explanation="">
-        <dialogue speaker="cyan" english="A teleporter!" translation="جهاز تنقيل!"/>
+        <dialogue speaker="cyan" english="A teleporter!" translation="آلة تنقيل!"/>
         <dialogue speaker="cyan" english="I can get back to the ship with this!" translation="جميل، بهذا أستطيع العودة إلى السفينة!"/>
     </cutscene>
     <cutscene id="levelonecomplete_ending" explanation="">
@@ -58,7 +58,7 @@
         <dialogue speaker="purple" english="But I think we should be able to fix the ship and get out of here..." translation="مع هذا لن نعجز عن إصلاح السفينة والمغادرة..."/>
         <dialogue speaker="purple" english="... as long as we can find the rest of the crew." translation="... بشرط أن نجمع شمل بقية الطاقم."/>
         <dialogue speaker="purple" english="We really don&apos;t know anything about this place..." translation="لا نعرف عن هذا المكان شيئا..."/>
-        <dialogue speaker="purple" english="Our friends could be anywhere - they could be lost, or in danger!" translation="من يدري أين أصدقاؤنا - هل هم تأئهون؟ هل يتعرضون للأخطار؟"/>
+        <dialogue speaker="purple" english="Our friends could be anywhere - they could be lost, or in danger!" translation="من يدري أين أصدقاؤنا - هل هم تائهون؟ هل يتعرضون للأخطار؟"/>
         <dialogue speaker="player" english="Can they teleport back here?" translation="هل يمكنهم التنقيل والعودة إلينا؟"/>
         <dialogue speaker="purple" english="Not unless they find some way to communicate with us!" translation="كلا، طالما لم يتواصلوا معنا بطريقة ما!"/>
         <dialogue speaker="purple" english="We can&apos;t pick up their signal and they can&apos;t teleport here unless they know where the ship is..." translation="لم نلتقط إشارتهم، ولن يتنقلوا هنا إلا لو عرفوا مكان السفينة..."/>
@@ -81,7 +81,7 @@
         <dialogue speaker="player" english="Where do I begin?" translation="من أين أبدأ؟"/>
         <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="هل نسيت؟ يمكنك بضغط {b_map} التأكد من مكانك في الخريطة!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="أقترح عليك البحث في الأماكن التي ربما نقل إليها بقية أفراد طاقمنا..."/>
-        <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="ولو ضعت، يمكنك العودة للسفينة من أي نقطة تنقيلة."/>
+        <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="ولو ضعت، يمكنك العودة للسفينة من أي آلة تنقيل."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="ولا تشغلن بالك! مهما حصل سنعثر على الجميع!"/>
         <dialogue speaker="purple" english="Everything will be ok!" translation="وكل شيء سيمر على ما يرام...!"/>
     </cutscene>
@@ -93,7 +93,7 @@
         <dialogue speaker="player" english="I&apos;m worried about Vermilion, Doctor!" translation="يقلقني أمر فارميليون يا دكتورة!"/>
         <dialogue speaker="player" english="I&apos;m worried about you, Doctor!" translation="يقلقني أمرك يا دكتورة!"/>
         <dialogue speaker="purple" english="Oh - well, don&apos;t worry, they&apos;ll show up!" translation="أوه، لا داع للقلق. عن قريب ستلتقيان بلا شك!"/>
-        <dialogue speaker="purple" english="Here! Have a lollipop!" translation="هاك! حلوى مصاصة هدية مني!"/>
+        <dialogue speaker="purple" english="Here! Have a lollipop!" translation="هاك! مصاصة هدية مني!"/>
     </cutscene>
     <cutscene id="trinketcollector" explanation="if no trinkets found yet">
         <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation="يبدو مكانا مناسبا لتخزين أي شيء ألقاه..."/>
@@ -110,7 +110,7 @@
         <dialogue speaker="green" english="Captain! I&apos;ve been so worried!" translation="قبطان! كم كنت قلقا!"/>
         <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation="القائد فيرديغري! أحوالك بخير!"/>
         <dialogue speaker="green" english="I&apos;ve been trying to get out, but I keep going around in circles..." translation="حاولت الخروج، لكني كنت أدور وأدور وأعود من حيث بدأت..."/>
-        <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation="جئتك من السفينة. أتيت كي أرجعك إليها بالتنقيلة."/>
+        <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation="جئتك من السفينة. أتيت كي أرجعك إليها بآلة التنقيل."/>
         <dialogue speaker="green" english="Is everyone else alright? Is Violet..." translation="هل الجمع بخير؟ ماذا عن فايوليت، أهي..."/>
         <dialogue speaker="player" english="She&apos;s fine - she&apos;s back on the ship!" translation="لا تقلق عليها، عادت سالمة معافاة للسفينة!"/>
         <dialogue speaker="green" english="Oh! Great - Let&apos;s get going, then!" translation="أوه! عظيم إذن - فلننطلق دونما تأجيل!"/>
@@ -120,7 +120,7 @@
         <dialogue speaker="player" english="It&apos;s ok - I&apos;m here to rescue you!" translation="لا بأس - جئت لإنقاذك!"/>
         <dialogue speaker="player" english="Let me explain everything..." translation="فلتسمحي لي أن أشرح لك كل شيء..."/>
         <dialogue speaker="blue" english="What? I didn&apos;t understand any of that!" translation="كيف...؟ لم أفهم حرفا من كلامك!"/>
-        <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation="أوه... عفوا، المهم لا تقلقي."/>
+        <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation="أوه... معذرة، المهم لا تقلقي."/>
         <dialogue speaker="player" english="Follow me! Everything will be alright!" translation="اتبعيني! ولا خوف عليك!"/>
         <dialogue speaker="blue" english="Sniff... Really?" translation="إهئ... حقا حقا؟"/>
         <dialogue speaker="blue" english="Ok then!" translation="حسنا. أثق بك يا قبطان!"/>
@@ -140,7 +140,7 @@
         <dialogue speaker="player" english="It&apos;s badly damaged, but Violet&apos;s been working on fixing it." translation="تعرضت لأضرار بليغة، لكن فايولت تعمل على إصلاحها."/>
         <dialogue speaker="player" english="We could really use your help..." translation="ستفيدنا مساعدتك جدا..."/>
         <dialogue speaker="yellow" english="Ah, of course!" translation="أه، عن طيب خاطر!"/>
-        <dialogue speaker="yellow" english="The background interference in this dimension prevented the ship from finding a teleporter when we crashed!" translation="منع تشويش المحيط في نطاق هذا البعد سفينتنا من إيجاد تنقيلة قبيل الارتطام!"/>
+        <dialogue speaker="yellow" english="The background interference in this dimension prevented the ship from finding a teleporter when we crashed!" translation="منع تشويش المحيط في نطاق هذا البعد سفينتنا من إيجاد آلة تنقيل قبيل الارتطام!"/>
         <dialogue speaker="yellow" english="We&apos;ve all been teleported to different locations!" translation="تفرقنا ونقلنا إلى أماكن مختلفة!"/>
         <dialogue speaker="player" english="Er, that sounds about right!" translation="همم، يبدو لي كلامك منطقيا!"/>
         <dialogue speaker="yellow" english="Let&apos;s get back to the ship, then!" translation="فلنرجع إلى السفينة!"/>
@@ -163,9 +163,9 @@
         <dialogue speaker="player" english="Are you ok down there, Doctor?" translation="هل نزلت على خير يا دكتورة؟"/>
         <dialogue speaker="blue" english="I wanna go home!" translation="آه، أريد العودة للديار!"/>
         <dialogue speaker="blue" english="Where are we? How did we even get here?" translation="أين نحن؟ كيف جئنا هنا؟"/>
-        <dialogue speaker="player" english="Well, Violet did say that the interference in the dimension we crashed in was causing problems with the teleporters..." translation="صحيح، قالت فايولت أن في هذا البعد تشويشا يعرقل عمل أجهزة التنقيل..."/>
+        <dialogue speaker="player" english="Well, Violet did say that the interference in the dimension we crashed in was causing problems with the teleporters..." translation="صحيح، قالت فايولت أن في هذا البعد تشويشا يعرقل عمل آلات التنقيل..."/>
         <dialogue speaker="player" english="I guess something went wrong..." translation="فأظن مشكلة حصلت في الأثناء..."/>
-        <dialogue speaker="player" english="But if we can find another teleporter, I think we can get back to the ship!" translation="لكن لو عثرنا على جهاز تنقيل بديل، يمكننا العودة للسفينة على ما أظن!"/>
+        <dialogue speaker="player" english="But if we can find another teleporter, I think we can get back to the ship!" translation="لكن لو عثرنا على آلة تنقيل بديلة، يمكننا العودة للسفينة على ما أظن!"/>
         <dialogue speaker="blue" english="Sniff..." translation="إهئ..."/>
     </cutscene>
     <cutscene id="int1blue_4" explanation="the split paths merge">
@@ -183,12 +183,12 @@
         <dialogue speaker="blue" english="We&apos;re going to be lost forever!" translation="سنضيع فيها إلى الأبد!"/>
         <dialogue speaker="player" english="Ok, come on... Things aren&apos;t that bad." translation="لحظة، صبرا... لا داع للتشاؤم إلى هذا الحد."/>
         <dialogue speaker="player" english="I have a feeling that we&apos;re nearly home!" translation="عندي إحساس أننا اقتربنا من طريق العودة للديار!"/>
-        <dialogue speaker="player" english="We can&apos;t be too far from another teleporter!" translation="لسنا بعيدين عن بوابة تنقيل أخرى بلا شك!"/>
+        <dialogue speaker="player" english="We can&apos;t be too far from another teleporter!" translation="لسنا بعيدين عن آلة تنقيل أخرى بلا شك!"/>
         <dialogue speaker="blue" english="I hope you&apos;re right, captain..." translation="أتمنى أنك على حق يا قبطان..."/>
     </cutscene>
     <cutscene id="int1blue_7" explanation="">
-        <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation="قبطان! كلامك كان صحيحا! توجد تنقيلة!"/>
-        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="هوف! تنفست الصعداء بعد طول قلق... خشيت أننا لن نجد تنقيلة أخرى."/>
+        <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation="قبطان! كلامك كان صحيحا! توجد آلة تنقيل!"/>
+        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="هوف! تنفست الصعداء بعد طول قلق... خشيت أننا لن نجد آلة تنقيل أخرى."/>
         <dialogue speaker="blue" english="What? Really?" translation="كيف؟ حقا؟"/>
         <dialogue speaker="player" english="Anyway, let&apos;s go back to the ship." translation="على كل! فلنعد إلى السفينة."/>
     </cutscene>
@@ -197,9 +197,9 @@
         <dialogue speaker="green" english="Captain! What&apos;s going on?" translation="قبطان! ما الخطب؟"/>
         <dialogue speaker="player" english="I... I don&apos;t know!" translation="أنا... لا أعرف السبب!"/>
         <dialogue speaker="player" english="Where are we?" translation="أين نحن الآن؟"/>
-        <dialogue speaker="green" english="Uh oh, this isn&apos;t good... Something must have gone wrong with the teleporter!" translation="أوه لا، لا يسر هذا... حصلت مشكلة في التنقيلة بلا شك!"/>
+        <dialogue speaker="green" english="Uh oh, this isn&apos;t good... Something must have gone wrong with the teleporter!" translation="أوه لا، لا يسر هذا... حصلت مشكلة في آلة التنقيل بلا شك!"/>
         <dialogue speaker="player" english="Ok... no need to panic!" translation="طيب... لا داعي للجزع!"/>
-        <dialogue speaker="player" english="Let&apos;s look for another teleporter!" translation="فلنبحث عن تنقيلة أخرى!"/>
+        <dialogue speaker="player" english="Let&apos;s look for another teleporter!" translation="فلنبحث عن آلة تنقيل أخرى!"/>
     </cutscene>
     <cutscene id="int1green_2" explanation="">
         <dialogue speaker="player" english="Let&apos;s go this way!" translation="من هذا الطريق!"/>
@@ -237,13 +237,13 @@
         <dialogue speaker="player" english="Oh! Good!" translation="أوه! جميل!"/>
     </cutscene>
     <cutscene id="int1green_7" explanation="">
-        <dialogue speaker="green" english="Finally! A teleporter!" translation="أخيرا! تنقيلة!"/>
+        <dialogue speaker="green" english="Finally! A teleporter!" translation="أخيرا! آلة تنقيل!"/>
         <dialogue speaker="green" english="I was getting worried we wouldn&apos;t find one..." translation="بدأت أقلق وأتساءل ماذا لو لم نجدها..."/>
         <dialogue speaker="player" english="Let&apos;s head back to the ship!" translation="فلنرجع إلى السفينة!"/>
     </cutscene>
     <cutscene id="int1red_1" explanation="">
         <dialogue speaker="red" english="Wow! Where are we?" translation="واو! أين نحن؟"/>
-        <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation="لا... لا يصح هذا... حصلت مشكلة في التنقيلة بدون شك!"/>
+        <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation="لا... لا يصح هذا... حصلت مشكلة في آلة التنقيل بدون شك!"/>
         <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation="حقا... لكن لا بأس، سنتوصل إلى جواب بعد أن نرجع إلى السفينة!"/>
         <dialogue speaker="red" english="Let&apos;s go exploring!" translation="فلننطلق في رحلة استكشاف جديدة!"/>
         <dialogue speaker="player" english="Ok then!" translation="هيا بنا إذن!"/>
@@ -262,7 +262,7 @@
     <cutscene id="int1red_4" explanation="the split paths merge">
         <dialogue speaker="red" english="Hi again! You doing ok?" translation="أهلا مجددا! أحوالك بخير؟"/>
         <dialogue speaker="player" english="I think so! But I really want to get back to the ship..." translation="أظن! لكني بدأت أشتاق جدا للسفينة..."/>
-        <dialogue speaker="red" english="We&apos;ll be ok! If we can find a teleporter somewhere we should be able to get back!" translation="لا خوف علينا! لو عثرنا على تنقيلة سنتمكن من العودة!"/>
+        <dialogue speaker="red" english="We&apos;ll be ok! If we can find a teleporter somewhere we should be able to get back!" translation="لا خوف علينا! لو عثرنا على آلة تنقيل سنتمكن من العودة!"/>
     </cutscene>
     <cutscene id="int1red_5" explanation="">
         <dialogue speaker="red" english="Are we there yet?" translation="هل وصلنا أم ما زلنا؟"/>
@@ -272,7 +272,7 @@
     <cutscene id="int1red_6" explanation="">
         <dialogue speaker="player" english="I wonder where we are, anyway?" translation="يا ترى أين نحن أصلا؟"/>
         <dialogue speaker="player" english="This seems different from that dimension we crashed in, somehow..." translation="يبدو هذا النطاق مختلفا عن البعد الذي سقطنا فيه، لا أدري كيف..."/>
-        <dialogue speaker="red" english="I dunno... But we must be close to a teleporter by now..." translation="ما أدراني... لكن لا شك أننا اقتربنا من تنقيلة بعد هذا المسير..."/>
+        <dialogue speaker="red" english="I dunno... But we must be close to a teleporter by now..." translation="ما أدراني... لكن لا شك أننا اقتربنا من آلة تنقيل بعد هذا المسير..."/>
     </cutscene>
     <cutscene id="int1red_7" explanation="">
         <dialogue speaker="player" english="We&apos;re there!" translation="وصلنا!"/>
@@ -284,7 +284,7 @@
         <dialogue speaker="player" english="What? Where are we?" translation="ما هذا... أين نحن؟"/>
         <dialogue speaker="yellow" english="I suspect something deflected our teleporter transmission! This is somewhere new..." translation="يخامرني شك أن شيئا ما أثر في بث تنقيلتنا وأحادها عن مسارها! هذا المكان جديد علينا..."/>
         <dialogue speaker="player" english="Oh no!" translation="مصيبة!"/>
-        <dialogue speaker="player" english="We should try to find a teleporter and get back to the ship..." translation="فلنحاول أن نجد تنقيلة حتى نرجع للسفينة..."/>
+        <dialogue speaker="player" english="We should try to find a teleporter and get back to the ship..." translation="فلنحاول أن نجد آلة تنقيل حتى نرجع للسفينة..."/>
     </cutscene>
     <cutscene id="int1yellow_2" explanation="">
         <dialogue speaker="player" english="Follow me!" translation="اتبعني!"/>
@@ -309,7 +309,7 @@
     <cutscene id="int1yellow_5" explanation="">
         <dialogue speaker="yellow" english="You know, there&apos;s something really odd about this dimension..." translation="لو علمت بم أفكر الآن... أحس أن في هذا البعد أمرا في غاية الغرابة..."/>
         <dialogue speaker="player" english="Yeah?" translation="صحيح؟"/>
-        <dialogue speaker="yellow" english="We shouldn&apos;t really be able to move between dimensions with a regular teleporter..." translation="لا يفترض بنا أن نتمكن من التنقل بين الأبعاد بمجرد تنقيلة عادية..."/>
+        <dialogue speaker="yellow" english="We shouldn&apos;t really be able to move between dimensions with a regular teleporter..." translation="لا يفترض بنا أن نتمكن من التنقل بين الأبعاد بمجرد آلة تنقيل عادية..."/>
         <dialogue speaker="yellow" english="Maybe this isn&apos;t a proper dimension at all?" translation="ألا يحتمل إذن أن هذا ليس ببعد قائم الذات؟"/>
         <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="ربما هو بعد قطبي، أو شيء من ذلك النوع؟ بمعنى أنه شيء كونوه اصطناعيا لسبب من الأسباب؟"/>
         <dialogue speaker="yellow" english="I can&apos;t wait to get back to the ship. I have a lot of tests to run!" translation="لا أطيق الصبر على العودة للسفينة. كم عندي اختبارات كثيرة أجريها!"/>
@@ -376,7 +376,7 @@
     </cutscene>
     <cutscene id="talkpurple_5" explanation="only one of the last 6 strings is shown">
         <dialogue speaker="purple" english="Vermilion called in to say hello!" translation="اتصل فارميليون، ويسلم عليك!"/>
-        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find the rest of the crew!" translation="يتوق حقا لمساعدتك في إيجاد بقية الطقم!"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find the rest of the crew!" translation="يتوق حقا لمساعدتك في إيجاد بقية الطاقم!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Victoria!" translation="يتوق حقا لمساعدتك في إيجاد فيكتوريا!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vitellary!" translation="يتوق حقا لمساعدتك في إيجاد فيتيلاري!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Verdigris!" translation="يتوق حقا لمساعدتك في إيجاد فارديغري!"/>
@@ -401,7 +401,7 @@
     </cutscene>
     <cutscene id="talkpurple_intermission2" explanation="">
         <dialogue speaker="player" english="Doctor! Doctor! It happened again!" translation="دكتور! دكتور! تكرر الأمر!"/>
-        <dialogue speaker="player" english="The teleporter brought us to that weird dimension..." translation="أوصلتنا التنقيلة إلى ذلك البعد الغريب..."/>
+        <dialogue speaker="player" english="The teleporter brought us to that weird dimension..." translation="أوصلتنا آلة التنقيل إلى ذلك البعد الغريب..."/>
         <dialogue speaker="purple" english="Hmm, there&apos;s definitely something strange happening..." translation="همممم، بالتأكيد يحصل شيء غريب..."/>
         <dialogue speaker="purple" english="If only we could find the source of that interference!" translation="ليتنا نتوصل إلى مصدر ذلك التشويش!"/>
     </cutscene>
@@ -468,7 +468,7 @@
     </cutscene>
     <cutscene id="talkred_5" explanation="">
         <dialogue speaker="red" english="It&apos;s great to be back!" translation="ما أحلى العودة!"/>
-        <dialogue speaker="red" english="I can&apos;t wait to help you find the rest of the crew!" translation="أتوق بفارغ الصبر لمساعدتك على إيجاد بقية الطقم!"/>
+        <dialogue speaker="red" english="I can&apos;t wait to help you find the rest of the crew!" translation="أتوق بفارغ الصبر لمساعدتك على إيجاد بقية الطاقم!"/>
         <dialogue speaker="red" english="It&apos;ll be like old times, huh, Captain?" translation="مثل الأيام الخوالي، أليس كذلك يا قبطان؟"/>
     </cutscene>
     <cutscene id="talkred_6" explanation="">
@@ -484,7 +484,7 @@
     </cutscene>
     <cutscene id="talkred_9" explanation="">
         <dialogue speaker="red" english="That other dimension was really strange, wasn&apos;t it?" translation="كان ذلك البعد البديل في غاية الغرابة، أليس كذلك؟"/>
-        <dialogue speaker="red" english="I wonder what caused the teleporter to send us there?" translation="ترى ما الذي جعل التنقيلة ترسلنا إلى هناك؟"/>
+        <dialogue speaker="red" english="I wonder what caused the teleporter to send us there?" translation="ترى ما الذي جعل آلة التنقيل ترسلنا إلى هناك؟"/>
     </cutscene>
     <cutscene id="talkred_10" explanation="">
         <dialogue speaker="red" english="Heya Captain!" translation="ويه يا قبطان!"/>
@@ -495,7 +495,7 @@
     </cutscene>
     <cutscene id="talkred_12" explanation="">
         <dialogue speaker="red" english="Hey Captain!" translation="أهلا يا قبطان!"/>
-        <dialogue speaker="red" english="I found something interesting around here - the same warp signature I saw when I landed!" translation="عثرت على شيء مثير للاهتمام هنا - نفس بصمة الطاقة للتنقيلة التي رأيتها عندما نزلت!"/>
+        <dialogue speaker="red" english="I found something interesting around here - the same warp signature I saw when I landed!" translation="عثرت على شيء مثير للاهتمام هنا - نفس بصمة الطاقة لآلة التنقيل التي رأيتها عندما نزلت!"/>
         <dialogue speaker="red" english="Someone from the ship must be nearby..." translation="لا بد أن أحد أفراد طاقم السفينة قربنا..."/>
     </cutscene>
     <cutscene id="talkred_13" explanation="">
@@ -512,7 +512,7 @@
     </cutscene>
     <cutscene id="talkblue_3" explanation="">
         <dialogue speaker="blue" english="I&apos;m so glad to be back!" translation="كم أنا سعيدة بعودتي!"/>
-        <dialogue speaker="blue" english="That lab was so dark and scary! I didn&apos;t like it at all..." translation="كم كان ذلك المخبر مظلما موحشا مخيفا! لم أستلطفه إطلاقا..."/>
+        <dialogue speaker="blue" english="That lab was so dark and scary! I didn&apos;t like it at all..." translation="كم كان ذلك المخبر مظلما... موحشا... مخيفا! لم أستلطفه إطلاقا..."/>
     </cutscene>
     <cutscene id="talkblue_4" explanation="">
         <dialogue speaker="blue" english="Vitellary&apos;s back? I knew you&apos;d find him!" translation="عاد فيتيلاري؟ كنت واثقة أنكما ستلتقيان!"/>
@@ -534,7 +534,7 @@
         <dialogue speaker="blue" english="Though I was very worried..." translation="مع ذلك كنت قلقة جدا..."/>
     </cutscene>
     <cutscene id="talkblue_7" explanation="">
-        <dialogue speaker="blue" english="Why did the teleporter send us to that scary dimension?" translation="لماذا أرسلتنا تلك التنقيلة إلى ذلك البعد الموحش؟"/>
+        <dialogue speaker="blue" english="Why did the teleporter send us to that scary dimension?" translation="لماذا أرسلتنا آلة التنقيل تلك إلى ذلك البعد الموحش؟"/>
         <dialogue speaker="blue" english="What happened?" translation="ماذا حصل وقتها؟"/>
         <dialogue speaker="player" english="I don&apos;t know, Doctor..." translation="لا أدري يا دكتورة..."/>
         <dialogue speaker="blue" english="Why?" translation="لماذا؟"/>
@@ -552,7 +552,7 @@
     </cutscene>
     <cutscene id="talkblue_trinket2" explanation="">
         <dialogue speaker="blue" english="Captain! Come have a look at what I&apos;ve been working on!" translation="قبطان! عندي شيء كنت أعمل عليه، لو أردت رؤيته هيا!"/>
-        <dialogue speaker="blue" english="It looks like these shiny things are giving off a strange energy reading!" translation="يبدو أن تلك اللماعات الغريبات يرصد منها إشارة طاقة غريبة!"/>
+        <dialogue speaker="blue" english="It looks like these shiny things are giving off a strange energy reading!" translation="يبدو أن تلك اللماعات الغريبات ترصد منها إشارة طاقة غريبة!"/>
         <dialogue speaker="blue" english="So I analysed it..." translation="ولهذا السبب أجريت دراسة تحليلية عليها..."/>
     </cutscene>
     <cutscene id="talkblue_trinket3" explanation="">
@@ -602,7 +602,7 @@
         <dialogue speaker="yellow" english="I wonder where the people who used to live here have gone?" translation="أتساءل إلى أين سافر الناس الذين كانوا يعيشون هنا؟"/>
     </cutscene>
     <cutscene id="talkyellow_6" explanation="">
-        <dialogue speaker="yellow" english="I think it&apos;s no coincidence that the teleporter was drawn to that dimension..." translation="لا أظنها صدفة أن التنقيلة استقطبتنا إلى هذا البعد..."/>
+        <dialogue speaker="yellow" english="I think it&apos;s no coincidence that the teleporter was drawn to that dimension..." translation="لا أظنها صدفة أن آلة التنقيل استقطبتنا إلى هذا البعد..."/>
         <dialogue speaker="yellow" english="There&apos;s something there. I think it might be causing the interference that&apos;s stopping us from leaving..." translation="يوجد هناك شيء. وأظنه السبب في التشويش الذي يمنعنا من المغادرة..."/>
     </cutscene>
     <cutscene id="talkyellow_7" explanation="">
@@ -729,7 +729,7 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= تحذير =-
         <dialogue speaker="purple" english="This is where we were storing those shiny things? What happened?" translation="هنا كنا نخزن تلك الأغراض اللماعة؟ ماذا حصل لها؟"/>
         <dialogue speaker="player" english="We were just playing with them, and..." translation="كنا نعبث بها فحسب، وإذ بها..."/>
         <dialogue speaker="player" english="...they suddenly exploded!" translation="...تنفجر فجأة!"/>
-        <dialogue speaker="blue" english="But look what they made! Is that a teleporter?" translation="لكن أنظروا ماذا صنعت! أليست آلة تنقيل؟"/>
+        <dialogue speaker="blue" english="But look what they made! Is that a teleporter?" translation="لكن انظروا ماذا صنعت! أليست آلة تنقيل؟"/>
         <dialogue speaker="yellow" english="I think so, but..." translation="أظن، لكنها..."/>
         <dialogue speaker="yellow" english="I&apos;ve never seen a teleporter like that before..." translation="مختلفة عن آلات التنقيل التي رأيتها..."/>
         <dialogue speaker="red" english="We should investigate!" translation="ضروري أن نتحرى الأمر!"/>
@@ -778,7 +778,7 @@ Collect trinkets to unlock new songs!" translation="-= مشغل الموسيقى
 
 يستمر عزف الأغنية حتى مغادرة السفينة.
 
-كلما جمعت تذكارات، فتحت أغاني جديدة!" centertext="1" padtowidth="264"/>
+كلما جمعت تذكارات، فتحت أغان جديدة!" centertext="1" padtowidth="264"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock1" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -861,7 +861,7 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="...everything collapses, eventually. It&apos;s the way of the universe." translation="...كل شيء سائر إلى الانهيار، طال الزمان أو قصر. هكذا سنة الحياة في الكون. ؝" centertext="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_3" explanation="">
-        <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="أتساءل... هل للمولد الذي شغلناه في البعد القطبي دخل في التأثير الطارئ على نقاط تنقيلاتنا؟"/>
+        <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="أتساءل... هل للمولد الذي شغلناه في البعد القطبي دخل في التأثير الطارئ على آلات تنقيلنا؟"/>
         <dialogue speaker="gray" english="No, it&apos;s probably just a glitch." translation="لا أظن، ذلك مجرد عيب تقني خفيف على الأرجح. ؝"/>
     </cutscene>
     <cutscene id="terminal_station_4" explanation="a trinket that&apos;s difficult to get">
@@ -873,12 +873,12 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="These security measures go too far!" translation="بالغوا حقا في إجراءات الحماية!! ؝"/>
     </cutscene>
     <cutscene id="terminal_warp_2" explanation="">
-        <dialogue speaker="gray" english="The only way into my private lab anymore is by teleporter." translation="لم تبق أي طريقة لدخول مخبري الخاص سوى التنقيلة."/>
+        <dialogue speaker="gray" english="The only way into my private lab anymore is by teleporter." translation="لم تبق أي طريقة لدخول مخبري الخاص سوى آلة التنقيل."/>
         <dialogue speaker="gray" english="I&apos;ve made sure that it&apos;s difficult for unauthorised personnel to gain access." translation="حرصت أن أصعب الدخول على غير العمال المسموح لهم. ؝"/>
     </cutscene>
     <cutscene id="terminal_outside_1" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= ملاحظات الباحثين =-" padtowidth="264"/>
-        <dialogue speaker="gray" english="... our first breakthrough was the creation of the inversion plane, which creates a mirrored dimension beyond a given event horizon ..." translation="... إنجازنا وسبقنا الأول بدء من إنشاء مستوي التعاكس، مما من شأنه إنشاء بعد معكوس جديد عند زمكان ما بعد نقطة أفق حدث معروفة في معطياتنا ..." pad="1"/>
+        <dialogue speaker="gray" english="... our first breakthrough was the creation of the inversion plane, which creates a mirrored dimension beyond a given event horizon ..." translation="... إنجازنا وسبقنا الأول بدأ من إنشاء مستوي التعاكس، مما من شأنه إنشاء بعد معكوس جديد عند زمكان ما بعد نقطة أفق حدث معروفة في معطياتنا ..." pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_2" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= ملاحظات الباحثين =-" padtowidth="264"/>

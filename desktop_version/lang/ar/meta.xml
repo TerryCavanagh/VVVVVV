@@ -6,7 +6,8 @@
     <nativename>العربية</nativename>
 
     <!-- English translation by X -->
-    <credit>Eternal Dream Arabization</credit>
+    <credit>الترجمة العربية من
+Eternal Dream Arabization</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
     <action_hint>اضغط مسافة، زر Z، أو زر V للاختيار</action_hint>
