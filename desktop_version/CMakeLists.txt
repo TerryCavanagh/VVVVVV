@@ -38,6 +38,8 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)
     link_directories(/usr/local/lib)
     add_compile_options(-Werror=partial-availability)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET 12.0) # SDL goes back to iOS 8.0, but modern Xcode doesn't
 endif()
 
 project(VVVVVV)
