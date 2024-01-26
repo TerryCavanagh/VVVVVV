@@ -49,8 +49,11 @@ if(APPLE)
 endif()
 
 # RPATH
-if(NOT WIN32 AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
-    if(APPLE)
+if(NOT WIN32)
+    if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+        set(BIN_LIBROOT "Frameworks")
+        set(BIN_RPATH "@executable_path/Frameworks")
+    elseif(APPLE)
         set(BIN_LIBROOT "osx")
         set(BIN_RPATH "@executable_path/osx")
     elseif(CMAKE_SIZEOF_VOID_P MATCHES "8")
