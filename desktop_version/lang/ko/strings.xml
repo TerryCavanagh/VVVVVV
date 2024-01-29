@@ -249,6 +249,16 @@
     <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="이전 게임 버전에 있던 1프레임 입력 지연을 재활성화 합니다." explanation="input delay" max="38*3" max_local="30*3"/>
     <string english="Input delay is ON" translation="입력 지연 켜짐" explanation="" max="38*2" max_local="30*2"/>
     <string english="Input delay is OFF" translation="입력 지연 꺼짐" explanation="" max="38*2" max_local="30*2"/>
+    <string english="touch input" translation="" explanation="menu option"/>
+    <string english="Touch Input" translation="" explanation="title" max="20" max_local="16"/>
+    <string english="Change touch input options." translation="" explanation="" max="38*5" max_local="30*5"/>
+    <string english="control style" translation="" explanation="menu option"/>
+    <string english="Control Style" translation="" explanation="title" max="20" max_local="16"/>
+    <string english="Change the control style for touch input." translation="" explanation="" max="38*3" max_local="30*3"/>
+    <string english="ui scale" translation="" explanation="menu option"/>
+    <string english="UI Scale" translation="" explanation="title" max="20" max_local="16"/>
+    <string english="Change the scale of the UI buttons." translation="" explanation="" max="38*3" max_local="30*3"/>
+    <string english="Current scale: {scale}.{extra}x" translation="" explanation="scale and extra are both numbers. 1 and 5 show as 1.5" max="38*2" max_local="30*2"/>
     <string english="accessibility" translation="접근성" explanation="menu option"/>
     <string english="Accessibility" translation="접근성" explanation="title" max="20" max_local="16"/>
     <string english="Disable screen effects, enable slowdown modes or invincibility." translation="화면 효과를 비활성화 하고, 감속 모드 혹은 무적 모드를 활성화 합니다." explanation="" max="38*5" max_local="30*5"/>
@@ -435,6 +445,7 @@
     <string english="ACTION = Space, Z, or V" translation="행동 = Space, Z, V" explanation="title screen" max="38*3" max_local="30*3"/>
     <string english="[Press {button} to return to editor]" translation="[{button} 버튼을 눌러 에디터로 돌아갑니다]" explanation="`to editor` is sorta redundant" max="40" max_local="32"/>
     <string english="- Press {button} to advance text -" translation="- {button} 버튼을 눌러 텍스트를 진행합니다 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="32"/>
+    <string english="- Tap screen to advance text -" translation="" explanation="to dismiss a textbox using touch controls" max="40" max_local="32"/>
     <string english="Press {button} to continue" translation="{button} 버튼을 눌러 계속" explanation="Expect `ACTION`" max="34" max_local="27"/>
     <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="31"/>
     <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="31"/>
