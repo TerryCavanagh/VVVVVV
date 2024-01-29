@@ -3458,15 +3458,66 @@ void Graphics::screenshake(void)
 
     set_render_target(NULL);
     set_blendmode(SDL_BLENDMODE_NONE);
-    clear();
+    draw_window_background();
 
-    copy_texture(tempShakeTexture, NULL, NULL, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+    SDL_Rect rect;
+    get_stretch_info(&rect);
+
+    copy_texture(tempShakeTexture, NULL, &rect, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 }
 
 void Graphics::updatescreenshake(void)
 {
     screenshake_x =  static_cast<Sint32>((fRandom() * 7) - 4);
     screenshake_y =  static_cast<Sint32>((fRandom() * 7) - 4);
+}
+
+void Graphics::draw_window_background(void)
+{
+    clear();
+}
+
+void Graphics::get_stretch_info(SDL_Rect* rect)
+{
+    int width;
+    int height;
+    gameScreen.GetScreenSize(&width, &height);
+
+    switch (gameScreen.scalingMode)
+    {
+    case SCALING_INTEGER:
+    {
+        int scale = SDL_min(width / SCREEN_WIDTH_PIXELS, height / SCREEN_HEIGHT_PIXELS);
+        rect->x = (width - SCREEN_WIDTH_PIXELS * scale) / 2;
+        rect->y = (height - SCREEN_HEIGHT_PIXELS * scale) / 2;
+        rect->w = SCREEN_WIDTH_PIXELS * scale;
+        rect->h = SCREEN_HEIGHT_PIXELS * scale;
+    }
+    break;
+    case SCALING_LETTERBOX:
+        if (width * SCREEN_HEIGHT_PIXELS > height * SCREEN_WIDTH_PIXELS)
+        {
+            rect->x = (width - height * SCREEN_WIDTH_PIXELS / SCREEN_HEIGHT_PIXELS) / 2;
+            rect->y = 0;
+            rect->w = height * SCREEN_WIDTH_PIXELS / SCREEN_HEIGHT_PIXELS;
+            rect->h = height;
+        }
+        else
+        {
+            rect->x = 0;
+            rect->y = (height - width * SCREEN_HEIGHT_PIXELS / SCREEN_WIDTH_PIXELS) / 2;
+            rect->w = width;
+            rect->h = width * SCREEN_HEIGHT_PIXELS / SCREEN_WIDTH_PIXELS;
+        }
+        break;
+    case SCALING_STRETCH:
+        /* Could pass NULL to copy_texture instead, but this feels better */
+        rect->x = 0;
+        rect->y = 0;
+        rect->w = width;
+        rect->h = height;
+        break;
+    }
 }
 
 void Graphics::render(void)
@@ -3480,9 +3531,13 @@ void Graphics::render(void)
 
     set_render_target(NULL);
     set_blendmode(SDL_BLENDMODE_NONE);
-    clear();
 
-    copy_texture(gameTexture, NULL, NULL, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+    draw_window_background();
+
+    SDL_Rect rect;
+    get_stretch_info(&rect);
+
+    copy_texture(gameTexture, NULL, &rect, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 }
 
 void Graphics::renderwithscreeneffects(void)
