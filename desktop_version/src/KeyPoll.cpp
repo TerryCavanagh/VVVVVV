@@ -15,6 +15,7 @@
 #include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
+#include "Touch.h"
 #include "UTF8.h"
 #include "Vlogging.h"
 
@@ -57,6 +58,8 @@ KeyPoll::KeyPoll(void)
     linealreadyemptykludge = false;
 
     isActive = true;
+
+    using_touch = false;
 }
 
 void KeyPoll::enabletextentry(void)
@@ -149,6 +152,12 @@ void KeyPoll::Poll(void)
     bool fullscreenkeybind = false;
     SDL_GameController *controller = NULL;
     SDL_Event evt;
+    int screen_width;
+    int screen_height;
+    gameScreen.GetScreenSize(&screen_width, &screen_height);
+
+    touch::reset();
+
     while (SDL_PollEvent(&evt))
     {
         switch (evt.type)
@@ -356,6 +365,70 @@ void KeyPoll::Poll(void)
             break;
         }
 
+        /* Touch Events */
+        case SDL_FINGERDOWN:
+        {
+            using_touch = true;
+
+            VVV_Finger finger;
+            finger.pressed = true;
+            finger.x = evt.tfinger.x * screen_width;
+            finger.y = evt.tfinger.y * screen_height;
+            finger.id = evt.tfinger.fingerId;
+            touch::fingers.push_back(finger);
+
+            raw_mousex = evt.tfinger.x * screen_width;
+            raw_mousey = evt.tfinger.y * screen_height;
+            leftbutton = 1;
+            break;
+        }
+        case SDL_FINGERMOTION:
+        {
+            using_touch = true;
+
+            for (int i = 0; i < (int) touch::fingers.size(); i++)
+            {
+                if (touch::fingers[i].id == evt.tfinger.fingerId)
+                {
+                    touch::fingers[i].x = evt.tfinger.x * screen_width;
+                    touch::fingers[i].y = evt.tfinger.y * screen_height;
+                    break;
+                }
+            }
+
+            raw_mousex = evt.tfinger.x * screen_width;
+            raw_mousey = evt.tfinger.y * screen_height;
+            break;
+        }
+        case SDL_FINGERUP:
+        {
+            using_touch = true;
+
+            for (int i = (int)touch::fingers.size() - 1; i >= 0; i--)
+            {
+                if (touch::fingers[i].id == evt.tfinger.fingerId)
+                {
+                    // Unpress any buttons that this finger may belong to
+                    for (int j = 0; j < NUM_TOUCH_BUTTONS; j++)
+                    {
+                        if (touch::buttons[j].finger == &touch::fingers[i])
+                        {
+                            touch::buttons[j].down = false;
+                            touch::buttons[j].finger = NULL;
+                        }
+                    }
+
+                    touch::fingers.erase(touch::fingers.begin() + i);
+                    break;
+                }
+            }
+
+            raw_mousex = evt.tfinger.x * screen_width;
+            raw_mousey = evt.tfinger.y * screen_height;
+            leftbutton = 0;
+            break;
+        }
+
         /* Window Events */
         case SDL_WINDOWEVENT:
             switch (evt.window.event)
@@ -470,6 +543,8 @@ void KeyPoll::Poll(void)
 
     mousex = (raw_mousex - rect.x) * SCREEN_WIDTH_PIXELS / rect.w;
     mousey = (raw_mousey - rect.y) * SCREEN_HEIGHT_PIXELS / rect.h;
+
+    touch::update_buttons();
 }
 
 bool KeyPoll::isDown(SDL_Keycode key)

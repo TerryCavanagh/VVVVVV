@@ -104,6 +104,7 @@ set(VVV_SRC
     src/TerminalScripts.cpp
     src/Textbox.cpp
     src/Tower.cpp
+    src/Touch.cpp
     src/UtilityClass.cpp
     src/WarpClass.cpp
     src/XMLUtils.cpp
