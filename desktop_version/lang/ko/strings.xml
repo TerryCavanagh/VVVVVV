@@ -435,6 +435,7 @@
     <string english="ACTION = Space, Z, or V" translation="행동 = Space, Z, V" explanation="title screen" max="38*3" max_local="30*3"/>
     <string english="[Press {button} to return to editor]" translation="[{button} 버튼을 눌러 에디터로 돌아갑니다]" explanation="`to editor` is sorta redundant" max="40" max_local="32"/>
     <string english="- Press {button} to advance text -" translation="- {button} 버튼을 눌러 텍스트를 진행합니다 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="32"/>
+    <string english="- Tap screen to advance text -" translation="" explanation="to dismiss a textbox using touch controls" max="40" max_local="32"/>
     <string english="Press {button} to continue" translation="{button} 버튼을 눌러 계속" explanation="Expect `ACTION`" max="34" max_local="27"/>
     <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="31"/>
     <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="31"/>

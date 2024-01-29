@@ -445,6 +445,7 @@
     <string english="ACTION = Space, Z, or V" translation="行動鍵 = 空白鍵、Z或V" explanation="title screen" max="38*3" max_local="25*2"/>
     <string english="[Press {button} to return to editor]" translation="[按 {button} 返回編輯器]" explanation="`to editor` is sorta redundant" max="40" max_local="26"/>
     <string english="- Press {button} to advance text -" translation="按 {button} 來推進文本 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="26"/>
+    <string english="- Tap screen to advance text -" translation="" explanation="to dismiss a textbox using touch controls" max="40" max_local="26"/>
     <string english="Press {button} to continue" translation="按 {button} 繼續" explanation="Expect `ACTION`" max="34" max_local="22"/>
     <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="26"/>
     <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="26"/>

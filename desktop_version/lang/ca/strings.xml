@@ -435,6 +435,7 @@
     <string english="ACTION = Space, Z, or V" translation="Acció = Espai, Z o V" explanation="title screen" max="38*3"/>
     <string english="[Press {button} to return to editor]" translation="[Prem {button} per a tornar a l’editor]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Prem {button} per a avançar el text -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="- Tap screen to advance text -" translation="" explanation="to dismiss a textbox using touch controls" max="40"/>
     <string english="Press {button} to continue" translation="Prem {button} per a continuar" explanation="Expect `ACTION`" max="34"/>
     <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
     <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
