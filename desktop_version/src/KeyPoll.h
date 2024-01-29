@@ -75,6 +75,8 @@ public:
 
     bool linealreadyemptykludge;
 
+    bool using_touch;
+
 private:
     std::map<SDL_JoystickID, SDL_GameController*> controllers;
     std::map<SDL_GameControllerButton, bool> buttonmap;

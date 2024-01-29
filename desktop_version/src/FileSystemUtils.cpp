@@ -314,6 +314,8 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
 
     doesFontsDirExist = mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir);
 
+    mount_pre_datazip(NULL, "touch", "graphics/", NULL);
+
     /* Mount the stock content last */
     if (assetsPath)
     {

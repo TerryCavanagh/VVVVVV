@@ -27,6 +27,7 @@
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Touch.h"
 #include "Unused.h"
 #include "UTF8.h"
 #include "UtilityClass.h"
@@ -4942,6 +4943,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             key.sensitivity = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "touchscale") == 0)
+        {
+            touch::scale = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "lang") == 0)
         {
             loc::lang = std::string(pText);
@@ -5223,6 +5229,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     }
 
     xml::update_tag(dataNode, "controllerSensitivity", key.sensitivity);
+
+    xml::update_tag(dataNode, "touchscale", touch::scale);
 
     xml::update_tag(dataNode, "lang", loc::lang.c_str());
     xml::update_tag(dataNode, "lang_set", (int) loc::lang_set);
@@ -6939,6 +6947,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("graphics"));
         option(loc::gettext("audio"));
         option(loc::gettext("game pad"));
+        option(loc::gettext("touch input"));
         option(loc::gettext("accessibility"));
         option(loc::gettext("language"), !translator_cutscene_test);
         option(loc::gettext("return"));
@@ -7011,6 +7020,13 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 10;
+        break;
+    case Menu::touch_input:
+        option(loc::gettext("control style"), false);
+        option(loc::gettext("ui scale"));
+        option(loc::gettext("return"));
+        menuyoff = 0;
+        maxspacing = 15;
         break;
     case Menu::language:
         if (loc::languagelist.empty())

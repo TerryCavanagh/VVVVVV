@@ -25,6 +25,7 @@
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Touch.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
@@ -382,10 +383,14 @@ static void menurender(void)
             font::print_wrap(PR_CEN, -1, 65, loc::gettext("Rebind your controller's buttons and adjust sensitivity."), tr, tg, tb);
             break;
         case 4:
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Touch Input"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change touch input options."), tr, tg, tb);
+            break;
+        case 5:
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Accessibility"), tr, tg, tb);
             font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disable screen effects, enable slowdown modes or invincibility."), tr, tg, tb);
             break;
-        case 5:
+        case 6:
             font::print(PR_2X | PR_CEN,  -1, 30, loc::gettext("Language"), tr, tg, tb);
             font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the language."), tr, tg, tb);
         }
@@ -754,6 +759,31 @@ static void menurender(void)
 
         break;
     }
+    case Menu::touch_input:
+    {
+        switch (game.currentmenuoption)
+        {
+        case 0: // Control style
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Control Style"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the control style for touch input."), tr, tg, tb);
+            break;
+        case 1:
+            // Display touch buttons!
+            key.using_touch = true;
+
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("UI Scale"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the scale of the UI buttons."), tr, tg, tb);
+
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(buffer, sizeof(buffer), loc::gettext("Current scale: {scale}.{extra}x"), "scale:int, extra:int",
+                (int)touch::scale,
+                (int)((float)((float)touch::scale - (int)touch::scale) * 10)
+            );
+            font::print(PR_CEN, -1, 75, buffer, tr, tg, tb);
+            break;
+        }
+    }
+    break;
     case Menu::language:
         if (loc::languagelist.empty())
         {
@@ -2451,12 +2481,19 @@ void gamerender(void)
     if (game.advancetext)
     {
         char buffer_adv[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(
-            buffer_adv, sizeof(buffer_adv),
-            loc::gettext("- Press {button} to advance text -"),
-            "button:but",
-            vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-        );
+        if (key.using_touch)
+        {
+            SDL_strlcpy(buffer_adv, loc::gettext("- Tap screen to advance text -"), sizeof(buffer_adv));
+        }
+        else
+        {
+            vformat_buf(
+                buffer_adv, sizeof(buffer_adv),
+                loc::gettext("- Press {button} to advance text -"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+            );
+        }
 
         font::print(PR_CEN | PR_BOR, -1, graphics.flipmode ? 228 : 5, buffer_adv, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
@@ -3521,12 +3558,19 @@ void teleporterrender(void)
     if (game.advancetext)
     {
         char buffer_adv[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(
-            buffer_adv, sizeof(buffer_adv),
-            loc::gettext("- Press {button} to advance text -"),
-            "button:but",
-            vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-        );
+        if (key.using_touch)
+        {
+            SDL_strlcpy(buffer_adv, loc::gettext("- Tap screen to advance text -"), sizeof(buffer_adv));
+        }
+        else
+        {
+            vformat_buf(
+                buffer_adv, sizeof(buffer_adv),
+                loc::gettext("- Press {button} to advance text -"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+            );
+        }
 
         font::print(PR_CEN | PR_BOR, -1, graphics.flipmode ? 228 : 5, buffer_adv, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
