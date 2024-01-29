@@ -258,6 +258,10 @@ public:
     int screenshake_x;
     int screenshake_y;
 
+    void draw_window_background(void);
+
+    void get_stretch_info(SDL_Rect* rect);
+
     void render(void);
     void renderwithscreeneffects(void);
     void renderfixedpre(void);

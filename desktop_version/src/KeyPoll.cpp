@@ -548,21 +548,11 @@ void KeyPoll::Poll(void)
         toggleFullscreen();
     }
 
-    if (gameScreen.scalingMode == SCALING_STRETCH)
-    {
-        /* In this mode specifically, we have to fix the mouse coordinates */
-        int actualscreenwidth;
-        int actualscreenheight;
-        gameScreen.GetScreenSize(&actualscreenwidth, &actualscreenheight);
+    SDL_Rect rect;
+    graphics.get_stretch_info(&rect);
 
-        mousex = raw_mousex * SCREEN_WIDTH_PIXELS / actualscreenwidth;
-        mousey = raw_mousey * SCREEN_HEIGHT_PIXELS / actualscreenheight;
-    }
-    else
-    {
-        mousex = raw_mousex;
-        mousey = raw_mousey;
-    }
+    mousex = (raw_mousex - rect.x) * SCREEN_WIDTH_PIXELS / rect.w;
+    mousey = (raw_mousey - rect.y) * SCREEN_HEIGHT_PIXELS / rect.h;
 
     active_input_device_changed = keyboard_was_active != BUTTONGLYPHS_keyboard_is_active();
     should_recompute_textboxes |= active_input_device_changed;
