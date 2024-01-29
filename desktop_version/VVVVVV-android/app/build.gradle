@@ -88,6 +88,9 @@ def zipRepoAssetsTask = tasks.register("zipRepoAssets", Zip) {
     from('../../lang') { spec ->
         spec.into('lang')
     }
+    from('../../touch') { spec ->
+        spec.into('graphics')
+    }
     archiveFileName.set('repo.zip')
     destinationDirectory.value(layout.buildDirectory.dir("generated/main/assets"))
 }

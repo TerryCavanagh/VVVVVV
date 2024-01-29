@@ -64,6 +64,7 @@ namespace Menu
         audiooptions,
         accessibility,
         controller,
+        touch_input,
         language,
         translator_main,
         translator_options,
