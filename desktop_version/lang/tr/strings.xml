@@ -785,6 +785,9 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ukraynaca" explanation=""/>
     <string english="Chinese (Simplified)" translation="Basitlestirilmis Çince" explanation=""/>
     <string english="Chinese (Traditional)" translation="Geleneksel Çince" explanation=""/>
+    <string english="Spanish (ES)" translation="Ispanyolca" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Ispanyolca" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Ispanyolca" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

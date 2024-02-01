@@ -785,6 +785,9 @@ Rwyt ti wedi dod o hyd i&apos;r labordy cyfrinachol!" explanation="" max="34*4"/
     <string english="Ukrainian" translation="Wcraineg" explanation=""/>
     <string english="Chinese (Simplified)" translation="Tsieineeg (Syml)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Tsieineeg (Traddodiadol)" explanation=""/>
+    <string english="Spanish (ES)" translation="Sbaeneg" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Sbaeneg" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Sbaeneg" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

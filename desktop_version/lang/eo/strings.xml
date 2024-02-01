@@ -785,6 +785,9 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ukrainen" explanation=""/>
     <string english="Chinese (Simplified)" translation="Ĉinen (simpligite)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Ĉinen (tradicie)" explanation=""/>
+    <string english="Spanish (ES)" translation="Hispanen" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Hispanen" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Hispanen" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

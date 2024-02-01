@@ -785,6 +785,9 @@ Encontraste o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ucraniano" explanation=""/>
     <string english="Chinese (Simplified)" translation="Mandarim (simplificado)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Mandarim (tradicional)" explanation=""/>
+    <string english="Spanish (ES)" translation="Castelhano" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Spanish (LATAM)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Spanish (ARG.)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

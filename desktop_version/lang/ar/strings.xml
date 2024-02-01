@@ -793,6 +793,9 @@ You have found the secret lab!" translation="تهانينا!
     <string english="Ukrainian" translation="الأوكرانية" explanation=""/>
     <string english="Chinese (Simplified)" translation="الصينية المبسطة" explanation=""/>
     <string english="Chinese (Traditional)" translation="الصينية التقليدية" explanation=""/>
+    <string english="Spanish (ES)" translation="الإسبانية" explanation=""/>
+    <string english="Spanish (LATAM)" translation="الإسبانية" explanation=""/>
+    <string english="Spanish (ARG.)" translation="الإسبانية" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

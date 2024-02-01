@@ -781,6 +781,9 @@ You have found the secret lab!" translation="Winszujymy!" explanation="" max="34
     <string english="Ukrainian" translation="gŏdka ukraińsko" explanation=""/>
     <string english="Chinese (Simplified)" translation="gŏdka chińsko leko" explanation=""/>
     <string english="Chinese (Traditional)" translation="gŏdka chińsko tradycyjno" explanation=""/>
+    <string english="Spanish (ES)" translation="gŏdka hiszpańsko" explanation=""/>
+    <string english="Spanish (LATAM)" translation="gŏdka hiszpańsko" explanation=""/>
+    <string english="Spanish (ARG.)" translation="gŏdka hiszpańsko" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

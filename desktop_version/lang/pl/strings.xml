@@ -785,6 +785,9 @@ Znaleziono tajne laboratorium!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="ukrainski" explanation=""/>
     <string english="Chinese (Simplified)" translation="chinski (uproszczony)" explanation=""/>
     <string english="Chinese (Traditional)" translation="chinski (tradycyjny)" explanation=""/>
+    <string english="Spanish (ES)" translation="hiszpanski" explanation=""/>
+    <string english="Spanish (LATAM)" translation="hiszpanski" explanation=""/>
+    <string english="Spanish (ARG.)" translation="hiszpanski" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

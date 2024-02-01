@@ -785,6 +785,9 @@ Du hast das Geheimlabor gefunden!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ukrainisch" explanation=""/>
     <string english="Chinese (Simplified)" translation="Chinesisch (Vereinfacht)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Chinesisch (traditionell)" explanation=""/>
+    <string english="Spanish (ES)" translation="Spanisch" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Spanisch" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Spanisch" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

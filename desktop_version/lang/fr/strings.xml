@@ -785,6 +785,9 @@ Vous avez trouvé le labo secret !" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ukrainien" explanation=""/>
     <string english="Chinese (Simplified)" translation="Chinois (simplifié)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Chinois (traditionnel)" explanation=""/>
+    <string english="Spanish (ES)" translation="Espagnol" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Espagnol" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Espagnol" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

@@ -786,6 +786,9 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Oekraïens" explanation=""/>
     <string english="Chinese (Simplified)" translation="Chinees (vereenvoudigd)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Chinees (traditioneel)" explanation=""/>
+    <string english="Spanish (ES)" translation="Spaans" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Spaans" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Spaans" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

@@ -851,6 +851,9 @@ You have found the secret lab!" translation="よくやった!
     <string english="Ukrainian" translation="ウクライナ語" explanation=""/>
     <string english="Chinese (Simplified)" translation="中国語 (簡体字)" explanation=""/>
     <string english="Chinese (Traditional)" translation="中国語 (繁体字)" explanation=""/>
+    <string english="Spanish (ES)" translation="スペイン語" explanation=""/>
+    <string english="Spanish (LATAM)" translation="スペイン語" explanation=""/>
+    <string english="Spanish (ARG.)" translation="スペイン語" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

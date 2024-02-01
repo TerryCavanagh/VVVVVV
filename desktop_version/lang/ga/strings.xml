@@ -787,6 +787,9 @@ Fuair tú an tsaotharlann rúnda!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Úcráinis" explanation=""/>
     <string english="Chinese (Simplified)" translation="Sínis (Shimplithe)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Sínis (Thraidisiúnta)" explanation=""/>
+    <string english="Spanish (ES)" translation="Spáinnis" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Spáinnis" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Spáinnis" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
