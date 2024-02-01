@@ -698,6 +698,7 @@ void Game::levelcomplete_textbox(void)
     graphics.textboxprintflags(PR_FONT_8X8);
     graphics.textboxcenterx();
     graphics.setimage(TEXTIMAGE_LEVELCOMPLETE);
+    graphics.setlinegap(0);
 }
 
 void Game::crewmate_textbox(const int color)
@@ -727,6 +728,7 @@ void Game::crewmate_textbox(const int color)
     graphics.textboxpad(SDL_ceilf(5/spaces_per_8), SDL_ceilf(2/spaces_per_8));
     graphics.textboxcenterx();
     graphics.addsprite(14, 12 + extra_cjk_height/2, 0, color);
+    graphics.setlinegap(0);
 }
 
 void Game::remaining_textbox(void)
@@ -2897,6 +2899,7 @@ void Game::updatestate(void)
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             graphics.setimage(TEXTIMAGE_GAMECOMPLETE);
+            graphics.setlinegap(0);
             break;
         case 3502:
         {
