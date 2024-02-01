@@ -1506,6 +1506,12 @@ void Graphics::textboxadjust(void)
     textboxes[m].adjust();
 }
 
+void Graphics::setlinegap(int customvalue)
+{
+    textboxes[m].linegap = customvalue;
+    textboxes[m].resize();
+}
+
 int Graphics::getlinegap(void) 
 {
     // Don't use linegaps in custom levels, for now anyway
