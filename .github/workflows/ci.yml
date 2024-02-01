@@ -125,7 +125,7 @@ jobs:
     - if: ${{ steps.cache-windows-sdl.outputs.cache-hit != 'true' }}
       name: Download SDL if not cached
       run: |
-        Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -o C:\SDL.zip
+        Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -OutFile C:\SDL.zip
         Expand-Archive C:\SDL.zip -DestinationPath C:\
 
     - name: Cache build folder for this CMakeLists.txt
