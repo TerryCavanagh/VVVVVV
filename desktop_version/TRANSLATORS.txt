@@ -17,9 +17,17 @@ German:
 Esperanto:
  - Reese Rivers
 
-Spanish:
+Spanish (ES):
  - Felipe Mercader
  - Sara Marín
+
+Spanish (LATAM):
+ - LocQuest
+ - Guido Di Carlo
+
+Spanish (ARG.):
+ - LocQuest
+ - Guido Di Carlo
 
 French:
  - Words of Magic

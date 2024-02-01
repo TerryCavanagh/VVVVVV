@@ -19,9 +19,15 @@ static const char* translators[] = {
     " Thomas Faust",
     "Esperanto",
     " Reese Rivers",
-    "Spanish",
+    "Spanish (ES)",
     " Felipe Mercader",
     " Sara Marín",
+    "Spanish (LATAM)",
+    " LocQuest",
+    " Guido Di Carlo",
+    "Spanish (ARG.)",
+    " LocQuest",
+    " Guido Di Carlo",
     "French",
     " Words of Magic",
     "Irish",
@@ -64,7 +70,7 @@ static const char* translators[] = {
 };
 
 /* Hardcoded pagesizes for the translator credits. Simplifies paging backwards and forwards */
-static const int translator_pagesize[] = { 8, 9, 10, 10, 9, 8 };
+static const int translator_pagesize[] = { 6, 6, 9, 12, 10, 9, 8 };
 
 /* Terry's Patrons... */
 static const char* superpatrons[] = {
