@@ -91,8 +91,8 @@
     <string english="You must be in windowed mode to use this option." translation="ウィンドウモード専用の設定項目です。" explanation="The game cannot be in fullscreen to resize the window" max="38*2" max_local="38*1"/>
     <string english="toggle filter" translation="フィルター" explanation="menu option"/>
     <string english="Toggle Filter" translation="フィルター" explanation="title" max="20" max_local="20"/>
-    <string english="Change to nearest/linear filter." translation="バイニリアまたはニアレストネイバーに変更する。" explanation="" max="38*3" max_local="38*2"/>
-    <string english="Current mode: LINEAR" translation="現在の設定: バイニリア" explanation="" max="38*2" max_local="38*1"/>
+    <string english="Change to nearest/linear filter." translation="バイリニアまたはニアレストネイバーに変更する。" explanation="" max="38*3" max_local="38*2"/>
+    <string english="Current mode: LINEAR" translation="現在の設定: バイリニア" explanation="" max="38*2" max_local="38*1"/>
     <string english="Current mode: NEAREST" translation="現在の設定: ニアレストネイバー" explanation="nearest neighbor filter" max="38*2" max_local="38*1"/>
     <string english="toggle analogue" translation="アナログ風" explanation="menu option, analogue mode simulates distortion from bad signal"/>
     <string english="Analogue Mode" translation="アナログ風モード" explanation="title, analogue mode simulates distortion from bad signal" max="20" max_local="20"/>
