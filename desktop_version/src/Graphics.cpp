@@ -1508,6 +1508,12 @@ void Graphics::textboxadjust(void)
 
 void Graphics::setlinegap(int customvalue)
 {
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("setlinegap() out-of-bounds!");
+        return;
+    }
+
     textboxes[m].linegap = customvalue;
     textboxes[m].resize();
 }
