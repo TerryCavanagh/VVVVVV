@@ -272,10 +272,20 @@ static void menurender(void)
                 );
                 uint32_t title_flags = cl.ListOfMetaData[tmp].title_is_gettext ? PR_FONT_INTERFACE : level_flags;
                 uint32_t creator_flags = cl.ListOfMetaData[tmp].creator_is_gettext ? PR_FONT_INTERFACE : level_flags;
+                const char* title = cl.ListOfMetaData[tmp].title.c_str();
+                if (cl.ListOfMetaData[tmp].title_is_gettext)
+                {
+                    title = loc::gettext(title);
+                }
+                const char* creator = cl.ListOfMetaData[tmp].creator.c_str();
+                if (cl.ListOfMetaData[tmp].creator_is_gettext)
+                {
+                    creator = loc::gettext(creator);
+                }
 
-                font::print(title_flags | PR_2X | PR_CEN, -1, 15, cl.ListOfMetaData[tmp].title, tr, tg, tb);
+                font::print(title_flags | PR_2X | PR_CEN, -1, 15, title, tr, tg, tb);
                 int sp = SDL_max(10, font::height(level_flags));
-                graphics.print_level_creator(creator_flags, 40, cl.ListOfMetaData[tmp].creator, tr, tg, tb);
+                graphics.print_level_creator(creator_flags, 40, creator, tr, tg, tb);
                 font::print(level_flags | PR_CEN, -1, 40+sp, cl.ListOfMetaData[tmp].website, tr, tg, tb);
                 font::print(level_flags | PR_CEN, -1, 40+sp*3, cl.ListOfMetaData[tmp].Desc1, tr, tg, tb);
                 font::print(level_flags | PR_CEN, -1, 40+sp*4, cl.ListOfMetaData[tmp].Desc2, tr, tg, tb);

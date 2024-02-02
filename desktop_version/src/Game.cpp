@@ -6638,6 +6638,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                         prefix = "";
                         break;
                     }
+                    const char* title = cl.ListOfMetaData[i].title.c_str();
+                    if (cl.ListOfMetaData[i].title_is_gettext)
+                    {
+                        title = loc::gettext(title);
+                    }
                     /* We have to make sure the stars and spaces are consistently on the
                      * correct side of the title, no matter what bidi characters are in there.
                      * So just always let the bidi engine handle it, with a few control chars. */
@@ -6650,7 +6655,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                         prefix,
                         // FIRST STRONG ISOLATE, to start an isolated block oriented however bidi sees fit
                         UTF8_encode(0x2068).bytes,
-                        cl.ListOfMetaData[i].title.c_str(),
+                        title,
                         // POP DIRECTIONAL ISOLATE, exit isolated level title
                         UTF8_encode(0x2069).bytes
                     );
