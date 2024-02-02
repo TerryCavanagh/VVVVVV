@@ -340,9 +340,9 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="Currently ENABLED!" translation="現在の設定: ON" explanation="flip mode" max="38*3" max_local="38*2"/>
     <string english="Currently Disabled." translation="現在の設定: OFF" explanation="flip mode" max="38*3" max_local="38*2"/>
     <string english="TO UNLOCK: Complete the game." translation="解除方法: ストーリーをクリア" explanation="" max="38*3" max_local="38*2"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39" max_local="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39" max_local="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Invincibility mode enabled" translation="無敵モードでプレイ中" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="バグ有モードでプレイ中 ({version})" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Flip Mode enabled" translation="反転モードでプレイ中" explanation="in-game message" max="39" max_local="39"/>
     <string english="Are you sure you want to quit?" translation="ゲームを終了しますか?" explanation="quit the program" max="38*4" max_local="38*3"/>
     <string english="GAME OVER" translation="GAME OVER" explanation="bigger title" max="13" max_local="13"/>
     <string english="You managed to reach:" translation="たどり着いた部屋:" explanation="you managed to reach the following room" max="40" max_local="40"/>
@@ -470,8 +470,8 @@ Steam Deckには対応していません。" explanation="" max="38*5" max_local
     <string english="[Press {button} to return to editor]" translation="[ {button} でエディターに戻る ]" explanation="`to editor` is sorta redundant" max="40" max_local="40"/>
     <string english="- Press {button} to advance text -" translation="- {button} を押して進む -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="40"/>
     <string english="Press {button} to continue" translation="{button} を押して完了" explanation="Expect `ACTION`" max="34" max_local="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[{button}を押してゲームの進行を再開]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[{button}を押してゲームの進行を停止]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
     <string english="Current Time" translation="今回のタイム" explanation="super gravitron, stopwatch time" max="20" max_local="20"/>
     <string english="Best Time" translation="ベストタイム" explanation="super gravitron, best stopwatch time" max="20" max_local="20"/>
     <string english="Next Trophy at 5 seconds" translation="5秒で次のトロフィー" explanation="" max="38*2" max_local="38*1"/>
@@ -852,9 +852,9 @@ You have found the secret lab!" translation="よくやった!
     <string english="Ukrainian" translation="ウクライナ語" explanation=""/>
     <string english="Chinese (Simplified)" translation="中国語 (簡体字)" explanation=""/>
     <string english="Chinese (Traditional)" translation="中国語 (繁体字)" explanation=""/>
-    <string english="Spanish (ES)" translation="スペイン語" explanation=""/>
-    <string english="Spanish (LATAM)" translation="スペイン語" explanation=""/>
-    <string english="Spanish (ARG.)" translation="スペイン語" explanation=""/>
+    <string english="Spanish (ES)" translation="スペイン語 (ES)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="スペイン語 (LATAM)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="スペイン語 (ARG.)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
