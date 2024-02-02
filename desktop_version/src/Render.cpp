@@ -578,7 +578,12 @@ static void menurender(void)
 
         for (int i = startidx; i < endidx; ++i)
         {
-            if (Credits::translators[i][0] != ' ')
+            if (Credits::translators[i][0] == '>')
+            {
+                yofs += 2;
+                font::print(PR_CJK_HIGH, 88, yofs, loc::gettext(&Credits::translators[i][1]), tr, tg, tb);
+            } 
+            else if (Credits::translators[i][0] != ' ')
             {
                 yofs += 5;
                 font::print(PR_CJK_HIGH, 80, yofs, loc::gettext(Credits::translators[i]), tr, tg, tb);

@@ -58,8 +58,12 @@ Polish:
  - Kuba Kallus
 
 Brazilian Portuguese:
- - Lucas Araujo
- - Thiago Araujo
+ Translators:
+   - Lucas Araujo
+   - Thiago Araujo
+ Editing and LQA:
+   - Ivan Lopes
+   - Lucas Nunes
 
 European Portuguese:
  - Locsmiths

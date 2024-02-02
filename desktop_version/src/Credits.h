@@ -51,8 +51,12 @@ static const char* translators[] = {
     "Polish",
     " Kuba Kallus",
     "Brazilian Portuguese",
-    " Lucas Araujo",
-    " Thiago Araujo",
+    ">Translators",
+    "   Lucas Araujo",
+    "   Thiago Araujo",
+    ">Editing and LQA",
+    "   Ivan Lopes",
+    "   Lucas Nunes",
     "European Portuguese",
     " Locsmiths",
     "Russian",
@@ -70,7 +74,7 @@ static const char* translators[] = {
 };
 
 /* Hardcoded pagesizes for the translator credits. Simplifies paging backwards and forwards */
-static const int translator_pagesize[] = { 6, 6, 9, 12, 10, 9, 8 };
+static const int translator_pagesize[] = { 6, 6, 9, 12, 10, 11, 10 };
 
 /* Terry's Patrons... */
 static const char* superpatrons[] = {
