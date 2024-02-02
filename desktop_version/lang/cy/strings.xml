@@ -764,6 +764,7 @@ Rwyt ti wedi dod o hyd i&apos;r labordy cyfrinachol!" explanation="" max="34*4"/
     <string english="Pan-European Font Design by" translation="Dyluniad Ffont Pan-Ewropeaidd gan" explanation="" max="40"/>
     <string english="Fonts by" translation="Ffontiau gan" explanation=""/>
     <string english="Other Fonts by" translation="Ffontiau Eraill gan" explanation=""/>
+    <string english="Editing and LQA" translation="a diolch hefyd i:" explanation=""/>
     <string english="Arabic" translation="Arabeg" explanation=""/>
     <string english="Catalan" translation="Catalaneg" explanation=""/>
     <string english="Welsh" translation="Cymraeg" explanation=""/>

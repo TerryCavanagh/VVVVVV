@@ -766,6 +766,7 @@ Fuair tú an tsaotharlann rúnda!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Cló Pan-Eorpach le" explanation="" max="40"/>
     <string english="Fonts by" translation="Clónna le" explanation=""/>
     <string english="Other Fonts by" translation="Clónna eile le" explanation=""/>
+    <string english="Editing and LQA" translation="agus buíochas..." explanation=""/>
     <string english="Arabic" translation="Araibis" explanation=""/>
     <string english="Catalan" translation="Catalóinis" explanation=""/>
     <string english="Welsh" translation="Breatnais" explanation=""/>

@@ -764,6 +764,7 @@ Encontraste o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Tipo de letra Pan-European criado por" explanation="" max="40"/>
     <string english="Fonts by" translation="Tipos de letra por" explanation=""/>
     <string english="Other Fonts by" translation="Tipos de letra adicionais por" explanation=""/>
+    <string english="Editing and LQA" translation="agradecemos também a:" explanation=""/>
     <string english="Arabic" translation="Árabe" explanation=""/>
     <string english="Catalan" translation="Catalão" explanation=""/>
     <string english="Welsh" translation="Galês" explanation=""/>

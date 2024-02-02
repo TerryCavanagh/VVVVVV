@@ -764,6 +764,7 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Tuteŭropan tiparon desegnis" explanation="" max="40"/>
     <string english="Fonts by" translation="Tiparoj de" explanation=""/>
     <string english="Other Fonts by" translation="Aliaj tiparoj de" explanation=""/>
+    <string english="Editing and LQA" translation="kaj ankaŭ de" explanation=""/>
     <string english="Arabic" translation="Araben" explanation=""/>
     <string english="Catalan" translation="Katalunen" explanation=""/>
     <string english="Welsh" translation="Kimren" explanation=""/>

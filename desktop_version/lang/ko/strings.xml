@@ -764,6 +764,7 @@ You have found the secret lab!" translation="축하합니다!
     <string english="Pan-European Font Design by" translation="범유럽 폰트 디자인" explanation="" max="40" max_local="32"/>
     <string english="Fonts by" translation="폰트" explanation=""/>
     <string english="Other Fonts by" translation="기타 폰트" explanation=""/>
+    <string english="Editing and LQA" translation="그리고" explanation=""/>
     <string english="Arabic" translation="아랍어" explanation=""/>
     <string english="Catalan" translation="카탈루냐어" explanation=""/>
     <string english="Welsh" translation="웨일스어" explanation=""/>

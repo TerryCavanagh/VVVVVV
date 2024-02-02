@@ -764,6 +764,7 @@ Znaleziono tajne laboratorium!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Design Pan-Europejskiej Czcionki" explanation="" max="40"/>
     <string english="Fonts by" translation="Czcionki" explanation=""/>
     <string english="Other Fonts by" translation="Inne czcionki" explanation=""/>
+    <string english="Editing and LQA" translation="a także" explanation=""/>
     <string english="Arabic" translation="arabski" explanation=""/>
     <string english="Catalan" translation="katalonski" explanation=""/>
     <string english="Welsh" translation="walijski" explanation=""/>

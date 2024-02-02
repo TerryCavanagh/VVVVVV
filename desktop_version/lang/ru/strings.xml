@@ -789,6 +789,7 @@ You have found the secret lab!" translation="Поздравляем!
     <string english="Pan-European Font Design by" translation="Общеевропейский шрифт от" explanation="" max="40"/>
     <string english="Fonts by" translation="Шрифты от" explanation=""/>
     <string english="Other Fonts by" translation="Другие шрифты от" explanation=""/>
+    <string english="Editing and LQA" translation="а также" explanation=""/>
     <string english="Arabic" translation="Арабский" explanation=""/>
     <string english="Catalan" translation="Каталанский" explanation=""/>
     <string english="Welsh" translation="Валлийский" explanation=""/>
