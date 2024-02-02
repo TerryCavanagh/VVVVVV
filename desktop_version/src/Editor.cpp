@@ -544,13 +544,31 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            bool title_is_gettext;
-            std::string title = translate_title(cl.title, &title_is_gettext);
+            const char* title = cl.title.c_str();
+            const bool title_is_gettext = translate_title(cl.title);
+            if (title_is_gettext)
+            {
+                title = loc::gettext(title);
+            }
             font::print(PR_2X | PR_CEN | (title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), -1, 35, title, tr, tg, tb);
         }
 
-        bool creator_is_gettext = false;
-        std::string creator = (ed.current_text_mode == TEXT_CREATOR) ? input_text : translate_creator(cl.creator, &creator_is_gettext);
+        bool creator_is_gettext;
+        const char* creator;
+        if (ed.current_text_mode == TEXT_CREATOR)
+        {
+            creator_is_gettext = false;
+            creator = input_text.c_str();
+        }
+        else
+        {
+            creator_is_gettext = translate_creator(cl.creator);
+            creator = cl.creator.c_str();
+        }
+        if (creator_is_gettext)
+        {
+            creator = loc::gettext(creator);
+        }
 
         int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
         graphics.print_level_creator((creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), 60, creator, tr, tg, tb);
@@ -2653,8 +2671,7 @@ static void editormenuactionpress(void)
         {
         case 0:
         {
-            bool title_is_gettext;
-            translate_title(cl.title, &title_is_gettext);
+            const bool title_is_gettext = translate_title(cl.title);
 
             ed.current_text_mode = TEXT_TITLE;
             ed.substate = EditorSubState_MENU_INPUT;
@@ -2673,8 +2690,7 @@ static void editormenuactionpress(void)
         }
         case 1:
         {
-            bool creator_is_gettext;
-            translate_creator(cl.creator, &creator_is_gettext);
+            const bool creator_is_gettext = translate_creator(cl.creator);
 
             ed.current_text_mode = TEXT_CREATOR;
             ed.substate = EditorSubState_MENU_INPUT;
