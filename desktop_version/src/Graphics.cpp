@@ -1512,7 +1512,7 @@ void Graphics::setlinegap(int customvalue)
     textboxes[m].resize();
 }
 
-int Graphics::getlinegap(void) 
+int Graphics::getlinegap(void)
 {
     // Don't use linegaps in custom levels, for now anyway
     if (map.custommode) return 0;
