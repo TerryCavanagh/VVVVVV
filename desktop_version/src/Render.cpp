@@ -2052,7 +2052,12 @@ void gamecompleterender(void)
     {
         if (graphics.onscreen(creditOffset + position))
         {
-            if (Credits::translators[i][0] != ' ')
+            if (Credits::translators[i][0] == '>')
+            {
+                // Category heading, remove the > character and translate the rest
+                font::print(0, 76, creditOffset + position, loc::gettext(&Credits::translators[i][1]), tr, tg, tb);
+            }
+            else if (Credits::translators[i][0] != ' ')
             {
                 // Not prefixed with a space, so this line is the name of a language, display its localised string
                 font::print(0, 60, creditOffset + position, loc::gettext(Credits::translators[i]), tr, tg, tb);

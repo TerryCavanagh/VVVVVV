@@ -6,7 +6,7 @@
     <nativename>português (br)</nativename>
 
     <!-- English translation by X -->
-    <credit>Versão brasileira por|Lucas Araujo e Thiago Araujo</credit>
+    <credit>Lucas Araujo e Thiago Araujo|Ivan Lopes e Lucas Nunes</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
     <action_hint>Pressione Espaço, Z ou V para selecionar</action_hint>
