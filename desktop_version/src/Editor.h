@@ -220,11 +220,7 @@ public:
 
     int note_timer;
     int old_note_timer;
-    const char* note;
-    const char* note_format_string;
-    int note_platv;
-    const char* note_tileset_name;
-
+    std::string note;
     std::string keybuffer;
     std::string filename;
     std::string loaded_filepath;
