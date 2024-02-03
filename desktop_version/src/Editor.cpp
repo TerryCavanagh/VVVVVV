@@ -356,9 +356,13 @@ void editorclass::reset(void)
     help_open = false;
     shiftkey = false;
     saveandquit = false;
+
     note = "";
     note_timer = 0;
     old_note_timer = 0;
+    note_platv = 0;
+    note_tileset_name = "";
+
     backspace_held = false;
     current_text_mode = TEXT_NONE;
 
@@ -1532,8 +1536,50 @@ static void draw_note()
 
     if (ed.note_timer > 0 || ed.old_note_timer > 0)
     {
+        const char* note;
+        char buffer[3 * SCREEN_WIDTH_CHARS + 1];
+        if (SDL_strcmp(ed.note, "Loaded map: {filename}.vvvvvv") == 0
+        || SDL_strcmp(ed.note, "Saved map: {filename}.vvvvvv") == 0)
+        {
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext(ed.note), "filename:str", ed.filename.c_str()
+            );
+            note = buffer;
+        }
+        else if (SDL_strcmp(ed.note, "Platform speed is now {speed}") == 0)
+        {
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext(ed.note), "speed:int", ed.note_platv
+            );
+            note = buffer;
+        }
+        else if (SDL_strcmp(ed.note, "Mapsize is now [{width},{height}]") == 0)
+        {
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext(ed.note), "width:int, height:int",
+                cl.mapwidth, cl.mapheight
+            );
+            note = buffer;
+        }
+        else if (SDL_strcmp(ed.note, "Now using {area} Tileset") == 0)
+        {
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext(ed.note), "area:str",
+                loc::gettext(ed.note_tileset_name)
+            );
+            note = buffer;
+        }
+        else
+        {
+            note = loc::gettext(ed.note);
+        }
+
         short lines;
-        std::string wrapped = font::string_wordwrap(0, ed.note, 304, &lines);
+        std::string wrapped = font::string_wordwrap(0, note, 304, &lines);
         short textheight = 8 + (lines - 1) * SDL_max(10, font::height(0));
         short banner_y = 120 - textheight / 2 - 5;
 
@@ -2099,7 +2145,7 @@ static void input_submitted(void)
 
         if (!valid_input)
         {
-            ed.show_note(loc::gettext("ERROR: Invalid format"));
+            ed.show_note("ERROR: Invalid format");
             break;
         }
 
@@ -2113,14 +2159,11 @@ static void input_submitted(void)
         std::string loadstring = ed.filename + ".vvvvvv";
         if (cl.load(loadstring))
         {
-            // don't use filename, it has the full path
-            char buffer[3 * SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(buffer, sizeof(buffer), loc::gettext("Loaded map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
-            ed.show_note(buffer);
+            ed.show_note("Loaded map: {filename}.vvvvvv");
         }
         else
         {
-            ed.show_note(loc::gettext("ERROR: Could not load level"));
+            ed.show_note("ERROR: Could not load level");
         }
         graphics.foregrounddrawn = false;
         graphics.backgrounddrawn = false;
@@ -2132,13 +2175,11 @@ static void input_submitted(void)
         std::string savestring = ed.filename + ".vvvvvv";
         if (cl.save(savestring))
         {
-            char buffer[3 * SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(buffer, sizeof(buffer), loc::gettext("Saved map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
-            ed.show_note(buffer);
+            ed.show_note("Saved map: {filename}.vvvvvv");
         }
         else
         {
-            ed.show_note(loc::gettext("ERROR: Could not save level!"));
+            ed.show_note("ERROR: Could not save level!");
             ed.saveandquit = false;
         }
         ed.note_timer = 45;
@@ -2543,7 +2584,7 @@ void editorclass::tool_place()
         }
         else
         {
-            show_note(loc::gettext("ERROR: Max number of trinkets is 100"));
+            show_note("ERROR: Max number of trinkets is 100");
         }
         break;
     case EditorTool_CHECKPOINTS:
@@ -2617,7 +2658,7 @@ void editorclass::tool_place()
         }
         else
         {
-            show_note(loc::gettext("ERROR: Warp lines must be on edges"));
+            show_note("ERROR: Warp lines must be on edges");
         }
         lclickdelay = 1;
         break;
@@ -2629,7 +2670,7 @@ void editorclass::tool_place()
         }
         else
         {
-            show_note(loc::gettext("ERROR: Max number of crewmates is 100"));
+            show_note("ERROR: Max number of crewmates is 100");
         }
         break;
     case EditorTool_START_POINT:
@@ -2931,7 +2972,7 @@ static void start_at_checkpoint(void)
 
     if (testeditor == -1)
     {
-        ed.show_note(loc::gettext("ERROR: No checkpoint to spawn at"));
+        ed.show_note("ERROR: No checkpoint to spawn at");
     }
     else
     {
@@ -3028,13 +3069,13 @@ static void handle_draw_input()
             if (cl.getroomprop(ed.levx, ed.levy)->directmode == 1)
             {
                 cl.setroomdirectmode(ed.levx, ed.levy, 0);
-                ed.show_note(loc::gettext("Direct Mode Disabled"));
+                ed.show_note("Direct Mode Disabled");
                 ed.clamp_tilecol(ed.levx, ed.levy, true);
             }
             else
             {
                 cl.setroomdirectmode(ed.levx, ed.levy, 1);
-                ed.show_note(loc::gettext("Direct Mode Enabled"));
+                ed.show_note("Direct Mode Enabled");
             }
             graphics.backgrounddrawn = false;
 
@@ -3123,14 +3164,8 @@ static void handle_draw_input()
 
         if (plat_speed != cl.roomproperties[room].platv)
         {
-            char buffer[3 * SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(
-                buffer, sizeof(buffer),
-                loc::gettext("Platform speed is now {speed}"),
-                "speed:int",
-                cl.roomproperties[room].platv
-            );
-            ed.show_note(buffer);
+            ed.show_note("Platform speed is now {speed}");
+            ed.note_platv = cl.roomproperties[room].platv;
         }
 
         if (key.keymap[SDLK_SPACE])
@@ -3203,7 +3238,7 @@ void editorinput(void)
 
     if (key.keymap[SDLK_F9] && (ed.keydelay == 0)) {
         ed.keydelay = 30;
-        ed.show_note(loc::gettext("Reloaded resources"));
+        ed.show_note("Reloaded resources");
         graphics.reloadresources();
     }
 
@@ -3307,15 +3342,7 @@ void editorinput(void)
                     ed.levx = POS_MOD(ed.levx, cl.mapwidth);
                     ed.levy = POS_MOD(ed.levy, cl.mapheight);
 
-                    char buffer[3 * SCREEN_WIDTH_CHARS + 1];
-                    vformat_buf(
-                        buffer, sizeof(buffer),
-                        loc::gettext("Mapsize is now [{width},{height}]"),
-                        "width:int, height:int",
-                        cl.mapwidth, cl.mapheight
-                    );
-
-                    ed.show_note(buffer);
+                    ed.show_note("Mapsize is now [{width},{height}]");
                 }
                 else
                 {
@@ -4186,15 +4213,8 @@ void editorclass::switch_tileset(const bool reversed)
 
     clamp_tilecol(levx, levy, false);
 
-    char buffer[3*SCREEN_WIDTH_CHARS + 1];
-    vformat_buf(
-        buffer, sizeof(buffer),
-        loc::gettext("Now using {area} Tileset"),
-        "area:str",
-        loc::gettext(tileset_names[tiles])
-    );
-
-    show_note(buffer);
+    show_note("Now using {area} Tileset");
+    note_tileset_name = tileset_names[tiles];
 
     updatetiles = true;
 
@@ -4220,7 +4240,7 @@ void editorclass::switch_tilecol(const bool reversed)
 
     clamp_tilecol(levx, levy, true);
 
-    show_note(loc::gettext("Tileset Colour Changed"));
+    show_note("Tileset Colour Changed");
 
     updatetiles = true;
 
@@ -4268,7 +4288,7 @@ void editorclass::switch_enemy(const bool reversed)
     enemy = POS_MOD(enemy, modulus);
     cl.setroomenemytype(levx, levy, enemy);
 
-    show_note(loc::gettext("Enemy Type Changed"));
+    show_note("Enemy Type Changed");
 }
 
 void editorclass::switch_warpdir(const bool reversed)
@@ -4293,16 +4313,16 @@ void editorclass::switch_warpdir(const bool reversed)
     switch (warpdir)
     {
     default:
-        show_note(loc::gettext("Room warping disabled"));
+        show_note("Room warping disabled");
         break;
     case 1:
-        show_note(loc::gettext("Room warps horizontally"));
+        show_note("Room warps horizontally");
         break;
     case 2:
-        show_note(loc::gettext("Room warps vertically"));
+        show_note("Room warps vertically");
         break;
     case 3:
-        show_note(loc::gettext("Room warps in all directions"));
+        show_note("Room warps in all directions");
         break;
     }
 
