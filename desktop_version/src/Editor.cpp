@@ -1816,7 +1816,7 @@ void editorrender(void)
         case EditorSubState_DRAW_INPUT:
         {
             short lines;
-            std::string wrapped = font::string_wordwrap(0, ed.current_text_desc, 312, &lines);
+            std::string wrapped = font::string_wordwrap(0, loc::gettext(ed.current_text_desc.c_str()), 312, &lines);
             short textheight = font::height(0) * lines + font::height(PR_FONT_LEVEL);
 
             graphics.fill_rect(0, 238 - textheight, 320, 240, graphics.getRGB(32, 32, 32));
@@ -2481,7 +2481,7 @@ void editorclass::entity_clicked(const int index)
         break;
     case 17:
         // Roomtext
-        get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &entity->scriptname);
+        get_input_line(TEXT_ROOMTEXT, "Enter roomtext:", &entity->scriptname);
         text_entity = index;
         break;
     case 18:
@@ -2494,7 +2494,7 @@ void editorclass::entity_clicked(const int index)
         SDL_FALLTHROUGH;
     case 19:
         // Script Boxes (and terminals)
-        get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &entity->scriptname);
+        get_input_line(TEXT_SCRIPT, "Enter script name:", &entity->scriptname);
         text_entity = index;
         break;
     }
@@ -2574,13 +2574,13 @@ void editorclass::tool_place()
         lclickdelay = 1;
         text_entity = customentities.size();
         add_entity(levx, levy, tilex, tiley, 17, cl.rtl ? 1 : 0);
-        get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[text_entity].scriptname));
+        get_input_line(TEXT_ROOMTEXT, "Enter roomtext:", &(customentities[text_entity].scriptname));
         break;
     case EditorTool_TERMINALS:
         lclickdelay = 1;
         text_entity = customentities.size();
         add_entity(levx, levy, tilex, tiley, 18, 0);
-        get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[text_entity].scriptname));
+        get_input_line(TEXT_SCRIPT, "Enter script name:", &(customentities[text_entity].scriptname));
         break;
     case EditorTool_SCRIPTS:
         substate = EditorSubState_DRAW_BOX;
@@ -2772,7 +2772,7 @@ static void editormenuactionpress(void)
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.get_input_line(TEXT_LOAD, loc::gettext("Enter map filename to load:"), &(ed.filename));
+            ed.get_input_line(TEXT_LOAD, "Enter map filename to load:", &(ed.filename));
             game.mapheld = true;
             graphics.backgrounddrawn = false;
             break;
@@ -2781,7 +2781,7 @@ static void editormenuactionpress(void)
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.get_input_line(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
+            ed.get_input_line(TEXT_SAVE, "Enter map filename to save as:", &(ed.filename));
             game.mapheld = true;
             graphics.backgrounddrawn = false;
             break;
@@ -2848,7 +2848,7 @@ static void editormenuactionpress(void)
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.get_input_line(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
+            ed.get_input_line(TEXT_SAVE, "Enter map filename to save as:", &(ed.filename));
             game.mapheld = true;
             graphics.backgrounddrawn = false;
             break;
@@ -3060,13 +3060,13 @@ static void handle_draw_input()
         if (key.keymap[SDLK_e])
         {
             ed.keydelay = 6;
-            ed.get_input_line(TEXT_ROOMNAME, loc::gettext("Enter new room name:"), const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
+            ed.get_input_line(TEXT_ROOMNAME, "Enter new room name:", const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
             game.mapheld = true;
         }
         if (key.keymap[SDLK_g])
         {
             ed.keydelay = 6;
-            ed.get_input_line(TEXT_GOTOROOM, loc::gettext("Enter room coordinates x,y:"), NULL);
+            ed.get_input_line(TEXT_GOTOROOM, "Enter room coordinates x,y:", NULL);
             game.mapheld = true;
         }
 
@@ -3074,14 +3074,14 @@ static void handle_draw_input()
         if (key.keymap[SDLK_s])
         {
             ed.keydelay = 6;
-            ed.get_input_line(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
+            ed.get_input_line(TEXT_SAVE, "Enter map filename to save as:", &(ed.filename));
             game.mapheld = true;
         }
 
         if (key.keymap[SDLK_l])
         {
             ed.keydelay = 6;
-            ed.get_input_line(TEXT_LOAD, loc::gettext("Enter map filename to load:"), &(ed.filename));
+            ed.get_input_line(TEXT_LOAD, "Enter map filename to load:", &(ed.filename));
             game.mapheld = true;
         }
 
@@ -3401,7 +3401,7 @@ void editorinput(void)
 
                         ed.add_entity(ed.levx, ed.levy, left / 8, top / 8, 19, (right - left) / 8, (bottom - top) / 8);
 
-                        ed.get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.text_entity].scriptname));
+                        ed.get_input_line(TEXT_SCRIPT, "Enter script name:", &(customentities[ed.text_entity].scriptname));
                         break;
                     case BoxType_ENEMY:
                         cl.setroomenemyx1(ed.levx, ed.levy, left);
