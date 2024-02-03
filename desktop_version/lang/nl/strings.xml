@@ -765,7 +765,7 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Ontwerp pan-Europees lettertype door" explanation="" max="40"/>
     <string english="Fonts by" translation="Lettertypen door" explanation=""/>
     <string english="Other Fonts by" translation="Overige lettertypen door" explanation=""/>
-    <string english="Editing and LQA" translation="en ook met dank aan:" explanation=""/>
+    <string english="Editing and LQA" translation="Bewerking en LQA" explanation=""/>
     <string english="Arabic" translation="Arabisch" explanation=""/>
     <string english="Catalan" translation="Catalaans" explanation=""/>
     <string english="Welsh" translation="Welsh" explanation=""/>
@@ -787,9 +787,9 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Oekraïens" explanation=""/>
     <string english="Chinese (Simplified)" translation="Chinees (vereenvoudigd)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Chinees (traditioneel)" explanation=""/>
-    <string english="Spanish (ES)" translation="Spaans" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Spaans" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Spaans" explanation=""/>
+    <string english="Spanish (ES)" translation="Spaans (Spanje)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Spaans (Latijns-Amerika)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Spaans (Argentinië)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
