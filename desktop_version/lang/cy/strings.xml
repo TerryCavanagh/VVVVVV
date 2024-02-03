@@ -569,7 +569,7 @@
     <string english="PLATFORM BOUNDS: Click on the last corner" translation="FFINIAU LLWYFAN: Cliciwch ar y gornel olaf" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="Click on the first corner" translation="Cliciwch ar y gornel gyntaf" explanation="" max="39*3"/>
     <string english="Click on the last corner" translation="Cliciwch ar y gornel olaf" explanation="" max="39*3"/>
-    <string english="**** VVVVVV SCRIPT EDITOR ****" translation="****VVVVVV GOLYGYDD SGRIPT****" explanation="supposed to look like a Commodore 64 screen" max="36"/>
+    <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** VVVVVV GOLYGYDD SGRIPT ****" explanation="supposed to look like a Commodore 64 screen" max="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="ESC I DDYCHWELYD I&apos;R DDEWISLEN" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="DIM SGRIPT IDS WEDI&apos;I FFEINDIO" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
     <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="CREU SGRIPT GYDA NAILL AI&apos;R TERFYNOL NEU&apos;R OFFER BLWCH SGRIPT" explanation="Commodore 64-style script editor" max="36*5"/>
