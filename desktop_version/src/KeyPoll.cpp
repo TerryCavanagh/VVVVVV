@@ -6,6 +6,7 @@
 #include "Alloc.h"
 #include "ButtonGlyphs.h"
 #include "Constants.h"
+#include "Editor.h"
 #include "Exit.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"
@@ -188,7 +189,8 @@ bool cycle_language(bool should_recompute_textboxes)
         should_recompute_textboxes = true;
     }
 
-    if (game.gamestate == TITLEMODE)
+    if (game.gamestate == TITLEMODE
+    || (game.gamestate == EDITORMODE && ed.state == EditorState_MENU))
     {
         if (game.currentmenuname == Menu::translator_options_limitscheck)
         {
