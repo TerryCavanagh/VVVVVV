@@ -3492,8 +3492,8 @@ void Graphics::get_stretch_info(SDL_Rect* rect)
         rect->y = (height - SCREEN_HEIGHT_PIXELS * scale) / 2;
         rect->w = SCREEN_WIDTH_PIXELS * scale;
         rect->h = SCREEN_HEIGHT_PIXELS * scale;
+        break;
     }
-    break;
     case SCALING_LETTERBOX:
         if (width * SCREEN_HEIGHT_PIXELS > height * SCREEN_WIDTH_PIXELS)
         {
