@@ -675,10 +675,14 @@ You have found a shiny trinket!" translation="Winszujymy!
 Wysznupano błyskajōncy dinks!" explanation="" max="34*4"/>
     <string english="Congratulations!
 
-You have found a lost crewmate!" translation="Winszujymy!" explanation="" max="34*4"/>
+You have found a lost crewmate!" translation="Winszujymy!
+
+Wysznupano człōnka ekipy!" explanation="" max="34*4"/>
     <string english="Congratulations!
 
-You have found the secret lab!" translation="Winszujymy!" explanation="" max="34*4"/>
+You have found the secret lab!" translation="Winszujymy!
+
+Wysznupano tajne laboratoriōm!" explanation="" max="34*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="Tajne laboratoriōm to je blank inkszo tajla szpila. Poradzisz do ônego przijś nazŏd bez ôpcyjo TAJNE LABORATORIŌM w menu Grej." explanation="" max="36*10"/>
     <string english="Viridian" translation="Viridian" explanation="crewmate name (player)" max="15"/>
     <string english="Violet" translation="Violet" explanation="crewmate name" max="15"/>
