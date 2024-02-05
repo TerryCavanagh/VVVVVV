@@ -179,6 +179,25 @@ void Screen::ResizeScreen(int x, int y)
     }
 }
 
+static void constrain_to_desktop(int display_index, int* width, int* height)
+{
+    SDL_DisplayMode display_mode = {};
+    int success = SDL_GetDesktopDisplayMode(display_index, &display_mode);
+    if (success != 0)
+    {
+        vlog_error("Could not get desktop display mode: %s", SDL_GetError());
+        return;
+    }
+
+    while ((*width > display_mode.w || *height > display_mode.h)
+    && *width > SCREEN_WIDTH_PIXELS && *height > SCREEN_HEIGHT_PIXELS)
+    {
+        // We are too big, take away one multiple
+        *width -= SCREEN_WIDTH_PIXELS;
+        *height -= SCREEN_HEIGHT_PIXELS;
+    }
+}
+
 void Screen::ResizeToNearestMultiple(void)
 {
     int w, h;
@@ -228,12 +247,25 @@ void Screen::ResizeToNearestMultiple(void)
 
     if (using_width)
     {
-        ResizeScreen(final_dimension, final_dimension / 4 * 3);
+        w = final_dimension;
+        h = final_dimension / 4 * 3;
     }
     else
     {
-        ResizeScreen(final_dimension * 4 / 3, final_dimension);
+        w = final_dimension * 4 / 3;
+        h = final_dimension;
     }
+
+    windowDisplay = SDL_GetWindowDisplayIndex(m_window);
+    if (windowDisplay < 0)
+    {
+        vlog_error("Could not get display index: %s", SDL_GetError());
+        windowDisplay = 0;
+    }
+
+    constrain_to_desktop(windowDisplay, &w, &h);
+
+    ResizeScreen(w, h);
 }
 
 void Screen::GetScreenSize(int* x, int* y)
