@@ -12,15 +12,15 @@
         <translation form="0" translation="ولم نجد أي تذكار."/>
         <translation form="1" translation="ووجدت تذكارا."/>
         <translation form="2" translation="ووجدت تذكارين."/>
-        <translation form="3" translation="ووجدت {n_crew|wordy} تذكارات."/>
-        <translation form="11" translation="ووجدت {n_crew|wordy} تذكارا."/>
+        <translation form="3" translation="ووجدت {n_trinkets|wordy} تذكارات."/>
+        <translation form="11" translation="ووجدت {n_trinkets|wordy} تذكارا."/>
     </string>
     <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20" max_local="38*3">
         <translation form="0" translation="ولم نجد أي تذكار."/>
         <translation form="1" translation="ووجدت تذكارا."/>
         <translation form="2" translation="ووجدت تذكارين."/>
-        <translation form="3" translation="ووجدت {n_crew|wordy} تذكارات."/>
-        <translation form="11" translation="ووجدت {n_crew|wordy} تذكارا."/>
+        <translation form="3" translation="ووجدت {n_trinkets|wordy} تذكارات."/>
+        <translation form="11" translation="ووجدت {n_trinkets|wordy} تذكارا."/>
     </string>
     <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="38*2" var="n_crew" expect="100" max_local="38*2">
         <translation form="0" translation="لم يبق أي فرد من الطاقم"/>
@@ -40,14 +40,14 @@
         <translation form="0" translation="أصعب غرفة (بدون ميتات)"/>
         <translation form="1" translation="أصعب غرفة (ميتة واحدة)"/>
         <translation form="2" translation="أصعب غرفة (ميتتان)"/>
-        <translation form="3" translation="أصعب غرفة ({n_crew|wordy2} ميتات)"/>
-        <translation form="11" translation="أصعب غرفة ({n_crew|wordy2} ميتة)"/>
+        <translation form="3" translation="أصعب غرفة ({n_deaths|wordy2} ميتات)"/>
+        <translation form="11" translation="أصعب غرفة ({n_deaths|wordy2} ميتة)"/>
     </string>
     <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48" max_local="38*4">
         <translation form="0" translation="لم يبق أي اسم غرفة لم يترجم"/>
         <translation form="1" translation="اسم غرفة عادي لم يترجم"/>
         <translation form="2" translation="اسما غرفتين عادينين لم يترجما"/>
-        <translation form="3" translation="لم يترجم {n_crew|wordy} أسماء لغرف عادية"/>
-        <translation form="11" translation="لم يترجم {n_crew|wordy} اسم لغرف عادية"/>
+        <translation form="3" translation="لم يترجم {n|wordy} أسماء لغرف عادية"/>
+        <translation form="11" translation="لم يترجم {n|wordy} اسم لغرف عادية"/>
     </string>
 </strings_plural>
