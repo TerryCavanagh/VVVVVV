@@ -548,35 +548,35 @@
         <dialogue speaker="blue" english="Any idea what it does?" translation="¿Sabés para qué sirve?"/>
         <dialogue speaker="player" english="Sorry, I don&apos;t know!" translation="La verdad que ni idea, perdón."/>
         <dialogue speaker="player" english="They seem important, though..." translation="Pero parecen importantes, eh..."/>
-        <dialogue speaker="player" english="Maybe something will happen if we find them all?" translation="A lo mejor pasa algo si las encontramos todas."/>
+        <dialogue speaker="player" english="Maybe something will happen if we find them all?" translation="A lo mejor pasa algo si los encontramos todos."/>
     </cutscene>
     <cutscene id="talkblue_trinket2" explanation="">
         <dialogue speaker="blue" english="Captain! Come have a look at what I&apos;ve been working on!" translation="Comandante, ¡vení a ver lo que estuve haciendo!"/>
         <dialogue speaker="blue" english="It looks like these shiny things are giving off a strange energy reading!" translation="¡Parece que estos cositos brillantes emiten una energía rara!"/>
-        <dialogue speaker="blue" english="So I analysed it..." translation="Así que las analicé..."/>
+        <dialogue speaker="blue" english="So I analysed it..." translation="Así que los analicé..."/>
     </cutscene>
     <cutscene id="talkblue_trinket3" explanation="">
         <dialogue speaker="blue" english="Captain! Come have a look at what I&apos;ve been working on!" translation="Comandante, ¡vení a ver lo que estuve haciendo!"/>
         <dialogue speaker="blue" english="I found this in that lab..." translation="Encontré esto en el laboratorio aquel..."/>
         <dialogue speaker="blue" english="It seemed to be giving off a weird energy reading..." translation="Parecía emitir una energía un poco rara..."/>
-        <dialogue speaker="blue" english="So I analysed it..." translation="Así que las analicé..."/>
+        <dialogue speaker="blue" english="So I analysed it..." translation="Así que lo analicé..."/>
     </cutscene>
     <cutscene id="talkblue_trinket4" explanation="">
         <dialogue speaker="blue" english="...and I was able to find more of them with the ship&apos;s scanner!" translation="¡Y encontré más con el escáner de la nave!"/>
-        <dialogue speaker="blue" english="If you get a chance, it might be worth finding the rest of them!" translation="Si se presenta la oportunidad, ¡capaz que valga la pena encontrar las demás!"/>
+        <dialogue speaker="blue" english="If you get a chance, it might be worth finding the rest of them!" translation="Si se presenta la oportunidad, ¡capaz que valga la pena encontrar los demás!"/>
         <dialogue speaker="blue" english="Don&apos;t put yourself in any danger, though!" translation="Pero no te pongas en peligro."/>
     </cutscene>
     <cutscene id="talkblue_trinket5" explanation="">
-        <dialogue speaker="blue" english="...but it looks like you&apos;ve already found all of them in this dimension!" translation="¡Pero parece que ya encontraste todas las de esta dimensión!"/>
+        <dialogue speaker="blue" english="...but it looks like you&apos;ve already found all of them in this dimension!" translation="¡Pero parece que ya encontraste todos los de esta dimensión!"/>
         <dialogue speaker="player" english="Oh? Really?" translation="¿Ah, sí? ¿En serio?"/>
         <dialogue speaker="blue" english="Yeah, well done! That can&apos;t have been easy!" translation="Sí, ¡buen trabajo! No debe haber sido fácil."/>
     </cutscene>
     <cutscene id="talkblue_trinket6" explanation="">
-        <dialogue speaker="blue" english="...and they&apos;re related. They&apos;re all a part of something bigger!" translation="Y están relacionadas. ¡Forman parte de algo más grande!"/>
+        <dialogue speaker="blue" english="...and they&apos;re related. They&apos;re all a part of something bigger!" translation="Y están relacionados. ¡Forman parte de algo más grande!"/>
         <dialogue speaker="player" english="Oh? Really?" translation="¿Ah, sí? ¿En serio?"/>
         <dialogue speaker="blue" english="Yeah! There seem to be twenty variations of the fundamental energy signature..." translation="¡Sí! Parece que hay veinte variantes de esta energía fundamental..."/>
         <dialogue speaker="blue" english="Wait..." translation="Pará un cachito..."/>
-        <dialogue speaker="blue" english="Does that mean you&apos;ve found all of them?" translation="¿Eso significa que las encontraste todas?"/>
+        <dialogue speaker="blue" english="Does that mean you&apos;ve found all of them?" translation="¿Eso significa que los encontraste todos?"/>
     </cutscene>
     <cutscene id="talkyellow_1" explanation="">
         <dialogue speaker="yellow" english="I&apos;m making some fascinating discoveries, captain!" translation="¡Estoy descubriendo cosas alucinantes, comandante!"/>

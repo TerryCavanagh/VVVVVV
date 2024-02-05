@@ -79,7 +79,7 @@
     <cutscene id="talkpurple_intro" explanation="">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Siento que me gana el agobio, doctora."/>
         <dialogue speaker="player" english="Where do I begin?" translation="¿Por dónde empiezo?"/>
-        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="¡Recuerda que puedes oprimir {b_map} para comprobar tu posición en el mapa!" buttons="1"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="¡Recuerda que puedes pulsar {b_map} para comprobar tu posición en el mapa!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Busca lugares donde pueda estar el resto de la tripulación..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Si te pierdes, puedes volver a la nave desde cualquier teletransportador."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="Y no te preocupes, ¡encontraremos a todo el mundo!"/>

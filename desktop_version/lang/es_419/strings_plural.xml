@@ -6,11 +6,11 @@
         <translation form="1" translation="Rescataste a un tripulante"/>
     </string>
     <string english_plural="and found {n_trinkets|wordy} trinkets." english_singular="and found {n_trinkets|wordy} trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2" var="n_trinkets" expect="20">
-        <translation form="0" translation="y encontraste {n_trinkets|wordy} baratijas."/>
+        <translation form="0" translation="y encontraste {n_trinkets|wordy2} baratijas."/>
         <translation form="1" translation="y encontraste una baratija."/>
     </string>
     <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20">
-        <translation form="0" translation="Y encontraste {n_trinkets|wordy} baratijas."/>
+        <translation form="0" translation="Y encontraste {n_trinkets|wordy2} baratijas."/>
         <translation form="1" translation="Y encontraste una baratija."/>
     </string>
     <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="38*2" var="n_crew" expect="100">

@@ -4,8 +4,8 @@
     <string english="LOADING... {percent|digits=2|spaces}%" translation="CARGANDO... {percent|digits=2|spaces}%" explanation="on loading screen. {percent} = number from 0-100" max="26"/>
     <string english="Game paused" translation="Partida en pausa" explanation="pause screen" max="40"/>
     <string english="[click to resume]" translation="[haz clic para continuar]" explanation="pause screen" max="40"/>
-    <string english="Press M to mute in game" translation="Oprime M para silenciar el juego" explanation="pause screen" max="40"/>
-    <string english="Press N to mute music only" translation="Oprime N para silenciar la música" explanation="pause screen" max="40"/>
+    <string english="Press M to mute in game" translation="Pulsa M para silenciar el juego" explanation="pause screen" max="40"/>
+    <string english="Press N to mute music only" translation="Pulsa N para silenciar la música" explanation="pause screen" max="40"/>
     <string english="MAKE AND PLAY EDITION" translation="EDICIÓN CREA Y JUEGA" explanation="" max="27"/>
     <string english="[MMMMMM Mod Installed]" translation="[Mod MMMMMM instalado]" explanation="" max="32"/>
     <string english="play" translation="jugar" explanation="main menu option"/>
@@ -346,9 +346,9 @@
     <string english=" / " translation=" / " explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
     <string english="{n_trinkets}/{max_trinkets}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: 2/5"/>
     <string english="{n_trinkets} of {max_trinkets}" translation="{n_trinkets} de {max_trinkets}" explanation="ex: 2 of 5"/>
-    <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="{n_trinkets|wordy|upper} de {max_trinkets|wordy}" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34"/>
-    <string english="{savebox_n_trinkets|wordy}" translation="{savebox_n_trinkets|wordy}" explanation="trinket count in telesave/quicksave information box. You can add |upper for an uppercase letter."/>
-    <string english="{gamecomplete_n_trinkets|wordy}" translation="{gamecomplete_n_trinkets|wordy}" explanation="trinket count on Game Complete screen (after Trinkets Found:) You can add |upper for an uppercase letter."/>
+    <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="{n_trinkets|wordy2|upper} de {max_trinkets|wordy2}" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34"/>
+    <string english="{savebox_n_trinkets|wordy}" translation="{savebox_n_trinkets|wordy2}" explanation="trinket count in telesave/quicksave information box. You can add |upper for an uppercase letter."/>
+    <string english="{gamecomplete_n_trinkets|wordy}" translation="{gamecomplete_n_trinkets|wordy2}" explanation="trinket count on Game Complete screen (after Trinkets Found:) You can add |upper for an uppercase letter."/>
     <string english="+1 Rank!" translation="¡+1 rango!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
     <string english="Rank:" translation="Rango:" explanation="time trial rank" max="9"/>
     <string english="B" translation="B" explanation="time trial rank" max="5"/>
@@ -431,11 +431,11 @@
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Para instalar niveles personalizados, copia los archivos .vvvvvv en la carpeta &quot;levels&quot;." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="¿Confirmas que quieres mostrar la ruta de los niveles? Esta opción podría revelar información delicada si estás transmitiendo en directo." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="La ruta de los niveles es:" explanation="" max="40"/>
-    <string english="[ Press {button} to Start ]" translation="[ Oprime {button} para empezar ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
+    <string english="[ Press {button} to Start ]" translation="[ Pulsa {button} para empezar ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="ACCIÓN = Espacio, Z o V" explanation="title screen" max="38*3"/>
-    <string english="[Press {button} to return to editor]" translation="[Oprime {button} para volver al editor]" explanation="`to editor` is sorta redundant" max="40"/>
-    <string english="- Press {button} to advance text -" translation="- Oprime {button} para avanzar el texto -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
-    <string english="Press {button} to continue" translation="Oprime {button} para continuar" explanation="Expect `ACTION`" max="34"/>
+    <string english="[Press {button} to return to editor]" translation="[Pulsa {button} para volver al editor]" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="- Press {button} to advance text -" translation="- Pulsa {button} para avanzar el texto -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="Press {button} to continue" translation="Pulsa {button} para continuar" explanation="Expect `ACTION`" max="34"/>
     <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
     <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Tiempo actual" explanation="super gravitron, stopwatch time" max="20"/>
@@ -449,7 +449,7 @@
     <string english="All Trophies collected!" translation="¡Conseguiste todos los trofeos!" explanation="" max="38*2"/>
     <string english="New Record!" translation="¡Nuevo récord!" explanation="" max="20"/>
     <string english="New Trophy!" translation="¡Nuevo trofeo!" explanation="" max="20"/>
-    <string english="[Press {button} to stop]" translation="[Oprime {button} para parar]" explanation="stop super gravitron" max="40"/>
+    <string english="[Press {button} to stop]" translation="[Pulsa {button} para parar]" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="SUPERGRAVITRÓN" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="PUNTUACIÓN MÁXIMA EN SUPERGRAVITRÓN" explanation="" max="38*4"/>
     <string english="MAP" translation="MAPA" explanation="in-game menu" max="8"/>
@@ -476,7 +476,7 @@
     <string english="ERROR: Could not save game!" translation="ERROR: ¡No se puedo guardar la partida!" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="ERROR: ¡No se pudo guardar el archivo de ajustes!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="¡Se guardó la partida guardada!" explanation="in-game menu" max="38*2"/>
-    <string english="[Press {button} to save your game]" translation="[Oprime {button} para guardar la partida]" explanation="in-game menu. Expect `ACTION`" max="40"/>
+    <string english="[Press {button} to save your game]" translation="[Pulsa {button} para guardar la partida]" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Nota: La partida se guarda automáticamente en cada teletransportador)." explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Último guardado:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="¿Volver al menú principal?" explanation="in-game menu" max="38*4"/>
@@ -493,8 +493,8 @@
     <string english="return to game" translation="volver a la partida" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="salir al menú" explanation="pause menu option" max="19"/>
     <string english="Press Left/Right to choose a Teleporter" translation="Elige teletransportador con izq./der." explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
-    <string english="Press {button} to Teleport" translation="Oprime {button} para teletransportarte" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40"/>
-    <string english="- Press {button} to Teleport -" translation="- Oprime {button} para teletransporte -" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40"/>
+    <string english="Press {button} to Teleport" translation="Pulsa {button} para teletransportarte" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40"/>
+    <string english="- Press {button} to Teleport -" translation="- Pulsa {button} para teletransporte -" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40"/>
     <string english="Press {button} to explode" translation="{button}: detonar" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
     <string english="Press {button} to talk to Violet" translation="{button}: hablar con Violeta" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to talk to Vitellary" translation="{button}: hablar con Vainilla" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
@@ -504,7 +504,7 @@
     <string english="Press {button} to activate terminal" translation="{button}: activar terminal" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="{button}: activar terminales" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="{button}: interactuar" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="- Press {button} to skip -" translation="- Oprime {button} para saltar -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
+    <string english="- Press {button} to skip -" translation="- Pulsa {button} para saltar -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
     <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
@@ -656,11 +656,11 @@
     <string english="All Crew Members Rescued!" translation="¡Toda la tripulación rescatada!" explanation="" max="32"/>
     <string english="All crewmates rescued!" translation="¡Rescataste a todos!" explanation="" max="32"/>
     <string english="Game Saved" translation="Partida guardada" explanation="" max="30"/>
-    <string english="Press arrow keys or WASD to move" translation="Oprime las teclas de dirección o WASD para moverte" explanation="" max="32*2"/>
-    <string english="Press left/right to move" translation="Oprime izq./der. para moverte" explanation="" max="32*2"/>
-    <string english="Press {button} to flip" translation="Oprime {button} para voltear a tu personaje" explanation="expect `ACTION`" max="32*3"/>
-    <string english="Press {button} to view map and quicksave" translation="Oprime {button} para ver el mapa y hacer guardado rápido" explanation="" max="32*3"/>
-    <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Si lo prefieres, puedes oprimir ARRIBA o ABAJO en lugar de ACCIÓN para voltear a tu personaje." explanation="" max="34*3"/>
+    <string english="Press arrow keys or WASD to move" translation="Pulsa las teclas de dirección o WASD para moverte" explanation="" max="32*2"/>
+    <string english="Press left/right to move" translation="Pulsa izq./der. para moverte" explanation="" max="32*2"/>
+    <string english="Press {button} to flip" translation="Pulsa {button} para voltear a tu personaje" explanation="expect `ACTION`" max="32*3"/>
+    <string english="Press {button} to view map and quicksave" translation="Pulsa {button} para ver el mapa y hacer guardado rápido" explanation="" max="32*3"/>
+    <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Si lo prefieres, puedes pulsar ARRIBA o ABAJO en lugar de ACCIÓN para voltear a tu personaje." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="¡Ayuda! ¿Alguien oye este mensaje?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="¿Verdigrís? ¿Estás ahí? ¿Estás bien?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Please help us! We&apos;ve crashed and need assistance!" translation="¡Ayúdanos! ¡Hemos chocado y necesitamos ayuda!" explanation="Violet speaking via Comms Relay" max="25*4"/>
