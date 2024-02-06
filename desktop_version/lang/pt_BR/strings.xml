@@ -318,7 +318,7 @@
     <string english="Currently Disabled." translation="Atualmente Desativado." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="PARA DESBLOQUEAR: conclua o jogo." explanation="" max="38*3"/>
     <string english="Invincibility mode enabled" translation="Modo invencível habilitado" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="Modo glitchrunner habilitado (versão: {version})" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Modo glitchrunner habilitado ({version})" explanation="in-game message" max="39"/>
     <string english="Flip Mode enabled" translation="Modo invertido habilitado" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="Quer mesmo sair?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="FIM DE JOGO" explanation="bigger title" max="13"/>

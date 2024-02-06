@@ -317,9 +317,9 @@
     <string english="Currently ENABLED!" translation="¡Está ACTIVADO!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Está DESACTIVADO." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="Para desbloquear: Completá el juego." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Modo invencible activado" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Modo con fallos activado ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Modo inversión activado" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="¿Confirmás que querés salir?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="FIN PARTIDA" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Llegaste hasta:" explanation="you managed to reach the following room" max="40"/>
@@ -436,8 +436,8 @@
     <string english="[Press {button} to return to editor]" translation="[Apretá {button} para volver al editor]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Apretá {button} para avanzar el texto -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Apretá {button} para continuar" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[Apretá {button} para destrabar el juego]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[Apretá {button} para congelar el juego]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Tiempo actual" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Mejor tiempo" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Siguiente trofeo en 5 segundos" explanation="" max="38*2"/>
@@ -765,7 +765,7 @@ You have found the secret lab!" translation="¡Felicitaciones!
     <string english="Fonts by" translation="Fuentes de" explanation=""/>
     <string english="Other Fonts by" translation="Otras fuentes de" explanation=""/>
     <string english="Editing and LQA" translation="y también gracias a:" explanation=""/>
-    <string english="Arabic" translation="" explanation=""/>
+    <string english="Arabic" translation="Árabe" explanation=""/>
     <string english="Catalan" translation="Catalán" explanation=""/>
     <string english="Welsh" translation="Galés" explanation=""/>
     <string english="German" translation="Alemán" explanation=""/>
@@ -786,9 +786,9 @@ You have found the secret lab!" translation="¡Felicitaciones!
     <string english="Ukrainian" translation="Ucraniano" explanation=""/>
     <string english="Chinese (Simplified)" translation="Chino simplificado" explanation=""/>
     <string english="Chinese (Traditional)" translation="Chino tradicional" explanation=""/>
-    <string english="Spanish (ES)" translation="Español" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Español" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Español" explanation=""/>
+    <string english="Spanish (ES)" translation="Español (ES)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Español (LATAM)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Español (Arg.)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
