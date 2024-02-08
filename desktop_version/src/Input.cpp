@@ -1142,7 +1142,7 @@ static void menuactionpress(void)
             loc::languagelist_curlang = game.currentmenuoption;
             loc::lang = loc::languagelist[game.currentmenuoption].code;
             loc::loadtext(false);
-            loc::lang_set = true;
+            loc::lang_set = loc::lang_set_current;
             graphics.grphx.init_translations();
         }
 

@@ -11,7 +11,7 @@
 namespace loc
 {
 
-bool lang_set = false;
+int lang_set = 0;
 bool pre_title_lang_menu = false;
 
 std::string lang = "en";
