@@ -674,7 +674,7 @@ int main(int argc, char *argv[])
         game.gamestate = TITLEMODE;
     if (game.slowdown == 0) game.slowdown = 30;
 
-    if (!loc::lang_set && !loc::languagelist.empty())
+    if (loc::lang_set < loc::lang_set_current && !loc::languagelist.empty())
     {
         loc::pre_title_lang_menu = true;
         game.gamestate = TITLEMODE;

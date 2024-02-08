@@ -45,7 +45,8 @@ struct TextboxFormat
     unsigned short padtowidth; // pad to X pixels (0 to disable)
 };
 
-extern bool lang_set;
+extern int lang_set;
+static const int lang_set_current = 2;
 extern bool pre_title_lang_menu;
 
 extern std::string lang;
