@@ -674,7 +674,15 @@ int main(int argc, char *argv[])
         game.gamestate = TITLEMODE;
     if (game.slowdown == 0) game.slowdown = 30;
 
-    if (loc::lang_set < loc::lang_set_current && !loc::languagelist.empty())
+    int min_lang_set = loc::lang_set_current;
+    if (baseDir != NULL)
+    {
+        /* For people who manage tons of basedirs, never re-ask
+         * the language, except in the default basedir. */
+        min_lang_set = 1;
+    }
+
+    if (loc::lang_set < min_lang_set && !loc::languagelist.empty())
     {
         loc::pre_title_lang_menu = true;
         game.gamestate = TITLEMODE;
