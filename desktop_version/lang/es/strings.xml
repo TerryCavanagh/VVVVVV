@@ -239,7 +239,7 @@
     <string english="Glitchrunner Mode" translation="Modo con fallos" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="Reactiva errores que existían en versiones anteriores del juego." explanation="glitchrunner mode" max="38*3"/>
     <string english="Glitchrunner mode is OFF" translation="Modo con fallos DESACTIVADO" explanation="" max="38*2"/>
-    <string english="Glitchrunner mode is {version}" translation="Modo con fallos activado ({version})" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
+    <string english="Glitchrunner mode is {version}" translation="Modo con fallos de {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
     <string english="Select a new glitchrunner version below." translation="Selecciona una nueva versión con fallos más abajo." explanation="" max="38*3"/>
     <string english="none" translation="ninguna" explanation="menu option, do not emulate any older version"/>
     <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
@@ -318,7 +318,7 @@
     <string english="Currently Disabled." translation="Está DESACTIVADO." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="PARA DESBLOQUEAR: Completa el juego." explanation="" max="38*3"/>
     <string english="Invincibility mode enabled" translation="Modo invencible activado" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Modo con fallos activado ({version})" explanation="in-game message" max="39"/>
     <string english="Flip Mode enabled" translation="Modo giro activado" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="¿Seguro que quieres salir?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="FIN PARTIDA" explanation="bigger title" max="13"/>
