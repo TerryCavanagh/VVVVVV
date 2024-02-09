@@ -239,7 +239,7 @@
     <string english="Glitchrunner Mode" translation="Modo con fallos" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="Reactiva errores que existían en versiones anteriores del juego." explanation="glitchrunner mode" max="38*3"/>
     <string english="Glitchrunner mode is OFF" translation="Modo con fallos DESACTIVADO" explanation="" max="38*2"/>
-    <string english="Glitchrunner mode is {version}" translation="Modo con fallos de {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
+    <string english="Glitchrunner mode is {version}" translation="Modo con fallos activado ({version})" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
     <string english="Select a new glitchrunner version below." translation="Selecciona una nueva versión con fallos más abajo." explanation="" max="38*3"/>
     <string english="none" translation="ninguna" explanation="menu option, do not emulate any older version"/>
     <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
@@ -317,9 +317,9 @@
     <string english="Currently ENABLED!" translation="¡Está ACTIVADO!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Está DESACTIVADO." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="PARA DESBLOQUEAR: Completa el juego." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Modo invencible activado" explanation="in-game message" max="39"/>
     <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Modo giro activado" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="¿Seguro que quieres salir?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="FIN PARTIDA" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Has conseguido alcanzar:" explanation="you managed to reach the following room" max="40"/>
@@ -436,8 +436,8 @@
     <string english="[Press {button} to return to editor]" translation="[Pulsa {button} para volver al editor]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Pulsa {button} para avanzar el texto -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Pulsa {button} para continuar" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[Pulsa {button} para reanudar el juego]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[Pulsa {button} para detener el juego]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Tiempo actual" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Mejor tiempo" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Siguiente trofeo en 5 segundos" explanation="" max="38*2"/>
@@ -764,7 +764,7 @@ You have found the secret lab!" translation="¡Enhorabuena!
     <string english="Pan-European Font Design by" translation="Diseño de fuente paneuropea" explanation="" max="40"/>
     <string english="Fonts by" translation="Fuentes de" explanation=""/>
     <string english="Other Fonts by" translation="Otras fuentes de" explanation=""/>
-    <string english="Editing and LQA" translation="y también gracias a:" explanation=""/>
+    <string english="Editing and LQA" translation="Revisión y LQA" explanation=""/>
     <string english="Arabic" translation="Árabe" explanation=""/>
     <string english="Catalan" translation="Catalán" explanation=""/>
     <string english="Welsh" translation="Galés" explanation=""/>
@@ -786,9 +786,9 @@ You have found the secret lab!" translation="¡Enhorabuena!
     <string english="Ukrainian" translation="Ucraniano" explanation=""/>
     <string english="Chinese (Simplified)" translation="Chino simplificado" explanation=""/>
     <string english="Chinese (Traditional)" translation="Chino tradicional" explanation=""/>
-    <string english="Spanish (ES)" translation="Español" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Español" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Español" explanation=""/>
+    <string english="Spanish (ES)" translation="Español (España)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Español (Latinoamérica)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Español (Argentina)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

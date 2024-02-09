@@ -710,7 +710,7 @@ ESTABILIZADOR DIMENSIONAL DESCONECTADO" centertext="1" pad="1"/>
         <dialogue speaker="red" english="...we can stay and explore for a little longer, but..." translation="Podemos quedarnos a explorar un poco más, pero..."/>
         <dialogue speaker="yellow" english="...eventually, it&apos;ll collapse completely." translation="al final terminará colapsando definitivamente."/>
         <dialogue speaker="green" english="There&apos;s no telling exactly how long we have here. But the ship&apos;s fixed, so..." translation="No sabemos exactamente cuánto tiempo llevamos aquí. Pero la nave está arreglada, así que..."/>
-        <dialogue speaker="blue" english="...as soon as we&apos;re ready, we can go home!" translation="En cuando estemos listos, ¡podemos volver a casa!"/>
+        <dialogue speaker="blue" english="...as soon as we&apos;re ready, we can go home!" translation="En cuanto estemos listos, ¡podemos volver a casa!"/>
         <dialogue speaker="purple" english="What now, Captain?" translation="¿Qué pasa, Capitán?"/>
         <dialogue speaker="player" english="Let&apos;s find a way to save this dimension!" translation="¡Encontremos la manera de salvar esta dimensión!"/>
         <dialogue speaker="player" english="And a way to save our home dimension too!" translation="¡Y una manera de salvar nuestra dimensión original también!"/>
