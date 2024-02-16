@@ -138,6 +138,7 @@ public:
         format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
         format.cbSize = 0;
         valid = true;
+        name = std::string(SDL_strrchr(fileName, '/') + 1);
 end:
         VVV_free(mem);
     }
@@ -170,6 +171,7 @@ end:
 
         ogg_file = mem;
         valid = true;
+        name = std::string(SDL_strrchr(fileName, '/') + 1);
     }
 
     void Dispose(void)
@@ -364,6 +366,8 @@ end:
     static FAudioSourceVoice** voices;
     static FAudioWaveFormatEx voice_formats[VVV_MAX_CHANNELS];
     static float volume;
+
+    std::string name;
 };
 FAudioSourceVoice** SoundTrack::voices = NULL;
 FAudioWaveFormatEx SoundTrack::voice_formats[VVV_MAX_CHANNELS];
@@ -727,6 +731,8 @@ musicclass::musicclass(void)
     quick_fade = true;
 
     usingmmmmmm = false;
+
+    stockSoundTracks = 0;
 }
 
 void musicclass::init(void)
@@ -772,6 +778,31 @@ void musicclass::init(void)
     soundTracks.push_back(SoundTrack( "sounds/newrecord.wav" ));
     soundTracks.push_back(SoundTrack( "sounds/trophy.wav" ));
     soundTracks.push_back(SoundTrack( "sounds/rescue.wav" ));
+    
+    stockSoundTracks = soundTracks.size();
+
+    //Here's where we find all the custom sounds in a level's assets folder
+    EnumHandle handle = {};
+    const char* item;
+    while ((item = FILESYSTEM_enumerateAssets("sounds/", &handle)) != NULL)
+    {
+        const std::string str_item = item;
+        bool match;
+        for (int j = 0; j < soundTracks.size(); j++)
+        {
+            match = (str_item == soundTracks[j].name);
+            if (match)
+            {
+                break;
+            }
+        }
+        if (!match)
+        {
+            soundTracks.push_back(SoundTrack( ("sounds/" + str_item).c_str() ));
+        }
+    }
+    FILESYSTEM_freeEnumerate(&handle);
+
 
 #ifdef VVV_COMPILEMUSIC
     binaryBlob musicWriteBlob;
@@ -1278,6 +1309,20 @@ void musicclass::playef(int t)
         return;
     }
     soundTracks[t].Play();
+}
+
+void musicclass::playef_name(std::string& t)
+{
+    for (int i = 0; i < soundTracks.size(); i++)
+    {
+        size_t lastindex = soundTracks[i].name.find_last_of('.');
+        std::string rawname = soundTracks[i].name.substr(0, lastindex);
+        if (t == rawname)
+        {
+            soundTracks[i].Play();
+            return;
+        }
+    }
 }
 
 void musicclass::pauseef(void)
