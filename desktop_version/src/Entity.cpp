@@ -123,7 +123,7 @@ void entityclass::swnenemiescol( int t )
     //change the colour of all SWN enemies to the current one
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if (entities[i].type == 23)
+        if (entities[i].type == EntityType_GRAVITRON_ENEMY)
         {
             entities[i].colour = swncolour(t);
         }
@@ -1133,7 +1133,7 @@ bool entityclass::disableentity(int t)
 
     entities[t].invis = true;
     entities[t].size = -1;
-    entities[t].type = -1;
+    entities[t].type = EntityType_INVALID;
     entities[t].rule = -1;
     entities[t].isplatform = false;
 
@@ -1252,7 +1252,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     {
         if (entities[i].invis
         && entities[i].size == -1
-        && entities[i].type == -1
+        && entities[i].type == EntityType_INVALID
         && entities[i].rule == -1
         && !entities[i].isplatform)
         {
@@ -1301,7 +1301,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     entclass& entity = *entptr;
     entity.xp = xp;
     entity.yp = yp;
-    entity.type = t;
+    entity.type = EntityType_INVALID;
     switch(t)
     {
     case 0: //Player
@@ -1313,6 +1313,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.w = 12;
         entity.h = 21;
         entity.dir = 1;
+        entity.type = EntityType_PLAYER;
 
         /* Fix wrong y-position if spawning in on conveyor */
         entity.newxp = xp;
@@ -1340,6 +1341,8 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 24;
         entity.animate = 0;
         entity.colour = 8;
+
+        entity.type = EntityType_MOVING;
 
         if  (game.roomy == 111 && (game.roomx >= 113 && game.roomx <= 117))
         {
@@ -1369,7 +1372,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 2: //A moving platform
         entity.rule = 2;
-        entity.type = 1;
+        entity.type = EntityType_MOVING;
         entity.size = 2;
         entity.tile = 1;
 
@@ -1437,7 +1440,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 3: //Disappearing platforms
         entity.rule = 3;
-        entity.type = 2;
+        entity.type = EntityType_DISAPPEARING_PLATFORM;
         entity.size = 2;
         entity.tile = 2;
         //appearance again depends on location
@@ -1467,7 +1470,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 4: //Breakable blocks
         entity.rule = 6;
-        entity.type = 3;
+        entity.type = EntityType_QUICKSAND;
         entity.size = 1;
         entity.tile = 10;
         entity.cy = -1;
@@ -1482,7 +1485,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 5: //Gravity Tokens
         entity.rule = 3;
-        entity.type = 4;
+        entity.type = EntityType_GRAVITY_TOKEN;
         entity.size = 0;
         entity.tile = 11;
         entity.w = 16;
@@ -1494,7 +1497,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 6: //Decorative particles
         entity.rule = 2;
-        entity.type = 5;  //Particles
+        entity.type = EntityType_PARTICLE;  //Particles
         entity.colour = 1;
         entity.size = 3;
         entity.vx = meta1;
@@ -1504,7 +1507,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 7: //Decorative particles
         entity.rule = 2;
-        entity.type = 5;  //Particles
+        entity.type = EntityType_PARTICLE;  //Particles
         entity.colour = 2;
         entity.size = 3;
         entity.vx = meta1;
@@ -1514,7 +1517,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 8: //Small collectibles
         entity.rule = 3;
-        entity.type = 6;
+        entity.type = EntityType_COIN;
         entity.size = 4;
         entity.tile = 48;
         entity.w = 8;
@@ -1528,7 +1531,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 9: //Something Shiny
         entity.rule = 3;
-        entity.type = 7;
+        entity.type = EntityType_TRINKET;
         entity.size = 0;
         entity.tile = 22;
         entity.w = 16;
@@ -1543,7 +1546,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 10: //Savepoint
         entity.rule = 3;
-        entity.type = 8;
+        entity.type = EntityType_CHECKPOINT;
         entity.size = 0;
         entity.tile = 20 + meta1;
         entity.w = 16;
@@ -1566,7 +1569,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 11: //Horizontal Gravity Line
         entity.rule = 4;
-        entity.type = 9;
+        entity.type = EntityType_HORIZONTAL_GRAVITY_LINE;
         entity.size = 5;
         entity.life = 0;
         entity.w = meta1;
@@ -1575,7 +1578,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 12: //Vertical Gravity Line
         entity.rule = 5;
-        entity.type = 10;
+        entity.type = EntityType_VERTICAL_GRAVITY_LINE;
         entity.size = 6;
         entity.life = 0;
         entity.w = 1;
@@ -1585,7 +1588,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 13: //Warp token
         entity.rule = 3;
-        entity.type = 11;
+        entity.type = EntityType_WARP_TOKEN;
         entity.size = 0;
         entity.tile = 18;
         entity.w = 16;
@@ -1599,7 +1602,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 14: // Teleporter
         entity.rule = 3;
-        entity.type = 100;
+        entity.type = EntityType_TELEPORTER;
         entity.size = 7;
         entity.tile = 1; //inactive
         entity.w = 96;
@@ -1611,7 +1614,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 15: // Crew Member (warp zone)
         entity.rule = 6;
-        entity.type = 12; //A special case!
+        entity.type = EntityType_CREWMATE; //A special case!
         entity.tile = 144;
         entity.colour = 13; //144 for sad :(
         entity.cx = 6;
@@ -1626,7 +1629,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 16: // Crew Member, upside down (space station)
         entity.rule = 7;
-        entity.type = 12; //A special case!
+        entity.type = EntityType_CREWMATE; //A special case!
         entity.tile = 144+6;
         entity.colour = 14; //144 for sad (upside down+12):(
         entity.cx = 6;
@@ -1641,7 +1644,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 17: // Crew Member (Lab)
         entity.rule = 6;
-        entity.type = 12; //A special case!
+        entity.type = EntityType_CREWMATE; //A special case!
         entity.tile = 144;
         entity.colour = 16; //144 for sad :(
         entity.cx = 6;
@@ -1657,7 +1660,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 18: // Crew Member (Ship)
         //This is the scriping crewmember
         entity.rule = 6;
-        entity.type = 12; //A special case!
+        entity.type = EntityType_CREWMATE; //A special case!
         entity.colour = meta1;
         if (meta2 == 0)
         {
@@ -1685,7 +1688,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 19: // Crew Member (Ship) More tests!
         entity.rule = 6;
-        entity.type = 12; //A special case!
+        entity.type = EntityType_CREWMATE; //A special case!
         entity.tile = 0;
         entity.colour = 6; //54 for sad :(
         entity.cx = 6;
@@ -1700,7 +1703,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 20: //Terminal
         entity.rule = 3;
-        entity.type = 13;
+        entity.type = EntityType_TERMINAL;
         entity.size = 0;
         entity.tile = 16 + meta1;
         entity.w = 16;
@@ -1712,7 +1715,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 21: //as above, except doesn't highlight
         entity.rule = 3;
-        entity.type = 13;
+        entity.type = EntityType_TERMINAL;
         entity.size = 0;
         entity.tile = 16 + meta1;
         entity.w = 16;
@@ -1724,7 +1727,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 22: //Fake trinkets, only appear if you've collected them
         entity.rule = 3;
-        entity.type = 7;
+        entity.type = EntityType_TRINKET;
         entity.size = 0;
         entity.tile = 22;
         entity.w = 16;
@@ -1740,7 +1743,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 23: //SWN Enemies
         //Given a different behavior, these enemies are especially for SWN mode and disappear outside the screen.
         entity.rule = 1;
-        entity.type = 23;
+        entity.type = EntityType_GRAVITRON_ENEMY;
         entity.behave = meta1;
         entity.para = meta2;
         entity.w = 16;
@@ -1769,7 +1772,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 24: // Super Crew Member
         //This special crewmember is way more advanced than the usual kind, and can interact with game objects
         entity.rule = 6;
-        entity.type = 14; //A special case!
+        entity.type = EntityType_SUPERCREWMATE; //A special case!
         entity.colour = meta1;
         if (meta1 == 16)
         {
@@ -1811,7 +1814,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 25: //Trophies
         entity.rule = 3;
-        entity.type = 15;
+        entity.type = EntityType_TROPHY;
         entity.size = 0;
         entity.w = 16;
         entity.h = 16;
@@ -1986,7 +1989,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     case 26: //Epilogue super warp token
         entity.rule = 3;
-        entity.type = 11;
+        entity.type = EntityType_WARP_TOKEN;
         entity.size = 0;
         entity.tile = 18;
         entity.w = 16;
@@ -2003,7 +2006,23 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 52: /* Vertical */
     case 53: /* Horizontal */
     case 54: /* Horizontal */
-        entity.type = t;
+        if (t == 51)
+        {
+            entity.type = EntityType_WARP_LINE_LEFT;
+        }
+        else if (t == 52)
+        {
+            entity.type = EntityType_WARP_LINE_RIGHT;
+        }
+        else if (t == 53)
+        {
+            entity.type = EntityType_WARP_LINE_TOP;
+        }
+        else
+        {
+            entity.type = EntityType_WARP_LINE_BOTTOM;
+        }
+
         entity.onentity = 1;
         entity.invis = true;
         entity.life = 0;
@@ -2035,7 +2054,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         //1 - position in array
         //2 - colour
         entity.rule = 3;
-        entity.type = 55;
+        entity.type = EntityType_COLLECTABLE_CREWMATE;
         if(INBOUNDS_ARR(meta2, customcrewmoods)
         && customcrewmoods[meta2]==1){
           entity.tile = 144;
@@ -2061,7 +2080,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
       case 56: //Custom enemy
         entity.rule = 1;
-        entity.type = 1;
+        entity.type = EntityType_MOVING;
         entity.behave = meta1;
         entity.para = meta2;
         entity.w = 16;
@@ -2137,6 +2156,9 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         entityclonefix(&entity);
         break;
+    case 100: // Invalid enemy, but gets treated as a teleporter
+        entity.type = EntityType_TELEPORTER;
+        break;
     }
 
     entity.lerpoldxp = entity.xp;
@@ -2152,7 +2174,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
      * This is a bit kludge-y but it's better than copy-pasting
      * and is okay to do because entity 12 does not change state on its own
      */
-    if (entity.type == 12)
+    if (entity.type == EntityType_CREWMATE)
     {
         size_t indice;
         if (reuse)
@@ -2205,9 +2227,9 @@ bool entityclass::updateentities( int i )
     {
         switch(entities[i].type)
         {
-        case 0:  //Player
+        case EntityType_PLAYER:  //Player
             break;
-        case 1:  //Movement behaviors
+        case EntityType_MOVING:  //Movement behaviors
             //Enemies can have a number of different behaviors:
             switch(entities[i].behave)
             {
@@ -2437,7 +2459,7 @@ bool entityclass::updateentities( int i )
                 {
                     for (size_t j = 0; j < entities.size(); j++)
                     {
-                        if (entities[j].type == 2 && entities[j].state== 3 && entities[j].xp == (entities[i].xp-32) )
+                        if (entities[j].type == EntityType_DISAPPEARING_PLATFORM && entities[j].state== 3 && entities[j].xp == (entities[i].xp-32) )
                         {
                             entities[i].state = 3;
                             bool entitygone = updateentities(i);
@@ -2467,7 +2489,7 @@ bool entityclass::updateentities( int i )
                 {
                     for (size_t j = 0; j < entities.size(); j++)
                     {
-                        if (entities[j].type == 2 && entities[j].state==3 && entities[j].xp==entities[i].xp+32)
+                        if (entities[j].type == EntityType_DISAPPEARING_PLATFORM && entities[j].state==3 && entities[j].xp==entities[i].xp+32)
                         {
                             entities[i].state = 3;
                             bool entitygone = updateentities(i);
@@ -2565,7 +2587,7 @@ bool entityclass::updateentities( int i )
                 break;
             }
             break;
-        case 2: //Disappearing platforms
+        case EntityType_DISAPPEARING_PLATFORM: //Disappearing platforms
             //wait for collision
             if (entities[i].state == 1)
             {
@@ -2612,7 +2634,7 @@ bool entityclass::updateentities( int i )
                 }
             }
             break;
-        case 3: //Breakable blocks
+        case EntityType_QUICKSAND: //Breakable blocks
             //Only counts if vy of player entity is non zero
             if (entities[i].state == 1)
             {
@@ -2632,7 +2654,7 @@ bool entityclass::updateentities( int i )
                 }
             }
             break;
-        case 4: //Gravity token
+        case EntityType_GRAVITY_TOKEN: //Gravity token
             //wait for collision
             if (entities[i].state == 1)
             {
@@ -2642,7 +2664,7 @@ bool entityclass::updateentities( int i )
 
             }
             break;
-        case 5:  //Particle sprays
+        case EntityType_PARTICLE:  //Particle sprays
             if (entities[i].state == 0)
             {
                 entities[i].life--;
@@ -2652,7 +2674,7 @@ bool entityclass::updateentities( int i )
                 }
             }
             break;
-        case 6: //Small pickup
+        case EntityType_COIN: //Small pickup
             //wait for collision
             if (entities[i].state == 1)
             {
@@ -2665,7 +2687,7 @@ bool entityclass::updateentities( int i )
                 return disableentity(i);
             }
             break;
-        case 7: //Found a trinket
+        case EntityType_TRINKET: //Found a trinket
             //wait for collision
             if (entities[i].state == 1)
             {
@@ -2693,14 +2715,14 @@ bool entityclass::updateentities( int i )
                 return disableentity(i);
             }
             break;
-        case 8: //Savepoints
+        case EntityType_CHECKPOINT: //Savepoints
             //wait for collision
             if (entities[i].state == 1)
             {
                 //First, deactivate all other savepoints
                 for (size_t j = 0; j < entities.size(); j++)
                 {
-                    if (entities[j].type == 8)
+                    if (entities[j].type == EntityType_CHECKPOINT)
                     {
                         entities[j].colour = 4;
                         entities[j].onentity = 1;
@@ -2734,7 +2756,7 @@ bool entityclass::updateentities( int i )
                 entities[i].state = 0;
             }
             break;
-        case 9: //Gravity Lines
+        case EntityType_HORIZONTAL_GRAVITY_LINE: //Gravity Lines
             if (entities[i].state == 1)
             {
                 entities[i].life--;
@@ -2747,7 +2769,7 @@ bool entityclass::updateentities( int i )
                 }
             }
             break;
-        case 10: //Vertical gravity Lines
+        case EntityType_VERTICAL_GRAVITY_LINE: //Vertical gravity Lines
             if (entities[i].state == 1)
             {
                 entities[i].onentity = 3;
@@ -2789,7 +2811,7 @@ bool entityclass::updateentities( int i )
                 entities[i].state = 2;
             }
             break;
-        case 11: //Warp point
+        case EntityType_WARP_TOKEN: //Warp point
             //wait for collision
             if (entities[i].state == 1)
             {
@@ -2807,7 +2829,7 @@ bool entityclass::updateentities( int i )
                 if (int(entities[i].xp) == 21*8) game.teleportxpos = 4;
             }
             break;
-        case 12: //Crew member
+        case EntityType_CREWMATE: //Crew member
             //Somewhat complex AI: exactly what they do depends on room, location, state etc
             //At state 0, do nothing at all.
             if (entities[i].state == 1)
@@ -3142,7 +3164,7 @@ bool entityclass::updateentities( int i )
                 }
             }
             break;
-        case 13: //Terminals (very similar to savepoints)
+        case EntityType_TERMINAL: //Terminals (very similar to savepoints)
             //wait for collision
             if (entities[i].state == 1)
             {
@@ -3153,7 +3175,7 @@ bool entityclass::updateentities( int i )
                 entities[i].state = 0;
             }
             break;
-        case 14: //Super Crew member
+        case EntityType_SUPERCREWMATE: //Super Crew member
             //Actually needs less complex AI than the scripting crewmember
             if (entities[i].state == 0)
             {
@@ -3209,7 +3231,7 @@ bool entityclass::updateentities( int i )
                 }
             }
             break;
-        case 15: //Trophy
+        case EntityType_TROPHY: //Trophy
             //wait for collision
             if (entities[i].state == 1)
             {
@@ -3220,7 +3242,7 @@ bool entityclass::updateentities( int i )
                 entities[i].state = 0;
             }
             break;
-        case 23:
+        case EntityType_GRAVITRON_ENEMY:
             //swn game!
             switch(entities[i].behave)
             {
@@ -3247,7 +3269,7 @@ bool entityclass::updateentities( int i )
             }
             break;
 
-        case 51: //Vertical warp line
+        case EntityType_WARP_LINE_LEFT: //Vertical warp line
             if (entities[i].state == 2){
               int j=getplayer();
               if(INBOUNDS_VEC(j, entities) && entities[j].xp<=307){
@@ -3262,7 +3284,7 @@ bool entityclass::updateentities( int i )
               customwarpmodevon=true;
             }
             break;
-        case 52: //Vertical warp line
+        case EntityType_WARP_LINE_RIGHT: //Vertical warp line
             if (entities[i].state == 2){
               int j=getplayer();
               if(INBOUNDS_VEC(j, entities) && entities[j].xp<=307){
@@ -3277,7 +3299,7 @@ bool entityclass::updateentities( int i )
               customwarpmodevon=true;
             }
             break;
-          case 53: //Warp lines Horizonal
+          case EntityType_WARP_LINE_TOP: //Warp lines Horizonal
             if (entities[i].state == 2){
               customwarpmodehon=false;
               entities[i].state = 0;
@@ -3289,7 +3311,7 @@ bool entityclass::updateentities( int i )
               customwarpmodehon=true;
             }
             break;
-            case 54: //Warp lines Horizonal
+        case EntityType_WARP_LINE_BOTTOM: //Warp lines Horizonal
             if (entities[i].state == 2){
               customwarpmodehon=false;
               entities[i].state = 0;
@@ -3301,7 +3323,7 @@ bool entityclass::updateentities( int i )
                customwarpmodehon=true;
             }
             break;
-          case 55: //Collectable crewmate
+        case EntityType_COLLECTABLE_CREWMATE: //Collectable crewmate
             //wait for collision
             if (entities[i].state == 0)
             {
@@ -3338,7 +3360,7 @@ bool entityclass::updateentities( int i )
                 return disableentity(i);
             }
             break;
-        case 100: //The teleporter
+        case EntityType_TELEPORTER: //The teleporter
             if (entities[i].state == 1)
             {
                 //if inactive, activate!
@@ -3364,7 +3386,7 @@ bool entityclass::updateentities( int i )
                     //First, deactivate all other savepoints
                     for (size_t j = 0; j < entities.size(); j++)
                     {
-                        if (entities[j].type == 8)
+                        if (entities[j].type == EntityType_CHECKPOINT)
                         {
                             entities[j].colour = 4;
                             entities[j].onentity = 1;
@@ -3429,7 +3451,7 @@ void entityclass::animateentities( int _i )
     {
         switch(entities[_i].type)
         {
-        case 0:
+        case EntityType_PLAYER:
             entities[_i].framedelay--;
             if(entities[_i].dir==1)
             {
@@ -3478,8 +3500,8 @@ void entityclass::animateentities( int _i )
                 if (game.gravitycontrol == 1) entities[_i].drawframe += 2;
             }
             break;
-        case 1:
-        case 23:
+        case EntityType_MOVING:
+        case EntityType_GRAVITRON_ENEMY:
             //Variable animation
             switch(entities[_i].animate)
             {
@@ -3667,10 +3689,10 @@ void entityclass::animateentities( int _i )
                 break;
             }
             break;
-        case 2: //Disappearing platforms
+        case EntityType_DISAPPEARING_PLATFORM: //Disappearing platforms
             entities[_i].drawframe = entities[_i].tile + entities[_i].walkingframe;
             break;
-        case 11:
+        case EntityType_WARP_TOKEN:
             entities[_i].drawframe = entities[_i].tile;
             if(entities[_i].animate==2)
             {
@@ -3690,9 +3712,9 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe += entities[_i].walkingframe;
             }
             break;
-        case 12:
-        case 55:
-        case 14: //Crew member! Very similar to hero
+        case EntityType_CREWMATE:
+        case EntityType_COLLECTABLE_CREWMATE:
+        case EntityType_SUPERCREWMATE: //Crew member! Very similar to hero
             entities[_i].framedelay--;
             if(entities[_i].dir==1)
             {
@@ -3735,7 +3757,7 @@ void entityclass::animateentities( int _i )
                 //if (game.gravitycontrol == 1) entities[_i].drawframe += 2;
             }
             break;
-        case 100: //the teleporter!
+        case EntityType_TELEPORTER: //the teleporter!
             if (entities[_i].tile == 1 || game.noflashingmode)
             {
                 //it's inactive
@@ -3861,7 +3883,7 @@ void entityclass::animatehumanoidcollision(const int i)
     {
         ++entity->collisiondrawframe;
 
-        if (entity->type == 0 && game.gravitycontrol == 1)
+        if (entity->type == EntityType_PLAYER && game.gravitycontrol == 1)
         {
             entity->collisiondrawframe += 6;
         }
@@ -3877,8 +3899,8 @@ void entityclass::animatehumanoidcollision(const int i)
             entity->collisiondrawframe = 12;
         }
 
-        if ((entity->type == 0 && game.gravitycontrol == 1)
-        || (entity->type != 0 && entity->rule == 7))
+        if ((entity->type == EntityType_PLAYER && game.gravitycontrol == 1)
+        || (entity->type != EntityType_PLAYER && entity->rule == 7))
         {
             entity->collisiondrawframe += 2;
         }
@@ -3908,7 +3930,7 @@ int entityclass::getplayer(void)
     //Returns the index of the first player entity
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if(entities[i].type==0)
+        if (entities[i].type == EntityType_PLAYER)
         {
             return i;
         }
@@ -3922,7 +3944,7 @@ int entityclass::getscm(void)
     //Returns the supercrewmate
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if(entities[i].type==14)
+        if (entities[i].type == EntityType_SUPERCREWMATE)
         {
             return i;
         }
@@ -3954,7 +3976,7 @@ int entityclass::getcrewman( int t, int fallback /*= 0*/ )
 
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if ((entities[i].type == 12 || entities[i].type == 14)
+        if ((entities[i].type == EntityType_CREWMATE || entities[i].type == EntityType_SUPERCREWMATE)
         && (entities[i].rule == 6 || entities[i].rule == 7))
         {
             if(entities[i].colour==t)
@@ -3979,9 +4001,9 @@ int entityclass::getcustomcrewman( int t )
 
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if (entities[i].type == 55)
+        if (entities[i].type == EntityType_COLLECTABLE_CREWMATE)
         {
-            if(entities[i].colour==t)
+            if (entities[i].colour == t)
             {
                 return i;
             }
@@ -3995,7 +4017,7 @@ int entityclass::getteleporter(void)
 {
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if(entities[i].type==100)
+        if (entities[i].type == EntityType_TELEPORTER)
         {
             return i;
         }
@@ -4034,7 +4056,7 @@ bool entityclass::checkdamage(bool scm /*= false*/)
     //Returns true if player (or supercrewmate) collides with a damagepoint
     for(size_t i=0; i < entities.size(); i++)
     {
-        if((scm && entities[i].type == 14) || (!scm && entities[i].rule == 0))
+        if((scm && entities[i].type == EntityType_SUPERCREWMATE) || (!scm && entities[i].rule == 0))
         {
             SDL_Rect temprect;
             temprect.x = entities[i].xp + entities[i].cx;
@@ -4449,7 +4471,7 @@ bool entityclass::testwallsx( int t, int tx, int ty, const bool skipdirblocks )
     temprect.w = entities[t].w;
     temprect.h = entities[t].h;
 
-    bool skipblocks = entities[t].rule < 2 || entities[t].type == 14;
+    bool skipblocks = entities[t].rule < 2 || entities[t].type == EntityType_SUPERCREWMATE;
     float dx = 0;
     float dy = 0;
     if (entities[t].rule == 0) dx = entities[t].vx;
@@ -4495,7 +4517,7 @@ bool entityclass::testwallsy( int t, int tx, int ty )
     temprect.w = entities[t].w;
     temprect.h = entities[t].h;
 
-    bool skipblocks = entities[t].rule < 2 || entities[t].type == 14;
+    bool skipblocks = entities[t].rule < 2 || entities[t].type == EntityType_SUPERCREWMATE;
 
     float dx = 0;
     float dy = 0;
@@ -4677,13 +4699,13 @@ void entityclass::customwarplinecheck(int i) {
     for (int j = 0; j < (int) entities.size(); j++) {
         if (i != j) {
             if (entities[i].rule == 0 && entities[j].rule == 5 //Player vs vertical line!
-            && (entities[j].type == 51 || entities[j].type == 52)
+            && (entities[j].type == EntityType_WARP_LINE_LEFT || entities[j].type == EntityType_WARP_LINE_RIGHT)
             && entitywarpvlinecollide(i, j)) {
                 customwarpmodevon = true;
             }
 
             if (entities[i].rule == 0 && entities[j].rule == 7   //Player vs horizontal WARP line
-            && (entities[j].type == 53 || entities[j].type == 54)
+            && (entities[j].type == EntityType_WARP_LINE_TOP || entities[j].type == EntityType_WARP_LINE_BOTTOM)
             && entitywarphlinecollide(i, j)) {
                 customwarpmodehon = true;
             }
@@ -4696,7 +4718,7 @@ void entityclass::entitycollisioncheck(void)
     for (size_t i = 0; i < entities.size(); i++)
     {
         bool player = entities[i].rule == 0;
-        bool scm = game.supercrewmate && entities[i].type == 14;
+        bool scm = game.supercrewmate && entities[i].type == EntityType_SUPERCREWMATE;
         if (!player && !scm)
         {
             continue;
