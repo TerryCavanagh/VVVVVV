@@ -3547,7 +3547,7 @@ bool scriptclass::loadcustom(const std::string& t)
         }else if(words[0] == "reply"){
             //For this version, terminal only
             if(squeakmode==0) add("squeak(player)");
-            add("text(cyan,0,0,"+words[1]+")");
+            add("text(player,0,0,"+words[1]+")");
 
             int ti=help.Int(words[1].c_str());
             int nti = ti>=0 ? ti : 1;
