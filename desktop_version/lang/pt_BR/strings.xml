@@ -249,6 +249,16 @@
     <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="Reativa o atraso de 1 quadro na execução de comandos, como em versões anteriores do jogo." explanation="input delay" max="38*3"/>
     <string english="Input delay is ON" translation="O atraso de comando está ATIVADO" explanation="" max="38*2"/>
     <string english="Input delay is OFF" translation="O atraso de comando está DESATIVADO" explanation="" max="38*2"/>
+    <string english="touch input" translation="" explanation="menu option"/>
+    <string english="Touch Input" translation="" explanation="title" max="20"/>
+    <string english="Change touch input options." translation="" explanation="" max="38*5"/>
+    <string english="control style" translation="" explanation="menu option"/>
+    <string english="Control Style" translation="" explanation="title" max="20"/>
+    <string english="Change the control style for touch input." translation="" explanation="" max="38*3"/>
+    <string english="ui scale" translation="" explanation="menu option"/>
+    <string english="UI Scale" translation="" explanation="title" max="20"/>
+    <string english="Change the scale of the UI buttons." translation="" explanation="" max="38*3"/>
+    <string english="Current scale: {scale}.{extra}x" translation="" explanation="scale and extra are both numbers. 1 and 5 show as 1.5" max="38*2"/>
     <string english="accessibility" translation="acessibilidade" explanation="menu option"/>
     <string english="Accessibility" translation="Acessibilidade" explanation="title" max="20"/>
     <string english="Disable screen effects, enable slowdown modes or invincibility." translation="Desativa os efeitos de tela, ativa os modos de desaceleração ou invencibilidade." explanation="" max="38*5"/>
@@ -435,6 +445,7 @@
     <string english="ACTION = Space, Z, or V" translation="AÇÃO = Espaço, Z ou V" explanation="title screen" max="38*3"/>
     <string english="[Press {button} to return to editor]" translation="[Pressione {button} para voltar]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Pressione {button} para avançar o texto -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="- Tap screen to advance text -" translation="" explanation="to dismiss a textbox using touch controls" max="40"/>
     <string english="Press {button} to continue" translation="Pressione {button} para continuar" explanation="Expect `ACTION`" max="34"/>
     <string english="[Press {button} to unfreeze gameplay]" translation="[Pressione {button} para descongelar o jogo]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
     <string english="[Press {button} to freeze gameplay]" translation="[Pressione {button} para congelar o jogo]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
