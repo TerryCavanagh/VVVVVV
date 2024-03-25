@@ -1,12 +1,25 @@
 #include "Touch.h"
 
 #include <SDL.h>
+#include <string>
 #include <vector>
 
+#include "ButtonGlyphs.h"
 #include "Constants.h"
+#include "CustomLevels.h"
+#include "Editor.h"
+#include "Entity.h"
+#include "FileSystemUtils.h"
+#include "Font.h"
+#include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "GraphicsResources.h"
+#include "Input.h"
+#include "Localization.h"
 #include "KeyPoll.h"
+#include "Map.h"
+#include "Music.h"
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
@@ -15,7 +28,26 @@ namespace touch
 {
     std::vector<VVV_Finger> fingers;
     TouchButton buttons[NUM_TOUCH_BUTTONS];
+    std::vector<TouchButton> dynamic_buttons;
+    std::vector<TouchButton*> all_buttons;
+    bool use_buttons;
     int scale;
+    bool textbox_style;
+
+    void refresh_all_buttons(void)
+    {
+        all_buttons.clear();
+
+        for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
+        {
+            all_buttons.push_back(&buttons[i]);
+        }
+
+        for (int i = 0; i < dynamic_buttons.size(); i++)
+        {
+            all_buttons.push_back(&dynamic_buttons[i]);
+        }
+    }
 
     int get_rect(TouchButton* button, SDL_Rect* rect)
     {
@@ -45,10 +77,32 @@ namespace touch
         for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
         {
             buttons[i].image = NULL;
+            buttons[i].text = "";
             buttons[i].active = false;
+            buttons[i].pressed = false;
             buttons[i].down = false;
             buttons[i].fingerId = -1;
+            buttons[i].core = true;
+            buttons[i].ui = true;
+            buttons[i].type = TOUCH_BUTTON_TYPE_NONE;
+            buttons[i].id = -1;
+            buttons[i].disabled = false;
         }
+
+        refresh_all_buttons();
+    }
+
+    void on_button_up(TouchButton* button)
+    {
+        bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
+        switch (button->type)
+        {
+        case TOUCH_BUTTON_TYPE_MENU:
+        case TOUCH_BUTTON_TYPE_NONE:
+        default:
+            break;
+        }
+        refresh_buttons();
     }
 
     void refresh_buttons(void)
@@ -94,6 +148,8 @@ namespace touch
         {
             buttons[i].active = false;
         }
+
+        use_buttons = true;
 
         // Now, set the buttons that are active
 
@@ -141,6 +197,77 @@ namespace touch
         }
     }
 
+    void render_buttons(int scale, bool ui, int r, int g, int b)
+    {
+        for (int i = 0; i < all_buttons.size(); i++)
+        {
+            TouchButton* button = all_buttons[i];
+
+            if (button->active && (button->ui == ui))
+            {
+                if (button->image != NULL)
+                {
+                    graphics.draw_texture(button->image, button->x, button->y + (button->down ? 2 * scale : 0), scale, scale);
+                }
+                else
+                {
+                    int use_r = button->disabled ? 127 : r;
+                    int use_g = button->disabled ? 127 : g;
+                    int use_b = button->disabled ? 127 : b;
+
+                    if (button->type == TOUCH_BUTTON_TYPE_MAP)
+                    {
+                        if (game.menupage != button->id)
+                        {
+                            use_r /= 2;
+                            use_g /= 2;
+                            use_b /= 2;
+                        }
+                    }
+
+                    float shadow_div = 4;
+                    float inner_div = 1.5;
+
+                    if (textbox_style)
+                    {
+                        shadow_div = 6;
+                        inner_div = 6;
+                    }
+
+                    graphics.fill_rect(button->x + 4 * scale, button->y + 4 * scale, button->width, button->height, r / shadow_div, g / shadow_div, b / shadow_div);
+
+                    int offset = (button->down) ? 1 : 0;
+
+                    graphics.fill_rect(button->x + offset * scale, button->y + offset * scale, button->width, button->height, use_r, use_g, use_b);
+                    graphics.fill_rect(button->x + (offset + 2) * scale, button->y + (2 + offset) * scale, button->width - 4 * scale, button->height - 4 * scale, use_r / inner_div, use_g / inner_div, use_b / inner_div);
+                    font::print(PR_CEN | (SDL_min((scale - 1), 7) << 0), button->x + (button->width / 2) + offset * scale, button->y + (button->height / 2) + (offset - 4) * scale, button->text, 196, 196, 255 - help.glow);
+                }
+            }
+        }
+    }
+
+    void render_buttons(void)
+    {
+        render_buttons(64, 184, 208);
+    }
+
+    void render_buttons(int r, int g, int b)
+    {
+        if (!key.using_touch)
+        {
+            return;
+        }
+
+        render_buttons(1, false, r, g, b);
+    }
+
+    void render_buttons(int r, int g, int b, bool textbox_style)
+    {
+        touch::textbox_style = textbox_style;
+        render_buttons(r, g, b);
+        touch::textbox_style = false;
+    }
+
     void render(void)
     {
         if (!key.using_touch)
@@ -151,16 +278,7 @@ namespace touch
         int scale = get_scale();
         refresh_buttons();
 
-        for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
-        {
-            SDL_Rect rect;
-            get_rect(&buttons[i], &rect);
-
-            if (buttons[i].image != NULL && buttons[i].active)
-            {
-                graphics.draw_texture(buttons[i].image, rect.x, rect.y + (buttons[i].down ? 2 * scale : 0), scale, scale);
-            }
-        }
+        render_buttons(scale, true, 64, 184, 208);
     }
 
     void reset(void)
@@ -180,27 +298,44 @@ namespace touch
 
     void update_buttons(void)
     {
-        if (graphics.fademode != FADE_NONE)
+        if (!use_buttons || graphics.fademode != FADE_NONE)
         {
             return;
         }
 
+
+        SDL_Rect stretch_rect;
+        graphics.get_stretch_info(&stretch_rect);
+
         SDL_Point point;
         SDL_Rect rect;
 
-        for (int buttonId = 0; buttonId < NUM_TOUCH_BUTTONS; buttonId++)
+        for (int buttonId = 0; buttonId < all_buttons.size(); buttonId++)
         {
-            TouchButton* button = &buttons[buttonId];
+            TouchButton* button = all_buttons[buttonId];
             button->down = false;
 
             for (int fingerId = 0; fingerId < fingers.size(); fingerId++)
             {
-                point.x = fingers[fingerId].x;
-                point.y = fingers[fingerId].y;
+                if (button->ui)
+                {
+                    point.x = fingers[fingerId].x;
+                    point.y = fingers[fingerId].y;
+                }
+                else
+                {
+                    point.x = (fingers[fingerId].x - stretch_rect.x) * SCREEN_WIDTH_PIXELS / stretch_rect.w;
+                    point.y = (fingers[fingerId].y - stretch_rect.y) * SCREEN_HEIGHT_PIXELS / stretch_rect.h;
+                }
                 get_rect(button, &rect);
 
-                if (SDL_PointInRect(&point, &rect) && button->active)
+                if (SDL_PointInRect(&point, &rect) && button->active && !button->disabled)
                 {
+                    if (fingers[fingerId].pressed)
+                    {
+                        button->pressed = true;
+                    }
+
                     button->down = true;
                     button->fingerId = fingers[fingerId].id;
                     fingers[fingerId].on_button = true;
@@ -212,7 +347,7 @@ namespace touch
 
     bool button_tapped(TouchButtonID button)
     {
-        if (key.using_touch && buttons[button].active && buttons[button].down)
+        if (use_buttons && key.using_touch && buttons[button].active && buttons[button].down && !buttons[button].disabled)
         {
             for (int i = 0; i < fingers.size(); i++)
             {
@@ -250,11 +385,16 @@ namespace touch
     {
         for (int i = 0; i < fingers.size(); i++)
         {
-            if (fingers[i].on_button)
+            if (fingers[i].on_button && use_buttons)
             {
                 continue;
             }
 
+            if (fingers[i].pressed)
+            {
+                // Consume the input, so we don't accidentally start pressing a button or anything
+                fingers[i].pressed = false;
+            }
             return true;
         }
         return false;
