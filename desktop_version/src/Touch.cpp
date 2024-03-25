@@ -73,6 +73,8 @@ namespace touch
     void init(void)
     {
         scale = 10;
+        use_buttons = false;
+        textbox_style = false;
 
         for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
         {
@@ -92,12 +94,82 @@ namespace touch
         refresh_all_buttons();
     }
 
+    TouchButton create_button(int x, int y, int width, int height, std::string text)
+    {
+        int scale = get_scale();
+
+        if (width == -1)
+        {
+            width = font::len(PR_CEN | (SDL_min((scale - 1), 7) << 0), text.c_str()) + 24 * scale;
+        }
+
+        if (height == -1)
+        {
+            height = font::height(PR_CEN | (SDL_min((scale - 1), 7) << 0)) + 18 * scale;
+        }
+
+        TouchButton button;
+        button.x = x;
+        button.y = y;
+        button.width = width;
+        button.height = height;
+        button.image = NULL;
+        button.text = text;
+        button.active = true;
+        button.core = false;
+        button.ui = false;
+        button.down = false;
+        button.pressed = false;
+        button.fingerId = -1;
+        button.type = TOUCH_BUTTON_TYPE_NONE;
+        button.id = -1;
+        button.disabled = false;
+
+        return button;
+    }
+
+    /* Helper function to create menu buttons (very common) in a single line */
+    void create_menu_button(int x, int y, int width, int height, std::string text, int id)
+    {
+        TouchButton button = create_button(x, y, width, height, text);
+        button.type = TOUCH_BUTTON_TYPE_MENU;
+        button.id = id;
+
+        register_button(button);
+    }
+
+    void create_menu_button(int x, int y, int width, int height, std::string text, int id, bool active)
+    {
+        TouchButton button = create_button(x, y, width, height, text);
+        button.type = TOUCH_BUTTON_TYPE_MENU;
+        button.id = id;
+        button.disabled = !active;
+
+        register_button(button);
+    }
+
+    void register_button(TouchButton button)
+    {
+        dynamic_buttons.push_back(button);
+
+        refresh_all_buttons();
+    }
+
+    void remove_dynamic_buttons(void)
+    {
+        dynamic_buttons.clear();
+        refresh_all_buttons();
+    }
+
     void on_button_up(TouchButton* button)
     {
         bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
         switch (button->type)
         {
         case TOUCH_BUTTON_TYPE_MENU:
+            game.currentmenuoption = button->id;
+            menuactionpress();
+            break;
         case TOUCH_BUTTON_TYPE_NONE:
         default:
             break;
@@ -165,12 +237,9 @@ namespace touch
             break;
 
         case TITLEMODE:
-            if (game.menustart)
+            if (!game.menustart)
             {
-                buttons[TOUCH_BUTTON_LEFT].active = true;
-                buttons[TOUCH_BUTTON_RIGHT].active = true;
-                buttons[TOUCH_BUTTON_CANCEL].active = true;
-                buttons[TOUCH_BUTTON_CONFIRM].active = true;
+                use_buttons = false;
             }
             break;
         case TELEPORTERMODE:
