@@ -90,6 +90,14 @@ namespace touch
     void reset(void);
     void update_buttons(void);
 
+    TouchButton create_button(int x, int y, int width, int height, std::string text);
+    void register_button(TouchButton button);
+
+    void create_menu_button(int x, int y, int width, int height, std::string text, int id);
+    void create_menu_button(int x, int y, int width, int height, std::string text, int id, bool disabled);
+
+    void remove_dynamic_buttons(void);
+
     void on_button_up(TouchButton* button);
 
     void init(void);

@@ -1948,7 +1948,15 @@ void titlerender(void)
         if(tg>255) tg=255;
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
-        graphics.drawmenu(tr, tg, tb, game.currentmenuname);
+
+        if (key.using_touch)
+        {
+            touch::render_buttons(tr, tg, tb);
+        }
+        else
+        {
+            graphics.drawmenu(tr, tg, tb, game.currentmenuname);
+        }
     }
 
     graphics.drawfade();

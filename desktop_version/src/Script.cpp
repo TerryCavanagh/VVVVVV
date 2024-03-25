@@ -2595,6 +2595,8 @@ void scriptclass::startgamemode(const enum StartMode mode)
         }
     }
 
+    touch::remove_dynamic_buttons();
+
     /* Containers which need to be reset before gameplay starts
      * ex. before custom levels get loaded */
 

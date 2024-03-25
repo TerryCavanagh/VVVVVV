@@ -386,7 +386,7 @@ static void slidermodeinput(void)
     *user_changing_volume = SDL_clamp(*user_changing_volume, 0, USER_VOLUME_MAX);
 }
 
-static void menuactionpress(void)
+void menuactionpress(void)
 {
     if (game.menutestmode)
     {
@@ -3172,6 +3172,7 @@ void mapinput(void)
             if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map)) game.press_map = true;
             if ((key.isDown(27) || touch::button_tapped(TOUCH_BUTTON_CANCEL)) && !game.mapheld)
             {
+                touch::remove_dynamic_buttons();
                 game.mapheld = true;
                 if (game.menupage < 9
                 || (game.menupage >= 20 && game.menupage <= 21))
