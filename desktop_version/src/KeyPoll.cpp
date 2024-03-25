@@ -224,12 +224,17 @@ bool cycle_language(bool should_recompute_textboxes)
 
 static void remove_finger(int i)
 {
-    for (int j = 0; j < NUM_TOUCH_BUTTONS; j++)
+    for (int j = 0; j < (int)touch::all_buttons.size(); j++)
     {
-        if (touch::buttons[j].fingerId == touch::fingers[i].id)
+        if (touch::all_buttons[j]->fingerId == touch::fingers[i].id)
         {
-            touch::buttons[j].down = false;
-            touch::buttons[j].fingerId = -1;
+            if (touch::all_buttons[j]->active && touch::all_buttons[j]->pressed && touch::all_buttons[j]->down)
+            {
+                touch::on_button_up(touch::all_buttons[j]);
+            }
+            touch::all_buttons[j]->down = false;
+            touch::all_buttons[j]->pressed = false;
+            touch::all_buttons[j]->fingerId = -1;
         }
     }
 
