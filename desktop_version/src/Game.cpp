@@ -4728,7 +4728,13 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 
         if (SDL_strcmp(pKey, "stretch") == 0)
         {
-            screen_settings->scalingMode = help.Int(pText);
+            int mode = help.Int(pText);
+            if (mode < 0 || mode >= NUM_SCALING_MODES)
+            {
+                /* Pick a sane default. */
+                mode = SCALING_INTEGER;
+            }
+            screen_settings->scalingMode = mode;
         }
 
         if (SDL_strcmp(pKey, "useLinearFilter") == 0)

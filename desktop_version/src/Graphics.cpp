@@ -3517,6 +3517,13 @@ void Graphics::get_stretch_info(SDL_Rect* rect)
         rect->w = width;
         rect->h = height;
         break;
+    default:
+        SDL_assert(0 && "Invalid scaling mode!");
+        /* Width and height should be nonzero to avoid division by zero. */
+        rect->x = 0;
+        rect->y = 0;
+        rect->w = width;
+        rect->h = height;
     }
 }
 
