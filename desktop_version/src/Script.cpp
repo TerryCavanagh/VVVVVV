@@ -681,7 +681,7 @@ void scriptclass::run(void)
                     texty = 0;
                     textcrewmateposition.x = obj.entities[i].xp;
                     textcrewmateposition.override_x = true;
-                    textcrewmateposition.y = obj.entities[i].xp;
+                    textcrewmateposition.y = obj.entities[i].yp;
                     textcrewmateposition.override_y = true;
 
                     textcrewmateposition.dir = j;
