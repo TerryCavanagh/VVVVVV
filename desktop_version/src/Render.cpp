@@ -2135,9 +2135,21 @@ void gamecompleterender(void)
     creditOffset += 140;
     if (graphics.onscreen(creditOffset + position))
     {
-        font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, creditOffset + position, loc::gettext("Thanks for"), tr, tg, tb);
+        const char* line1;
+        const char* line2;
+        if (graphics.flipmode)
+        {
+            line1 = loc::gettext("playing!");
+            line2 = loc::gettext("Thanks for");
+        }
+        else
+        {
+            line1 = loc::gettext("Thanks for");
+            line2 = loc::gettext("playing!");
+        }
+        font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, creditOffset + position, line1, tr, tg, tb);
         creditOffset += 20;
-        font::print(PR_2X | PR_CEN | PR_CJK_LOW, -1, creditOffset + position, loc::gettext("playing!"), tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_CJK_LOW, -1, creditOffset + position, line2, tr, tg, tb);
     }
 
     draw_skip_message();
