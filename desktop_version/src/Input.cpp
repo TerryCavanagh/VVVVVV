@@ -2617,6 +2617,7 @@ void gameinput(void)
                 || !game.glitchrunkludge)
                 {
                     game.state++;
+                    game.unlockstate();
                 }
                     game.jumpheld = true;
                     game.glitchrunkludge=true;
