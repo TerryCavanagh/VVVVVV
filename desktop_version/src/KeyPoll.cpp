@@ -618,7 +618,11 @@ void KeyPoll::Poll(void)
         switch (evt.type)
         {
         case SDL_KEYDOWN:
-            using_touch = false;
+            if (evt.key.keysym.sym != SDLK_AC_BACK)
+            {
+                // If we hit the back button on Android, this doesn't mean we're not using touch
+                using_touch = false;
+            }
             if (evt.key.repeat == 0)
             {
                 hidemouse = true;
