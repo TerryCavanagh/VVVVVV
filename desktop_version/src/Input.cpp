@@ -3169,7 +3169,7 @@ void mapinput(void)
         || (game.menupage >= 20 && game.menupage <= 21)
         || (game.menupage >= 30 && game.menupage <= 32))
         {
-            if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) || touch::button_tapped(TOUCH_BUTTON_CONFIRM)) game.press_map = true;
+            if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map)) game.press_map = true;
             if ((key.isDown(27) || touch::button_tapped(TOUCH_BUTTON_CANCEL)) && !game.mapheld)
             {
                 game.mapheld = true;
@@ -3192,7 +3192,7 @@ void mapinput(void)
         else
         {
             if (key.isDown(KEYBOARD_ENTER) || key.isDown(27) || key.isDown(game.controllerButton_map)
-                || touch::button_tapped(TOUCH_BUTTON_CANCEL) || touch::button_tapped(TOUCH_BUTTON_CONFIRM))
+                || touch::button_tapped(TOUCH_BUTTON_CANCEL))
             {
                 game.press_map = true;
             }
