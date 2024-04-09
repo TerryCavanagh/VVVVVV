@@ -7024,6 +7024,15 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 15;
+
+        auto_buttons = false;
+
+        touch::create_slider_button((320 - 160) / 2, 120 + 32, 160, 48, loc::gettext("ui scale"), &touch::scale, 5, 20);
+
+        touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
+        touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), 2);
+        touch::create_menu_button(198 + 16, 200, 76, 26, loc::gettext("next"), -1);
+
         break;
     case Menu::language:
         if (loc::languagelist.empty())

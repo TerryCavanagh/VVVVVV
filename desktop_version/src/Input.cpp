@@ -1190,7 +1190,7 @@ void menuactionpress(void)
         }
         if (game.currentmenuoption == -1)
         {
-            // audio menu
+            // touch input menu
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::touch_input, true);
             map.nexttowercolour();
@@ -2045,6 +2045,18 @@ void menuactionpress(void)
     case Menu::touch_input:
         switch (game.currentmenuoption)
         {
+        case -2:
+            // audio menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::audiooptions, true);
+            map.nexttowercolour();
+            break;
+        case -1:
+            // accessibility menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::accessibility, true);
+            map.nexttowercolour();
+            break;
         case 0:
             music.playef(Sound_CRY);
             break;
