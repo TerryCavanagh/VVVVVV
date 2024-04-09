@@ -57,6 +57,7 @@ enum TouchButtonType
     TOUCH_BUTTON_TYPE_NONE,
     TOUCH_BUTTON_TYPE_MENU,
     TOUCH_BUTTON_TYPE_MENU_TOGGLE,
+    TOUCH_BUTTON_TYPE_MENU_SLIDER,
     TOUCH_BUTTON_TYPE_MAP
 };
 
@@ -74,6 +75,9 @@ struct TouchButton
     int id; // The ID for the button, mainly used for menu buttons
     bool disabled; // Whether the button is disabled or not (gray and can't use), different from active
     bool checked; // If this is a checkbox, whether it's checked or not
+    int min; // If this is a slider, this is the minimum value
+    int max; // If this is a slider, this is the maximum value
+    int* var; // If this is a slider, this is the variable to modify
     std::string text; // The text for the button, if it doesn't have an image
     SDL_Texture* image; // The image that gets displayed on the button, can be NULL
     SDL_FingerID fingerId;
@@ -90,6 +94,7 @@ namespace touch
     extern bool scroll;
 
     void refresh_buttons(void);
+    void update_sliders();
     void reset(void);
     void on_menu_create(void);
     void update_buttons(void);
@@ -99,6 +104,7 @@ namespace touch
 
     void create_menu_button(int x, int y, int width, int height, std::string text, int id);
     void create_menu_button(int x, int y, int width, int height, std::string text, int id, bool disabled);
+    void create_slider_button(int x, int y, int width, int height, std::string text, int* var, int minvalue, int maxvalue);
     void create_toggle_button(int x, int y, int width, int height, std::string text, int id, bool checked);
 
     void remove_dynamic_buttons(void);

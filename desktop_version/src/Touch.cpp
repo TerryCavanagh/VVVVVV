@@ -150,6 +150,19 @@ namespace touch
         register_button(button);
     }
 
+    void create_slider_button(int x, int y, int width, int height, std::string text, int* var, int minvalue, int maxvalue)
+    {
+        TouchButton button = create_button(x, y, width, height, text);
+        button.type = TOUCH_BUTTON_TYPE_MENU_SLIDER;
+        button.id = -1;
+        button.disabled = false;
+        button.min = minvalue;
+        button.max = maxvalue;
+        button.var = var;
+
+        register_button(button);
+    }
+
     void create_toggle_button(int x, int y, int width, int height, std::string text, int id, bool checked)
     {
         TouchButton button = create_button(x, y, width, height, text);
@@ -186,6 +199,7 @@ namespace touch
             menuactionpress();
             break;
         case TOUCH_BUTTON_TYPE_NONE:
+        case TOUCH_BUTTON_TYPE_MENU_SLIDER:
         default:
             break;
         }
@@ -281,6 +295,38 @@ namespace touch
         }
     }
 
+    void update_sliders()
+    {
+        SDL_Rect stretch_rect;
+        graphics.get_stretch_info(&stretch_rect);
+
+        for (int i = 0; i < all_buttons.size(); i++)
+        {
+            TouchButton* button = all_buttons[i];
+
+            if (button->type == TOUCH_BUTTON_TYPE_MENU_SLIDER && button->pressed)
+            {
+                int value = *button->var;
+                int range = button->max - button->min;
+                float percent = (float) (value - button->min) / range;
+
+                int finger_x = (fingers[button->fingerId].x - stretch_rect.x) * SCREEN_WIDTH_PIXELS / stretch_rect.w;
+
+                int newvalue = button->min + (int) ((finger_x - button->x) / (float)button->width * range);
+                if (newvalue < button->min)
+                {
+                    newvalue = button->min;
+                }
+                if (newvalue > button->max)
+                {
+                    newvalue = button->max;
+                }
+
+                *button->var = newvalue;
+            }
+        }
+    }
+
     void render_buttons(int scale, bool ui, int r, int g, int b)
     {
         for (int i = 0; i < all_buttons.size(); i++)
@@ -325,6 +371,27 @@ namespace touch
 
                     switch (button->type)
                     {
+                    case TOUCH_BUTTON_TYPE_MENU_SLIDER:
+                    {
+                        // Find where the slider position is!
+                        int value = *button->var;
+                        int range = button->max - button->min;
+                        float percent = (float) (value - button->min) / range;
+                        int sliderpos = (int) ((button->width - 10) * percent);
+
+                        // Draw track
+                        graphics.fill_rect(button->x * scale + 2, (button->y + (button->height / 2)) * scale, button->width, 4, use_r / shadow_div, use_g / shadow_div, use_b / shadow_div);
+                        graphics.fill_rect(button->x * scale, (button->y + (button->height / 2) - 2) * scale, button->width, 4, use_r / inner_div, use_g / inner_div, use_b / inner_div);
+
+                        // Draw slider
+                        graphics.fill_rect((button->x + sliderpos + 2) * scale, (button->y + (button->height / 2) - 3) * scale, 10, 10, use_r / shadow_div, use_g / shadow_div, use_b / shadow_div);
+                        graphics.fill_rect((button->x + sliderpos) * scale, (button->y + (button->height / 2) - 5) * scale, 10, 10, use_r, use_g, use_b);
+                        graphics.fill_rect((button->x + sliderpos + 1) * scale, (button->y + (button->height / 2) - 4) * scale, 8, 8, use_r / inner_div, use_g / inner_div, use_b / inner_div);
+
+
+                        font::print(PR_CEN | PR_CJK_LOW | font_scale, button->x + (button->width / 2) * scale, button->y * scale, button->text, use_r, use_g, use_b);
+                        break;
+                    }
                     case TOUCH_BUTTON_TYPE_MENU_TOGGLE:
                         graphics.draw_rect(button->x + offset * scale, button->y + offset * scale, 10, 10, use_r, use_g, use_b);
                         if (button->checked)

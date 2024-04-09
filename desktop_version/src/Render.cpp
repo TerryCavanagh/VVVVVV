@@ -512,39 +512,54 @@ static void menurender(void)
         break;
     }
     case Menu::audiooptions:
-        switch (game.currentmenuoption)
+        if (key.using_touch)
         {
-        case 0:
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Music Volume"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the volume of the music."), tr, tg, tb);
-            volumesliderrender();
-            break;
-        case 1:
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Sound Volume"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the volume of sound effects."), tr, tg, tb);
-            volumesliderrender();
-            break;
-        case 2:
-        {
-            if (!music.mmmmmm)
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Audio Options"), tr, tg, tb);
+            if (music.mmmmmm)
             {
-                break;
-            }
-
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Soundtrack"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Toggle between MMMMMM and PPPPPP."), tr, tg, tb);
-
-            const char* soundtrack;
-            if (music.usingmmmmmm)
-            {
-                soundtrack = loc::gettext("Current soundtrack: MMMMMM");
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Adjust volume settings and soundtrack."), tr, tg, tb);
             }
             else
             {
-                soundtrack = loc::gettext("Current soundtrack: PPPPPP");
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Adjust volume settings."), tr, tg, tb);
             }
-            font::print_wrap(PR_CEN, -1, next_y, soundtrack, tr, tg, tb);
-            break;
+        }
+        else
+        {
+            switch (game.currentmenuoption)
+            {
+            case 0:
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Music Volume"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the volume of the music."), tr, tg, tb);
+                volumesliderrender();
+                break;
+            case 1:
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Sound Volume"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the volume of sound effects."), tr, tg, tb);
+                volumesliderrender();
+                break;
+            case 2:
+            {
+                if (!music.mmmmmm)
+                {
+                    break;
+                }
+
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Soundtrack"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Toggle between MMMMMM and PPPPPP."), tr, tg, tb);
+
+                const char* soundtrack;
+                if (music.usingmmmmmm)
+                {
+                    soundtrack = loc::gettext("Current soundtrack: MMMMMM");
+                }
+                else
+                {
+                    soundtrack = loc::gettext("Current soundtrack: PPPPPP");
+                }
+                font::print_wrap(PR_CEN, -1, next_y, soundtrack, tr, tg, tb);
+                break;
+            }
         }
 
         }

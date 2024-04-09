@@ -1180,6 +1180,22 @@ void menuactionpress(void)
             map.nexttowercolour();
             music.playef(Sound_VIRIDIAN);
         }
+
+        if (game.currentmenuoption == -2)
+        {
+            // gameplay menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::graphicoptions, true);
+            map.nexttowercolour();
+        }
+        if (game.currentmenuoption == -1)
+        {
+            // audio menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::touch_input, true);
+            map.nexttowercolour();
+        }
+
         break;
     case Menu::language:
     {
@@ -2600,6 +2616,7 @@ void titleinput(void)
             {
                 slidermodeinput();
             }
+            touch::update_sliders();
         }
 
         if (game.currentmenuoption < 0) game.currentmenuoption = game.menuoptions.size()-1;
