@@ -6565,6 +6565,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     int maxspacing = 30; // maximum value for menuspacing, can only become lower.
     bool auto_buttons = true;
     bool auto_center = true;
+    int button_height = 26;
+    int button_spacing = 6;
     menucountdown = 0;
     menuoptions.clear();
     touch::remove_dynamic_buttons();
@@ -6756,11 +6758,14 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = -20;
         break;
     case Menu::gameplayoptions:
+    {
 #if !defined(MAKEANDPLAY)
+        int offset = 0;
         if (ingame_titlemode && unlock[Unlock_FLIPMODE])
 #endif
         {
-                option(loc::gettext("flip mode"));
+            option(loc::gettext("flip mode"));
+            offset++;
         }
         option(loc::gettext("toggle fps"));
         option(loc::gettext("speedrun options"));
@@ -6770,18 +6775,29 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("return"));
         menuyoff = -10;
         maxspacing = 15;
+        auto_buttons = false;
 
-        buttonscentered = true;
+        touch::create_toggle_button((320 - 160) / 2, 120 - 32, 160, 12, loc::gettext("limit to 30 fps"), offset, !over30mode);
+        touch::create_toggle_button((320 - 160) / 2, 120 - 32 + 16, 160, 12, loc::gettext("translucent room name bg"), offset, graphics.translucentroomname);
+
+        touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
+        touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), offset + 5);
+        touch::create_menu_button(198 + 16, 200, 76, 26, loc::gettext("next"), -1);
         break;
+    }
     case Menu::graphicoptions:
+    {
+        int optionid = 4;
         if (!gameScreen.isForcedFullscreen())
         {
             option(loc::gettext("toggle fullscreen"));
+            optionid++;
         }
         option(loc::gettext("scaling mode"));
         if (!gameScreen.isForcedFullscreen())
         {
             option(loc::gettext("resize to nearest"), gameScreen.isWindowed);
+            optionid++;
         }
         option(loc::gettext("toggle filter"));
         option(loc::gettext("toggle analogue"));
@@ -6789,9 +6805,18 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("return"));
         menuyoff = -10;
         maxspacing = 15;
+        auto_buttons = false;
 
-        buttonscentered = true;
+        touch::create_menu_button((320 - 160) / 2, 120 - 32, 160, button_height, loc::gettext("scaling mode"), 1);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 16, 160, 12, loc::gettext("filtered screen"), 3, gameScreen.isFiltered);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 32, 160, 12, loc::gettext("analogue mode"), 4, gameScreen.badSignalEffect);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 48, 160, 12, loc::gettext("vsync"), 5, gameScreen.vsync);
+
+        touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
+        touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), optionid);
+        touch::create_menu_button(198 + 16, 200, 76, 26, loc::gettext("next"), -1);
         break;
+    }
     case Menu::ed_settings:
         option(loc::gettext("change description"));
         option(loc::gettext("edit scripts"));
@@ -7440,7 +7465,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 }
             }
 
-            base_y = (240 - count * 32) / 2;
+            base_y = (240 - count * (button_height + button_spacing)) / 2;
         }
 
         int offset = 0;
@@ -7450,9 +7475,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             {
                 touch::create_menu_button(
                     (320 - 160) / 2,
-                    base_y + offset * 32,
+                    base_y + offset * (button_height + button_spacing),
                     160,
-                    26,
+                    button_height,
                     menuoptions[i].text,
                     i,
                     menuoptions[i].active
@@ -7461,6 +7486,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             }
         }
     }
+
+    touch::on_menu_create();
 }
 
 bool Game::can_unlock_ndm(void)

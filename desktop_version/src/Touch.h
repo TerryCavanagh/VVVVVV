@@ -56,6 +56,7 @@ enum TouchButtonType
 {
     TOUCH_BUTTON_TYPE_NONE,
     TOUCH_BUTTON_TYPE_MENU,
+    TOUCH_BUTTON_TYPE_MENU_TOGGLE,
     TOUCH_BUTTON_TYPE_MAP
 };
 
@@ -72,6 +73,7 @@ struct TouchButton
     bool ui; // Whether the button is on the UI layer or not
     int id; // The ID for the button, mainly used for menu buttons
     bool disabled; // Whether the button is disabled or not (gray and can't use), different from active
+    bool checked; // If this is a checkbox, whether it's checked or not
     std::string text; // The text for the button, if it doesn't have an image
     SDL_Texture* image; // The image that gets displayed on the button, can be NULL
     SDL_FingerID fingerId;
@@ -85,9 +87,11 @@ namespace touch
     extern std::vector<TouchButton> dynamic_buttons;
     extern std::vector<TouchButton*> all_buttons;
     extern int scale;
+    extern bool scroll;
 
     void refresh_buttons(void);
     void reset(void);
+    void on_menu_create(void);
     void update_buttons(void);
 
     TouchButton create_button(int x, int y, int width, int height, std::string text);
@@ -95,6 +99,7 @@ namespace touch
 
     void create_menu_button(int x, int y, int width, int height, std::string text, int id);
     void create_menu_button(int x, int y, int width, int height, std::string text, int id, bool disabled);
+    void create_toggle_button(int x, int y, int width, int height, std::string text, int id, bool checked);
 
     void remove_dynamic_buttons(void);
 
