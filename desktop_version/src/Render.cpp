@@ -801,27 +801,35 @@ static void menurender(void)
     }
     case Menu::touch_input:
     {
-        switch (game.currentmenuoption)
+        if (key.using_touch)
         {
-        case 0: // Control style
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Control Style"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the control style for touch input."), tr, tg, tb);
-            break;
-        case 1:
-            // Display touch buttons!
-            key.using_touch = true;
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Touch Input"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change touch input options."), tr, tg, tb);
+        }
+        else
+        {
+            switch (game.currentmenuoption)
+            {
+            case 0: // Control style
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Control Style"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the control style for touch input."), tr, tg, tb);
+                break;
+            case 1:
+                // Display touch buttons!
+                key.using_touch = true;
 
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("UI Scale"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the scale of the UI buttons."), tr, tg, tb);
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("UI Scale"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the scale of the UI buttons."), tr, tg, tb);
 
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            float scale = (float)touch::scale / 10.0;
-            vformat_buf(buffer, sizeof(buffer), loc::gettext("Current scale: {scale}.{extra}x"), "scale:int, extra:int",
-                (int) scale,
-                (int) ((float) ((float) scale - (int) scale) * 10)
-            );
-            font::print(PR_CEN, -1, 75, buffer, tr, tg, tb);
-            break;
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                float scale = (float) touch::scale / 10.0;
+                vformat_buf(buffer, sizeof(buffer), loc::gettext("Current scale: {scale}.{extra}x"), "scale:int, extra:int",
+                    (int)scale,
+                    (int)((float)((float)scale - (int)scale) * 10)
+                );
+                font::print(PR_CEN, -1, 75, buffer, tr, tg, tb);
+                break;
+            }
         }
     }
     break;
