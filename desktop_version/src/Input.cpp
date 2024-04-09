@@ -454,7 +454,14 @@ void menuactionpress(void)
         case 2:
             //Options
             music.playef(Sound_VIRIDIAN);
-            game.createmenu(Menu::options);
+            if (key.using_touch)
+            {
+                game.createmenu(Menu::gameplayoptions);
+            }
+            else
+            {
+                game.createmenu(Menu::options);
+            }
             map.nexttowercolour();
             break;
         case 3:
@@ -707,6 +714,22 @@ void menuactionpress(void)
             music.playef(Sound_VIRIDIAN);
             gameScreen.toggleVSync();
             game.savestatsandsettings_menu();
+        }
+        if (game.currentmenuoption == -2)
+        {
+            // gameplay menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::gameplayoptions, true);
+            map.nexttowercolour();
+            processed = true;
+        }
+        if (game.currentmenuoption == -1)
+        {
+            // audio menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::audiooptions, true);
+            map.nexttowercolour();
+            processed = true;
         }
         if (!processed)
         {
@@ -1029,6 +1052,21 @@ void menuactionpress(void)
             //return to previous menu
             music.playef(Sound_VIRIDIAN);
             game.returnmenu();
+            map.nexttowercolour();
+        }
+
+        if (game.currentmenuoption == -2)
+        {
+            // language menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::language, true);
+            map.nexttowercolour();
+        }
+        if (game.currentmenuoption == -1)
+        {
+            // graphics menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::graphicoptions, true);
             map.nexttowercolour();
         }
 
@@ -3370,7 +3408,14 @@ static void mapmenuactionpress(const bool version2_2)
 
         // Set this before we create the menu
         game.kludge_ingametemp = game.currentmenuname;
-        game.createmenu(Menu::options);
+        if (key.using_touch)
+        {
+            game.createmenu(Menu::gameplayoptions);
+        }
+        else
+        {
+            game.createmenu(Menu::options);
+        }
         map.nexttowercolour();
         break;
     case 32:

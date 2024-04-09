@@ -33,6 +33,7 @@ namespace touch
     bool use_buttons;
     int scale;
     bool textbox_style;
+    bool scroll;
 
     void refresh_all_buttons(void)
     {
@@ -52,7 +53,7 @@ namespace touch
     int get_rect(TouchButton* button, SDL_Rect* rect)
     {
         rect->x = button->x;
-        rect->y = button->y;
+        rect->y = button->y - scroll;
         rect->w = button->width;
         rect->h = button->height;
 
@@ -124,6 +125,7 @@ namespace touch
         button.type = TOUCH_BUTTON_TYPE_NONE;
         button.id = -1;
         button.disabled = false;
+        button.checked = false;
 
         return button;
     }
@@ -148,6 +150,16 @@ namespace touch
         register_button(button);
     }
 
+    void create_toggle_button(int x, int y, int width, int height, std::string text, int id, bool checked)
+    {
+        TouchButton button = create_button(x, y, width, height, text);
+        button.type = TOUCH_BUTTON_TYPE_MENU_TOGGLE;
+        button.id = id;
+        button.checked = checked;
+
+        register_button(button);
+    }
+
     void register_button(TouchButton button)
     {
         dynamic_buttons.push_back(button);
@@ -166,6 +178,9 @@ namespace touch
         bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
         switch (button->type)
         {
+        case TOUCH_BUTTON_TYPE_MENU_TOGGLE:
+            button->checked = !button->checked;
+            SDL_FALLTHROUGH;
         case TOUCH_BUTTON_TYPE_MENU:
             game.currentmenuoption = button->id;
             menuactionpress();
@@ -303,13 +318,30 @@ namespace touch
                         inner_div = 6;
                     }
 
-                    graphics.fill_rect(button->x + 4 * scale, button->y + 4 * scale, button->width, button->height, r / shadow_div, g / shadow_div, b / shadow_div);
-
                     int offset = (button->down) ? 1 : 0;
 
-                    graphics.fill_rect(button->x + offset * scale, button->y + offset * scale, button->width, button->height, use_r, use_g, use_b);
-                    graphics.fill_rect(button->x + (offset + 2) * scale, button->y + (2 + offset) * scale, button->width - 4 * scale, button->height - 4 * scale, use_r / inner_div, use_g / inner_div, use_b / inner_div);
-                    font::print(PR_CEN | (SDL_min((scale - 1), 7) << 0), button->x + (button->width / 2) + offset * scale, button->y + (button->height / 2) + (offset - 4) * scale, button->text, 196, 196, 255 - help.glow);
+                    int font_scale = (SDL_min((scale - 1), 7) << 0);
+                    int height = font::height(PR_CJK_LOW | font_scale);
+
+                    switch (button->type)
+                    {
+                    case TOUCH_BUTTON_TYPE_MENU_TOGGLE:
+                        graphics.draw_rect(button->x + offset * scale, button->y + offset * scale, 10, 10, use_r, use_g, use_b);
+                        if (button->checked)
+                        {
+                            graphics.fill_rect(button->x + 2 * scale + offset * scale, button->y + 2 * scale + offset * scale, 6, 6, use_r, use_g, use_b);
+                        }
+
+                        font::print(PR_CJK_LOW | font_scale, button->x + 16 + offset * scale, button->y + ((button->height - height) / 2 + offset) * scale, button->text, use_r, use_g, use_b);
+                        break;
+                    default:
+                        graphics.fill_rect(button->x + 4 * scale, button->y + 4 * scale, button->width, button->height, r / shadow_div, g / shadow_div, b / shadow_div);
+
+                        graphics.fill_rect(button->x + offset * scale, button->y + offset * scale, button->width, button->height, use_r, use_g, use_b);
+                        graphics.fill_rect(button->x + (offset + 2) * scale, button->y + (2 + offset) * scale, button->width - 4 * scale, button->height - 4 * scale, use_r / inner_div, use_g / inner_div, use_b / inner_div);
+                        font::print(PR_CEN | PR_CJK_LOW | font_scale, button->x + (button->width / 2) + offset * scale, button->y + ((button->height - height) / 2 + offset) * scale, button->text, 196, 196, 255 - help.glow);
+                        break;
+                    }
                 }
             }
         }
@@ -363,6 +395,11 @@ namespace touch
             fingers[i].pressed = false;
             fingers[i].on_button = false;
         }
+    }
+
+    void on_menu_create(void)
+    {
+        scroll = 0;
     }
 
     void update_buttons(void)
