@@ -610,6 +610,8 @@ public:
     int old_screenshot_border_timer;
     int screenshot_border_timer;
     bool screenshot_saved_success;
+
+    int languagepage;
 };
 
 #ifndef GAME_DEFINITION

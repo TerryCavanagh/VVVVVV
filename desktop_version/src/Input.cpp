@@ -423,6 +423,17 @@ void menuactionpress(void)
 
 #undef OPTION_ID
 
+        // Special case for touch input: language button!
+        if (option_id == -1)
+        {
+            music.playef(Sound_VIRIDIAN);
+            loc::loadlanguagelist();
+            loc::pre_title_lang_menu = false;
+            game.createmenu(Menu::language);
+            game.currentmenuoption = loc::languagelist_curlang;
+            map.nexttowercolour();
+            break;
+        }
 
         switch (option_id)
         {
@@ -911,10 +922,11 @@ void menuactionpress(void)
         }
         if (game.currentmenuoption == -1)
         {
-            // language menu
+            // gameplay menu
             music.playef(Sound_VIRIDIAN);
-            game.createmenu(Menu::language, true);
+            game.createmenu(Menu::gameplayoptions, true);
             map.nexttowercolour();
+            break;
         }
 
         int accessibilityoffset = 0;
@@ -1072,10 +1084,11 @@ void menuactionpress(void)
 
         if (game.currentmenuoption == -2)
         {
-            // language menu
+            // accessibility menu
             music.playef(Sound_VIRIDIAN);
-            game.createmenu(Menu::language, true);
+            game.createmenu(Menu::accessibility, true);
             map.nexttowercolour();
+            break;
         }
         if (game.currentmenuoption == -1)
         {
@@ -1218,32 +1231,57 @@ void menuactionpress(void)
 
         music.playef(Sound_VIRIDIAN);
 
-        if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
+        if (game.currentmenuoption == -3)
         {
-            /* Update code also used in KeyPoll.cpp. */
-            loc::languagelist_curlang = game.currentmenuoption;
-            loc::lang = loc::languagelist[game.currentmenuoption].code;
-            loc::loadtext(false);
-            loc::lang_set = loc::lang_set_current;
-            graphics.grphx.init_translations();
+            // return
+            game.returnmenu();
+            map.nexttowercolour();
+        }
+        else if (game.currentmenuoption == -2)
+        {
+            // go left a page (or wrap to end)
+            game.languagepage--;
+            map.nexttowercolour();
+        }
+        else if (game.currentmenuoption == -1)
+        {
+            // go right a page (or wrap to start)
+            game.languagepage++;
+            map.nexttowercolour();
+        }
+        else
+        {
+            if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
+            {
+                /* Update code also used in KeyPoll.cpp. */
+                loc::languagelist_curlang = game.currentmenuoption;
+                loc::lang = loc::languagelist[game.currentmenuoption].code;
+                loc::loadtext(false);
+                loc::lang_set = loc::lang_set_current;
+                graphics.grphx.init_translations();
+            }
+
+            if (loc::pre_title_lang_menu)
+            {
+                /* Make the title screen appear, we haven't seen it yet.
+                 * game.returnmenu() works because Menu::mainmenu
+                 * is created before the language menu. */
+                game.menustart = false;
+                loc::pre_title_lang_menu = false;
+            }
+
+            if (prev_lang != loc::lang)
+            {
+                recomputetextboxes();
+            }
+
+            if (!key.using_touch)
+            {
+                game.returnmenu();
+                map.nexttowercolour();
+            }
         }
 
-        if (loc::pre_title_lang_menu)
-        {
-            /* Make the title screen appear, we haven't seen it yet.
-             * game.returnmenu() works because Menu::mainmenu
-             * is created before the language menu. */
-            game.menustart = false;
-            loc::pre_title_lang_menu = false;
-        }
-
-        if (prev_lang != loc::lang)
-        {
-            recomputetextboxes();
-        }
-
-        game.returnmenu();
-        map.nexttowercolour();
         game.savestatsandsettings_menu();
 
         break;

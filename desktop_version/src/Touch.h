@@ -56,6 +56,7 @@ enum TouchButtonType
 {
     TOUCH_BUTTON_TYPE_NONE,
     TOUCH_BUTTON_TYPE_MENU,
+    TOUCH_BUTTON_TYPE_MENU_LANGUAGE,
     TOUCH_BUTTON_TYPE_MENU_TOGGLE,
     TOUCH_BUTTON_TYPE_MENU_SLIDER,
     TOUCH_BUTTON_TYPE_MAP
@@ -79,6 +80,7 @@ struct TouchButton
     int max; // If this is a slider, this is the maximum value
     int* var; // If this is a slider, this is the variable to modify
     std::string text; // The text for the button, if it doesn't have an image
+    Uint8 flags; // Print flags
     SDL_Texture* image; // The image that gets displayed on the button, can be NULL
     SDL_FingerID fingerId;
     TouchButtonType type;
@@ -103,6 +105,7 @@ namespace touch
     void register_button(TouchButton button);
 
     void create_menu_button(int x, int y, int width, int height, std::string text, int id);
+    void create_menu_button_flags(int x, int y, int width, int height, std::string text, int id, Uint8 flags);
     void create_menu_button(int x, int y, int width, int height, std::string text, int id, bool disabled);
     void create_slider_button(int x, int y, int width, int height, std::string text, int* var, int minvalue, int maxvalue);
     void create_toggle_button(int x, int y, int width, int height, std::string text, int id, bool checked);

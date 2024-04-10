@@ -384,6 +384,8 @@ void Game::init(void)
     checkpoint_saving = false;
 #endif
 
+    languagepage = 0;
+
     setdefaultcontrollerbuttons();
 }
 
@@ -6609,7 +6611,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     bool auto_buttons = true;
     bool auto_center = true;
     int button_height = 26;
-    int button_spacing = 6;
+    int button_spacing = 8;
     menucountdown = 0;
     menuoptions.clear();
     touch::remove_dynamic_buttons();
@@ -6627,12 +6629,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         int offset = 0;
 #if !defined(MAKEANDPLAY)
         option(loc::gettext("play"));
-        touch::create_menu_button(80, 96, 160, 26, loc::gettext("play"), offset++);
+        touch::create_menu_button(80, 96 - 8, 160, 26, loc::gettext("play"), offset++);
 #endif
         option(loc::gettext("levels"));
         option(loc::gettext("options"));
-        touch::create_menu_button(80, 128, 160, 26, loc::gettext("levels"), offset++);
-        touch::create_menu_button(164, 160, 76, 26, loc::gettext("options"), offset++);
+        touch::create_menu_button(80, 130 - 8, 160, 26, loc::gettext("levels"), offset++);
+        touch::create_menu_button(80, 164 - 8, 128, 26, loc::gettext("options"), offset++);
         if (loc::show_translator_menu)
         {
             option(loc::gettext("translator"));
@@ -6641,14 +6643,18 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("credits"));
         option(loc::gettext("quit"));
 
-        touch::create_menu_button(80, 160, 76, 26, loc::gettext("credits"), offset++);
-        touch::create_menu_button(80, 192, 160, 26, loc::gettext("quit"), offset++); // TODO: Don't show this on phones! Fine for now, but we have to do it before submitting to app stores.
+        // Create the language button
+        TouchButton button = touch::create_button(214, 164 - 8, 26, 26, "");
+        button.type = TOUCH_BUTTON_TYPE_MENU_LANGUAGE;
+        button.id = -1;
+
+        touch::register_button(button);
+
+        touch::create_menu_button(80, 198 - 8, 160, 26, loc::gettext("credits"), offset++);
 
         menuyoff = -10;
         maxspacing = 15;
         auto_buttons = false;
-
-
 
         break;
     }
@@ -7061,19 +7067,45 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         }
         else
         {
+            int button_x = 80;
+            int button_y = 32;
+            bool spawn_more_buttons = true;
             for (size_t i = 0; i < loc::languagelist.size(); i++)
             {
                 if (loc::languagelist[i].nativename.empty())
                 {
                     option(loc::languagelist[i].code.c_str());
+
+                    if (spawn_more_buttons)
+                    {
+                        int button_width = SDL_max(120, font::len(PR_1X, loc::languagelist[i].code.c_str()) + 16);
+                        touch::create_menu_button(button_x - button_width / 2, button_y, button_width, 16, loc::languagelist[i].code.c_str(), i);
+                    }
                 }
                 else
                 {
+                    Uint8 flags = PR_FONT_IDX(loc::languagelist[i].font_idx, loc::languagelist[i].rtl);
                     option(
                         loc::languagelist[i].nativename.c_str(),
                         true,
-                        PR_FONT_IDX(loc::languagelist[i].font_idx, loc::languagelist[i].rtl)
+                        flags
                     );
+
+                    if (spawn_more_buttons)
+                    {
+                        int button_width = SDL_max(120, font::len(flags, loc::languagelist[i].nativename.c_str()) + 16);
+                        touch::create_menu_button_flags(button_x - button_width / 2, button_y, button_width, 16, loc::languagelist[i].nativename.c_str(), i, flags);
+                    }
+                }
+                button_y += 20;
+                if (button_y > 200 - 16)
+                {
+                    button_y = 32;
+                    button_x += 160;
+                    if (button_x > 320 - 80)
+                    {
+                        spawn_more_buttons = false;
+                    }
                 }
             }
 
@@ -7400,7 +7432,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("start new game"));
         option(loc::gettext("return"));
         menuyoff = 64;
-        buttonyoff = -16;
+        buttonyoff = -32;
         break;
     case Menu::playmodes:
         option(loc::gettext("time trials"), !nocompetitive_unless_translator());
