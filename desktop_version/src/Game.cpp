@@ -6949,8 +6949,13 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     }
     case Menu::accessibility:
+    {
+        int offset = -1;
 #if !defined(MAKEANDPLAY)
         option(loc::gettext("unlock play modes"));
+        // For now, we're not going to allow the player to unlock play modes from the options menu, until we come up with a good UI for it.
+        //touch::create_menu_button((320 - 160) / 2, 120 - 32, 160, 26, loc::gettext("unlock play modes"), 0);
+        offset = 0;
 #endif
         option(loc::gettext("invincibility"), !ingame_titlemode || !incompetitive());
         option(loc::gettext("slowdown"), !ingame_titlemode || !incompetitive());
@@ -6961,8 +6966,19 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 0;
         maxspacing = 15;
 
-        buttonscentered = true;
+        auto_buttons = false;
+
+        touch::create_toggle_button((320 - 160) / 2, 120 - 24 - 8, 160, 12, loc::gettext("invincibility"), offset + 1, map.invincibility);
+        touch::create_slider_button((320 - 160) / 2, 120 - 16, 160, 48, loc::gettext("game speed"), &slowdown, 12, 30);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 32, 160, 12, loc::gettext("animated backgrounds"), offset + 3, !colourblindmode);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 48, 160, 12, loc::gettext("screen effects"), offset + 4, !noflashingmode);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 64, 160, 12, loc::gettext("text outline"), offset + 5, !graphics.notextoutline);
+
+        touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
+        touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), offset + 6);
+        touch::create_menu_button(198 + 16, 200, 76, 26, loc::gettext("next"), -1);
         break;
+    }
     case Menu::controller:
         option(loc::gettext("analog stick sensitivity"));
         option(loc::gettext("bind flip"));
@@ -6983,7 +6999,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
         auto_buttons = false;
 
-        touch::create_slider_button((320 - 160) / 2, 120 + 32, 160, 48, loc::gettext("ui scale"), &touch::scale, 5, 20);
+        touch::create_menu_button((320 - 160) / 2, 120 - 32, 160, 26, loc::gettext("control style"), 1, false);
+
+        touch::create_slider_button((320 - 160) / 2, 120 + 16, 160, 48, loc::gettext("ui scale"), &touch::scale, 5, 20);
 
         touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
         touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), 2);
@@ -6991,6 +7009,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
         break;
     case Menu::language:
+        auto_buttons = false;
         if (loc::languagelist.empty())
         {
             option(loc::gettext("ok"));
@@ -7017,6 +7036,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             menuyoff = 70-(menuoptions.size()*10);
             maxspacing = 5;
         }
+
+        touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
+        touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), -3);
+        touch::create_menu_button(198 + 16, 200, 76, 26, loc::gettext("next"), -1);
+
         break;
     case Menu::translator_main:
         option(loc::gettext("translator options"));
@@ -7115,6 +7139,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("no, return to options"));
         option(loc::gettext("yes, enable"));
         menuyoff = 64;
+        buttonyoff = -24;
         break;
     case Menu::setslowdown:
         option(loc::gettext("normal speed"));
@@ -7301,7 +7326,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 {
                     option(loc::gettext("secret lab"));
                 }
-                option(loc::gettext("play modes"));
+                option(loc::gettext("play modes"), true, PR_RTL_XFLIP, false); // Disable an auto button for play modes for now, we haven't done the menu
                 if (save_exists())
                 {
                     option(loc::gettext("new game"));
@@ -7331,6 +7356,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("start new game"));
         option(loc::gettext("return"));
         menuyoff = 64;
+        buttonyoff = -16;
         break;
     case Menu::playmodes:
         option(loc::gettext("time trials"), !nocompetitive_unless_translator());
@@ -7500,10 +7526,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         {
             if (menuoptions[i].auto_button)
             {
+                int button_width = SDL_max(160, font::len(menuoptions[i].print_flags, menuoptions[i].text) + 16);
                 touch::create_menu_button(
-                    (320 - 160) / 2,
+                    (320 - button_width) / 2,
                     base_y + offset * (button_height + button_spacing),
-                    160,
+                    button_width,
                     button_height,
                     menuoptions[i].text,
                     i,
