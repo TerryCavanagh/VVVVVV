@@ -97,18 +97,6 @@ namespace touch
 
     TouchButton create_button(int x, int y, int width, int height, std::string text)
     {
-        int scale = get_scale();
-
-        if (width == -1)
-        {
-            width = font::len(PR_CEN | (SDL_min((scale - 1), 7) << 0), text.c_str()) + 24 * scale;
-        }
-
-        if (height == -1)
-        {
-            height = font::height(PR_CEN | (SDL_min((scale - 1), 7) << 0)) + 18 * scale;
-        }
-
         TouchButton button;
         button.x = x;
         button.y = y;
@@ -126,6 +114,7 @@ namespace touch
         button.id = -1;
         button.disabled = false;
         button.checked = false;
+        button.flags = 0;
 
         return button;
     }
@@ -136,6 +125,16 @@ namespace touch
         TouchButton button = create_button(x, y, width, height, text);
         button.type = TOUCH_BUTTON_TYPE_MENU;
         button.id = id;
+
+        register_button(button);
+    }
+
+    void create_menu_button_flags(int x, int y, int width, int height, std::string text, int id, Uint8 flags)
+    {
+        TouchButton button = create_button(x, y, width, height, text);
+        button.type = TOUCH_BUTTON_TYPE_MENU;
+        button.id = id;
+        button.flags = flags;
 
         register_button(button);
     }
@@ -195,6 +194,7 @@ namespace touch
             button->checked = !button->checked;
             SDL_FALLTHROUGH;
         case TOUCH_BUTTON_TYPE_MENU:
+        case TOUCH_BUTTON_TYPE_MENU_LANGUAGE:
             game.currentmenuoption = button->id;
             menuactionpress();
             break;
@@ -367,7 +367,7 @@ namespace touch
                     int offset = (button->down) ? 1 : 0;
 
                     int font_scale = (SDL_min((scale - 1), 7) << 0);
-                    int height = font::height(PR_CJK_LOW | font_scale);
+                    int height = font::height(PR_CJK_LOW | font_scale | button->flags);
 
                     switch (button->type)
                     {
@@ -389,7 +389,7 @@ namespace touch
                         graphics.fill_rect((button->x + sliderpos + 1) * scale, (button->y + (button->height / 2) - 4) * scale, 8, 8, use_r / inner_div, use_g / inner_div, use_b / inner_div);
 
 
-                        font::print(PR_CEN | PR_CJK_LOW | font_scale, button->x + (button->width / 2) * scale, button->y * scale, button->text, use_r, use_g, use_b);
+                        font::print(PR_CEN | PR_CJK_LOW | font_scale | button->flags, button->x + (button->width / 2) * scale, button->y * scale, button->text, use_r, use_g, use_b);
                         break;
                     }
                     case TOUCH_BUTTON_TYPE_MENU_TOGGLE:
@@ -399,14 +399,23 @@ namespace touch
                             graphics.fill_rect(button->x + 2 * scale + offset * scale, button->y + 2 * scale + offset * scale, 6, 6, use_r, use_g, use_b);
                         }
 
-                        font::print(PR_CJK_LOW | font_scale, button->x + 16 + offset * scale, button->y + ((button->height - height) / 2 + offset) * scale, button->text, use_r, use_g, use_b);
+                        font::print(PR_CJK_LOW | font_scale | button->flags, button->x + 16 + offset * scale, button->y + ((button->height - height) / 2 + offset) * scale, button->text, use_r, use_g, use_b);
                         break;
                     default:
                         graphics.fill_rect(button->x + 4 * scale, button->y + 4 * scale, button->width, button->height, r / shadow_div, g / shadow_div, b / shadow_div);
 
                         graphics.fill_rect(button->x + offset * scale, button->y + offset * scale, button->width, button->height, use_r, use_g, use_b);
                         graphics.fill_rect(button->x + (offset + 2) * scale, button->y + (2 + offset) * scale, button->width - 4 * scale, button->height - 4 * scale, use_r / inner_div, use_g / inner_div, use_b / inner_div);
-                        font::print(PR_CEN | PR_CJK_LOW | font_scale, button->x + (button->width / 2) + offset * scale, button->y + ((button->height - height) / 2 + offset) * scale, button->text, 196, 196, 255 - help.glow);
+                        if (button->type == TOUCH_BUTTON_TYPE_MENU_LANGUAGE)
+                        {
+                            graphics.set_texture_color_mod(graphics.grphx.im_button_globe, 196, 196, 255 - help.glow);
+                            graphics.draw_texture(graphics.grphx.im_button_globe, (button->x + 4 + offset) * scale, (button->y + 4 + offset) * scale, scale, scale);
+                            graphics.set_texture_color_mod(graphics.grphx.im_button_globe, 255, 255, 255);
+                        }
+                        else
+                        {
+                            font::print(PR_CEN | PR_CJK_LOW | font_scale | button->flags, button->x + (button->width / 2) + offset * scale, button->y + ((button->height - height) / 2 + offset) * scale, button->text, 196, 196, 255 - help.glow);
+                        }
                         break;
                     }
                 }

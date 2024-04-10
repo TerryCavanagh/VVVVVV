@@ -205,7 +205,13 @@ static void menurender(void)
     {
     case Menu::mainmenu:
     {
-        const int temp = 50;
+        int temp = 50;
+
+        if (key.using_touch)
+        {
+            temp = 38;
+        }
+
         graphics.draw_sprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.draw_sprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
         graphics.draw_sprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
@@ -841,22 +847,25 @@ static void menurender(void)
         else if ((unsigned)game.currentmenuoption < loc::languagelist.size())
         {
             font::print_wrap(PR_CEN, -1, 8, loc::languagelist[game.currentmenuoption].credit.c_str(), tr/2, tg/2, tb/2);
-            const char* select_hint;
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            if (BUTTONGLYPHS_keyboard_is_active())
+            if (!key.using_touch)
             {
-                select_hint = loc::languagelist[game.currentmenuoption].action_hint.c_str();
+                const char* select_hint;
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                if (BUTTONGLYPHS_keyboard_is_active())
+                {
+                    select_hint = loc::languagelist[game.currentmenuoption].action_hint.c_str();
+                }
+                else
+                {
+                    vformat_buf(buffer, sizeof(buffer),
+                        loc::languagelist[game.currentmenuoption].gamepad_hint.c_str(),
+                        "button:but",
+                        vformat_button(ActionSet_Menu, Action_Menu_Accept)
+                    );
+                    select_hint = buffer;
+                }
+                font::print(PR_CEN, -1, 230, select_hint, tr / 2, tg / 2, tb / 2);
             }
-            else
-            {
-                vformat_buf(buffer, sizeof(buffer),
-                    loc::languagelist[game.currentmenuoption].gamepad_hint.c_str(),
-                    "button:but",
-                    vformat_button(ActionSet_Menu, Action_Menu_Accept)
-                );
-                select_hint = buffer;
-            }
-            font::print(PR_CEN, -1, 230, select_hint, tr/2, tg/2, tb/2);
         }
         break;
     case Menu::translator_main:
