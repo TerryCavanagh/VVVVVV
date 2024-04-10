@@ -902,6 +902,21 @@ void menuactionpress(void)
         break;
     case Menu::accessibility:
     {
+        if (game.currentmenuoption == -2)
+        {
+            // touch menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::touch_input, true);
+            map.nexttowercolour();
+        }
+        if (game.currentmenuoption == -1)
+        {
+            // language menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::language, true);
+            map.nexttowercolour();
+        }
+
         int accessibilityoffset = 0;
 #if !defined(MAKEANDPLAY)
         accessibilityoffset = 1;
