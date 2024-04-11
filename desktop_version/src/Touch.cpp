@@ -90,6 +90,8 @@ namespace touch
             buttons[i].type = TOUCH_BUTTON_TYPE_NONE;
             buttons[i].id = -1;
             buttons[i].disabled = false;
+            buttons[i].checked = false;
+            buttons[i].flags = 0;
         }
 
         refresh_all_buttons();
@@ -198,12 +200,166 @@ namespace touch
             game.currentmenuoption = button->id;
             menuactionpress();
             break;
+        case TOUCH_BUTTON_TYPE_MAP:
+            switch (button->id)
+            {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                game.menupage = button->id;
+                music.playef(Sound_VIRIDIAN);
+                break;
+            case 4:
+                game.menupage = 1;
+                mapmenuactionpress(version2_2);
+                break;
+            case 5:
+                game.menupage = 3;
+                mapmenuactionpress(version2_2);
+                break;
+            case 6:
+                game.menupage = 3;
+                mapmenuactionpress(version2_2);
+
+                graphics.fademode = FADE_START_FADEOUT;
+                music.fadeout();
+                map.nexttowercolour();
+                if (!version2_2)
+                {
+                    game.fadetomenu = true;
+                    game.fadetomenudelay = 19;
+                }
+
+                break;
+            case 7:
+                music.playef(Sound_VIRIDIAN);
+                game.menupage = 10;
+                break;
+            case 8:
+                music.playef(Sound_VIRIDIAN);
+                game.menupage = 3;
+                break;
+            case 9:
+                game.menupage = 11;
+                mapmenuactionpress(version2_2);
+                break;
+            }
+            break;
         case TOUCH_BUTTON_TYPE_NONE:
         case TOUCH_BUTTON_TYPE_MENU_SLIDER:
         default:
             break;
         }
         refresh_buttons();
+    }
+
+
+    static void setup_map_buttons(void)
+    {
+        buttons[TOUCH_BUTTON_MAP_MAP].x = 16;
+        buttons[TOUCH_BUTTON_MAP_MAP].y = 211;
+        buttons[TOUCH_BUTTON_MAP_MAP].width = 56;
+        buttons[TOUCH_BUTTON_MAP_MAP].height = 26;
+        buttons[TOUCH_BUTTON_MAP_MAP].text = loc::gettext("MAP");
+        buttons[TOUCH_BUTTON_MAP_MAP].id = 0;
+        buttons[TOUCH_BUTTON_MAP_MAP].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_MAP_MAP].ui = false;
+
+        const char* tab_name;
+        if (game.insecretlab)
+        {
+            tab_name = loc::gettext("GRAV");
+        }
+        else if (obj.flags[67] && !map.custommode)
+        {
+            tab_name = loc::gettext("SHIP");
+        }
+        else
+        {
+            tab_name = loc::gettext("CREW");
+        }
+
+        buttons[TOUCH_BUTTON_MAP_CREW].x = 92;
+        buttons[TOUCH_BUTTON_MAP_CREW].y = 211;
+        buttons[TOUCH_BUTTON_MAP_CREW].width = 56;
+        buttons[TOUCH_BUTTON_MAP_CREW].height = 26;
+        buttons[TOUCH_BUTTON_MAP_CREW].text = tab_name;
+        buttons[TOUCH_BUTTON_MAP_CREW].id = 1;
+        buttons[TOUCH_BUTTON_MAP_CREW].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_MAP_CREW].ui = false;
+
+        buttons[TOUCH_BUTTON_MAP_STATS].x = 168;
+        buttons[TOUCH_BUTTON_MAP_STATS].y = 211;
+        buttons[TOUCH_BUTTON_MAP_STATS].width = 56;
+        buttons[TOUCH_BUTTON_MAP_STATS].height = 26;
+        buttons[TOUCH_BUTTON_MAP_STATS].text = loc::gettext("STATS");
+        buttons[TOUCH_BUTTON_MAP_STATS].id = 2;
+        buttons[TOUCH_BUTTON_MAP_STATS].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_MAP_STATS].ui = false;
+
+        buttons[TOUCH_BUTTON_MAP_QUIT].x = 244;
+        buttons[TOUCH_BUTTON_MAP_QUIT].y = 211;
+        buttons[TOUCH_BUTTON_MAP_QUIT].width = 56;
+        buttons[TOUCH_BUTTON_MAP_QUIT].height = 26;
+        buttons[TOUCH_BUTTON_MAP_QUIT].text = loc::gettext("QUIT");
+        buttons[TOUCH_BUTTON_MAP_QUIT].id = 3;
+        buttons[TOUCH_BUTTON_MAP_QUIT].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_MAP_QUIT].ui = false;
+
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].x = 80;
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].y = 120 - 16;
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].width = 160;
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].height = 30;
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].text = loc::gettext("warp to ship");
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].id = 4;
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].ui = false;
+
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].x = 80;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].y = 96 + 8 - 16 - 16;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].width = 160;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].height = 26;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].text = loc::gettext("save");
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].id = 5;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].ui = false;
+
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].x = 80;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].y = 96 + 32 + 8 - 16 - 16;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].width = 160;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].height = 26;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].text = loc::gettext("save and quit");
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].id = 6;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].ui = false;
+
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].x = 80;
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 96 + 64 + 8 - 16 - 16;
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].width = 160;
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].height = 26;
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].text = loc::gettext("quit");
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].id = 7;
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].ui = false;
+
+        buttons[TOUCH_BUTTON_QUIT_NO].x = 80;
+        buttons[TOUCH_BUTTON_QUIT_NO].y = 96 + 16;
+        buttons[TOUCH_BUTTON_QUIT_NO].width = 160;
+        buttons[TOUCH_BUTTON_QUIT_NO].height = 26;
+        buttons[TOUCH_BUTTON_QUIT_NO].text = loc::gettext("no, keep playing");
+        buttons[TOUCH_BUTTON_QUIT_NO].id = 8;
+        buttons[TOUCH_BUTTON_QUIT_NO].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_QUIT_NO].ui = false;
+
+        buttons[TOUCH_BUTTON_QUIT_YES].x = 80;
+        buttons[TOUCH_BUTTON_QUIT_YES].y = 96 + 32 + 16;
+        buttons[TOUCH_BUTTON_QUIT_YES].width = 160;
+        buttons[TOUCH_BUTTON_QUIT_YES].height = 26;
+        buttons[TOUCH_BUTTON_QUIT_YES].text = loc::gettext("yes, quit to menu");
+        buttons[TOUCH_BUTTON_QUIT_YES].id = 9;
+        buttons[TOUCH_BUTTON_QUIT_YES].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_QUIT_YES].ui = false;
     }
 
     void refresh_buttons(void)
@@ -244,6 +400,14 @@ namespace touch
         buttons[TOUCH_BUTTON_CONFIRM].height = 40 * scale;
         buttons[TOUCH_BUTTON_CONFIRM].image = graphics.grphx.im_button_right;
 
+        buttons[TOUCH_BUTTON_MAP_BACK].x = width - ((double)(240 - (int) graphics.lerp(graphics.oldmenuoffset, graphics.menuoffset)) / 240.0) * (60 * scale);
+        buttons[TOUCH_BUTTON_MAP_BACK].y = 0;
+        buttons[TOUCH_BUTTON_MAP_BACK].width = 60 * scale;
+        buttons[TOUCH_BUTTON_MAP_BACK].height = 26 * scale;
+        buttons[TOUCH_BUTTON_MAP_BACK].text = loc::gettext("BACK");
+
+        setup_map_buttons();
+
         // First, reset all buttons
         for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
         {
@@ -276,15 +440,60 @@ namespace touch
             {
                 buttons[TOUCH_BUTTON_LEFT].active = true;
                 buttons[TOUCH_BUTTON_RIGHT].active = true;
-                buttons[TOUCH_BUTTON_CANCEL].active = true;
                 buttons[TOUCH_BUTTON_CONFIRM].active = true;
+
+                buttons[TOUCH_BUTTON_MAP_BACK].active = true;
             }
             break;
         case MAPMODE:
-            buttons[TOUCH_BUTTON_LEFT].active = true;
-            buttons[TOUCH_BUTTON_RIGHT].active = true;
-            buttons[TOUCH_BUTTON_CANCEL].active = true;
-            buttons[TOUCH_BUTTON_CONFIRM].active = true;
+            buttons[TOUCH_BUTTON_MAP_BACK].active = true;
+            if (game.menupage >= 0 && game.menupage < 4)
+            {
+                buttons[TOUCH_BUTTON_MAP_MAP].active = true;
+                buttons[TOUCH_BUTTON_MAP_CREW].active = true;
+                buttons[TOUCH_BUTTON_MAP_STATS].active = true;
+                buttons[TOUCH_BUTTON_MAP_QUIT].active = true;
+            }
+
+            if (graphics.menuoffset > 0)
+            {
+                buttons[TOUCH_BUTTON_MAP_BACK].down = true;
+            }
+
+            switch (game.menupage)
+            {
+            case 0:
+            case 2:
+                break;
+            case 1:
+                if (obj.flags[67] && !map.custommode)
+                {
+                    buttons[TOUCH_BUTTON_MAP_SHIP_WARP].active = true;
+                }
+                break;
+            case 3:
+                if (!game.gamesaved && !game.gamesavefailed && !game.inspecial())
+                {
+                    buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].active = true;
+                    buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].active = true;
+                    buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 96 + 64 + 8 - 16 - 16;
+                }
+                else
+                {
+                    buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 96 + 32 + 8 - 16 + 48;
+                }
+                buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].active = true;
+                break;
+            case 10:
+            case 11:
+                buttons[TOUCH_BUTTON_QUIT_NO].active = true;
+                buttons[TOUCH_BUTTON_QUIT_YES].active = true;
+                break;
+            default:
+                buttons[TOUCH_BUTTON_LEFT].active = true;
+                buttons[TOUCH_BUTTON_RIGHT].active = true;
+                break;
+            }
             break;
         case GAMECOMPLETE:
         case GAMECOMPLETE2:
@@ -414,7 +623,7 @@ namespace touch
                         }
                         else
                         {
-                            font::print(PR_CEN | PR_CJK_LOW | font_scale | button->flags, button->x + (button->width / 2) + offset * scale, button->y + ((button->height - height) / 2 + offset) * scale, button->text, 196, 196, 255 - help.glow);
+                            font::print(PR_CEN | PR_CJK_LOW | font_scale | button->flags, button->x + (button->width / 2) + offset * scale, button->y + ((button->height - height) / 2 + offset * scale), button->text, 196, 196, 255 - help.glow);
                         }
                         break;
                     }
@@ -460,12 +669,6 @@ namespace touch
 
     void reset(void)
     {
-        for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
-        {
-            buttons[i].down = false;
-            buttons[i].fingerId = -1;
-        }
-
         for (int i = 0; i < fingers.size(); i++)
         {
             fingers[i].pressed = false;
