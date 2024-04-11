@@ -7478,6 +7478,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("continue from quicksave"));
         option(loc::gettext("return"));
         menuyoff = 20;
+        auto_buttons = false;
+
+
+        touch::create_menu_button(17, 65 - 20 - 32, 286, 90, "", 0);
+        touch::create_menu_button(17, 65 - 20 + 64, 286, 90, "", 1);
+        touch::create_menu_button(17, 65 - 20 + 160, 286, 26, loc::gettext("return"), 2);
         break;
     case Menu::startnodeathmode:
         option(loc::gettext("disable cutscenes"));

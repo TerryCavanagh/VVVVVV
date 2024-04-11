@@ -33,6 +33,8 @@ static int tr;
 static int tg;
 static int tb;
 
+static bool dont_render_buttons;
+
 struct MapRenderData
 {
     int zoom;
@@ -196,6 +198,38 @@ static inline void draw_skip_message()
         -1, graphics.flipmode ? 20 : 210, buffer,
         220 - help.glow, 220 - help.glow, 255 - help.glow / 2
     );
+}
+
+static void draw_summary(Game::Summary* summary, int offset)
+{
+    font::print(
+        PR_CEN, -1, 80 - 20 + offset,
+        loc::gettext_roomname_special(map.currentarea(summary->saverx, summary->savery)),
+        25, 255 - (help.glow / 2), 255 - (help.glow / 2)
+    );
+    for (int i = 0; i < 6; i++)
+    {
+        graphics.drawcrewman(169 - (3 * 42) + (i * 42), 95 - 20 + offset, i, summary->crewstats[i], true);
+    }
+    font::print(
+        0, 59, 132 - 20 + offset,
+        game.giventimestring(
+            summary->hours,
+            summary->minutes,
+            summary->seconds
+        ),
+        255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2)
+    );
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(buffer, sizeof(buffer),
+        loc::gettext("{savebox_n_trinkets|wordy}"),
+        "savebox_n_trinkets:int",
+        summary->trinkets
+    );
+    font::print(PR_RIGHT, 262, 132 - 20 + offset, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+
+    graphics.draw_sprite(34, 126 - 20 + offset, 50, graphics.col_clock);
+    graphics.draw_sprite(270, 126 - 20 + offset, 22, graphics.col_trinket);
 }
 
 static void menurender(void)
@@ -1417,52 +1451,37 @@ static void menurender(void)
     {
         const char* title = NULL;
         struct Game::Summary* summary = NULL;
+        struct Game::Summary* telesummary = &game.last_telesave;
+        struct Game::Summary* quicksummary = &game.last_quicksave;
 
         switch (game.currentmenuoption)
         {
         case 0:
             title = loc::gettext("Tele Save");
-            summary = &game.last_telesave;
+            summary = telesummary;
             break;
         case 1:
             title = loc::gettext("Quick Save");
-            summary = &game.last_quicksave;
+            summary = quicksummary;
             break;
         }
 
-        if (summary != NULL)
+        if (key.using_touch)
         {
-            graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
+            dont_render_buttons = true;
+            touch::render_buttons(tr, tg, tb, true);
 
+            draw_summary(telesummary, -32 + 6);
+            draw_summary(quicksummary, 64 + 6);
+
+            font::print(PR_CEN | PR_BOR, -1, 32 - 16 + 2, loc::gettext("Tele Save"), 196, 196, 255 - help.glow);
+            font::print(PR_CEN | PR_BOR, -1, 128 - 16 + 2, loc::gettext("Quick Save"), 196, 196, 255 - help.glow);
+        }
+        else if (summary != NULL)
+        {
+            graphics.drawpixeltextbox(17, 65 - 20, 286, 90, 65, 185, 207);
             font::print(PR_2X | PR_CEN, -1, 20, title, tr, tg, tb);
-            font::print(
-                PR_CEN, -1, 80-20,
-                loc::gettext_roomname_special(map.currentarea(summary->saverx, summary->savery)),
-                25, 255 - (help.glow / 2), 255 - (help.glow / 2)
-            );
-            for (int i = 0; i < 6; i++)
-            {
-                graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, summary->crewstats[i], true);
-            }
-            font::print(
-                0, 59, 132-20,
-                game.giventimestring(
-                    summary->hours,
-                    summary->minutes,
-                    summary->seconds
-                ),
-                255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2)
-            );
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(buffer, sizeof(buffer),
-                loc::gettext("{savebox_n_trinkets|wordy}"),
-                "savebox_n_trinkets:int",
-                summary->trinkets
-            );
-            font::print(PR_RIGHT, 262, 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-
-            graphics.draw_sprite(34, 126-20, 50, graphics.col_clock);
-            graphics.draw_sprite(270, 126-20, 22, graphics.col_trinket);
+            draw_summary(summary, 0);
         }
         break;
     }
@@ -1954,6 +1973,7 @@ static void menurender(void)
 
 void titlerender(void)
 {
+    dont_render_buttons = false;
     graphics.clear();
     if (!game.menustart)
     {
@@ -2007,7 +2027,10 @@ void titlerender(void)
 
         if (key.using_touch)
         {
-            touch::render_buttons(tr, tg, tb);
+            if (!dont_render_buttons)
+            {
+                touch::render_buttons(tr, tg, tb);
+            }
         }
         else
         {
