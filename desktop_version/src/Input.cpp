@@ -1264,7 +1264,7 @@ void menuactionpress(void)
         else if (game.currentmenuoption == -2)
         {
             // go left a page (or wrap to end)
-            game.languagepage = POS_MOD(game.languagepage - 1, (int) SDL_ceilf(loc::languagelist.size() / 16.0));
+            game.languagepage = POS_MOD(game.languagepage - 1, (int) SDL_ceilf(loc::languagelist.size() / 12.0));
             loc::loadlanguagelist();
             game.createmenu(Menu::language, true);
             game.currentmenuoption = loc::languagelist_curlang;
@@ -1273,7 +1273,7 @@ void menuactionpress(void)
         else if (game.currentmenuoption == -1)
         {
             // go right a page (or wrap to start)
-            game.languagepage = POS_MOD(game.languagepage + 1, (int) SDL_ceilf(loc::languagelist.size() / 16.0));
+            game.languagepage = POS_MOD(game.languagepage + 1, (int) SDL_ceilf(loc::languagelist.size() / 12.0));
             loc::loadlanguagelist();
             game.createmenu(Menu::language, true);
             game.currentmenuoption = loc::languagelist_curlang;

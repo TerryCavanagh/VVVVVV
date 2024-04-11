@@ -611,6 +611,18 @@ namespace touch
                         font::print(PR_CJK_LOW | font_scale | button->flags, button->x + 16 + offset * scale, button->y + ((button->height - height) / 2 + offset) * scale, button->text, use_r, use_g, use_b);
                         break;
                     default:
+                        // This is a dumb hack for the language menu, but... if this button is NOT for the current language, darken it (unless it's negative)
+
+                        if (game.currentmenuname == Menu::language)
+                        {
+                            if (button->id != game.currentmenuoption && button->id >= 0)
+                            {
+                                use_r /= 2;
+                                use_g /= 2;
+                                use_b /= 2;
+                            }
+                        }
+
                         graphics.fill_rect(button->x + 4 * scale, button->y + 4 * scale, button->width, button->height, r / shadow_div, g / shadow_div, b / shadow_div);
 
                         graphics.fill_rect(button->x + offset * scale, button->y + offset * scale, button->width, button->height, use_r, use_g, use_b);

@@ -7075,13 +7075,13 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 int button_x = 0;
                 int button_y = 0;
                 bool spawn_buttons = false;
-                if (i >= (languagepage * 16))
+                if (i >= (languagepage * 12))
                 {
                     spawn_buttons = true;
                     button_count++;
-                    button_x = (button_count >= 8) ? 240 : 80;
-                    button_y = 32 + 20 * (button_count % 8);
-                    if (button_count >= 16)
+                    button_x = (button_count >= 6) ? 240 : 80;
+                    button_y = 32 + 26 * (button_count % 6);
+                    if (button_count >= 12)
                     {
                         spawn_buttons = false;
                     }
@@ -7093,8 +7093,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
                     if (spawn_buttons)
                     {
-                        int button_width = SDL_max(120, font::len(PR_1X, loc::languagelist[i].code.c_str()) + 16);
-                        touch::create_menu_button(button_x - button_width / 2, button_y, button_width, 16, loc::languagelist[i].code.c_str(), i);
+                        int button_width = SDL_max(136, font::len(PR_1X, loc::languagelist[i].code.c_str()) + 16);
+                        touch::create_menu_button(button_x - button_width / 2, button_y, button_width, 24, loc::languagelist[i].code.c_str(), i);
                     }
                 }
                 else
@@ -7108,8 +7108,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
                     if (spawn_buttons)
                     {
-                        int button_width = SDL_max(120, font::len(flags, loc::languagelist[i].nativename.c_str()) + 16);
-                        touch::create_menu_button_flags(button_x - button_width / 2, button_y, button_width, 16, loc::languagelist[i].nativename.c_str(), i, flags);
+                        int button_width = SDL_max(136, font::len(flags, loc::languagelist[i].nativename.c_str()) + 16);
+                        touch::create_menu_button_flags(button_x - button_width / 2, button_y, button_width, 24, loc::languagelist[i].nativename.c_str(), i, flags);
                     }
                 }
             }
@@ -7119,7 +7119,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         }
 
         touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
-        touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), -3);
+        touch::create_menu_button(122, 200, 76, 26, loc::gettext("ok"), -3);
         touch::create_menu_button(198 + 16, 200, 76, 26, loc::gettext("next"), -1);
 
         break;
