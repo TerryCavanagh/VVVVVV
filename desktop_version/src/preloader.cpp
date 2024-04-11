@@ -24,7 +24,7 @@ void preloaderinput(void)
 {
   game.press_action = false;
 
-  if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_tapped()) {
+  if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_down()) {
     game.press_action = true;
   }
 
