@@ -1,3 +1,5 @@
+#include <Input.h>
+
 #include <tinyxml2.h>
 #include <vector>
 
@@ -3185,8 +3187,6 @@ void gameinput(void)
     }
 }
 
-static void mapmenuactionpress(bool version2_2);
-
 void mapinput(void)
 {
     const bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
@@ -3306,8 +3306,8 @@ void mapinput(void)
         || (game.menupage >= 20 && game.menupage <= 21)
         || (game.menupage >= 30 && game.menupage <= 32))
         {
-            if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map)) game.press_map = true;
-            if ((key.isDown(27) || touch::button_tapped(TOUCH_BUTTON_CANCEL)) && !game.mapheld)
+            if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) || touch::button_tapped(TOUCH_BUTTON_MAP_BACK)) game.press_map = true;
+            if (key.isDown(27) && !game.mapheld)
             {
                 touch::remove_dynamic_buttons();
                 game.mapheld = true;
@@ -3400,7 +3400,7 @@ void mapinput(void)
     }
 }
 
-static void mapmenuactionpress(const bool version2_2)
+void mapmenuactionpress(const bool version2_2)
 {
     switch (game.menupage)
     {
@@ -3563,7 +3563,13 @@ void teleporterinput(void)
         if (!game.press_action && !game.press_left && !game.press_right && !game.press_interact) game.jumpheld = false;
         if (!game.press_map) game.mapheld = false;
 
-        if (key.isDown(27) || touch::button_tapped(TOUCH_BUTTON_CANCEL))
+        if (touch::button_tapped(TOUCH_BUTTON_MAP_BACK))
+        {
+            // Close teleporter menu
+            graphics.resumegamemode = true;
+            music.playef(Sound_VIRIDIAN);
+        }
+        else if (key.isDown(27))
         {
             if (!map.custommode || map.custommodeforreal)
             {

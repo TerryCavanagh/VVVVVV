@@ -3224,14 +3224,17 @@ void maprender(void)
         }
         else if (obj.flags[67] && !map.custommode)
         {
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(
-                buffer, sizeof(buffer),
-                loc::gettext("Press {button} to warp to the ship."),
-                "button:but",
-                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-            );
-            font::print_wrap(PR_CEN, -1, 105, buffer, 196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                vformat_buf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("Press {button} to warp to the ship."),
+                    "button:but",
+                    vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+                );
+                font::print_wrap(PR_CEN, -1, 105, buffer, 196, 196, 255 - help.glow);
+            }
         }
         else if(map.custommode){
             LevelMetaData& meta = cl.ListOfMetaData[game.playcustomlevel];
@@ -3380,7 +3383,7 @@ void maprender(void)
 
         /* We are not in a special case, so draw the save screen now... */
 
-        if (!map.custommode)
+        if (!map.custommode && ((!game.gamesaved && key.using_touch) || !key.using_touch))
         {
             /* FIXME: The text here should be automatically "balance-wrapped" instead of hardcoding the width.
              * In fact, maybe print_wrap should balance-wrap by default. */
@@ -3390,21 +3393,24 @@ void maprender(void)
         if (!game.gamesaved)
         {
             char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(
-                buffer, sizeof(buffer),
-                loc::gettext("[Press {button} to save your game]"),
-                "button:but",
-                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-            );
+            if (!key.using_touch)
+            {
+                vformat_buf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("[Press {button} to save your game]"),
+                    "button:but",
+                    vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+                );
 
-            font::print(PR_CEN, -1, 80, buffer, 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
+                font::print(PR_CEN, -1, 80, buffer, 255 - help.glow * 2, 255 - help.glow * 2, 255 - help.glow);
+            }
 
             if (map.custommode || !game.last_quicksave.exists)
             {
                 break;
             }
 
-            font::print(PR_CEN, -1, FLIP(100, 8), loc::gettext("Last Save:"), 164 - help.glow/4, 164 - help.glow/4, 164);
+            font::print(PR_CEN, -1, FLIP((key.using_touch ? 40 : 100), 8), loc::gettext("Last Save:"), 164 - help.glow / 4, 164 - help.glow / 4, 164);
 
             struct Game::Summary* last = &game.last_quicksave;
             vformat_buf(
@@ -3415,7 +3421,7 @@ void maprender(void)
                 game.giventimestring(last->hours, last->minutes, last->seconds).c_str()
             );
 
-            font::print(PR_CEN, -1, FLIP(112, 8), buffer, 164 - help.glow/4, 164 - help.glow/4, 164);
+            font::print(PR_CEN, -1, FLIP((key.using_touch ? 52 : 112), 8), buffer, 164 - help.glow/4, 164 - help.glow/4, 164);
             break;
         }
 
@@ -3480,8 +3486,11 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(PR_RTL_XFLIP, 80-selection_offset, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(PR_RTL_XFLIP, 80 + 32, 76, loc::gettext("yes, quit to menu"),  96, 96, 96);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80 - selection_offset, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+                font::print(PR_RTL_XFLIP, 80 + 32, 76, loc::gettext("yes, quit to menu"), 96, 96, 96);
+            }
         }
         else
         {
@@ -3495,8 +3504,11 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(PR_RTL_XFLIP, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, quit to menu"),  96, 96, 96);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80 - selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+                font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, quit to menu"), 96, 96, 96);
+            }
 
         }
         break;
@@ -3514,8 +3526,11 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(PR_RTL_XFLIP, 80, 88, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(PR_RTL_XFLIP, 80+32-selection_offset, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80, 88, loc::gettext("no, keep playing"), 96, 96, 96);
+                font::print(PR_RTL_XFLIP, 80 + 32 - selection_offset, 76, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            }
         }
         else
         {
@@ -3528,8 +3543,11 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(PR_RTL_XFLIP, 80+32-selection_offset, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
+                font::print(PR_RTL_XFLIP, 80 + 32 - selection_offset, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            }
         }
         break;
     case 20:
@@ -3538,14 +3556,20 @@ void maprender(void)
         if (graphics.flipmode)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(PR_RTL_XFLIP, 80-selection_offset, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(PR_RTL_XFLIP, 80 + 32, 130, loc::gettext("yes, return"),  96, 96, 96);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80 - selection_offset, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+                font::print(PR_RTL_XFLIP, 80 + 32, 130, loc::gettext("yes, return"), 96, 96, 96);
+            }
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(PR_RTL_XFLIP, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, return"),  96, 96, 96);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80 - selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+                font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, return"), 96, 96, 96);
+            }
         }
 
         break;
@@ -3555,17 +3579,25 @@ void maprender(void)
         if (graphics.flipmode)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(PR_RTL_XFLIP, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(PR_RTL_XFLIP, 80 + 32-selection_offset, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
+                font::print(PR_RTL_XFLIP, 80 + 32 - selection_offset, 130, loc::gettext("[ YES, RETURN ]"), 196, 196, 255 - help.glow);
+            }
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(PR_RTL_XFLIP, 80 + 32-selection_offset, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
+                font::print(PR_RTL_XFLIP, 80 + 32 - selection_offset, 142, loc::gettext("[ YES, RETURN ]"), 196, 196, 255 - help.glow);
+            }
         }
 
     }
+
+    touch::render_buttons();
 
     graphics.set_render_target(graphics.gameTexture);
 
