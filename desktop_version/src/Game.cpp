@@ -6827,7 +6827,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         auto_buttons = false;
 
         touch::create_toggle_button((320 - 160) / 2, 120 - 32, 160, 12, loc::gettext("limit to 30 fps"), offset, !over30mode);
-        touch::create_toggle_button((320 - 160) / 2, 120 - 32 + 16, 160, 12, loc::gettext("translucent room name bg"), offset, graphics.translucentroomname);
+        touch::create_toggle_button((320 - 160) / 2, 120 - 32 + 16, 160, 12, loc::gettext("translucent room name bg"), -3, graphics.translucentroomname);
 
         touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
         touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), offset + 5);
@@ -6837,10 +6837,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::graphicoptions:
     {
         int optionid = 4;
+        int scalingid = 0;
         if (!gameScreen.isForcedFullscreen())
         {
             option(loc::gettext("toggle fullscreen"));
             optionid++;
+            scalingid++;
         }
         option(loc::gettext("scaling mode"));
         if (!gameScreen.isForcedFullscreen())
@@ -6856,7 +6858,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 15;
         auto_buttons = false;
 
-        touch::create_menu_button((320 - 160) / 2, 120 - 32, 160, button_height, loc::gettext("scaling mode"), 1);
+        touch::create_menu_button((320 - 160) / 2, 120 - 32, 160, button_height, loc::gettext("scaling mode"), scalingid);
         touch::create_toggle_button((320 - 160) / 2, 120 + 16, 160, 12, loc::gettext("filtered screen"), optionid - 3, gameScreen.isFiltered);
         touch::create_toggle_button((320 - 160) / 2, 120 + 32, 160, 12, loc::gettext("analogue mode"), optionid - 2, gameScreen.badSignalEffect);
         touch::create_toggle_button((320 - 160) / 2, 120 + 48, 160, 12, loc::gettext("vsync"), optionid - 1, gameScreen.vsync);

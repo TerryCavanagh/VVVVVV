@@ -1100,6 +1100,14 @@ void menuactionpress(void)
             map.nexttowercolour();
         }
 
+        if (game.currentmenuoption == -3)
+        {
+            // For touch: toggle translucent roomname bg
+            music.playef(Sound_VIRIDIAN);
+            graphics.translucentroomname = !graphics.translucentroomname;
+            game.savestatsandsettings_menu();
+        }
+
         break;
     }
     case Menu::options:
