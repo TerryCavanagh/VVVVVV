@@ -6808,8 +6808,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::gameplayoptions:
     {
-#if !defined(MAKEANDPLAY)
         int offset = 0;
+#if !defined(MAKEANDPLAY)
         if (ingame_titlemode && unlock[Unlock_FLIPMODE])
 #endif
         {
