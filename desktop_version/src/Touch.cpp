@@ -230,6 +230,14 @@ namespace touch
                 game.menupage = 11;
                 mapmenuactionpress(version2_2);
                 break;
+            case 9:
+                game.menupage = 20;
+                mapmenuactionpress(version2_2);
+                break;
+            case 10:
+                game.menupage = 21;
+                mapmenuactionpress(version2_2);
+                break;
             }
             break;
         case TOUCH_BUTTON_TYPE_NONE:
@@ -319,6 +327,24 @@ namespace touch
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].id = 6;
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].type = TOUCH_BUTTON_TYPE_MAP;
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].ui = false;
+
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].x = 80;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].y = 128 - 16;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].width = 160;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].height = 26;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].text = loc::gettext("no, keep playing");
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].id = 9;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].ui = false;
+
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].x = 80;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].y = 128 + 16;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].width = 160;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].height = 26;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].text = loc::gettext("yes, return");
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].id = 10;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].type = TOUCH_BUTTON_TYPE_MAP;
+        buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].ui = false;
 
         buttons[TOUCH_BUTTON_QUIT_NO].x = 80;
         buttons[TOUCH_BUTTON_QUIT_NO].y = 96 + 16;
@@ -443,10 +469,16 @@ namespace touch
             case 2:
                 break;
             case 1:
-                if (obj.flags[67] && !map.custommode)
+                if (!game.insecretlab && obj.flags[67] && !map.custommode)
                 {
                     buttons[TOUCH_BUTTON_MAP_SHIP_WARP].active = true;
                 }
+                break;
+            case 20:
+            case 21:
+                buttons[TOUCH_BUTTON_SUPERGRAVITRON_YES].active = true;
+                buttons[TOUCH_BUTTON_SUPERGRAVITRON_NO].active = true;
+                buttons[TOUCH_BUTTON_MAP_BACK].active = false;
                 break;
             case 3:
                 if (!game.gamesaved && !game.gamesavefailed && !game.inspecial())
@@ -471,10 +503,12 @@ namespace touch
                 break;
             }
             break;
+        case PRELOADER:
+            use_buttons = false;
+            break;
         case GAMECOMPLETE:
         case GAMECOMPLETE2:
         case EDITORMODE:
-        case PRELOADER:
         default:
             break;
         }

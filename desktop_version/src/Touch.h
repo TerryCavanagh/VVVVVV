@@ -41,6 +41,10 @@ enum TouchButtonID
     TOUCH_BUTTON_MAP_QUIT_SAVE,
     TOUCH_BUTTON_MAP_QUIT_EXIT,
 
+    /* Map - Return to Secret Lab from Super Gravitron */
+    TOUCH_BUTTON_SUPERGRAVITRON_NO,
+    TOUCH_BUTTON_SUPERGRAVITRON_YES,
+
     /* Map - Back */
     TOUCH_BUTTON_MAP_BACK,
 
