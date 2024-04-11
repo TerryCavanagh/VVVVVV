@@ -6629,12 +6629,14 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         int offset = 0;
 #if !defined(MAKEANDPLAY)
         option(loc::gettext("play"));
-        touch::create_menu_button(80, 96 - 8, 160, 26, loc::gettext("play"), offset++);
+        touch::create_menu_button(80, 96 - 8 + 16, 160, 26, loc::gettext("play"), offset++);
 #endif
         option(loc::gettext("levels"));
         option(loc::gettext("options"));
-        touch::create_menu_button(80, 130 - 8, 160, 26, loc::gettext("levels"), offset++);
-        touch::create_menu_button(80, 164 - 8, 128, 26, loc::gettext("options"), offset++);
+        offset++;
+        // Temporarily commented out
+        //touch::create_menu_button(80, 130 - 8, 160, 26, loc::gettext("levels"), offset++);
+        touch::create_menu_button(80, 164 - 8 - 34 + 16, 128, 26, loc::gettext("options"), offset++);
         if (loc::show_translator_menu)
         {
             option(loc::gettext("translator"));
@@ -6644,13 +6646,13 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("quit"));
 
         // Create the language button
-        TouchButton button = touch::create_button(214, 164 - 8, 26, 26, "");
+        TouchButton button = touch::create_button(214, 164 - 8 - 34 + 16, 26, 26, "");
         button.type = TOUCH_BUTTON_TYPE_MENU_LANGUAGE;
         button.id = -1;
 
         touch::register_button(button);
 
-        touch::create_menu_button(80, 198 - 8, 160, 26, loc::gettext("credits"), offset++);
+        touch::create_menu_button(80, 198 - 8 - 34 + 16, 160, 26, loc::gettext("credits"), offset++);
 
         menuyoff = -10;
         maxspacing = 15;
