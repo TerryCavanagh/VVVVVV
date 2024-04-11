@@ -46,7 +46,7 @@ namespace touch
 {
     extern std::vector<VVV_Finger> fingers;
     extern TouchButton buttons[NUM_TOUCH_BUTTONS];
-    extern float scale;
+    extern int scale;
 
     void refresh_buttons(void);
     void reset(void);
