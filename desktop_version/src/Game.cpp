@@ -6857,9 +6857,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         auto_buttons = false;
 
         touch::create_menu_button((320 - 160) / 2, 120 - 32, 160, button_height, loc::gettext("scaling mode"), 1);
-        touch::create_toggle_button((320 - 160) / 2, 120 + 16, 160, 12, loc::gettext("filtered screen"), 3, gameScreen.isFiltered);
-        touch::create_toggle_button((320 - 160) / 2, 120 + 32, 160, 12, loc::gettext("analogue mode"), 4, gameScreen.badSignalEffect);
-        touch::create_toggle_button((320 - 160) / 2, 120 + 48, 160, 12, loc::gettext("vsync"), 5, gameScreen.vsync);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 16, 160, 12, loc::gettext("filtered screen"), optionid - 3, gameScreen.isFiltered);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 32, 160, 12, loc::gettext("analogue mode"), optionid - 2, gameScreen.badSignalEffect);
+        touch::create_toggle_button((320 - 160) / 2, 120 + 48, 160, 12, loc::gettext("vsync"), optionid - 1, gameScreen.vsync);
 
         touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
         touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), optionid);
