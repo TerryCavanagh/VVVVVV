@@ -246,7 +246,7 @@ namespace touch
         return false;
     }
 
-    bool screen_tapped(void)
+    bool screen_down(void)
     {
         for (int i = 0; i < fingers.size(); i++)
         {
@@ -255,7 +255,7 @@ namespace touch
                 continue;
             }
 
-            return fingers[i].pressed;
+            return true;
         }
         return false;
     }
