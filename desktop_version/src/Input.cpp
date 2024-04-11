@@ -1989,11 +1989,11 @@ static void menuactionpress(void)
             music.playef(Sound_CRY);
             break;
         case 1:
-            touch::scale += 0.5;
+            touch::scale += 5;
             music.playef(Sound_VIRIDIAN);
-            if (touch::scale > 2)
+            if (touch::scale > 20)
             {
-                touch::scale = 0.5;
+                touch::scale = 5;
             }
             game.savestatsandsettings_menu();
             break;
