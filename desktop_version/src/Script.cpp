@@ -861,7 +861,7 @@ void scriptclass::run(void)
                     game.hascontrol = false;
                     game.pausescript = true;
                     if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_tapped()) game.jumpheld = true;
+                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down()) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
 
@@ -1911,7 +1911,7 @@ void scriptclass::run(void)
                     game.hascontrol = false;
                     game.pausescript = true;
                     if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_tapped()) game.jumpheld = true;
+                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down()) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
             }
@@ -1934,7 +1934,7 @@ void scriptclass::run(void)
                     game.hascontrol = false;
                     game.pausescript = true;
                     if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_tapped()) game.jumpheld = true;
+                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down()) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
             }
@@ -1955,7 +1955,7 @@ void scriptclass::run(void)
                     game.hascontrol = false;
                     game.pausescript = true;
                     if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_tapped()) game.jumpheld = true;
+                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down()) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
             }

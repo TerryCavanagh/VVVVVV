@@ -57,7 +57,7 @@ namespace touch
 
     bool button_tapped(TouchButtonID button);
     bool touching_right(void);
-    bool screen_tapped(void);
+    bool screen_down(void);
 }
 
 #endif /* TOUCH_H */
