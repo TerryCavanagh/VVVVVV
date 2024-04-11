@@ -15,7 +15,7 @@ namespace touch
 {
     std::vector<VVV_Finger> fingers;
     TouchButton buttons[NUM_TOUCH_BUTTONS];
-    float scale;
+    int scale;
 
     int get_rect(TouchButton* button, SDL_Rect* rect)
     {
@@ -35,12 +35,12 @@ namespace touch
         int scale_x = rect.w / SCREEN_WIDTH_PIXELS;
         int scale_y = rect.h / SCREEN_HEIGHT_PIXELS;
 
-        return SDL_ceil(SDL_min(scale_x, scale_y) * scale);
+        return SDL_ceil(SDL_min(scale_x, scale_y) * ((float) scale / 10.f));
     }
 
     void init(void)
     {
-        scale = 1;
+        scale = 10;
 
         for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
         {
