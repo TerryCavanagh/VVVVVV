@@ -2386,7 +2386,7 @@ void titleinput(void)
         }
     }
     if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip)
-        || (!game.menustart ? touch::screen_tapped() : touch::button_tapped(TOUCH_BUTTON_CONFIRM)))
+        || (!game.menustart ? touch::screen_down() : touch::button_tapped(TOUCH_BUTTON_CONFIRM)))
     {
         game.press_action = true;
     }
@@ -2642,7 +2642,7 @@ void gameinput(void)
             game.press_action = false;
             if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v)
                 || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w)
-                || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip) || touch::screen_tapped()
+                || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip) || touch::screen_down()
                 )
             {
                 game.press_action = true;
@@ -3538,7 +3538,7 @@ void gamecompleteinput(void)
     graphics.titlebg.bypos += graphics.titlebg.bscroll;
     game.oldcreditposition = game.creditposition;
 
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_tapped())
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_down())
     {
         game.creditposition -= 6;
         if (game.creditposition <= -Credits::creditmaxposition)
@@ -3586,7 +3586,7 @@ void gamecompleteinput2(void)
     //Do this here because input comes first
     game.oldcreditposx = game.creditposx;
 
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_tapped())
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_down())
     {
         game.creditposx++;
         game.oldcreditposx++;
