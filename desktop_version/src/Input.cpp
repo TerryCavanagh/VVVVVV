@@ -1236,17 +1236,26 @@ void menuactionpress(void)
             // return
             game.returnmenu();
             map.nexttowercolour();
+            game.currentmenuoption = loc::languagelist_curlang;
         }
         else if (game.currentmenuoption == -2)
         {
             // go left a page (or wrap to end)
-            game.languagepage--;
+            game.languagepage = POS_MOD(game.languagepage - 1, (int) SDL_ceilf(loc::languagelist.size() / 16.0));
+            loc::loadlanguagelist();
+            loc::pre_title_lang_menu = false;
+            game.createmenu(Menu::language, true);
+            game.currentmenuoption = loc::languagelist_curlang;
             map.nexttowercolour();
         }
         else if (game.currentmenuoption == -1)
         {
             // go right a page (or wrap to start)
-            game.languagepage++;
+            game.languagepage = POS_MOD(game.languagepage + 1, (int) SDL_ceilf(loc::languagelist.size() / 16.0));
+            loc::loadlanguagelist();
+            loc::pre_title_lang_menu = false;
+            game.createmenu(Menu::language, true);
+            game.currentmenuoption = loc::languagelist_curlang;
             map.nexttowercolour();
         }
         else
@@ -1279,6 +1288,14 @@ void menuactionpress(void)
             {
                 game.returnmenu();
                 map.nexttowercolour();
+            }
+            else
+            {
+                // We need to respawn the buttons
+                loc::loadlanguagelist();
+                loc::pre_title_lang_menu = false;
+                game.createmenu(Menu::language, true);
+                game.currentmenuoption = loc::languagelist_curlang;
             }
         }
 

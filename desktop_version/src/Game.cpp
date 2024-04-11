@@ -7067,16 +7067,29 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         }
         else
         {
-            int button_x = 80;
-            int button_y = 32;
-            bool spawn_more_buttons = true;
+            int button_count = -1;
             for (size_t i = 0; i < loc::languagelist.size(); i++)
             {
+                int button_x = 0;
+                int button_y = 0;
+                bool spawn_buttons = false;
+                if (i >= (languagepage * 16))
+                {
+                    spawn_buttons = true;
+                    button_count++;
+                    button_x = (button_count >= 8) ? 240 : 80;
+                    button_y = 32 + 20 * (button_count % 8);
+                    if (button_count >= 16)
+                    {
+                        spawn_buttons = false;
+                    }
+                }
+
                 if (loc::languagelist[i].nativename.empty())
                 {
                     option(loc::languagelist[i].code.c_str());
 
-                    if (spawn_more_buttons)
+                    if (spawn_buttons)
                     {
                         int button_width = SDL_max(120, font::len(PR_1X, loc::languagelist[i].code.c_str()) + 16);
                         touch::create_menu_button(button_x - button_width / 2, button_y, button_width, 16, loc::languagelist[i].code.c_str(), i);
@@ -7091,20 +7104,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                         flags
                     );
 
-                    if (spawn_more_buttons)
+                    if (spawn_buttons)
                     {
                         int button_width = SDL_max(120, font::len(flags, loc::languagelist[i].nativename.c_str()) + 16);
                         touch::create_menu_button_flags(button_x - button_width / 2, button_y, button_width, 16, loc::languagelist[i].nativename.c_str(), i, flags);
-                    }
-                }
-                button_y += 20;
-                if (button_y > 200 - 16)
-                {
-                    button_y = 32;
-                    button_x += 160;
-                    if (button_x > 320 - 80)
-                    {
-                        spawn_more_buttons = false;
                     }
                 }
             }
