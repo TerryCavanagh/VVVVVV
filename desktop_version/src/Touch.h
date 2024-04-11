@@ -39,7 +39,6 @@ enum TouchButtonID
 
     /* Map - Quit buttons */
     TOUCH_BUTTON_MAP_QUIT_SAVE,
-    TOUCH_BUTTON_MAP_QUIT_SAVEEXIT,
     TOUCH_BUTTON_MAP_QUIT_EXIT,
 
     /* Map - Back */
