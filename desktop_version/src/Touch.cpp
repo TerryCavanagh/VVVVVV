@@ -219,28 +219,14 @@ namespace touch
                 mapmenuactionpress(version2_2);
                 break;
             case 6:
-                game.menupage = 3;
-                mapmenuactionpress(version2_2);
-
-                graphics.fademode = FADE_START_FADEOUT;
-                music.fadeout();
-                map.nexttowercolour();
-                if (!version2_2)
-                {
-                    game.fadetomenu = true;
-                    game.fadetomenudelay = 19;
-                }
-
-                break;
-            case 7:
                 music.playef(Sound_VIRIDIAN);
                 game.menupage = 10;
                 break;
-            case 8:
+            case 7:
                 music.playef(Sound_VIRIDIAN);
                 game.menupage = 3;
                 break;
-            case 9:
+            case 8:
                 game.menupage = 11;
                 mapmenuactionpress(version2_2);
                 break;
@@ -308,7 +294,7 @@ namespace touch
         buttons[TOUCH_BUTTON_MAP_QUIT].ui = false;
 
         buttons[TOUCH_BUTTON_MAP_SHIP_WARP].x = 80;
-        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].y = 120 - 16;
+        buttons[TOUCH_BUTTON_MAP_SHIP_WARP].y = 104;
         buttons[TOUCH_BUTTON_MAP_SHIP_WARP].width = 160;
         buttons[TOUCH_BUTTON_MAP_SHIP_WARP].height = 30;
         buttons[TOUCH_BUTTON_MAP_SHIP_WARP].text = loc::gettext("warp to ship");
@@ -317,7 +303,7 @@ namespace touch
         buttons[TOUCH_BUTTON_MAP_SHIP_WARP].ui = false;
 
         buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].x = 80;
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].y = 96 + 8 - 16 - 16;
+        buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].y = 80;
         buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].width = 160;
         buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].height = 26;
         buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].text = loc::gettext("save");
@@ -325,21 +311,12 @@ namespace touch
         buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].type = TOUCH_BUTTON_TYPE_MAP;
         buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].ui = false;
 
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].x = 80;
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].y = 96 + 32 + 8 - 16 - 16;
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].width = 160;
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].height = 26;
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].text = loc::gettext("save and quit");
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].id = 6;
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].type = TOUCH_BUTTON_TYPE_MAP;
-        buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].ui = false;
-
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].x = 80;
-        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 96 + 64 + 8 - 16 - 16;
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 112;
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].width = 160;
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].height = 26;
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].text = loc::gettext("quit");
-        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].id = 7;
+        buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].id = 6;
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].type = TOUCH_BUTTON_TYPE_MAP;
         buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].ui = false;
 
@@ -348,7 +325,7 @@ namespace touch
         buttons[TOUCH_BUTTON_QUIT_NO].width = 160;
         buttons[TOUCH_BUTTON_QUIT_NO].height = 26;
         buttons[TOUCH_BUTTON_QUIT_NO].text = loc::gettext("no, keep playing");
-        buttons[TOUCH_BUTTON_QUIT_NO].id = 8;
+        buttons[TOUCH_BUTTON_QUIT_NO].id = 7;
         buttons[TOUCH_BUTTON_QUIT_NO].type = TOUCH_BUTTON_TYPE_MAP;
         buttons[TOUCH_BUTTON_QUIT_NO].ui = false;
 
@@ -357,7 +334,7 @@ namespace touch
         buttons[TOUCH_BUTTON_QUIT_YES].width = 160;
         buttons[TOUCH_BUTTON_QUIT_YES].height = 26;
         buttons[TOUCH_BUTTON_QUIT_YES].text = loc::gettext("yes, quit to menu");
-        buttons[TOUCH_BUTTON_QUIT_YES].id = 9;
+        buttons[TOUCH_BUTTON_QUIT_YES].id = 8;
         buttons[TOUCH_BUTTON_QUIT_YES].type = TOUCH_BUTTON_TYPE_MAP;
         buttons[TOUCH_BUTTON_QUIT_YES].ui = false;
     }
@@ -475,12 +452,11 @@ namespace touch
                 if (!game.gamesaved && !game.gamesavefailed && !game.inspecial())
                 {
                     buttons[TOUCH_BUTTON_MAP_QUIT_SAVE].active = true;
-                    buttons[TOUCH_BUTTON_MAP_QUIT_SAVEEXIT].active = true;
-                    buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 96 + 64 + 8 - 16 - 16;
+                    buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 112;
                 }
                 else
                 {
-                    buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 96 + 32 + 8 - 16 + 48;
+                    buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].y = 168;
                 }
                 buttons[TOUCH_BUTTON_MAP_QUIT_EXIT].active = true;
                 break;
