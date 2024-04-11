@@ -1236,16 +1236,28 @@ void menuactionpress(void)
         if (game.currentmenuoption == -3)
         {
             // return
+
+            if (loc::pre_title_lang_menu)
+            {
+                /* Make the title screen appear, we haven't seen it yet.
+                 * game.returnmenu() works because Menu::mainmenu
+                 * is created before the language menu. */
+                game.menustart = false;
+                loc::pre_title_lang_menu = false;
+            }
+            else
+            {
+                map.nexttowercolour();
+                game.currentmenuoption = loc::languagelist_curlang;
+            }
+
             game.returnmenu();
-            map.nexttowercolour();
-            game.currentmenuoption = loc::languagelist_curlang;
         }
         else if (game.currentmenuoption == -2)
         {
             // go left a page (or wrap to end)
             game.languagepage = POS_MOD(game.languagepage - 1, (int) SDL_ceilf(loc::languagelist.size() / 16.0));
             loc::loadlanguagelist();
-            loc::pre_title_lang_menu = false;
             game.createmenu(Menu::language, true);
             game.currentmenuoption = loc::languagelist_curlang;
             map.nexttowercolour();
@@ -1255,7 +1267,6 @@ void menuactionpress(void)
             // go right a page (or wrap to start)
             game.languagepage = POS_MOD(game.languagepage + 1, (int) SDL_ceilf(loc::languagelist.size() / 16.0));
             loc::loadlanguagelist();
-            loc::pre_title_lang_menu = false;
             game.createmenu(Menu::language, true);
             game.currentmenuoption = loc::languagelist_curlang;
             map.nexttowercolour();
@@ -1272,15 +1283,6 @@ void menuactionpress(void)
                 graphics.grphx.init_translations();
             }
 
-            if (loc::pre_title_lang_menu)
-            {
-                /* Make the title screen appear, we haven't seen it yet.
-                 * game.returnmenu() works because Menu::mainmenu
-                 * is created before the language menu. */
-                game.menustart = false;
-                loc::pre_title_lang_menu = false;
-            }
-
             if (prev_lang != loc::lang)
             {
                 recomputetextboxes();
@@ -1288,6 +1290,15 @@ void menuactionpress(void)
 
             if (!key.using_touch)
             {
+                if (loc::pre_title_lang_menu)
+                {
+                    /* Make the title screen appear, we haven't seen it yet.
+                     * game.returnmenu() works because Menu::mainmenu
+                     * is created before the language menu. */
+                    game.menustart = false;
+                    loc::pre_title_lang_menu = false;
+                }
+
                 game.returnmenu();
                 map.nexttowercolour();
             }
@@ -1295,7 +1306,6 @@ void menuactionpress(void)
             {
                 // We need to respawn the buttons
                 loc::loadlanguagelist();
-                loc::pre_title_lang_menu = false;
                 game.createmenu(Menu::language, true);
                 game.currentmenuoption = loc::languagelist_curlang;
             }
