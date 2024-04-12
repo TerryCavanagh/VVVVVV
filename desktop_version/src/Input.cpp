@@ -2558,7 +2558,7 @@ void titleinput(void)
 
     //In the menu system, all keypresses are single taps rather than holds. Therefore this test has to be done for all presses
     if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_esc)
-        && !touch::button_tapped(TOUCH_BUTTON_CANCEL))
+        && !touch::button_tapped(TOUCH_BUTTON_CANCEL) && !key.pressed_android_back)
     {
         game.jumpheld = false;
     }
@@ -2568,7 +2568,7 @@ void titleinput(void)
     if (!game.jumpheld && graphics.fademode == FADE_NONE)
     {
         if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_esc)
-            || touch::button_tapped(TOUCH_BUTTON_CANCEL))
+            || touch::button_tapped(TOUCH_BUTTON_CANCEL) || key.pressed_android_back)
         {
             game.jumpheld = true;
         }
@@ -2587,7 +2587,7 @@ void titleinput(void)
 
         if (game.menustart
         && game.menucountdown <= 0
-        && (key.isDown(27) || key.isDown(game.controllerButton_esc) || touch::button_tapped(TOUCH_BUTTON_CANCEL)))
+        && (key.isDown(27) || key.isDown(game.controllerButton_esc) || touch::button_tapped(TOUCH_BUTTON_CANCEL) || key.pressed_android_back))
         {
             if (game.currentmenuname == Menu::language && loc::pre_title_lang_menu)
             {
@@ -2607,8 +2607,16 @@ void titleinput(void)
             }
             else if (game.currentmenuname == Menu::mainmenu)
             {
-                game.createmenu(Menu::youwannaquit);
-                map.nexttowercolour();
+                if (key.pressed_android_back)
+                {
+                    // Minimize the game!!! (Android only)
+                    SDL_MinimizeWindow(gameScreen.m_window);
+                }
+                else
+                {
+                    game.createmenu(Menu::youwannaquit);
+                    map.nexttowercolour();
+                }
             }
             else
             {

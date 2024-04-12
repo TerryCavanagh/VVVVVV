@@ -609,6 +609,9 @@ int main(int argc, char *argv[])
     /* We already do the button swapping in ButtonGlyphs, disable SDL's swapping */
     SDL_SetHintWithPriority(SDL_HINT_GAMECONTROLLER_USE_BUTTON_LABELS, "0", SDL_HINT_OVERRIDE);
 
+    /* We want to capture back inputs */
+    SDL_SetHintWithPriority(SDL_HINT_ANDROID_TRAP_BACK_BUTTON, "1", SDL_HINT_OVERRIDE);
+
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir, fontsDir))
     {
         vlog_error("Unable to initialize filesystem!");

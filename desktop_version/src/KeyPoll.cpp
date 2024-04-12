@@ -261,6 +261,8 @@ void KeyPoll::Poll(void)
 
     touch::reset();
 
+    pressed_android_back = false;
+
     while (SDL_PollEvent(&evt))
     {
         switch (evt.type)
@@ -273,6 +275,11 @@ void KeyPoll::Poll(void)
             if (evt.key.keysym.sym == SDLK_BACKSPACE)
             {
                 pressedbackspace = true;
+            }
+
+            if (evt.key.keysym.sym == SDLK_AC_BACK)
+            {
+                pressed_android_back = true;
             }
 
 #ifdef __APPLE__ /* OSX prefers the command keys over the alt keys. -flibit */
@@ -625,9 +632,9 @@ void KeyPoll::Poll(void)
         case SDL_KEYDOWN:
             if (evt.key.keysym.sym != SDLK_AC_BACK)
             {
-                // If we hit the back button on Android, this doesn't mean we're not using touch
                 using_touch = false;
             }
+
             if (evt.key.repeat == 0)
             {
                 hidemouse = true;
