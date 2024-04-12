@@ -73,6 +73,7 @@ public:
     bool linealreadyemptykludge;
 
     bool using_touch;
+    bool pressed_android_back;
 
 private:
     std::map<SDL_JoystickID, SDL_GameController*> controllers;
