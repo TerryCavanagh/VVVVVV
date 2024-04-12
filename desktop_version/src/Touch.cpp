@@ -404,7 +404,7 @@ namespace touch
         buttons[TOUCH_BUTTON_CONFIRM].image = graphics.grphx.im_button_right;
 
         buttons[TOUCH_BUTTON_MAP_BACK].x = width - ((double)(240 - (int) graphics.lerp(graphics.oldmenuoffset, graphics.menuoffset)) / 240.0) * (60 * scale);
-        buttons[TOUCH_BUTTON_MAP_BACK].y = 0;
+        buttons[TOUCH_BUTTON_MAP_BACK].y = 8;
         buttons[TOUCH_BUTTON_MAP_BACK].width = 60 * scale;
         buttons[TOUCH_BUTTON_MAP_BACK].height = 26 * scale;
         buttons[TOUCH_BUTTON_MAP_BACK].text = loc::gettext("BACK");

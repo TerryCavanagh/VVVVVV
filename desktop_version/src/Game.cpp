@@ -7999,6 +7999,8 @@ static void returntoingametemp(void)
 {
     extern Game game;
     game.returntomenu(game.kludge_ingametemp);
+    // Hacky fix to prevent touch buttons from being stuck on the screen
+    touch::remove_dynamic_buttons();
 }
 
 static void returntoedsettings(void)
