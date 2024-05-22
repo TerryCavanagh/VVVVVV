@@ -173,7 +173,7 @@ static const char* githubfriends[] = {
     "Jules de Sartiges",
     "Keith Stellyes",
     "KyoZM",
-    "leo60228",
+    "leo vriska",
     "MAO3J1m0Op",
     "Malte Grimm",
     "Marvin Scholz",
