@@ -220,6 +220,12 @@ void vlog_open_console(void)
         vlog_error("Could not redirect STDERR to console.");
     }
 
+    handle = freopen("CON", "r", stdin);
+    if (handle == NULL)
+    {
+        vlog_error("Could not redirect STDIN to console.");
+    }
+
     check_color_support();
 
     if (!SetConsoleOutputCP(CP_UTF8))
