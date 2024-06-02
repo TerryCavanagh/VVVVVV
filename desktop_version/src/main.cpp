@@ -363,6 +363,23 @@ static void emscriptenloop(void)
 }
 #endif
 
+static void keep_console_open(const bool open_console)
+{
+    if (!open_console)
+    {
+        return;
+    }
+
+    printf("Press ENTER to quit.");
+
+    int c;
+    do
+    {
+        c = getchar();
+    }
+    while (c != '\n' && c != EOF);
+}
+
 int main(int argc, char *argv[])
 {
     char* baseDir = NULL;
@@ -370,9 +387,11 @@ int main(int argc, char *argv[])
     char* langDir = NULL;
     char* fontsDir = NULL;
     bool seed_use_sdl_getticks = false;
-#ifdef _WIN32
     bool open_console = false;
-#endif
+    bool print_version = false;
+    bool print_addresses = false;
+    int invalid_arg = 0;
+    int invalid_partial_arg = 0;
 
     vlog_init();
 
@@ -386,41 +405,16 @@ int main(int argc, char *argv[])
     } \
     else \
     { \
-        vlog_error("%s option requires one argument.", argv[i]); \
-        VVV_exit(1); \
+        invalid_partial_arg = i; \
     }
 
         if (ARG("-version"))
         {
-            /* Just print the version and exit. No vlogging. */
-            puts(
-                "VVVVVV " RELEASE_VERSION
-#ifdef MAKEANDPLAY
-                " [M&P]"
-#endif
-            );
-#ifdef INTERIM_VERSION_EXISTS
-            puts(COMMIT_DATE);
-            puts(INTERIM_COMMIT);
-            puts(BRANCH_NAME);
-#endif
-            VVV_exit(0);
+            print_version = true;
         }
         else if (ARG("-addresses"))
         {
-            printf("cl         : %p\n", (void*) &cl);
-            printf("ed         : %p\n", (void*) &ed);
-            printf("game       : %p\n", (void*) &game);
-            printf("gameScreen : %p\n", (void*) &gameScreen);
-            printf("graphics   : %p\n", (void*) &graphics);
-            printf("help       : %p\n", (void*) &help);
-            printf("key        : %p\n", (void*) &key);
-            printf("map        : %p\n", (void*) &map);
-            printf("music      : %p\n", (void*) &music);
-            printf("obj        : %p\n", (void*) &obj);
-            printf("script     : %p\n", (void*) &script);
-
-            VVV_exit(0);
+            print_addresses = true;
         }
         else if (ARG("-renderer"))
         {
@@ -541,8 +535,7 @@ int main(int argc, char *argv[])
 #undef ARG
         else
         {
-            vlog_error("Error: invalid option: %s", argv[i]);
-            VVV_exit(1);
+            invalid_arg = i;
         }
     }
 
@@ -556,6 +549,54 @@ int main(int argc, char *argv[])
         vlog_open_console();
     }
 #endif
+
+    if (invalid_arg > 0)
+    {
+        vlog_error("Error: invalid option: %s", argv[invalid_arg]);
+        keep_console_open(open_console);
+        VVV_exit(1);
+    }
+    else if (invalid_partial_arg > 0)
+    {
+        vlog_error("%s option requires one argument.", argv[invalid_partial_arg]);
+        keep_console_open(open_console);
+        VVV_exit(1);
+    }
+
+    if (print_version)
+    {
+        /* Just print the version and exit. No vlogging. */
+        puts(
+            "VVVVVV " RELEASE_VERSION
+#ifdef MAKEANDPLAY
+            " [M&P]"
+#endif
+        );
+#ifdef INTERIM_VERSION_EXISTS
+        puts(COMMIT_DATE);
+        puts(INTERIM_COMMIT);
+        puts(BRANCH_NAME);
+#endif
+        keep_console_open(open_console);
+        VVV_exit(0);
+    }
+    else if (print_addresses)
+    {
+        printf("cl         : %p\n", (void*) &cl);
+        printf("ed         : %p\n", (void*) &ed);
+        printf("game       : %p\n", (void*) &game);
+        printf("gameScreen : %p\n", (void*) &gameScreen);
+        printf("graphics   : %p\n", (void*) &graphics);
+        printf("help       : %p\n", (void*) &help);
+        printf("key        : %p\n", (void*) &key);
+        printf("map        : %p\n", (void*) &map);
+        printf("music      : %p\n", (void*) &music);
+        printf("obj        : %p\n", (void*) &obj);
+        printf("script     : %p\n", (void*) &script);
+
+        keep_console_open(open_console);
+        VVV_exit(0);
+    }
 
     SDL_SetHintWithPriority(SDL_HINT_IME_SHOW_UI, "1", SDL_HINT_OVERRIDE);
 
@@ -774,6 +815,7 @@ int main(int argc, char *argv[])
                 cl.ListOfMetaData.push_back(meta);
             } else {
                 vlog_error("Level not found");
+                keep_console_open(open_console);
                 VVV_exit(1);
             }
         }
