@@ -251,12 +251,31 @@ static void levelMetaDataCallback(const char* filename)
     }
 }
 
+static void unloadZips(void)
+{
+    char** list = PHYSFS_getSearchPath();
+    if (list == NULL)
+    {
+        return;
+    }
+    for (char** path = list; *path != NULL; path++)
+    {
+        if (SDL_strncmp(*path, "levels/", 7) == 0 && endsWith(*path, ".zip"))
+        {
+            PHYSFS_unmount(*path);
+        }
+    }
+    PHYSFS_freeList(list);
+}
+
 void customlevelclass::getDirectoryData(void)
 {
 
     ListOfMetaData.clear();
 
     FILESYSTEM_clearLevelDirError();
+
+    unloadZips();
 
     loadZips();
 
