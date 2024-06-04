@@ -434,7 +434,14 @@ void scriptclass::run(void)
             }
             if (words[0] == "play")
             {
-                music.play(ss_toi(words[1]));
+                if (music.idexists(words[1].c_str()))
+                {
+                    music.playid(words[1].c_str());
+                }
+                else if (!music.isextra(ss_toi(words[1])))
+                {
+                    music.play(ss_toi(words[1]));
+                }
             }
             if (words[0] == "stopmusic")
             {

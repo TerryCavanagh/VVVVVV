@@ -71,6 +71,10 @@ public:
     void destroy(void);
 
     void play(int t);
+    void playid(const char* id);
+    bool idexists(const char* id);
+    bool isextra(int t);
+    const char* getid(int t);
     void resume(void);
     void resumefade(const int fadein_ms);
     void pause(void);
