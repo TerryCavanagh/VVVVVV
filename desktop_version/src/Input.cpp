@@ -2155,7 +2155,8 @@ void menuactionpress(void)
             map.nexttowercolour();
             break;
         case 0:
-            music.playef(Sound_CRY);
+            music.playef(Sound_VIRIDIAN);
+            touch::style = (TouchControlStyle) ((touch::style + 1) % NUM_TOUCH_STYLES);
             break;
         case 1:
             touch::scale += 5;
@@ -2780,11 +2781,14 @@ void gameinput(void)
         game.press_action = false;
         game.press_interact = false;
 
-        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) || touch::buttons[TOUCH_BUTTON_LEFT].down)
+
+        touch::update_swipe_finger();
+
+        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) || touch::buttons[TOUCH_BUTTON_LEFT].down || (touch::swipe_delta < -TOUCH_SWIPE_SENSITIVITY))
         {
             game.press_left = true;
         }
-        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false) || touch::buttons[TOUCH_BUTTON_RIGHT].down)
+        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false) || touch::buttons[TOUCH_BUTTON_RIGHT].down || (touch::swipe_delta > TOUCH_SWIPE_SENSITIVITY))
         {
             game.press_right = true;
         }

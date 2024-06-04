@@ -845,6 +845,17 @@ static void menurender(void)
         {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Touch Input"), tr, tg, tb);
             font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change touch input options."), tr, tg, tb);
+
+            font::print(PR_CEN, -1, 128, loc::gettext("Current style:"), tr, tg, tb);
+            switch (touch::style)
+            {
+            case 0:
+                font::print(PR_CEN, -1, 138, loc::gettext("SWIPE"), tr, tg, tb);
+                break;
+            case 1:
+                font::print(PR_CEN, -1, 138, loc::gettext("D-PAD"), tr, tg, tb);
+                break;
+            }
         }
         else
         {
@@ -853,6 +864,17 @@ static void menurender(void)
             case 0: // Control style
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Control Style"), tr, tg, tb);
                 font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the control style for touch input."), tr, tg, tb);
+
+                font::print(PR_CEN, -1, 88, loc::gettext("Current style:"), tr, tg, tb);
+                switch (touch::style)
+                {
+                case 0:
+                    font::print(PR_CEN, -1, 98, loc::gettext("SWIPE"), tr, tg, tb);
+                    break;
+                case 1:
+                    font::print(PR_CEN, -1, 98, loc::gettext("D-PAD"), tr, tg, tb);
+                    break;
+                }
                 break;
             case 1:
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("UI Scale"), tr, tg, tb);

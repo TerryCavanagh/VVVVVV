@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#define TOUCH_SWIPE_SENSITIVITY 4
+
 struct VVV_Finger
 {
     float x;
@@ -13,6 +15,14 @@ struct VVV_Finger
     bool pressed;
     bool on_button;
     SDL_FingerID id;
+};
+
+enum TouchControlStyle
+{
+    TOUCH_STYLE_SWIPE,
+    TOUCH_STYLE_BUTTONS,
+
+    NUM_TOUCH_STYLES
 };
 
 enum TouchButtonID
@@ -97,6 +107,9 @@ namespace touch
     extern std::vector<TouchButton*> all_buttons;
     extern int scale;
     extern bool scroll;
+    extern TouchControlStyle style;
+    extern int swipe_delta;
+    extern SDL_FingerID swipe_finger;
 
     void refresh_buttons(void);
     void update_sliders();
@@ -127,6 +140,7 @@ namespace touch
     bool button_tapped(TouchButtonID button);
     bool touching_right(void);
     bool screen_down(void);
+    void update_swipe_finger(void);
 }
 
 #endif /* TOUCH_H */

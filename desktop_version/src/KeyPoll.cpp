@@ -543,6 +543,11 @@ void KeyPoll::Poll(void)
                 }
             }
 
+            if (evt.tfinger.fingerId == touch::swipe_finger)
+            {
+                touch::swipe_finger = -1;
+            }
+
             raw_mousex = evt.tfinger.x * screen_width;
             raw_mousey = evt.tfinger.y * screen_height;
             leftbutton = 0;

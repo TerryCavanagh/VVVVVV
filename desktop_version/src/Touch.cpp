@@ -34,6 +34,10 @@ namespace touch
     int scale;
     bool textbox_style;
     bool scroll;
+    TouchControlStyle style;
+    SDL_FingerID swipe_finger;
+    int swipe_x;
+    int swipe_delta;
 
     void refresh_all_buttons(void)
     {
@@ -76,6 +80,10 @@ namespace touch
         scale = 10;
         use_buttons = false;
         textbox_style = false;
+
+        swipe_x = 0;
+        swipe_delta = 0;
+        swipe_finger = -1;
 
         for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
         {
@@ -426,8 +434,11 @@ namespace touch
         case GAMEMODE:
             if (!script.running && game.hascontrol)
             {
-                buttons[TOUCH_BUTTON_LEFT].active = true;
-                buttons[TOUCH_BUTTON_RIGHT].active = true;
+                if (style == TOUCH_STYLE_BUTTONS)
+                {
+                    buttons[TOUCH_BUTTON_LEFT].active = true;
+                    buttons[TOUCH_BUTTON_RIGHT].active = true;
+                }
                 buttons[TOUCH_BUTTON_MAP].active = true;
             }
             break;
@@ -775,6 +786,11 @@ namespace touch
 
         for (int i = 0; i < fingers.size(); i++)
         {
+            if (fingers[i].id == swipe_finger)
+            {
+                continue;
+            }
+
             if (fingers[i].on_button)
             {
                 continue;
@@ -805,5 +821,58 @@ namespace touch
             return true;
         }
         return false;
+    }
+
+    void update_swipe_finger(void)
+    {
+        if (style != TOUCH_STYLE_SWIPE)
+        {
+            swipe_delta = 0;
+            swipe_finger = -1;
+            return;
+        }
+
+        int width;
+        int height;
+        gameScreen.GetScreenSize(&width, &height);
+
+        VVV_Finger* finger = NULL;
+        for (int i = 0; i < fingers.size(); i++)
+        {
+            if (swipe_finger == -1 && fingers[i].x < width / 2)
+            {
+                swipe_finger = fingers[i].id;
+                swipe_x = fingers[i].x;
+                swipe_delta = 0;
+            }
+
+            if (fingers[i].id != swipe_finger)
+            {
+                continue;
+            }
+
+            if (fingers[i].pressed)
+            {
+                // Consume the input, so we don't accidentally start pressing a button or anything
+                fingers[i].pressed = false;
+            }
+            finger = &fingers[i];
+            break;
+        }
+
+        if (finger == NULL)
+        {
+            swipe_finger = -1;
+            swipe_delta = 0;
+            swipe_x = 0;
+            return;
+        }
+
+        int delta = finger->x - swipe_x;
+        if (delta > TOUCH_SWIPE_SENSITIVITY || delta < -TOUCH_SWIPE_SENSITIVITY)
+        {
+            swipe_delta = delta;
+            swipe_x = finger->x;
+        }
     }
 }
