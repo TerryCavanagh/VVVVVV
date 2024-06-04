@@ -23,6 +23,7 @@
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Touch.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -1055,12 +1056,18 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         case 4:
+            // touch input options
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::touch_input);
+            map.nexttowercolour();
+            break;
+        case 5:
             //accessibility options
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::accessibility);
             map.nexttowercolour();
             break;
-        case 5:
+        case 6:
             //language options
             if (game.translator_cutscene_test)
             {
@@ -1975,6 +1982,28 @@ static void menuactionpress(void)
             break;
         }
         break;
+    case Menu::touch_input:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            music.playef(Sound_CRY);
+            break;
+        case 1:
+            touch::scale += 5;
+            music.playef(Sound_VIRIDIAN);
+            if (touch::scale > 20)
+            {
+                touch::scale = 5;
+            }
+            game.savestatsandsettings_menu();
+            break;
+        case 2:
+            music.playef(Sound_VIRIDIAN);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
     case Menu::cleardatamenu:
         switch (game.currentmenuoption)
         {
@@ -2347,26 +2376,37 @@ void titleinput(void)
             controller_down |= key.controllerWantsLeft(false);
         }
 
-        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w) || controller_up)
+        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w) || controller_up || touch::button_tapped(TOUCH_BUTTON_LEFT))
         {
             game.press_left = true;
         }
-        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN)  || key.isDown(d) ||  key.isDown(KEYBOARD_s) || controller_down)
+        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN)  || key.isDown(d) ||  key.isDown(KEYBOARD_s) || controller_down || touch::button_tapped(TOUCH_BUTTON_RIGHT))
         {
             game.press_right = true;
         }
     }
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip)) game.press_action = true;
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip)
+        || (!game.menustart ? touch::screen_down() : touch::button_tapped(TOUCH_BUTTON_CONFIRM)))
+    {
+        game.press_action = true;
+    }
+
     //|| key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.press_action = true; //on menus, up and down don't work as action
     if (key.isDown(KEYBOARD_ENTER)) game.press_map = true;
 
     //In the menu system, all keypresses are single taps rather than holds. Therefore this test has to be done for all presses
-    if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_esc)) game.jumpheld = false;
+    if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_esc)
+        && !touch::button_tapped(TOUCH_BUTTON_CANCEL))
+    {
+        game.jumpheld = false;
+    }
+
     if (!game.press_map) game.mapheld = false;
 
     if (!game.jumpheld && graphics.fademode == FADE_NONE)
     {
-        if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_esc))
+        if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_esc)
+            || touch::button_tapped(TOUCH_BUTTON_CANCEL))
         {
             game.jumpheld = true;
         }
@@ -2385,7 +2425,7 @@ void titleinput(void)
 
         if (game.menustart
         && game.menucountdown <= 0
-        && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
+        && (key.isDown(27) || key.isDown(game.controllerButton_esc) || touch::button_tapped(TOUCH_BUTTON_CANCEL)))
         {
             if (game.currentmenuname == Menu::language && loc::pre_title_lang_menu)
             {
@@ -2562,16 +2602,17 @@ void gameinput(void)
         game.press_action = false;
         game.press_interact = false;
 
-        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false))
+        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) || touch::buttons[TOUCH_BUTTON_LEFT].down)
         {
             game.press_left = true;
         }
-        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false))
+        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false) || touch::buttons[TOUCH_BUTTON_RIGHT].down)
         {
             game.press_right = true;
         }
         if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v)
-                || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w) || key.isDown(KEYBOARD_s)|| key.isDown(game.controllerButton_flip))
+            || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w)
+            || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip) || touch::touching_right())
         {
             game.press_action = true;
         }
@@ -2583,7 +2624,7 @@ void gameinput(void)
     }
 
     game.press_map = false;
-    if (key.isDown(KEYBOARD_ENTER) || key.isDown(SDLK_KP_ENTER) || key.isDown(game.controllerButton_map)  )
+    if (key.isDown(KEYBOARD_ENTER) || key.isDown(SDLK_KP_ENTER) || key.isDown(game.controllerButton_map) || touch::button_tapped(TOUCH_BUTTON_MAP))
     {
         game.press_map = true;
     }
@@ -2600,7 +2641,12 @@ void gameinput(void)
         {
             game.press_action = false;
             if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v)
-                    || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w) || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip)) game.press_action = true;
+                || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w)
+                || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip) || touch::screen_down()
+                )
+            {
+                game.press_action = true;
+            }
         }
 
         if (game.press_action && !game.jumpheld)
@@ -2633,7 +2679,8 @@ void gameinput(void)
     //immediately open again
     //We really need a better input system soon...
     && !key.isDown(27)
-    && !key.isDown(game.controllerButton_esc))
+    && !key.isDown(game.controllerButton_esc)
+    && !touch::button_tapped(TOUCH_BUTTON_CANCEL))
     {
         game.mapheld = false;
     }
@@ -2978,7 +3025,7 @@ void gameinput(void)
     }
 
     if (!game.mapheld
-    && (key.isDown(27) || key.isDown(game.controllerButton_esc))
+    && (key.isDown(27) || key.isDown(game.controllerButton_esc) || touch::button_tapped(TOUCH_BUTTON_CANCEL))
     && (!map.custommode || map.custommodeforreal))
     {
         game.mapheld = true;
@@ -3100,15 +3147,15 @@ void mapinput(void)
             controller_down |= key.controllerWantsLeft(false);
         }
 
-        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w)|| controller_up)
+        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w)|| controller_up || touch::button_tapped(TOUCH_BUTTON_LEFT))
         {
             game.press_left = true;
         }
-        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN) || key.isDown(d) ||  key.isDown(KEYBOARD_s)|| controller_down)
+        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN) || key.isDown(d) ||  key.isDown(KEYBOARD_s)|| controller_down || touch::button_tapped(TOUCH_BUTTON_RIGHT))
         {
             game.press_right = true;
         }
-        if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
+        if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::button_tapped(TOUCH_BUTTON_CONFIRM))
         {
             game.press_action = true;
         }
@@ -3116,8 +3163,8 @@ void mapinput(void)
         || (game.menupage >= 20 && game.menupage <= 21)
         || (game.menupage >= 30 && game.menupage <= 32))
         {
-            if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) ) game.press_map = true;
-            if (key.isDown(27) && !game.mapheld)
+            if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map)) game.press_map = true;
+            if ((key.isDown(27) || touch::button_tapped(TOUCH_BUTTON_CANCEL)) && !game.mapheld)
             {
                 game.mapheld = true;
                 if (game.menupage < 9
@@ -3138,7 +3185,11 @@ void mapinput(void)
         }
         else
         {
-            if (key.isDown(KEYBOARD_ENTER) || key.isDown(27)|| key.isDown(game.controllerButton_map) ) game.press_map = true;
+            if (key.isDown(KEYBOARD_ENTER) || key.isDown(27) || key.isDown(game.controllerButton_map)
+                || touch::button_tapped(TOUCH_BUTTON_CANCEL))
+            {
+                game.press_map = true;
+            }
         }
 
         //In the menu system, all keypresses are single taps rather than holds. Therefore this test has to be done for all presses
@@ -3339,11 +3390,16 @@ void teleporterinput(void)
 
     if(graphics.menuoffset==0)
     {
-        if (key.isDown(KEYBOARD_LEFT)|| key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) ) game.press_left = true;
-        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d)|| key.controllerWantsRight(false) ) game.press_right = true;
+        if (key.isDown(KEYBOARD_LEFT)|| key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) || touch::button_tapped(TOUCH_BUTTON_LEFT)) game.press_left = true;
+        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d)|| key.controllerWantsRight(false) || touch::button_tapped(TOUCH_BUTTON_RIGHT)) game.press_right = true;
         if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v)
-                || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)||  key.isDown(KEYBOARD_w)||  key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip)) game.press_action = true;
-        if (!game.separate_interact && (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map)))
+            || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w)
+            || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip)
+            || touch::button_tapped(TOUCH_BUTTON_CONFIRM))
+        {
+            game.press_action = true;
+        }
+        if (!game.separate_interact && (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) || touch::button_tapped(TOUCH_BUTTON_CONFIRM)))
         {
             game.press_map = true;
         }
@@ -3356,7 +3412,7 @@ void teleporterinput(void)
         if (!game.press_action && !game.press_left && !game.press_right && !game.press_interact) game.jumpheld = false;
         if (!game.press_map) game.mapheld = false;
 
-        if (key.isDown(27))
+        if (key.isDown(27) || touch::button_tapped(TOUCH_BUTTON_CANCEL))
         {
             if (!map.custommode || map.custommodeforreal)
             {
@@ -3483,7 +3539,7 @@ void gamecompleteinput(void)
     graphics.titlebg.bypos += graphics.titlebg.bscroll;
     game.oldcreditposition = game.creditposition;
 
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_down())
     {
         game.creditposition -= 6;
         if (game.creditposition <= -Credits::creditmaxposition)
@@ -3531,7 +3587,7 @@ void gamecompleteinput2(void)
     //Do this here because input comes first
     game.oldcreditposx = game.creditposx;
 
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_down())
     {
         game.creditposx++;
         game.oldcreditposx++;
