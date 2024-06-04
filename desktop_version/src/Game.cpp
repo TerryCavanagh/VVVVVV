@@ -4919,6 +4919,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             touch::scale = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "touchstyle") == 0)
+        {
+            touch::style = (TouchControlStyle) (help.Int(pText) % NUM_TOUCH_STYLES);
+        }
+
         if (SDL_strcmp(pKey, "lang") == 0)
         {
             loc::lang = std::string(pText);
@@ -5198,6 +5203,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     xml::update_tag(dataNode, "controllerSensitivity", key.sensitivity);
 
     xml::update_tag(dataNode, "touchscale", touch::scale);
+    xml::update_tag(dataNode, "touchstyle", touch::style);
 
     xml::update_tag(dataNode, "lang", loc::lang.c_str());
     xml::update_tag(dataNode, "lang_set", (int) loc::lang_set);
@@ -7004,7 +7010,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 10;
         break;
     case Menu::touch_input:
-        option(loc::gettext("control style"), false);
+        option(loc::gettext("control style"));
         option(loc::gettext("ui scale"));
         option(loc::gettext("return"));
         menuyoff = 0;
@@ -7012,9 +7018,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
         auto_buttons = false;
 
-        touch::create_menu_button((320 - 160) / 2, 120 - 32, 160, 26, loc::gettext("control style"), 1, false);
+        touch::create_menu_button((320 - 160) / 2, 120 - 32, 160, 26, loc::gettext("control style"), 0);
 
-        touch::create_slider_button((320 - 160) / 2, 120 + 16, 160, 48, loc::gettext("ui scale"), &touch::scale, 5, 20);
+        touch::create_slider_button((320 - 160) / 2, 120 + 16 + 16, 160, 48, loc::gettext("ui scale"), &touch::scale, 5, 20);
 
         touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
         touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), 2);
