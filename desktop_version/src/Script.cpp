@@ -520,6 +520,7 @@ void scriptclass::run(void)
                 {
                     played = music.playef(sound_id);
                 }
+
                 if (!played)
                 {
                     vlog_error("playef() couldn't play sound: %s", words[1].c_str());
@@ -527,7 +528,22 @@ void scriptclass::run(void)
             }
             if (words[0] == "play")
             {
-                music.play(ss_toi(words[1]));
+                bool played = false;
+                int song_id = help.Int(words[1].c_str(), -2); // -1 has special behavior, so... -2 is known to be "invalid"
+
+                if (music.idexists(words[1].c_str()))
+                {
+                    played = music.playid(words[1].c_str());
+                }
+                else if (!music.isextra(song_id))
+                {
+                    played = music.play(song_id);
+                }
+
+                if (!played)
+                {
+                    vlog_error("play() couldn't play song: %s", words[1].c_str());
+                }
             }
             if (words[0] == "stopmusic")
             {

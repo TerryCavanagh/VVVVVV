@@ -73,7 +73,11 @@ public:
     void set_music_volume(int volume);
     void set_sound_volume(int volume);
 
-    void play(int t);
+    bool play(int t);
+    bool playid(const char* id);
+    bool idexists(const char* id);
+    bool isextra(int t);
+    const char* getid(int t);
     void resume(void);
     void resumefade(const int fadein_ms);
     void pause(void);
