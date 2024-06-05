@@ -363,6 +363,7 @@ public:
     int savetrinkets;
     bool startscript;
     std::string newscript;
+    bool checkpoint_saving;
 
     bool menustart;
 
