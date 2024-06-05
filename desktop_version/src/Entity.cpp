@@ -1232,7 +1232,18 @@ static bool gridmatch( int p1, int p2, int p3, int p4, int p11, int p21, int p31
 
 static void entityclonefix(entclass* entity)
 {
-    if (entity->behave == 10 || entity->behave == 12)
+    const bool is_lies_emitter = entity->behave == 10;
+    const bool is_factory_emitter = entity->behave == 12;
+
+    const bool in_lies_emitter_room =
+        game.roomx >= 113 && game.roomx <= 117 && game.roomy == 111;
+    const bool in_factory_emitter_room =
+        game.roomx == 113 && game.roomy >= 108 && game.roomy <= 110;
+
+    const bool valid = (is_lies_emitter && in_lies_emitter_room)
+        || (is_factory_emitter && in_factory_emitter_room);
+
+    if (!valid)
     {
         /* Fix memory leak */
         entity->behave = -1;
