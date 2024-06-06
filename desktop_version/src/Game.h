@@ -483,6 +483,7 @@ public:
     int deathseq, lifeseq;
 
     int trinkets(void);
+    int coins(void);
     int crewmates(void);
     int savepoint, teleportxpos;
     bool teleport;
