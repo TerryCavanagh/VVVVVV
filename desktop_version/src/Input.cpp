@@ -2907,6 +2907,13 @@ void gameinput(void)
     bool enter_pressed = game.press_map && !game.mapheld;
     bool enter_already_processed = false;
     bool interact_pressed;
+
+    bool should_move = true;
+    if (game.tutorial_mode)
+    {
+        should_move = game.tutorial_touch_timer >= 8;
+    }
+
     if (game.separate_interact)
     {
         interact_pressed = game.press_interact && !game.interactheld;
@@ -3011,15 +3018,25 @@ void gameinput(void)
                     }
                 }
 
-                if(game.press_left)
+                if (game.press_left)
                 {
-                    obj.entities[ie].ax = -3;
-                    obj.entities[ie].dir = 0;
+                    if (should_move)
+                    {
+                        obj.entities[ie].ax = -3;
+                        obj.entities[ie].dir = 0;
+                    }
                 }
                 else if (game.press_right)
                 {
-                    obj.entities[ie].ax = 3;
-                    obj.entities[ie].dir = 1;
+                    if (should_move)
+                    {
+                        obj.entities[ie].ax = 3;
+                        obj.entities[ie].dir = 1;
+                    }
+                }
+                else
+                {
+                    game.tutorial_touch_timer = 0;
                 }
             }
         }
@@ -3030,6 +3047,10 @@ void gameinput(void)
         if (game.press_left)
         {
             game.tapleft++;
+            if (game.tutorial_mode)
+            {
+                game.tutorial_touch_timer++;
+            }
         }
         else
         {
@@ -3051,6 +3072,10 @@ void gameinput(void)
         if (game.press_right)
         {
             game.tapright++;
+            if (game.tutorial_mode)
+            {
+                game.tutorial_touch_timer++;
+            }
         }
         else
         {
@@ -3221,6 +3246,15 @@ void gameinput(void)
     if (game.deathseq == -1 && (key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart)) && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
     {
         game.deathseq = 30;
+    }
+
+    if (game.tutorial_mode && game.tutorial_state >= 13)
+    {
+        if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_v) || key.isDown(KEYBOARD_ENTER) || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down())
+        {
+            music.playef(11);
+            game.tutorial_mode = false;
+        }
     }
 }
 

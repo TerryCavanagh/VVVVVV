@@ -2466,7 +2466,7 @@ void gamerender(void)
             }
             graphics.drawtowermap();
         }
-        else
+        else if (!game.tutorial_mode)
         {
             if(!game.colourblindmode)
             {
@@ -2485,7 +2485,10 @@ void gamerender(void)
                 graphics.drawmap();
             }
         }
-
+        else if (game.tutorial_mode)
+        {
+            graphics.fill_rect(10, 24, 26);
+        }
 
         graphics.drawentities();
         if (map.towermode)
@@ -2904,6 +2907,117 @@ void gamerender(void)
     if (obj.trophytext > 0 || obj.oldtrophytext > 0)
     {
         graphics.drawtrophytext();
+    }
+
+    if (game.tutorial_mode)
+    {
+        int screen_off = (100 - game.tutorial_screen_pos) * 3;
+
+        font::print_wrap(PR_CEN, -1, 10, loc::gettext("-= TOUCHSCREEN CONTROLS =-"), 200 - help.glow, 220 - help.glow, 255 - help.glow / 2);
+
+        if (game.tutorial_state >= 3 && game.tutorial_state <= 6)
+        {
+            font::print_wrap(PR_CEN, -1, 203, "Swipe and hold on the left side of the screen to move", 200 - help.glow, 220 - help.glow, 255 - help.glow / 2, -1, SCREEN_WIDTH_PIXELS / 3 * 2);
+        }
+
+        if (game.tutorial_state >= 7 && game.tutorial_state <= 11)
+        {
+            font::print_wrap(PR_CEN, -1, 203, "Tap on the right to flip", 200 - help.glow, 220 - help.glow, 255 - help.glow / 2, -1, SCREEN_WIDTH_PIXELS / 3 * 2);
+        }
+
+        if (game.tutorial_state >= 13)
+        {
+            font::print_wrap(PR_CEN, -1, 203, "Tap to start", 200 - help.glow, 220 - help.glow, 255 - help.glow / 2, -1, SCREEN_WIDTH_PIXELS / 3 * 2);
+        }
+
+        graphics.draw_texture(graphics.grphx.im_tutorial_screen, 80, 70 + screen_off);
+
+        // Touchpoints!
+        if (!game.press_left && !game.press_right)
+        {
+            // Left hand off
+            graphics.draw_texture(graphics.grphx.im_tutorial_lefthand_off, 56, 106 + screen_off);
+        }
+        else if (game.press_left)
+        {
+            // Left hand moving left
+            if (game.tutorial_touch_timer <= 8)
+            {
+                if (help.slowsine % 16 > 8)
+                {
+                    graphics.draw_rect(116, 120, 16, 16, 255, 255, 255);
+                }
+                else
+                {
+                    graphics.draw_rect(118, 122, 12, 12, 255, 255, 255);
+                }
+                graphics.draw_texture(graphics.grphx.im_tutorial_lefthand_far, 56, 106 + screen_off);
+                graphics.draw_texture(graphics.grphx.im_tutorial_arrowleft, 136, 120);
+            }
+            else
+            {
+                if (help.slowsine % 16 > 8)
+                {
+                    graphics.draw_rect(104, 118, 16, 16, 255, 255, 255);
+                }
+                else
+                {
+                    graphics.draw_rect(106, 120, 12, 12, 255, 255, 255);
+                }
+                graphics.draw_texture(graphics.grphx.im_tutorial_lefthand_near, 56, 106 + screen_off);
+                graphics.draw_texture(graphics.grphx.im_tutorial_arrowleft, 124, 120);
+            }
+        }
+        else if (game.press_right)
+        {
+            // Left hand moving right
+            if (game.tutorial_touch_timer <= 8)
+            {
+                if (help.slowsine % 16 > 8)
+                {
+                    graphics.draw_rect(104, 118, 16, 16, 255, 255, 255);
+                }
+                else
+                {
+                    graphics.draw_rect(106, 120, 12, 12, 255, 255, 255);
+                }
+                graphics.draw_texture(graphics.grphx.im_tutorial_lefthand_near, 56, 106 + screen_off);
+                graphics.draw_texture(graphics.grphx.im_tutorial_arrowright, 124, 120);
+            }
+            else
+            {
+                if (help.slowsine % 16 > 8)
+                {
+                    graphics.draw_rect(116, 120, 16, 16, 255, 255, 255);
+                }
+                else
+                {
+                    graphics.draw_rect(118, 122, 12, 12, 255, 255, 255);
+                }
+                graphics.draw_texture(graphics.grphx.im_tutorial_lefthand_far, 56, 106 + screen_off);
+                graphics.draw_texture(graphics.grphx.im_tutorial_arrowright, 136, 120);
+            }
+        }
+
+        if (game.tutorial_state >= 7)
+        {
+            if (game.tutorial_flip > 0)
+            {
+                if (help.slowsine % 16 > 8)
+                {
+                    graphics.draw_rect(188, 120, 16, 16, 255, 255, 255);
+                }
+                else
+                {
+                    graphics.draw_rect(190, 122, 12, 12, 255, 255, 255);
+                }
+                graphics.draw_texture(graphics.grphx.im_tutorial_righthand_far, 193, 106);
+            }
+            else
+            {
+                graphics.draw_texture(graphics.grphx.im_tutorial_righthand_off, 193, 106 + screen_off);
+            }
+        }
     }
 
     level_debugger::render();

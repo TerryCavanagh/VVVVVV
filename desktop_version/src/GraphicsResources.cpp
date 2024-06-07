@@ -434,6 +434,18 @@ void GraphicsResources::init(void)
     im_button_map = LoadImage("graphics/buttons/button_map.png");
     im_button_globe = LoadImage("graphics/buttons/button_globe.png");
 
+    im_tutorial_lefthand_far = LoadImage("graphics/tutorial/lefthand_far.png");
+    im_tutorial_lefthand_near = LoadImage("graphics/tutorial/lefthand_near.png");
+    im_tutorial_lefthand_off = LoadImage("graphics/tutorial/lefthand_off.png");
+    im_tutorial_righthand_far = LoadImage("graphics/tutorial/righthand_far.png");
+    im_tutorial_righthand_near = LoadImage("graphics/tutorial/righthand_near.png");
+    im_tutorial_righthand_off = LoadImage("graphics/tutorial/righthand_off.png");
+
+    im_tutorial_arrowleft = LoadImage("graphics/tutorial/arrowleft.png");
+    im_tutorial_arrowright = LoadImage("graphics/tutorial/arrowright.png");
+
+    im_tutorial_screen = LoadImage("graphics/tutorial/touchscreen.png");
+
     im_sprites_translated = NULL;
     im_flipsprites_translated = NULL;
 
@@ -486,6 +498,18 @@ void GraphicsResources::destroy(void)
     CLEAR(im_button_right);
     CLEAR(im_button_map);
     CLEAR(im_button_globe);
+
+    CLEAR(im_tutorial_lefthand_far);
+    CLEAR(im_tutorial_lefthand_near);
+    CLEAR(im_tutorial_lefthand_off);
+    CLEAR(im_tutorial_righthand_far);
+    CLEAR(im_tutorial_righthand_near);
+    CLEAR(im_tutorial_righthand_off);
+
+    CLEAR(im_tutorial_arrowleft);
+    CLEAR(im_tutorial_arrowright);
+
+    CLEAR(im_tutorial_screen);
 #undef CLEAR
 
     VVV_freefunc(SDL_FreeSurface, im_sprites_surf);

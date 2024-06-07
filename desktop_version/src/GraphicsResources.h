@@ -54,6 +54,18 @@ public:
     SDL_Texture* im_button_right;
     SDL_Texture* im_button_map;
     SDL_Texture* im_button_globe;
+
+    SDL_Texture* im_tutorial_lefthand_far;
+    SDL_Texture* im_tutorial_lefthand_near;
+    SDL_Texture* im_tutorial_lefthand_off;
+    SDL_Texture* im_tutorial_righthand_far;
+    SDL_Texture* im_tutorial_righthand_near;
+    SDL_Texture* im_tutorial_righthand_off;
+
+    SDL_Texture* im_tutorial_arrowleft;
+    SDL_Texture* im_tutorial_arrowright;
+
+    SDL_Texture* im_tutorial_screen;
 };
 
 SDL_Surface* LoadImageSurface(const char* filename);

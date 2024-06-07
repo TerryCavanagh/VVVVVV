@@ -387,6 +387,14 @@ void Game::init(void)
     languagepage = 0;
 
     setdefaultcontrollerbuttons();
+
+    tutorial_mode = false;
+    tutorial_state = 0;
+    tutorial_timer = 0;
+
+    tutorial_screen_pos = 0;
+    tutorial_touch_timer = 0;
+    tutorial_flip = 0;
 }
 
 void Game::setdefaultcontrollerbuttons(void)

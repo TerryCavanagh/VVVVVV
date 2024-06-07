@@ -612,6 +612,14 @@ public:
     bool screenshot_saved_success;
 
     int languagepage;
+
+    bool tutorial_mode;
+    int tutorial_state;
+    int tutorial_timer;
+
+    int tutorial_screen_pos;
+    int tutorial_touch_timer;
+    int tutorial_flip;
 };
 
 #ifndef GAME_DEFINITION

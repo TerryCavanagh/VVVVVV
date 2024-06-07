@@ -198,10 +198,13 @@ void scriptclass::run(void)
             tokenize(commands[position]);
 
             //For script assisted input
-            game.press_left = false;
-            game.press_right = false;
-            game.press_action = false;
-            game.press_map = false;
+            if (!game.tutorial_mode)
+            {
+                game.press_left = false;
+                game.press_right = false;
+                game.press_action = false;
+                game.press_map = false;
+            }
 
             //Ok, now we run a command based on that string
             if (words[0] == "moveplayer")
@@ -1418,6 +1421,11 @@ void scriptclass::run(void)
                 graphics.setfade(0);
                 graphics.fademode = FADE_NONE;
             }
+            else if (words[0] == "befadeout")
+            {
+                graphics.setfade(416);
+                graphics.fademode = FADE_FULLY_BLACK;
+            }
             else if (words[0] == "fadein")
             {
                 graphics.fademode = FADE_START_FADEIN;
@@ -2514,6 +2522,33 @@ void scriptclass::run(void)
                     }
                 }
             }
+            else if (words[0] == "settile")
+            {
+                map.settile(ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]));
+                graphics.foregrounddrawn = false;
+            }
+            else if (words[0] == "controls")
+            {
+                game.tutorial_mode = true;
+                game.tutorial_state = 0;
+                game.tutorial_timer = 0;
+
+                game.tutorial_screen_pos = 0;
+                game.tutorial_touch_timer = 0;
+                game.tutorial_flip = 0;
+            }
+            else if (words[0] == "untilcontrols")
+            {
+                if (game.tutorial_mode)
+                {
+                    scriptdelay = 1;
+                    position--;
+                }
+            }
+            else if (words[0] == "setbars")
+            {
+                graphics.setbars(ss_toi(words[1]));
+            }
 
             position++;
         }
@@ -3222,6 +3257,14 @@ void scriptclass::hardreset(void)
     game.disabletemporaryaudiopause = true;
 
     game.ingame_titlemode = false;
+
+    game.tutorial_mode = false;
+    game.tutorial_state = 0;
+    game.tutorial_timer = 0;
+
+    game.tutorial_screen_pos = 0;
+    game.tutorial_touch_timer = 0;
+    game.tutorial_flip = 0;
 
     //dwgraphicsclass
     graphics.backgrounddrawn = false;

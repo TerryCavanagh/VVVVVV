@@ -1483,5 +1483,173 @@ void gamelogic(void)
 #undef gotoroom
 #undef GOTOROOM
 
+    if (game.tutorial_mode)
+    {
+        game.tutorial_timer++;
+
+        if (game.tutorial_flip > 0)
+        {
+            game.tutorial_flip--;
+        }
+
+        switch (game.tutorial_state)
+        {
+        case 0:
+            if (game.tutorial_timer > 10)
+            {
+                game.tutorial_state = 1;
+                game.tutorial_timer = 0;
+            }
+            break;
+        case 1:
+            game.tutorial_screen_pos += 5;
+            if (game.tutorial_screen_pos >= 100)
+            {
+                game.tutorial_screen_pos = 100;
+                game.tutorial_state = 2;
+                game.tutorial_timer = 0;
+            }
+            break;
+        case 2:
+            if (game.tutorial_timer > 30)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state = 3;
+            }
+            break;
+        case 3:
+            game.press_right = true;
+            if (game.tutorial_timer > 60)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state = 4;
+            }
+            break;
+        case 4:
+            game.press_right = false;
+            if (game.tutorial_timer > 30)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state = 5;
+            }
+            break;
+        case 5:
+            game.press_left = true;
+            if (game.tutorial_timer > 60)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state = 6;
+            }
+            break;
+        case 6:
+            game.press_left = false;
+            if (game.tutorial_timer > 30)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state = 7;
+            }
+            break;
+        case 7:
+            if (game.tutorial_timer > 5)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state = 8;
+            }
+            break;
+        case 8:
+            game.jumppressed = 5;
+            game.jumpheld = true;
+            game.press_action = true;
+            game.tutorial_state = 9;
+            game.tutorial_flip = 10;
+            game.tutorial_timer = 0;
+            break;
+        case 9:
+            if (game.tutorial_timer > 45)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state = 10;
+            }
+            break;
+        case 10:
+            game.jumppressed = 5;
+            game.jumpheld = true;
+            game.press_action = true;
+            game.tutorial_state = 11;
+            game.tutorial_flip = 10;
+            game.tutorial_timer = 0;
+            break;
+        case 11:
+            if (game.tutorial_timer > 45)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state++;
+            }
+            break;
+        case 12:
+            game.press_left = false;
+            game.press_right = true;
+            if (game.tutorial_timer > 28)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state++;
+            }
+            break;
+        case 13:
+            game.press_left = true;
+            game.press_right = false;
+            if (game.tutorial_timer == 30)
+            {
+                game.jumppressed = 5;
+                game.jumpheld = true;
+                game.press_action = true;
+                game.tutorial_flip = 10;
+            }
+            if (game.tutorial_timer > 45)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state++;
+            }
+            break;
+        case 14:
+            game.press_left = false;
+            game.press_right = true;
+            if (game.tutorial_timer == 30)
+            {
+                if (fRandom() * 100 > 50)
+                {
+                    game.jumppressed = 5;
+                    game.jumpheld = true;
+                    game.press_action = true;
+                    game.tutorial_flip = 10;
+                }
+            }
+            if (game.tutorial_timer > 45)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state++;
+            }
+            break;
+        case 15:
+            game.press_left = true;
+            game.press_right = false;
+            if (game.tutorial_timer == 30)
+            {
+                if (fRandom() * 100 > 50)
+                {
+                    game.jumppressed = 5;
+                    game.jumpheld = true;
+                    game.tutorial_flip = 10;
+                }
+            }
+            if (game.tutorial_timer > 45)
+            {
+                game.tutorial_timer = 0;
+                game.tutorial_state = 14;
+            }
+            break;
+        }
+    }
+
     level_debugger::logic();
 }
