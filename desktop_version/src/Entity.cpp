@@ -1235,6 +1235,12 @@ static void entityclonefix(entclass* entity)
     const bool is_lies_emitter = entity->behave == 10;
     const bool is_factory_emitter = entity->behave == 12;
 
+    const bool is_emitter = is_lies_emitter || is_factory_emitter;
+    if (!is_emitter)
+    {
+        return;
+    }
+
     const bool in_lies_emitter_room =
         game.roomx >= 113 && game.roomx <= 117 && game.roomy == 111;
     const bool in_factory_emitter_room =
