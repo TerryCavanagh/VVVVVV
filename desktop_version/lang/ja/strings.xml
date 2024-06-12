@@ -263,6 +263,16 @@ Escキーを押すと表示を終了する。" explanation="" max="38*6" max_loc
     <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="古いバージョンに存在した、1フレームの入力遅延の有無を切り替える。" explanation="input delay" max="38*3" max_local="38*2"/>
     <string english="Input delay is ON" translation="現在の設定: ON" explanation="" max="38*2" max_local="38*1"/>
     <string english="Input delay is OFF" translation="現在の設定: OFF" explanation="" max="38*2" max_local="38*1"/>
+    <string english="touch input" translation="" explanation="menu option"/>
+    <string english="Touch Input" translation="" explanation="title" max="20" max_local="20"/>
+    <string english="Change touch input options." translation="" explanation="" max="38*5" max_local="38*4"/>
+    <string english="control style" translation="" explanation="menu option"/>
+    <string english="Control Style" translation="" explanation="title" max="20" max_local="20"/>
+    <string english="Change the control style for touch input." translation="" explanation="" max="38*3" max_local="38*2"/>
+    <string english="ui scale" translation="" explanation="menu option"/>
+    <string english="UI Scale" translation="" explanation="title" max="20" max_local="20"/>
+    <string english="Change the scale of the UI buttons." translation="" explanation="" max="38*3" max_local="38*2"/>
+    <string english="Current scale: {scale}.{extra}x" translation="" explanation="scale and extra are both numbers. 1 and 5 show as 1.5" max="38*2" max_local="38*1"/>
     <string english="accessibility" translation="アクセシビリティ" explanation="menu option"/>
     <string english="Accessibility" translation="アクセシビリティ設定" explanation="title" max="20" max_local="20"/>
     <string english="Disable screen effects, enable slowdown modes or invincibility." translation="画面エフェクト、速度調整や無敵モードの有無を変更する。" explanation="" max="38*5" max_local="38*4"/>
@@ -469,6 +479,7 @@ Steam Deckには対応していません。" explanation="" max="38*5" max_local
     <string english="ACTION = Space, Z, or V" translation="ACTION = スペース, Z または V" explanation="title screen" max="38*3" max_local="38*2"/>
     <string english="[Press {button} to return to editor]" translation="[ {button} でエディターに戻る ]" explanation="`to editor` is sorta redundant" max="40" max_local="40"/>
     <string english="- Press {button} to advance text -" translation="- {button} を押して進む -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="40"/>
+    <string english="- Tap screen to advance text -" translation="" explanation="to dismiss a textbox using touch controls" max="40" max_local="40"/>
     <string english="Press {button} to continue" translation="{button} を押して完了" explanation="Expect `ACTION`" max="34" max_local="34"/>
     <string english="[Press {button} to unfreeze gameplay]" translation="[{button}を押してゲームの進行を再開]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
     <string english="[Press {button} to freeze gameplay]" translation="[{button}を押してゲームの進行を停止]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
