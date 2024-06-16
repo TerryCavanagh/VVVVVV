@@ -1206,6 +1206,13 @@ void scriptclass::run(void)
                 {
                     game.savedir = obj.entities[i].dir;
                 }
+
+                if (game.checkpoint_saving)
+                {
+                    bool success = game.savequick();
+                    game.gamesaved = success;
+                    game.gamesavefailed = !success;
+                }
             }
             else if (words[0] == "gamestate")
             {
