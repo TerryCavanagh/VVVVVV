@@ -342,6 +342,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
             "\nor get it from the free Make and Play Edition.",
             NULL
         );
+        VVV_exit(1);
         return 0;
     }
 
