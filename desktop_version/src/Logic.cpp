@@ -835,7 +835,7 @@ void gamelogic(void)
                 }
             }
 
-            if(obj.horplatforms)
+            if (obj.horplatforms)
             {
                 for (int ie = obj.entities.size() - 1; ie >= 0;  ie--)
                 {
@@ -859,7 +859,10 @@ void gamelogic(void)
                 //is the player standing on a moving platform?
                 int i = obj.getplayer();
                 float j = obj.entitycollideplatformfloor(i);
-                if (INBOUNDS_VEC(i, obj.entities) && j > -1000)
+                // To match 2.2, we need to give a bit of leeway in the lifeseq
+                // before we start pushing the player.
+                const bool horz_active = game.lifeseq < 8;
+                if (horz_active && INBOUNDS_VEC(i, obj.entities) && j > -1000)
                 {
                     obj.entities[i].newxp = obj.entities[i].xp + j;
                     obj.entitymapcollision(i);
@@ -867,7 +870,7 @@ void gamelogic(void)
                 else
                 {
                     j = obj.entitycollideplatformroof(i);
-                    if (INBOUNDS_VEC(i, obj.entities) && j > -1000)
+                    if (horz_active && INBOUNDS_VEC(i, obj.entities) && j > -1000)
                     {
                         obj.entities[i].newxp = obj.entities[i].xp + j;
                         obj.entitymapcollision(i);
