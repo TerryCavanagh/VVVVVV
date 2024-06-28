@@ -287,7 +287,8 @@ endif()
 if(MSVC)
     # MSVC doesn't have /std:c99 or /std:c++98 switches!
 
-    # Disable exceptions
+    # MSVC does not officially support disabling exceptions,
+    # so this is as far as we are willing to go to disable them.
     string(REGEX REPLACE "/EH[a-z]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
 
