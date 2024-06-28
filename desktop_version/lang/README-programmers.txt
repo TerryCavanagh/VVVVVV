@@ -58,7 +58,7 @@ Of course, when you remove strings without replacement, you can simply remove th
 These are the text printing functions:
 
  font::print(flags, x, y, text, r, g, b)
- font::print(flags, x, y, text, r, g, b, linespacing = -1, maxwidth = -1)
+ font::print_wrap(flags, x, y, text, r, g, b, linespacing = -1, maxwidth = -1)
 
 The flags argument can be 0, or a set of flags that do things like centering, enlarging, etc.
 
