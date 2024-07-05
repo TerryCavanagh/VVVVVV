@@ -962,7 +962,7 @@ void musicclass::play(int t)
             m_doFadeInVol = false;
             m_doFadeOutVol = false;
             musicVolume = VVV_MAX_VOLUME;
-            MusicTrack::SetVolume(musicVolume);
+            MusicTrack::SetVolume(VVV_MAX_VOLUME * user_music_volume / USER_VOLUME_MAX);
         }
     }
     else
