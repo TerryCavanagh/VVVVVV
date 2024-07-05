@@ -31,6 +31,7 @@ struct MenuOption
     char text[MENU_TEXT_BYTES];
     bool active;
     uint32_t print_flags;
+    bool auto_button;
 };
 
 //Menu IDs
@@ -64,6 +65,7 @@ namespace Menu
         audiooptions,
         accessibility,
         controller,
+        touch_input,
         language,
         translator_main,
         translator_options,
@@ -386,12 +388,13 @@ public:
     int menuspacing;
     std::vector<MenuStackFrame> menustack;
 
-    void inline option(const char* text, bool active = true, uint32_t print_flags = PR_RTL_XFLIP)
+    void inline option(const char* text, bool active = true, uint32_t print_flags = PR_RTL_XFLIP, bool auto_button = true)
     {
         MenuOption menuoption;
         SDL_strlcpy(menuoption.text, text, sizeof(menuoption.text));
         menuoption.active = active;
         menuoption.print_flags = print_flags;
+        menuoption.auto_button = auto_button;
         menuoptions.push_back(menuoption);
     }
 
@@ -602,6 +605,8 @@ public:
     int old_screenshot_border_timer;
     int screenshot_border_timer;
     bool screenshot_saved_success;
+
+    int languagepage;
 };
 
 #ifndef GAME_DEFINITION
