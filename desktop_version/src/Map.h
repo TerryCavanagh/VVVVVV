@@ -12,6 +12,21 @@
 #include "TowerBG.h"
 #include "WarpClass.h"
 
+struct MapRenderData
+{
+    int zoom;
+    int xoff;
+    int yoff;
+    int legendxoff;
+    int legendyoff;
+    int startx;
+    int starty;
+    int width;
+    int height;
+    int pixelsx;
+    int pixelsy;
+};
+
 struct Roomtext
 {
     int x, y;
@@ -159,8 +174,6 @@ public:
     //Variables for playing custom levels
     bool custommode;
     bool custommodeforreal;
-    int custommmxoff, custommmyoff, custommmxsize, custommmysize;
-    int customzoom;
     bool customshowmm;
 
     //final level colour cycling stuff
@@ -194,6 +207,25 @@ public:
 
     //Map cursor
     int cursorstate, cursordelay;
+
+    //Region system
+    struct regionstruct
+    {
+        bool isvalid;
+        int rx;
+        int ry;
+        int rx2;
+        int ry2;
+    };
+    struct regionstruct region[401];
+    void setregion(int id, int rx, int ry, int rx2, int ry2);
+    void removeregion(int id);
+    void changeregion(int id);
+    int currentregion;
+    int regionx, regiony;
+    int regionwidth, regionheight;
+
+    MapRenderData get_render_data(void);
 };
 
 #ifndef MAP_DEFINITION

@@ -371,6 +371,23 @@ void scriptclass::run(void)
                     map.customshowmm=false;
                 }
             }
+            else if (words[0] == "setregion")
+            {
+                map.setregion(
+                    ss_toi(words[1]),
+                    ss_toi(words[2]),
+                    ss_toi(words[3]),
+                    ss_toi(words[4]),
+                    ss_toi(words[5]));
+            }
+            else if (words[0] == "removeregion")
+            {
+                map.removeregion(ss_toi(words[1]));
+            }
+            else if (words[0] == "changeregion")
+            {
+                map.changeregion(ss_toi(words[1]));
+            }
             if (words[0] == "delay")
             {
                 //USAGE: delay(frames)
