@@ -52,8 +52,6 @@ mapclass::mapclass(void)
 
     custommode=false;
     custommodeforreal=false;
-    custommmxoff=0; custommmyoff=0; custommmxsize=0; custommmysize=0;
-    customzoom=0;
     customshowmm=true;
     revealmap = true;
 
@@ -2205,16 +2203,16 @@ void mapclass::twoframedelayfix(void)
     // A bit kludge-y, but it's the least we can do without changing the frame ordering.
 
     if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
-    || !custommode
-    || game.deathseq != -1)
+        || !custommode
+        || game.deathseq != -1)
         return;
 
     int block_idx = -1;
     // obj.checktrigger() sets block_idx
     int activetrigger = obj.checktrigger(&block_idx);
     if (activetrigger <= -1
-    || !INBOUNDS_VEC(block_idx, obj.blocks)
-    || activetrigger < 300)
+        || !INBOUNDS_VEC(block_idx, obj.blocks)
+        || activetrigger < 300)
     {
         return;
     }
@@ -2224,4 +2222,118 @@ void mapclass::twoframedelayfix(void)
     game.setstate(0);
     game.setstatedelay(0);
     script.load(game.newscript);
+}
+
+MapRenderData mapclass::get_render_data(void)
+{
+    MapRenderData data;
+    data.width = getwidth();
+    data.height = getheight();
+
+    data.startx = 0;
+    data.starty = 0;
+
+    // Region handling
+    if (region[currentregion].isvalid)
+    {
+        data.startx = region[currentregion].rx;
+        data.starty = region[currentregion].ry;
+        data.width = ((region[currentregion].rx2 - data.startx) + 1);
+        data.height = ((region[currentregion].ry2 - data.starty) + 1);
+    }
+
+    data.zoom = 1;
+
+    if (data.width <= 10 && data.height <= 10)
+    {
+        data.zoom = 2;
+    }
+    if (data.width <= 5 && data.height <= 5)
+    {
+        data.zoom = 4;
+    }
+
+    data.xoff = 0;
+    data.yoff = 0;
+
+    // Set minimap offsets
+    switch (data.zoom)
+    {
+    case 4:
+        data.xoff = 24 * (5 - data.width);
+        data.yoff = 18 * (5 - data.height);
+        break;
+    case 2:
+        data.xoff = 12 * (10 - data.width);
+        data.yoff = 9 * (10 - data.height);
+        break;
+    default:
+        data.xoff = 6 * (20 - data.width);
+        data.yoff = (int)(4.5 * (20 - data.height));
+        break;
+    }
+
+    data.pixelsx = 240 - (data.xoff * 2);
+    data.pixelsy = 180 - (data.yoff * 2);
+
+    data.legendxoff = 40 + data.xoff;
+    data.legendyoff = 21 + data.yoff;
+
+    // Magic numbers for centering legend tiles.
+    switch (data.zoom)
+    {
+    case 4:
+        data.legendxoff += 21;
+        data.legendyoff += 16;
+        break;
+    case 2:
+        data.legendxoff += 9;
+        data.legendyoff += 5;
+        break;
+    default:
+        data.legendxoff += 3;
+        data.legendyoff += 1;
+        break;
+    }
+
+    return data;
+}
+
+void mapclass::setregion(int id, int rx, int ry, int rx2, int ry2)
+{
+#if !defined(NO_CUSTOM_LEVELS)
+    if (INBOUNDS_ARR(id, region))
+    {
+        region[id].isvalid = true;
+        region[id].rx = SDL_clamp(rx, 0, cl.mapwidth - 1);
+        region[id].ry = SDL_clamp(ry, 0, cl.mapheight - 1);
+        region[id].rx2 = SDL_clamp(rx2, 0, cl.mapwidth - 1);
+        region[id].ry2 = SDL_clamp(ry2, 0, cl.mapheight - 1);
+    }
+#endif
+}
+
+void mapclass::removeregion(int id)
+{
+#if !defined(NO_CUSTOM_LEVELS)
+    if (INBOUNDS_ARR(id, region))
+    {
+        region[id].isvalid = false;
+        region[id].rx = 0;
+        region[id].ry = 0;
+        region[id].rx2 = 0;
+        region[id].ry2 = 0;
+    }
+#endif
+}
+
+void mapclass::changeregion(int id)
+{
+#if !defined(NO_CUSTOM_LEVELS)
+    if (INBOUNDS_ARR(id, region))
+    {
+        currentregion = id;
+        cl.generatecustomminimap();
+    }
+#endif
 }

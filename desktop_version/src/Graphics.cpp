@@ -1271,6 +1271,15 @@ void Graphics::draw_grid_tile(
     draw_grid_tile(texture, t, x, y, width, height, color, 1, 1);
 }
 
+void Graphics::draw_region_image(int t, int xp, int yp, int wp, int hp)
+{
+    if (!INBOUNDS_ARR(t, customminimaps) || customminimaps[t] == NULL)
+    {
+        return;
+    }
+    draw_texture_part(customminimaps[t], xp, yp, 0, 0, wp, hp, 1, 1);
+}
+
 void Graphics::cutscenebars(void)
 {
     const int usethispos = lerp(oldcutscenebarspos, cutscenebarspos);

@@ -229,6 +229,16 @@ void Game::init(void)
 
     customcol=0;
 
+    map.currentregion = 0;
+    for (size_t i = 0; i < SDL_arraysize(map.region); i++)
+    {
+        map.region[i].isvalid = false;
+        map.region[i].rx = 0;
+        map.region[i].ry = 0;
+        map.region[i].rx2 = 0;
+        map.region[i].ry2 = 0;
+    }
+
     SDL_memset(crewstats, false, sizeof(crewstats));
     SDL_memset(ndmresultcrewstats, false, sizeof(ndmresultcrewstats));
     SDL_memset(besttimes, -1, sizeof(besttimes));
@@ -5948,6 +5958,50 @@ void Game::customloadquick(const std::string& savfile)
             map.roomnameset = true;
             map.roomname_special = true;
         }
+        else if (SDL_strcmp(pKey, "currentregion") == 0)
+        {
+            map.currentregion = help.Int(pText);
+        }
+#if !defined(NO_CUSTOM_LEVELS)
+        else if (SDL_strcmp(pKey, "regions") == 0)
+        {
+            tinyxml2::XMLElement* pElem2;
+            for (pElem2 = pElem->FirstChildElement(); pElem2 != NULL; pElem2 = pElem2->NextSiblingElement())
+            {
+                int thisid = 0;
+                int thisrx = 0;
+                int thisry = 0;
+                int thisrx2 = (cl.mapwidth - 1);
+                int thisry2 = (cl.mapheight - 1);
+                if (pElem2->Attribute("id"))
+                {
+                    thisid = help.Int(pElem2->Attribute("id"));
+                }
+
+                for (tinyxml2::XMLElement* pElem3 = pElem2->FirstChildElement(); pElem3 != NULL; pElem3 = pElem3->NextSiblingElement())
+                {
+                    if (SDL_strcmp(pElem3->Value(), "rx") == 0 && pElem3->GetText() != NULL)
+                    {
+                        thisrx = help.Int(pElem3->GetText());
+                    }
+                    if (SDL_strcmp(pElem3->Value(), "ry") == 0 && pElem3->GetText() != NULL)
+                    {
+                        thisry = help.Int(pElem3->GetText());
+                    }
+                    if (SDL_strcmp(pElem3->Value(), "rx2") == 0 && pElem3->GetText() != NULL)
+                    {
+                        thisrx2 = help.Int(pElem3->GetText());
+                    }
+                    if (SDL_strcmp(pElem3->Value(), "ry2") == 0 && pElem3->GetText() != NULL)
+                    {
+                        thisry2 = help.Int(pElem3->GetText());
+                    }
+                }
+
+                map.setregion(thisid, thisrx, thisry, thisrx2, thisry2);
+            }
+        }
+#endif
     }
 }
 
@@ -6332,6 +6386,41 @@ bool Game::customsavequick(const std::string& savfile)
 
     xml::update_tag(msgs, "crewmates", crewmates());
 
+    xml::update_tag(msgs, "currentregion", map.currentregion);
+
+    tinyxml2::XMLElement* msg = xml::update_element_delete_contents(msgs, "regions");
+    for (size_t i = 0; i < SDL_arraysize(map.region); i++)
+    {
+        if (map.region[i].isvalid)
+        {
+            tinyxml2::XMLElement* region_el;
+            region_el = doc.NewElement("region");
+
+            region_el->SetAttribute("id", (help.String(i).c_str()));
+
+            tinyxml2::XMLElement* rx_el;
+            rx_el = doc.NewElement("rx");
+            rx_el->LinkEndChild(doc.NewText(help.String(map.region[i].rx).c_str()));
+            region_el->LinkEndChild(rx_el);
+
+            tinyxml2::XMLElement* ry_el;
+            ry_el = doc.NewElement("ry");
+            ry_el->LinkEndChild(doc.NewText(help.String(map.region[i].ry).c_str()));
+            region_el->LinkEndChild(ry_el);
+
+            tinyxml2::XMLElement* rx2_el;
+            rx2_el = doc.NewElement("rx2");
+            rx2_el->LinkEndChild(doc.NewText(help.String(map.region[i].rx2).c_str()));
+            region_el->LinkEndChild(rx2_el);
+
+            tinyxml2::XMLElement* ry2_el;
+            ry2_el = doc.NewElement("ry2");
+            ry2_el->LinkEndChild(doc.NewText(help.String(map.region[i].ry2).c_str()));
+            region_el->LinkEndChild(ry2_el);
+
+            msg->LinkEndChild(region_el);
+        }
+    }
 
     //Special stats
 
