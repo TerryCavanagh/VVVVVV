@@ -5,19 +5,19 @@ find_package(Git)
 
 if(GIT_FOUND)
     # Get interim commit and date of commit
-    EXECUTE_PROCESS(
+    execute_process(
         COMMAND "${GIT_EXECUTABLE}" log -1 --format=%h
         OUTPUT_VARIABLE INTERIM_COMMIT
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    EXECUTE_PROCESS(
+    execute_process(
         COMMAND "${GIT_EXECUTABLE}" log -1 --format=%cd --date=short
         OUTPUT_VARIABLE COMMIT_DATE
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    EXECUTE_PROCESS(
+    execute_process(
         COMMAND "${GIT_EXECUTABLE}" branch --show-current
         OUTPUT_VARIABLE BRANCH_NAME
         OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -36,7 +36,7 @@ if("${BRANCH_NAME}" STREQUAL "")
     set(BRANCH_NAME "(branch?)")
 endif()
 
-MESSAGE(STATUS "This is interim commit ${INTERIM_COMMIT} (committed ${COMMIT_DATE}) on branch ${BRANCH_NAME}")
+message(STATUS "This is interim commit ${INTERIM_COMMIT} (committed ${COMMIT_DATE}) on branch ${BRANCH_NAME}")
 
 # Take the template file and replace the macros with what we have
-CONFIGURE_FILE(${INPUT_FILE} ${OUTPUT_FILE})
+configure_file(${INPUT_FILE} ${OUTPUT_FILE})
