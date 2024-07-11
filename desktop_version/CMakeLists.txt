@@ -217,10 +217,9 @@ if(NOT OFFICIAL_BUILD)
     set(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/InterimVersion.in.c)
     set(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/InterimVersion.out.c)
 
-    add_custom_target(
-        GenerateVersion ALL
-        # This BYPRODUCTS line is required for this to be ran every time
-        BYPRODUCTS ${VERSION_OUTPUT_FILE}
+    add_custom_command(
+        # This OUTPUT line is required for this to be ran every time
+        OUTPUT ${VERSION_OUTPUT_FILE} ${CMAKE_CURRENT_SOURCE_DIR}/src/_dummy.c
         COMMAND ${CMAKE_COMMAND}
         # These args have to be passed through, otherwise the script can't see them
         # Also, these args have to come BEFORE `-P`! (Otherwise it fails with an unclear error)
@@ -228,8 +227,6 @@ if(NOT OFFICIAL_BUILD)
         -DOUTPUT_FILE=${VERSION_OUTPUT_FILE}
         -P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
     )
-
-    add_dependencies(VVVVVV GenerateVersion)
 
     target_compile_definitions(VVVVVV PRIVATE -DINTERIM_VERSION_EXISTS)
 
