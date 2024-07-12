@@ -65,7 +65,7 @@ if(NOT WIN32)
 endif()
 
 # Source Lists
-set(VVV_SRC
+set(VVV_CXX_SRC
     src/BinaryBlob.cpp
     src/BlockV.cpp
     src/ButtonGlyphs.cpp
@@ -108,6 +108,8 @@ set(VVV_SRC
     src/WarpClass.cpp
     src/XMLUtils.cpp
     src/main.cpp
+)
+set(VVV_C_SRC
     src/DeferCallbacks.c
     src/GlitchrunnerMode.c
     src/Network.c
@@ -120,11 +122,13 @@ set(VVV_SRC
     ../third_party/physfs/extras/physfsrwops.c
 )
 if(STEAM)
-    list(APPEND VVV_SRC src/SteamNetwork.c)
+    list(APPEND VVV_C_SRC src/SteamNetwork.c)
 endif()
 if(GOG)
-    list(APPEND VVV_SRC src/GOGNetwork.c)
+    list(APPEND VVV_C_SRC src/GOGNetwork.c)
 endif()
+
+set(VVV_SRC ${VVV_CXX_SRC} ${VVV_C_SRC})
 
 # Executable information
 if(WIN32)
@@ -290,11 +294,11 @@ if(MSVC)
     # MSVC does not officially support disabling exceptions,
     # so this is as far as we are willing to go to disable them.
     string(REGEX REPLACE "/EH[a-z]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
+    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS /EHsc)
 
     # Disable RTTI
     string(REPLACE "/GR" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GR-")
+    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS /GR-)
 
     if(MSVC_VERSION GREATER 1900)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8")
@@ -302,18 +306,18 @@ if(MSVC)
     endif()
 else()
     string(REGEX REPLACE "-std=[a-z0-9]+" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+    set_source_files_properties(${VVV_C_SRC} PROPERTIES COMPILE_FLAGS -std=c99)
 
     string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
+    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS -std=c++98)
 
     # Disable exceptions
     string(REPLACE "-fexceptions" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
+    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS -fno-exceptions)
 
     # Disable RTTI
     string(REPLACE "-frtti" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS -fno-rtti)
 endif()
 
 # Unfortunately, it doesn't seem like distros package LodePNG
