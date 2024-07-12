@@ -318,6 +318,10 @@ else()
     # Disable RTTI
     string(REPLACE "-frtti" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS -fno-rtti)
+
+    # Dependencies (as needed)
+    set_source_files_properties(${FAUDIO_SRC} PROPERTIES COMPILE_FLAGS -std=c99)
+    set_source_files_properties(${CHM_SRC} PROPERTIES COMPILE_FLAGS -std=c99)
 endif()
 
 # Unfortunately, it doesn't seem like distros package LodePNG
