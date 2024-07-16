@@ -13,6 +13,8 @@ public:
     //parameters
     int p1, p2, p3, p4, p5, p6;
     std::string scriptname;
+    std::string activitycolour;
+    std::string activitytext;
 };
 
 
