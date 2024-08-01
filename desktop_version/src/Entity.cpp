@@ -2749,6 +2749,13 @@ bool entityclass::updateentities( int i )
                     game.savedir = entities[player].dir;
                 }
                 entities[i].state = 0;
+
+                if (game.checkpoint_saving)
+                {
+                    bool success = game.savequick();
+                    game.gamesaved = success;
+                    game.gamesavefailed = !success;
+                }
             }
             break;
         case 9: //Gravity Lines

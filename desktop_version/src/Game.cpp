@@ -376,6 +376,12 @@ void Game::init(void)
     screenshot_border_timer = 0;
     screenshot_saved_success = false;
 
+#ifdef __ANDROID__
+    checkpoint_saving = true;
+#else
+    checkpoint_saving = false;
+#endif
+
     setdefaultcontrollerbuttons();
 }
 
@@ -4936,6 +4942,10 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             roomname_translator::set_enabled(help.Int(pText));
         }
 
+        if (SDL_strcmp(pKey, "checkpoint_saving") == 0)
+        {
+            checkpoint_saving = help.Int(pText);
+        }
     }
 
     setdefaultcontrollerbuttons();
@@ -5194,6 +5204,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     xml::update_tag(dataNode, "english_sprites", (int) loc::english_sprites);
     xml::update_tag(dataNode, "new_level_font", loc::new_level_font.c_str());
     xml::update_tag(dataNode, "roomname_translator", (int) roomname_translator::enabled);
+
+    xml::update_tag(dataNode, "checkpoint_saving", (int) checkpoint_saving);
 }
 
 static bool settings_loaded = false;
