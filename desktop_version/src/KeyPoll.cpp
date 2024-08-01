@@ -52,6 +52,8 @@ KeyPoll::KeyPoll(void)
 
     keybuffer = "";
     imebuffer = "";
+    imebuffer_start = 0;
+    imebuffer_length = 0;
     leftbutton=0; rightbutton=0; middlebutton=0;
     mousex = 0;
     mousey = 0;
@@ -67,6 +69,8 @@ void KeyPoll::enabletextentry(void)
 {
     keybuffer = "";
     imebuffer = "";
+    imebuffer_start = 0;
+    imebuffer_length = 0;
     SDL_StartTextInput();
 }
 
@@ -74,6 +78,8 @@ void KeyPoll::disabletextentry(void)
 {
     SDL_StopTextInput();
     imebuffer = "";
+    imebuffer_start = 0;
+    imebuffer_length = 0;
 }
 
 bool KeyPoll::textentry(void)
@@ -326,9 +332,13 @@ void KeyPoll::Poll(void)
             break;
         case SDL_TEXTEDITING:
             imebuffer = evt.edit.text;
+            imebuffer_start = evt.edit.start;
+            imebuffer_length = evt.edit.length;
             break;
         case SDL_TEXTEDITING_EXT:
             imebuffer = evt.editExt.text;
+            imebuffer_start = evt.editExt.start;
+            imebuffer_length = evt.editExt.length;
             SDL_free(evt.editExt.text);
             break;
 
