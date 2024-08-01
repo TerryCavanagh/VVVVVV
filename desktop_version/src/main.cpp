@@ -599,6 +599,7 @@ int main(int argc, char *argv[])
     }
 
     SDL_SetHintWithPriority(SDL_HINT_IME_SHOW_UI, "1", SDL_HINT_OVERRIDE);
+    SDL_SetHintWithPriority(SDL_HINT_IME_SUPPORT_EXTENDED_TEXT, "1", SDL_HINT_OVERRIDE);
 
     /* We already do the button swapping in ButtonGlyphs, disable SDL's swapping */
     SDL_SetHintWithPriority(SDL_HINT_GAMECONTROLLER_USE_BUTTON_LABELS, "0", SDL_HINT_OVERRIDE);

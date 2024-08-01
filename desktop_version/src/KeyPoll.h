@@ -69,6 +69,7 @@ public:
     bool textentry(void);
     bool pressedbackspace;
     std::string keybuffer;
+    std::string imebuffer;
 
     bool linealreadyemptykludge;
 
