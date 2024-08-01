@@ -12,6 +12,7 @@
 #include "FileSystemUtils.h"
 #include "Font.h"
 #include "GraphicsUtil.h"
+#include "IMERender.h"
 #include "Localization.h"
 #include "Map.h"
 #include "Maths.h"
@@ -3529,6 +3530,7 @@ void Graphics::get_stretch_info(SDL_Rect* rect)
 
 void Graphics::render(void)
 {
+    ime_render();
     draw_screenshot_border();
 
     if (gameScreen.badSignalEffect)
@@ -3541,10 +3543,12 @@ void Graphics::render(void)
 
     draw_window_background();
 
-    SDL_Rect rect;
-    get_stretch_info(&rect);
+    SDL_Rect stretch_info;
+    get_stretch_info(&stretch_info);
 
-    copy_texture(gameTexture, NULL, &rect, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+    ime_set_rect(&stretch_info);
+
+    copy_texture(gameTexture, NULL, &stretch_info, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 }
 
 void Graphics::renderwithscreeneffects(void)

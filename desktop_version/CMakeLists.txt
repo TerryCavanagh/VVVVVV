@@ -82,6 +82,7 @@ set(VVV_CXX_SRC
     src/Graphics.cpp
     src/GraphicsResources.cpp
     src/GraphicsUtil.cpp
+    src/IMERender.cpp
     src/Input.cpp
     src/KeyPoll.cpp
     src/Labclass.cpp
