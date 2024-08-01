@@ -70,6 +70,8 @@ public:
     bool pressedbackspace;
     std::string keybuffer;
     std::string imebuffer;
+    int imebuffer_start;
+    int imebuffer_length;
 
     bool linealreadyemptykludge;
 
