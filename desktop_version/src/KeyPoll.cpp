@@ -50,7 +50,8 @@ KeyPoll::KeyPoll(void)
     // 0..5
     sensitivity = 2;
 
-    keybuffer="";
+    keybuffer = "";
+    imebuffer = "";
     leftbutton=0; rightbutton=0; middlebutton=0;
     mousex = 0;
     mousey = 0;
@@ -64,13 +65,15 @@ KeyPoll::KeyPoll(void)
 
 void KeyPoll::enabletextentry(void)
 {
-    keybuffer="";
+    keybuffer = "";
+    imebuffer = "";
     SDL_StartTextInput();
 }
 
 void KeyPoll::disabletextentry(void)
 {
     SDL_StopTextInput();
+    imebuffer = "";
 }
 
 bool KeyPoll::textentry(void)
@@ -320,6 +323,13 @@ void KeyPoll::Poll(void)
             {
                 keybuffer += evt.text.text;
             }
+            break;
+        case SDL_TEXTEDITING:
+            imebuffer = evt.edit.text;
+            break;
+        case SDL_TEXTEDITING_EXT:
+            imebuffer = evt.editExt.text;
+            SDL_free(evt.editExt.text);
             break;
 
         /* Mouse Input */
