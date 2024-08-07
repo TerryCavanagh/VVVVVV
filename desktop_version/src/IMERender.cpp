@@ -67,8 +67,12 @@ void ime_render(void)
             SDL_memcpy(in_sel, sel_start_ptr, in_sel_nbytes);
             in_sel[in_sel_nbytes] = '\0';
 
-            int before_sel_pixels = font::len(PR_FONT_LEVEL, before_sel);
+            int before_sel_pixels = font::len(PR_FONT_LEVEL, before_sel) - 1;
             int in_sel_pixels = font::len(PR_FONT_LEVEL, in_sel);
+            if (in_sel_pixels > 0)
+            {
+                in_sel_pixels += 1;
+            }
 
             SDL_Rect selrect = imebox;
             selrect.x += before_sel_pixels + 1;
