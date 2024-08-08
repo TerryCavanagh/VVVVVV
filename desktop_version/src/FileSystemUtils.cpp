@@ -1331,6 +1331,19 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
     }
     SDL_snprintf(output, output_size, "%s/", externalStoragePath);
     return 1;
+#elif defined(TARGET_OS_IPHONE)
+    // (ab)use SDL APIs to get the path to the Documents folder without needing Objective-C
+    const char* prefsPath = SDL_GetPrefPath("", "");
+    if (prefsPath == NULL)
+    {
+        vlog_error(
+            "Could not get OS directory: %s",
+            SDL_GetError()
+        );
+        return 0;
+    }
+    SDL_snprintf(output, output_size, "%s/../../Documents/", prefsPath);
+    return 1;
 #else
     const char* prefDir = PHYSFS_getPrefDir("distractionware", "VVVVVV");
     if (prefDir == NULL)
