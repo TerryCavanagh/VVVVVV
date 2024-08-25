@@ -31,6 +31,7 @@ public:
     FOREACH_PROP(enemyx2, int) \
     FOREACH_PROP(enemyy2, int) \
     FOREACH_PROP(enemytype, int) \
+    FOREACH_PROP(enemyv, int) \
     FOREACH_PROP(directmode, int)
 
 class RoomProperty

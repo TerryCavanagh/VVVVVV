@@ -658,6 +658,7 @@ Steam Deckには対応していません。" explanation="" max="38*5" max_local
     <string english="Tileset Colour Changed" translation="タイルセットのカラーを変更しました" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" max_local="38*2"/>
     <string english="Enemy Type Changed" translation="敵の種類を変更しました" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="38*2"/>
     <string english="Platform speed is now {speed}" translation="プラットフォームの速度を {speed} に変更しました" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="38*2"/>
+    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*2"/>
     <string english="Reloaded resources" translation="リソースを再読み込みしました" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="38*2"/>
     <string english="ERROR: Invalid format" translation="エラー: 無効な記述形式" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="38*2"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="{filename}.vvvvvv をロードしました" explanation="successfully loaded level file" max="38*3" max_local="38*2"/>
