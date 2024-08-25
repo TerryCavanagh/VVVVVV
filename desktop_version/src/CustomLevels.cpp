@@ -57,6 +57,7 @@ RoomProperty::RoomProperty(void)
     enemyx2=320;
     enemyy2=240;
     enemytype=0;
+    enemyv=0;
     directmode=0;
 }
 
@@ -389,6 +390,7 @@ void customlevelclass::reset(void)
             roomproperties[i+(j*maxwidth)].enemyx2=320;
             roomproperties[i+(j*maxwidth)].enemyy2=240;
             roomproperties[i+(j*maxwidth)].enemytype=0;
+            roomproperties[i+(j*maxwidth)].enemyv=0;
             roomproperties[i+(j*maxwidth)].directmode=0;
         }
     }
@@ -1264,6 +1266,7 @@ bool customlevelclass::load(std::string _path)
                 edLevelClassElement->QueryIntAttribute("enemyx2", &roomproperties[i].enemyx2);
                 edLevelClassElement->QueryIntAttribute("enemyy2", &roomproperties[i].enemyy2);
                 edLevelClassElement->QueryIntAttribute("enemytype", &roomproperties[i].enemytype);
+                edLevelClassElement->QueryIntAttribute("enemyv", &roomproperties[i].enemyv);
                 edLevelClassElement->QueryIntAttribute("directmode", &roomproperties[i].directmode);
 
                 edLevelClassElement->QueryIntAttribute("warpdir", &roomproperties[i].warpdir);
@@ -1645,6 +1648,7 @@ bool customlevelclass::save(const std::string& _path)
         roompropertyElement->SetAttribute(  "enemyx2", roomproperties[i].enemyx2);
         roompropertyElement->SetAttribute(  "enemyy2", roomproperties[i].enemyy2);
         roompropertyElement->SetAttribute(  "enemytype", roomproperties[i].enemytype);
+        roompropertyElement->SetAttribute( "enemyv", roomproperties[i].enemyv);
         roompropertyElement->SetAttribute(  "directmode", roomproperties[i].directmode);
         roompropertyElement->SetAttribute(  "warpdir", roomproperties[i].warpdir);
 

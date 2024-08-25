@@ -622,6 +622,7 @@
     <string english="Tileset Colour Changed" translation="Lliw Set Teil wedi&apos;i Newid" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Newidiodd Math y Gelyn" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Cyflymder llwyfan yw {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Adnoddau wedi&apos;u hail-lwytho" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="GWALL: Fformat annilys" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Map wedi&apos;i lwytho: {filename}.vvvvv" explanation="successfully loaded level file" max="38*3"/>

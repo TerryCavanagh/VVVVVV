@@ -1850,7 +1850,7 @@ void mapclass::loadlevel(int rx, int ry)
             {
             case 1: // Enemies
                 obj.customenemy = room->enemytype;
-                obj.createentity(ex, ey, 56, ent.p1, 4, bx1, by1, bx2, by2);
+                obj.createentity(ex, ey, 56, ent.p1, 4 + room->enemyv, bx1, by1, bx2, by2);
                 break;
             case 2: // Platforms and conveyors
                 if (ent.p1 <= 4)
