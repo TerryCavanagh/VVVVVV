@@ -432,6 +432,8 @@ public:
     int ndmresulthardestroom_y;
     bool ndmresulthardestroom_specialname;
     void copyndmresults(void);
+    bool nodeatheligible;
+    void invalidate_ndm_trophy(void);
 
     //Time Trials
     bool intimetrial, timetrialparlost;
