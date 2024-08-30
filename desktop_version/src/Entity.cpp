@@ -2783,6 +2783,14 @@ bool entityclass::updateentities( int i )
                 {
                     if (INBOUNDS_VEC(temp, entities) && entities[temp].vy > -3) entities[temp].vy = -3;
                 }
+
+                if (game.glitchlessmode && INBOUNDS_VEC(temp, entities))
+                {
+                    /* Fix line clipping: Invalidate flipping eligibility so
+                     * a second flip is impossible. */
+                    entities[temp].onground = 0;
+                    entities[temp].onroof = 0;
+                }
             }
             else if (entities[i].state == 2)
             {
@@ -4876,6 +4884,14 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
 
         entities[j].state = entities[j].onentity;
         entities[j].life = 6;
+
+        if (game.glitchlessmode)
+        {
+            /* Fix line clipping: Invalidate flipping eligibility so
+             * a second flip is impossible. */
+            entities[i].onground = 0;
+            entities[i].onroof = 0;
+        }
         break;
     }
     case 5:   //Person vs vertical gravity/warp line!
