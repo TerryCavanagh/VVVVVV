@@ -157,6 +157,28 @@ static int getcrewmanfromname(const std::string& name)
     return obj.getcrewman(color);
 }
 
+static bool color_valid(const int index, const std::string& name)
+{
+    if (!INBOUNDS_VEC(index, obj.entities))
+    {
+        return false;
+    }
+
+    if (!game.glitchlessmode)
+    {
+        return true;
+    }
+
+    const int color = getcolorfromname(name);
+    const bool using_aem = color == -1;
+    if (using_aem)
+    {
+        return true;
+    }
+
+    return obj.entities[index].colour == color;
+}
+
 
 /* Also used in gamestate 1001. */
 void foundtrinket_textbox1(textboxclass* THIS);
@@ -1022,7 +1044,7 @@ void scriptclass::run(void)
                 int crewmate = getcrewmanfromname(words[1]);
                 if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
-                if (INBOUNDS_VEC(i, obj.entities))
+                if (color_valid(i, words[1]))
                 {
                     obj.entities[i].tile = ss_toi(words[2]);
                 }

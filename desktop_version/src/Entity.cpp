@@ -3953,6 +3953,10 @@ int entityclass::getscm(void)
         }
     }
 
+    if (game.glitchlessmode)
+    {
+        return -1;
+    }
     return 0;
 }
 
@@ -3970,6 +3974,10 @@ int entityclass::getlineat( int t )
         }
     }
 
+    if (game.glitchlessmode)
+    {
+        return -1;
+    }
     return 0;
 }
 
@@ -3989,6 +3997,10 @@ int entityclass::getcrewman( int t, int fallback /*= 0*/ )
         }
     }
 
+    if (game.glitchlessmode)
+    {
+        return -1;
+    }
     return fallback;
 }
 
@@ -4013,6 +4025,10 @@ int entityclass::getcustomcrewman( int t )
         }
     }
 
+    if (game.glitchlessmode)
+    {
+        return -1;
+    }
     return 0;
 }
 
