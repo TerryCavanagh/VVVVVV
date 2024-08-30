@@ -461,6 +461,8 @@ void gamelogic(void)
         game.deathseq--;
         if (game.deathseq <= 0)
         {
+            game.invalidate_ndm_trophy();
+
             if (game.nodeathmode)
             {
                 game.deathseq = 1;

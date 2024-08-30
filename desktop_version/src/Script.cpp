@@ -2651,6 +2651,16 @@ void scriptclass::startgamemode(const enum StartMode mode)
             graphics.showcutscenebars = true;
             graphics.setbars(320);
             load("intro");
+
+            if (!game.nocompetitive())
+            {
+                game.nodeatheligible = true;
+                vlog_debug("NDM trophy is eligible.");
+            }
+            else
+            {
+                game.invalidate_ndm_trophy();
+            }
         }
         break;
 
@@ -3088,6 +3098,7 @@ void scriptclass::hardreset(void)
 
     game.nodeathmode = false;
     game.nocutscenes = false;
+    game.nodeatheligible = false;
 
     for (i = 0; i < (int) SDL_arraysize(game.crewstats); i++)
     {

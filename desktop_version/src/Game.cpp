@@ -225,6 +225,7 @@ void Game::init(void)
     ndmresulthardestroom_x = hardestroom_x;
     ndmresulthardestroom_y = hardestroom_y;
     ndmresulthardestroom_specialname = false;
+    nodeatheligible = false;
 
     customcol=0;
 
@@ -3312,11 +3313,14 @@ void Game::updatestate(void)
             }
         }
 
-
-            if (nodeathmode)
+            if (nodeathmode || nodeatheligible)
             {
                 unlockAchievement("vvvvvvmaster"); //bloody hell
                 unlocknum(UnlockTrophy_NODEATHMODE_COMPLETE);
+            }
+
+            if (nodeathmode)
+            {
                 setstate(3520);
                 setstatedelay(0);
             }
@@ -7768,6 +7772,11 @@ void Game::returntoingame(void)
         }
     }
     DEFER_CALLBACK(nextbgcolor);
+
+    if (nocompetitive())
+    {
+        invalidate_ndm_trophy();
+    }
 }
 
 void Game::unlockAchievement(const char* name)
@@ -7818,6 +7827,15 @@ void Game::copyndmresults(void)
     ndmresulthardestroom_y = hardestroom_y;
     ndmresulthardestroom_specialname = hardestroom_specialname;
     SDL_memcpy(ndmresultcrewstats, crewstats, sizeof(ndmresultcrewstats));
+}
+
+void Game::invalidate_ndm_trophy(void)
+{
+    if (nodeatheligible)
+    {
+        vlog_debug("NDM trophy is invalidated!");
+    }
+    nodeatheligible = false;
 }
 
 static inline int get_framerate(const int slowdown)
