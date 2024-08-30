@@ -854,6 +854,20 @@ void mapclass::resetplayer(const bool player_died)
             game.scmprogress = game.roomx - 40;
         }
     }
+
+    if (game.glitchlessmode)
+    {
+        /* Fix warp token death warps:
+         * Reset the state of all warp tokens to 0. */
+        for (size_t i = 0; i < obj.entities.size(); i++)
+        {
+            entclass* entity = &obj.entities[i];
+            if (entity->type == 11)
+            {
+                entity->state = 0;
+            }
+        }
+    }
 }
 
 void mapclass::warpto(int rx, int ry , int t, int tx, int ty)
