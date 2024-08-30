@@ -4852,30 +4852,32 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         }
         break;
     case 4:   //Person vs horizontal line!
-        if(game.deathseq==-1)
+    {
+        const bool collision =
+            game.deathseq == -1
+            && entities[j].onentity > 0
+            && entityhlinecollide(i, j);
+        if (!collision)
         {
-            if (entities[j].onentity > 0)
-            {
-                if (entityhlinecollide(i, j))
-                {
-                    music.playef(Sound_GRAVITYLINE);
-                    game.gravitycontrol = (game.gravitycontrol + 1) % 2;
-                    game.totalflips++;
-                    if (game.gravitycontrol == 0)
-                    {
-                        if (entities[i].vy < 1) entities[i].vy = 1;
-                    }
-                    else
-                    {
-                        if (entities[i].vy > -1) entities[i].vy = -1;
-                    }
-
-                    entities[j].state = entities[j].onentity;
-                    entities[j].life = 6;
-                }
-            }
+            break;
         }
+
+        music.playef(Sound_GRAVITYLINE);
+        game.gravitycontrol = (game.gravitycontrol + 1) % 2;
+        game.totalflips++;
+        if (game.gravitycontrol == 0)
+        {
+            if (entities[i].vy < 1) entities[i].vy = 1;
+        }
+        else
+        {
+            if (entities[i].vy > -1) entities[i].vy = -1;
+        }
+
+        entities[j].state = entities[j].onentity;
+        entities[j].life = 6;
         break;
+    }
     case 5:   //Person vs vertical gravity/warp line!
         if(game.deathseq==-1)
         {
