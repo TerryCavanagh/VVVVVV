@@ -250,6 +250,14 @@
     <string english="none" translation="不使用" explanation="menu option, do not emulate any older version"/>
     <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
     <string english="2.2" translation="2.2" explanation="VVVVVV version number for glitchrunner mode"/>
+    <string english="Glitchrunner mode is incompatible with glitchless mode." translation="" explanation="" max="38*2" max_local="25*1"/>
+    <string english="glitchless mode" translation="" explanation="menu option, disables all glitches in the game that would be useful for speedruns"/>
+    <string english="Glitchless Mode" translation="" explanation="title, disables all glitches in the game that would be useful for speedruns" max="20" max_local="13"/>
+    <string english="Disable glitches that might otherwise be useful for speedruns." translation="" explanation="glitchless mode" max="38*3" max_local="25*2"/>
+    <string english="Glitchless mode is OFF" translation="" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Glitchless mode is ON" translation="" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Glitchless mode is incompatible with glitchrunner mode." translation="" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Glitchless mode enabled" translation="" explanation="in-game message" max="39" max_local="26"/>
     <string english="input delay" translation="輸入延遲" explanation="menu option, enable 1 frame of delay after pressing input"/>
     <string english="Input Delay" translation="輸入延遲" explanation="title, enable 1 frame of delay after pressing input" max="20" max_local="13"/>
     <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="重新啟用在過去遊戲版本中存在的1幀輸入延遲。" explanation="input delay" max="38*3" max_local="25*2"/>

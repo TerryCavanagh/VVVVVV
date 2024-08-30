@@ -330,6 +330,7 @@ public:
     int state, statedelay;
 
     bool glitchrunkludge;
+    bool glitchlessmode;
 
     enum GameGamestate gamestate;
     enum GameGamestate prevgamestate; //only used sometimes

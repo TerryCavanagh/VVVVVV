@@ -154,6 +154,7 @@ void Game::init(void)
     musicmutebutton = 0;
 
     glitchrunkludge = false;
+    glitchlessmode = false;
     gamestate = TITLEMODE;
     prevgamestate = TITLEMODE;
     hascontrol = true;
@@ -4826,6 +4827,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             GlitchrunnerMode_set(GlitchrunnerMode_string_to_enum(pText));
         }
 
+        if (SDL_strcmp(pKey, "glitchlessmode") == 0)
+        {
+            glitchlessmode = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "showingametimer") == 0)
         {
             showingametimer = help.Int(pText);
@@ -4939,6 +4945,14 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
     }
 
     setdefaultcontrollerbuttons();
+
+    if (GlitchrunnerMode_get() != GlitchrunnerNone && glitchlessmode)
+    {
+        /* Glitchrunner and glitchless mode are incompatible.
+         * If the file was manually edited to enable both, disable both. */
+        GlitchrunnerMode_set(GlitchrunnerNone);
+        glitchlessmode = false;
+    }
 }
 
 bool Game::savestats(bool sync /*= true*/)
@@ -5114,6 +5128,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
         "glitchrunnermode",
         GlitchrunnerMode_enum_to_string(GlitchrunnerMode_get())
     );
+
+    xml::update_tag(dataNode, "glitchlessmode", (int) glitchlessmode);
 
     xml::update_tag(dataNode, "showingametimer", (int) showingametimer);
 
@@ -6826,7 +6842,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 15;
         break;
     case Menu::speedrunneroptions:
-        option(loc::gettext("glitchrunner mode"));
+        option(loc::gettext("glitchrunner mode"), !glitchlessmode);
+        option(loc::gettext("glitchless mode"), GlitchrunnerMode_get() == GlitchrunnerNone);
         option(loc::gettext("input delay"));
         option(loc::gettext("interact button"));
         option(loc::gettext("fake load screen"));
