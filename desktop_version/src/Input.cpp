@@ -3009,7 +3009,10 @@ void gameinput(void)
         game.menupage = 30; // Pause screen
     }
 
-    if (game.deathseq == -1 && (key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart)) && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
+    if (game.deathseq == -1 &&
+        (key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart))
+        && !game.nodeathmode
+        && (map.custommode || !game.glitchlessmode)) /* Have fun glitchrunners! */
     {
         game.deathseq = 30;
     }
