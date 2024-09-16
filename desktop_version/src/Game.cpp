@@ -7838,8 +7838,13 @@ void Game::invalidate_ndm_trophy(void)
     nodeatheligible = false;
 }
 
-static inline int get_framerate(const int slowdown)
+static inline int get_framerate(const int slowdown, const int deathseq)
 {
+    if (deathseq != -1)
+    {
+        return 34;
+    }
+
     switch (slowdown)
     {
     case 30:
@@ -7868,7 +7873,7 @@ int Game::get_timestep(void)
     switch (gamestate)
     {
     case GAMEMODE:
-        return get_framerate(slowdown);
+        return get_framerate(slowdown, deathseq);
     default:
         return 34;
     }
