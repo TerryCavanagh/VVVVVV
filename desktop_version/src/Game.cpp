@@ -6864,6 +6864,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("unfocus pause"));
         option(loc::gettext("unfocus audio pause"));
         option(loc::gettext("room name background"));
+        option(loc::gettext("checkpoint saving"));
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 15;

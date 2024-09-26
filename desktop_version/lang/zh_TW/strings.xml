@@ -238,6 +238,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="讓你可以看見屏幕底端房間名後面的背景。" explanation="" max="38*3" max_local="25*2"/>
     <string english="Room name background is TRANSLUCENT" translation="房間名背景 透明" explanation="" max="38*2" max_local="25*1"/>
     <string english="Room name background is OPAQUE" translation="房間名背景 不透明" explanation="" max="38*2" max_local="25*1"/>
+    <string english="checkpoint saving" translation="" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="13"/>
+    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="25*1"/>
+    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="25*1"/>
     <string english="speedrun options" translation="競速選項" explanation="menu option"/>
     <string english="Speedrunner Options" translation="競速玩家選項" explanation="title" max="20" max_local="13"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="競速玩家可能會感興趣的一些高級設定。" explanation="description for speedrunner options" max="38*5" max_local="25*4"/>

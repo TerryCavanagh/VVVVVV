@@ -246,6 +246,11 @@ Escキーを押すと表示を終了する。" explanation="" max="38*6" max_loc
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="画面下部に表示されるルームタイトルの背景を半透明にする。" explanation="" max="38*3" max_local="38*2"/>
     <string english="Room name background is TRANSLUCENT" translation="現在の設定: 半透明" explanation="" max="38*2" max_local="38*1"/>
     <string english="Room name background is OPAQUE" translation="現在の設定: 不透明" explanation="" max="38*2" max_local="38*1"/>
+    <string english="checkpoint saving" translation="" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="38*2"/>
+    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*1"/>
+    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*1"/>
     <string english="speedrun options" translation="RTA用設定" explanation="menu option"/>
     <string english="Speedrunner Options" translation="RTA用設定" explanation="title" max="20" max_local="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="RTA/スピードランで役に立つ設定を変更する。" explanation="description for speedrunner options" max="38*5" max_local="38*4"/>

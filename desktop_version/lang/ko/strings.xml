@@ -232,6 +232,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="화면 아래에 있는 이름 뒤쪽에 있는 것을 볼 수 있게 합니다." explanation="" max="38*3" max_local="30*3"/>
     <string english="Room name background is TRANSLUCENT" translation="방 이름 배경 투명" explanation="" max="38*2" max_local="30*2"/>
     <string english="Room name background is OPAQUE" translation="방 이름 배경 불투명" explanation="" max="38*2" max_local="30*2"/>
+    <string english="checkpoint saving" translation="" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="16"/>
+    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="30*3"/>
+    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="30*2"/>
+    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="30*2"/>
     <string english="speedrun options" translation="스피드런 설정" explanation="menu option"/>
     <string english="Speedrunner Options" translation="스피드런 설정" explanation="title" max="20" max_local="16"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="스피드런을 하는 유저들에게 흥미가 갈만한 고급 설정에 진입합니다." explanation="description for speedrunner options" max="38*5" max_local="30*5"/>
