@@ -1152,7 +1152,7 @@ static void menurender(void)
         {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Checkpoint Saving"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Toggle if checkpoints should save the game."), tr, tg, tb);
-            if (game.checkpoint_saving)
+            if (!game.checkpoint_saving)
             {
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Checkpoint saving is OFF"), tr / 2, tg / 2, tb / 2);
             }

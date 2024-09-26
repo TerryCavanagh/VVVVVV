@@ -828,12 +828,21 @@ static void savetele_textbox_success(textboxclass* THIS)
     THIS->pad(3, 3);
 }
 
-static void savetele_textbox_fail(textboxclass* THIS)
+static void save_textbox_fail(textboxclass* THIS)
 {
     THIS->lines.clear();
     THIS->lines.push_back(loc::gettext("ERROR: Could not save game!"));
     THIS->wrap(2);
     THIS->pad(1, 1);
+}
+
+void Game::show_save_fail(void)
+{
+    graphics.createtextboxflipme("", -1, 12, TEXT_COLOUR("red"));
+    graphics.textboxprintflags(PR_FONT_INTERFACE);
+    graphics.textboxcenterx();
+    graphics.textboxtimer(50);
+    graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, save_textbox_fail);
 }
 
 void Game::savetele_textbox(void)
@@ -853,11 +862,7 @@ void Game::savetele_textbox(void)
     }
     else
     {
-        graphics.createtextboxflipme("", -1, 12, TEXT_COLOUR("red"));
-        graphics.textboxprintflags(PR_FONT_INTERFACE);
-        graphics.textboxcenterx();
-        graphics.textboxtimer(50);
-        graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, savetele_textbox_fail);
+        show_save_fail();
     }
     graphics.textboxapplyposition();
 }
