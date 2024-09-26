@@ -1139,6 +1139,7 @@ static void menurender(void)
             break;
         }
         case 2:
+        {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Room Name BG"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Lets you see through what is behind the name at the bottom of the screen."), tr, tg, tb);
             if (graphics.translucentroomname)
@@ -1146,6 +1147,21 @@ static void menurender(void)
             else
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Room name background is OPAQUE"), tr, tg, tb);
             break;
+        }
+        case 3:
+        {
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Checkpoint Saving"), tr, tg, tb);
+            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Toggle if checkpoints should save the game."), tr, tg, tb);
+            if (game.checkpoint_saving)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Checkpoint saving is OFF"), tr / 2, tg / 2, tb / 2);
+            }
+            else
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Checkpoint saving is ON"), tr, tg, tb);
+            }
+            break;
+        }
         }
         break;
     case Menu::accessibility:

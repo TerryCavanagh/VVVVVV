@@ -232,6 +232,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Permite ver o que está por trás do nome na parte inferior da tela." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="O plano de fundo do nome da sala está TRANSLÚCIDO" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="O plano de fundo do nome da sala está OPACO" explanation="" max="38*2"/>
+    <string english="checkpoint saving" translation="" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="opções de speedrun" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Opções de speedrun" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Acessa algumas configurações avançadas que podem interessar aos speedrunners." explanation="description for speedrunner options" max="38*5"/>

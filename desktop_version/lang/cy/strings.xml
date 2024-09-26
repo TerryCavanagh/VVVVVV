@@ -232,6 +232,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Yn gadael i chi weld trwy&apos;r hyn sydd y tu ôl i&apos;r enw ar waelod y sgrin." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Mae cefndir enw ystafell yn TRYLOYW" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Mae cefndir enw ystafell yn DI-DRAIDD" explanation="" max="38*2"/>
+    <string english="checkpoint saving" translation="" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="opsiynau rhediad-gwib" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Opsiynau Rhedwr-Gwib" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Cyrchwch rai gosodiadau uwch a allai fod o ddiddordeb i redwyr cyflym ." explanation="description for speedrunner options" max="38*5"/>

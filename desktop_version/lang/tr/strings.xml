@@ -232,6 +232,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Ekranın altında oda adı yazılı olan|panelin arkasını görmeni sağlar." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Oda adı arka planı SAYDAM" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Oda adı arka planı OPAK" explanation="" max="38*2"/>
+    <string english="checkpoint saving" translation="" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="speedrun seçenekleri" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Speedrun Seçenekleri" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Speedrun seven oyunculara yönelik bazı gelişmiş seçeneklere eriş." explanation="description for speedrunner options" max="38*5"/>
