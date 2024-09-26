@@ -2733,17 +2733,7 @@ bool entityclass::updateentities( int i )
                 }
                 entities[i].state = 0;
 
-                if (game.checkpoint_saving)
-                {
-                    bool success = game.savequick();
-                    game.gamesaved = success;
-                    game.gamesavefailed = !success;
-
-                    if (game.gamesavefailed) {
-                        game.show_save_fail();
-                        graphics.textboxapplyposition();
-                    }
-                }
+                game.checkpoint_save();
             }
             break;
         case 9: //Gravity Lines
