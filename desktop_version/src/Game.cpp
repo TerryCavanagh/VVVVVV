@@ -845,6 +845,22 @@ void Game::show_save_fail(void)
     graphics.textboxtranslate(TEXTTRANSLATE_FUNCTION, save_textbox_fail);
 }
 
+void Game::checkpoint_save(void)
+{
+    if (checkpoint_saving && !inspecial())
+    {
+        bool success = map.custommode ? customsavequick(cl.ListOfMetaData[playcustomlevel].filename) : savequick();
+        gamesaved = success;
+        gamesavefailed = !success;
+
+        if (gamesavefailed)
+        {
+            show_save_fail();
+            graphics.textboxapplyposition();
+        }
+    }
+}
+
 void Game::savetele_textbox(void)
 {
     if (inspecial() || map.custommode)
