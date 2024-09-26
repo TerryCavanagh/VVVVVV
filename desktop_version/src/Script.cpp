@@ -1212,6 +1212,11 @@ void scriptclass::run(void)
                     bool success = game.savequick();
                     game.gamesaved = success;
                     game.gamesavefailed = !success;
+
+                    if (game.gamesavefailed) {
+                        game.show_save_fail();
+                        graphics.textboxapplyposition();
+                    }
                 }
             }
             else if (words[0] == "gamestate")

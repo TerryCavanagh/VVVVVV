@@ -225,6 +225,7 @@ public:
     void crewmate_textbox(const int color);
     void remaining_textbox(void);
     void actionprompt_textbox(void);
+    void show_save_fail(void);
     void savetele_textbox(void);
 
     void setstate(int gamestate);

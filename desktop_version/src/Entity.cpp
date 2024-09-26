@@ -2738,6 +2738,11 @@ bool entityclass::updateentities( int i )
                     bool success = game.savequick();
                     game.gamesaved = success;
                     game.gamesavefailed = !success;
+
+                    if (game.gamesavefailed) {
+                        game.show_save_fail();
+                        graphics.textboxapplyposition();
+                    }
                 }
             }
             break;
