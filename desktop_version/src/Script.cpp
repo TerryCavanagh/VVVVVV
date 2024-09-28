@@ -1437,7 +1437,7 @@ void scriptclass::run(void)
             {
                 game.unlocknum(Unlock_SECRETLAB);
                 game.insecretlab = true;
-                SDL_memset(map.explored, true, sizeof(map.explored));
+                map.fullmap();
             }
             else if (words[0] == "leavesecretlab")
             {
@@ -2746,7 +2746,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
         {
             game.timetrialcountdown = 0;
             game.timetrialparlost = true;
-            SDL_memset(map.explored, true, sizeof(map.explored));
+            map.fullmap();
         }
 
         graphics.fademode = FADE_START_FADEIN;
@@ -2756,9 +2756,9 @@ void scriptclass::startgamemode(const enum StartMode mode)
         game.startspecial(0);
 
         /* Unlock the entire map */
-        SDL_memset(obj.collect, true, sizeof(obj.collect[0]) * 20);
+        map.fullmap();
         /* Give all 20 trinkets */
-        SDL_memset(map.explored, true, sizeof(map.explored));
+        SDL_memset(obj.collect, true, sizeof(obj.collect[0]) * 20);
         i = 400; /* previously a nested for-loop set this */
         game.insecretlab = true;
         map.showteleporters = true;
