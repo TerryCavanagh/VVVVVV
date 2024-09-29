@@ -1107,6 +1107,13 @@ void menuactionpress(void)
             graphics.translucentroomname = !graphics.translucentroomname;
             game.savestatsandsettings_menu();
         }
+        if (game.currentmenuoption == -4)
+        {
+            // For touch: toggle checkpoint saving
+            music.playef(Sound_VIRIDIAN);
+            game.checkpoint_saving = !game.checkpoint_saving;
+            game.savestatsandsettings_menu();
+        }
 
         break;
     }

@@ -6833,6 +6833,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
         touch::create_toggle_button((320 - 160) / 2, 120 - 32, 160, 12, loc::gettext("limit to 30 fps"), offset, !over30mode);
         touch::create_toggle_button((320 - 160) / 2, 120 - 32 + 16, 160, 12, loc::gettext("translucent room name bg"), -3, graphics.translucentroomname);
+        touch::create_toggle_button((320 - 160) / 2, 120 - 32 + 32, 160, 12, loc::gettext("checkpoint saving"), -4, checkpoint_saving);
 
         touch::create_menu_button(46 - 16, 200, 76, 26, loc::gettext("previous"), -2);
         touch::create_menu_button(122, 200, 76, 26, loc::gettext("return"), offset + 5);
