@@ -3328,7 +3328,7 @@ void process_editor_buffer(const bool undo)
 
     if (buffer->size() == 0)
     {
-        ed.show_note(loc::gettext(undo ? "ERROR: Nothing to undo" : "ERROR: Nothing to redo"));
+        ed.show_note(undo ? loc::gettext("ERROR: Nothing to undo") : loc::gettext("ERROR: Nothing to redo"));
         return;
     }
 
