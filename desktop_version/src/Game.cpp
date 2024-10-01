@@ -498,15 +498,15 @@ void Game::deletecustomlevelstats(void)
     { \
         /* We're loading in 32-bit integers. If we need more than 16 chars,
          * something is seriously wrong */ \
-             char buffer[16]; \
-             size_t start = 0; \
-             size_t i = 0; \
-             \
-             while (next_split_s(buffer, sizeof(buffer), &start, pText, ',')) \
-             { \
-                 DEST.insert(help.Int(buffer)); \
-                 ++i; \
-             } \
+        char buffer[16]; \
+        size_t start = 0; \
+        size_t i = 0; \
+        \
+        while (next_split_s(buffer, sizeof(buffer), &start, pText, ',')) \
+        { \
+            DEST.insert(help.Int(buffer)); \
+            ++i; \
+        } \
     }
 
 #define LOAD_ARRAY_RENAME(ARRAY_NAME, DEST) \
@@ -6000,11 +6000,10 @@ bool Game::customsavequick(const std::string& savfile)
 
     std::string coincollect;
     std::set<int>::iterator iterator = obj.coincollect.begin();
-    while (iterator != obj.coincollect.end()) {
-        {
-            coincollect += help.String(*iterator) + ",";
-            iterator++;
-        }
+    while (iterator != obj.coincollect.end())
+    {
+        coincollect += help.String(*iterator) + ",";
+        iterator++;
     }
     xml::update_tag(msgs, "coincollect", coincollect.c_str());
 
