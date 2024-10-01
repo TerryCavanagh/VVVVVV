@@ -847,7 +847,7 @@ void Game::show_save_fail(void)
 
 void Game::checkpoint_save(void)
 {
-    if (checkpoint_saving && !inspecial())
+    if (checkpoint_saving && !inspecial() && (!map.custommode || (map.custommode && map.custommodeforreal)) && !cliplaytest)
     {
         bool success = map.custommode ? customsavequick(cl.ListOfMetaData[playcustomlevel].filename) : savequick();
         gamesaved = success;
