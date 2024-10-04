@@ -2529,7 +2529,7 @@ void scriptclass::run(void)
             }
             else if (words[0] == "controls")
             {
-                if (!game.seen_touch_tutorial)
+                if (!game.seen_touch_tutorial && touch::style == TOUCH_STYLE_SWIPE)
                 {
                     game.tutorial_mode = true;
                     game.tutorial_state = 0;
