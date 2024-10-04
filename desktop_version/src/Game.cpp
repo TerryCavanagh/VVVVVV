@@ -395,6 +395,8 @@ void Game::init(void)
     tutorial_screen_pos = 0;
     tutorial_touch_timer = 0;
     tutorial_flip = 0;
+
+    seen_touch_tutorial = false;
 }
 
 void Game::setdefaultcontrollerbuttons(void)
@@ -4992,6 +4994,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
         {
             checkpoint_saving = help.Int(pText);
         }
+
+        if (SDL_strcmp(pKey, "seen_touch_tutorial") == 0)
+        {
+            seen_touch_tutorial = help.Int(pText);
+        }
     }
 
     setdefaultcontrollerbuttons();
@@ -5255,6 +5262,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     xml::update_tag(dataNode, "roomname_translator", (int) roomname_translator::enabled);
 
     xml::update_tag(dataNode, "checkpoint_saving", (int) checkpoint_saving);
+    xml::update_tag(dataNode, "seen_touch_tutorial", (int) seen_touch_tutorial);
 }
 
 static bool settings_loaded = false;

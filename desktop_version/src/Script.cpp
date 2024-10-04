@@ -2529,20 +2529,31 @@ void scriptclass::run(void)
             }
             else if (words[0] == "controls")
             {
-                game.tutorial_mode = true;
-                game.tutorial_state = 0;
-                game.tutorial_timer = 0;
+                if (!game.seen_touch_tutorial)
+                {
+                    game.tutorial_mode = true;
+                    game.tutorial_state = 0;
+                    game.tutorial_timer = 0;
 
-                game.tutorial_screen_pos = 0;
-                game.tutorial_touch_timer = 0;
-                game.tutorial_flip = 0;
+                    game.tutorial_screen_pos = 0;
+                    game.tutorial_touch_timer = 0;
+                    game.tutorial_flip = 0;
+                }
             }
             else if (words[0] == "untilcontrols")
             {
-                if (game.tutorial_mode)
+                if (!game.seen_touch_tutorial)
                 {
-                    scriptdelay = 1;
-                    position--;
+                    if (game.tutorial_mode)
+                    {
+                        scriptdelay = 1;
+                        position--;
+                    }
+                    else
+                    {
+                        game.seen_touch_tutorial = true;
+                        game.savesettings();
+                    }
                 }
             }
             else if (words[0] == "setbars")

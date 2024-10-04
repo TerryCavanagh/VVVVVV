@@ -226,7 +226,6 @@ bool scriptclass::load(const std::string& name)
         "setbars(320)",
         "delay(45)", // 100 frames total
 
-        "changemood(player,1)",
         "befadein()",
         "shake(20)",
         "playef(10)",

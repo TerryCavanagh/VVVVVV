@@ -620,6 +620,8 @@ public:
     int tutorial_screen_pos;
     int tutorial_touch_timer;
     int tutorial_flip;
+
+    bool seen_touch_tutorial;
 };
 
 #ifndef GAME_DEFINITION
