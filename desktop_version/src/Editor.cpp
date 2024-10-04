@@ -2375,6 +2375,13 @@ static void commit_roomdata_tiles_change()
     ed.redo_buffer.clear();
 }
 
+static void uncommit()
+{
+    extern editorclass ed;
+
+    ed.undo_buffer.pop_back();
+}
+
 static void set_tile_interpolated(const int x1, const int x2, const int y1, const int y2, const int tile)
 {
     extern editorclass ed;
@@ -3846,6 +3853,9 @@ void editorinput(void)
                     if (ed.old_entity_text == "")
                     {
                         ed.remove_entity(ed.text_entity);
+                        // Uncommit the past two actions
+                        uncommit();
+                        uncommit();
                     }
                 }
 
