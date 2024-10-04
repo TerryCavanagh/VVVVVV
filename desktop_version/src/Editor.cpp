@@ -2649,6 +2649,12 @@ void editorclass::tool_place()
         break;
     }
     case EditorTool_SPIKES:
+        if (!placing_tiles)
+        {
+            placing_tiles = true;
+            update_old_tiles();
+        }
+
         set_tile_interpolated(old_tilex, tilex, old_tiley, tiley, 8);
         break;
     case EditorTool_TRINKETS:
