@@ -436,7 +436,7 @@ void mapclass::initcustommapdata(void)
     shinytrinkets.clear();
     teleporters.clear();
 
-    std::vector<SDL_Point> teleporters;
+    std::vector<SDL_Point> customteleporters;
 
     for (size_t i = 0; i < customentities.size(); i++)
     {
@@ -451,15 +451,15 @@ void mapclass::initcustommapdata(void)
             SDL_Point temp;
             temp.x = ent.rx;
             temp.y = ent.ry;
-            teleporters.push_back(temp);
+            customteleporters.push_back(temp);
         }
     }
 
-    std::sort(teleporters.begin(), teleporters.end(), compareTeleporterPoints);
+    std::sort(customteleporters.begin(), customteleporters.end(), compareTeleporterPoints);
 
-    for (size_t i = 0; i < teleporters.size(); i++)
+    for (size_t i = 0; i < customteleporters.size(); i++)
     {
-        setteleporter(teleporters[i].x, teleporters[i].y);
+        setteleporter(customteleporters[i].x, customteleporters[i].y);
     }
 }
 
