@@ -414,6 +414,7 @@ void editorclass::reset(void)
     substate = EditorSubState_MAIN;
 
     undo_buffer.clear();
+    redo_buffer.clear();
 }
 
 void editorclass::show_note(const char* text)
