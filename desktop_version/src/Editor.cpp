@@ -2338,7 +2338,7 @@ static void commit_tiles()
     info.room_x = ed.levx;
     info.room_y = ed.levy;
     info.type = EditorUndoType_TILES;
-    SDL_memcpy(&info.tiles, &ed.old_tiles, sizeof(ed.old_tiles));
+    SDL_memcpy(info.tiles, ed.old_tiles, sizeof(ed.old_tiles));
 
     ed.undo_buffer.push_back(info);
     ed.redo_buffer.clear();
@@ -2369,7 +2369,7 @@ static void commit_roomdata_tiles_change()
     info.room_y = ed.levy;
     info.type = EditorUndoType_ROOMDATA_TILES;
     update_old_tiles();
-    SDL_memcpy(&info.tiles, &ed.old_tiles, sizeof(ed.old_tiles));
+    SDL_memcpy(info.tiles, ed.old_tiles, sizeof(ed.old_tiles));
     info.room_data = *cl.getroomprop(ed.levx, ed.levy);
 
     ed.undo_buffer.push_back(info);
@@ -3375,7 +3375,7 @@ void process_editor_buffer(const bool undo)
             cl.settile(ed.levx, ed.levy, x, y, info.tiles[i]);
         }
 
-        SDL_memcpy(&new_info.tiles, &ed.old_tiles, sizeof(ed.old_tiles));
+        SDL_memcpy(new_info.tiles, ed.old_tiles, sizeof(ed.old_tiles));
 
         graphics.foregrounddrawn = false;
         break;
@@ -3428,7 +3428,7 @@ void process_editor_buffer(const bool undo)
             cl.settile(ed.levx, ed.levy, x, y, info.tiles[i]);
         }
 
-        SDL_memcpy(&new_info.tiles, &ed.old_tiles, sizeof(ed.old_tiles));
+        SDL_memcpy(new_info.tiles, ed.old_tiles, sizeof(ed.old_tiles));
 
         new_info.room_data = cl.roomproperties[info.room_x + info.room_y * cl.maxwidth];
 
