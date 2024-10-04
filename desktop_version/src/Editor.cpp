@@ -2512,19 +2512,23 @@ void editorclass::handle_tile_placement(const int tile)
 
 void editorclass::tool_remove()
 {
-    if (!placing_tiles)
-    {
-        placing_tiles = true;
-        update_old_tiles();
-    }
-
     switch (current_tool)
     {
     case EditorTool_WALLS:
     case EditorTool_BACKING:
+        if (!placing_tiles)
+        {
+            placing_tiles = true;
+            update_old_tiles();
+        }
         handle_tile_placement(0);
         break;
     case EditorTool_SPIKES:
+        if (!placing_tiles)
+        {
+            placing_tiles = true;
+            update_old_tiles();
+        }
         set_tile_interpolated(old_tilex, tilex, old_tiley, tiley, 0);
         break;
     default:
