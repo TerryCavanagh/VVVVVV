@@ -2276,7 +2276,6 @@ void editorclass::add_entity(int rx, int ry, int xp, int yp, int tp, int p1, int
 
 void editorclass::remove_entity(int t)
 {
-
     EditorUndoInfo info;
     info.room_x = levx;
     info.room_y = levy;
@@ -2308,10 +2307,7 @@ static void update_old_tiles()
     extern editorclass ed;
     for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
     {
-        const int x = i % SCREEN_WIDTH_TILES;
-        const int y = i / SCREEN_WIDTH_TILES;
-
-        ed.old_tiles[y * SCREEN_WIDTH_TILES + x] = ed.get_tile(x, y);
+        ed.old_tiles[i] = ed.get_tile(i % SCREEN_WIDTH_TILES, i / SCREEN_WIDTH_TILES);
     }
 }
 
@@ -2509,6 +2505,12 @@ void editorclass::handle_tile_placement(const int tile)
 
 void editorclass::tool_remove()
 {
+    if (!placing_tiles)
+    {
+        placing_tiles = true;
+        update_old_tiles();
+    }
+
     switch (current_tool)
     {
     case EditorTool_WALLS:
@@ -3659,23 +3661,25 @@ void editorinput(void)
             }
 
             // Mouse input
-            if (key.leftbutton && ed.lclickdelay == 0)
-            {
-                ed.tool_place();
-            }
-            else if (!key.leftbutton)
-            {
-                ed.lclickdelay = 0;
-                if (ed.placing_tiles)
-                {
-                    commit_tiles();
-                    ed.placing_tiles = false;
-                }
-            }
-
             if (key.rightbutton)
             {
                 ed.tool_remove();
+            }
+            else
+            {
+                if (key.leftbutton && ed.lclickdelay == 0)
+                {
+                    ed.tool_place();
+                }
+                else if (!key.leftbutton)
+                {
+                    ed.lclickdelay = 0;
+                    if (ed.placing_tiles)
+                    {
+                        commit_tiles();
+                        ed.placing_tiles = false;
+                    }
+                }
             }
 
             if (key.middlebutton)
