@@ -377,7 +377,7 @@ void Game::init(void)
     screenshot_border_timer = 0;
     screenshot_saved_success = false;
 
-#ifdef __ANDROID__
+#if defined(__ANDROID__) || defined(TARGET_OS_IPHONE)
     checkpoint_saving = true;
 #else
     checkpoint_saving = false;
