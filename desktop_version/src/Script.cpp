@@ -20,6 +20,7 @@
 #include "LocalizationStorage.h"
 #include "Map.h"
 #include "Music.h"
+#include "Touch.h"
 #include "Unreachable.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
@@ -197,10 +198,13 @@ void scriptclass::run(void)
             tokenize(commands[position]);
 
             //For script assisted input
-            game.press_left = false;
-            game.press_right = false;
-            game.press_action = false;
-            game.press_map = false;
+            if (!game.tutorial_mode)
+            {
+                game.press_left = false;
+                game.press_right = false;
+                game.press_action = false;
+                game.press_map = false;
+            }
 
             //Ok, now we run a command based on that string
             if (words[0] == "moveplayer")
@@ -802,7 +806,7 @@ void scriptclass::run(void)
                     game.hascontrol = false;
                     game.pausescript = true;
                     if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.jumpheld = true;
+                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down()) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
 
@@ -1417,6 +1421,11 @@ void scriptclass::run(void)
                 graphics.setfade(0);
                 graphics.fademode = FADE_NONE;
             }
+            else if (words[0] == "befadeout")
+            {
+                graphics.setfade(416);
+                graphics.fademode = FADE_FULLY_BLACK;
+            }
             else if (words[0] == "fadein")
             {
                 graphics.fademode = FADE_START_FADEIN;
@@ -1852,7 +1861,7 @@ void scriptclass::run(void)
                     game.hascontrol = false;
                     game.pausescript = true;
                     if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.jumpheld = true;
+                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down()) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
             }
@@ -1875,7 +1884,7 @@ void scriptclass::run(void)
                     game.hascontrol = false;
                     game.pausescript = true;
                     if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.jumpheld = true;
+                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down()) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
             }
@@ -1896,7 +1905,7 @@ void scriptclass::run(void)
                     game.hascontrol = false;
                     game.pausescript = true;
                     if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.jumpheld = true;
+                        || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down()) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
             }
@@ -2513,6 +2522,44 @@ void scriptclass::run(void)
                     }
                 }
             }
+            else if (words[0] == "settile")
+            {
+                map.settile(ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]));
+                graphics.foregrounddrawn = false;
+            }
+            else if (words[0] == "controls")
+            {
+                if (!game.seen_touch_tutorial && touch::style == TOUCH_STYLE_SWIPE)
+                {
+                    game.tutorial_mode = true;
+                    game.tutorial_state = 0;
+                    game.tutorial_timer = 0;
+
+                    game.tutorial_screen_pos = 0;
+                    game.tutorial_touch_timer = 0;
+                    game.tutorial_flip = 0;
+                }
+            }
+            else if (words[0] == "untilcontrols")
+            {
+                if (!game.seen_touch_tutorial)
+                {
+                    if (game.tutorial_mode)
+                    {
+                        scriptdelay = 1;
+                        position--;
+                    }
+                    else
+                    {
+                        game.seen_touch_tutorial = true;
+                        game.savesettings();
+                    }
+                }
+            }
+            else if (words[0] == "setbars")
+            {
+                graphics.setbars(ss_toi(words[1]));
+            }
 
             position++;
         }
@@ -2593,6 +2640,8 @@ void scriptclass::startgamemode(const enum StartMode mode)
             player_hitbox.h = player->h;
         }
     }
+
+    touch::remove_dynamic_buttons();
 
     /* Containers which need to be reset before gameplay starts
      * ex. before custom levels get loaded */
@@ -3219,6 +3268,14 @@ void scriptclass::hardreset(void)
     game.disabletemporaryaudiopause = true;
 
     game.ingame_titlemode = false;
+
+    game.tutorial_mode = false;
+    game.tutorial_state = 0;
+    game.tutorial_timer = 0;
+
+    game.tutorial_screen_pos = 0;
+    game.tutorial_touch_timer = 0;
+    game.tutorial_flip = 0;
 
     //dwgraphicsclass
     graphics.backgrounddrawn = false;

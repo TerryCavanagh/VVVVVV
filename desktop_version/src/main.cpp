@@ -33,6 +33,7 @@
 #include "RenderFixed.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Touch.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -521,6 +522,10 @@ int main(int argc, char *argv[])
         {
             loc::show_translator_menu = true;
         }
+        else if (ARG("-emutouch"))
+        {
+            SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "1");
+        }
 #ifdef _WIN32
         else if (ARG("-console"))
         {
@@ -604,6 +609,9 @@ int main(int argc, char *argv[])
     /* We already do the button swapping in ButtonGlyphs, disable SDL's swapping */
     SDL_SetHintWithPriority(SDL_HINT_GAMECONTROLLER_USE_BUTTON_LABELS, "0", SDL_HINT_OVERRIDE);
 
+    /* We want to capture back inputs */
+    SDL_SetHintWithPriority(SDL_HINT_ANDROID_TRAP_BACK_BUTTON, "1", SDL_HINT_OVERRIDE);
+
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir, fontsDir))
     {
         vlog_error("Unable to initialize filesystem!");
@@ -655,6 +663,9 @@ int main(int argc, char *argv[])
 
     // Set up screen
     graphics.init();
+
+    // Set up touch input before we load settings
+    touch::init();
 
     game.init();
     game.seed_use_sdl_getticks = seed_use_sdl_getticks;
@@ -855,6 +866,11 @@ int main(int argc, char *argv[])
     SDL_ShowWindow(gameScreen.m_window);
 
     key.isActive = true;
+
+    if (SDL_GetNumTouchDevices() > 0)
+    {
+        key.using_touch = true;
+    }
 
     gamestate_funcs = get_gamestate_funcs(game.gamestate, &num_gamestate_funcs);
     loop_assign_active_funcs();

@@ -20,6 +20,7 @@
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Touch.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"
@@ -1173,6 +1174,31 @@ void Graphics::draw_texture(SDL_Texture* image, const int x, const int y)
     const SDL_Rect dstrect = {x, y, w, h};
 
     copy_texture(image, NULL, &dstrect);
+}
+
+void Graphics::draw_texture(SDL_Texture* image, const int x, const int y, const int scalex, const int scaley)
+{
+    int w, h;
+
+    if (query_texture(image, NULL, NULL, &w, &h) != 0)
+    {
+        return;
+    }
+
+    int flip = SDL_FLIP_NONE;
+
+    if (scalex < 0)
+    {
+        flip |= SDL_FLIP_HORIZONTAL;
+    }
+    if (scaley < 0)
+    {
+        flip |= SDL_FLIP_VERTICAL;
+    }
+
+    const SDL_Rect dstrect = { x, y, w * SDL_abs(scalex), h * SDL_abs(scaley) };
+
+    copy_texture(image, NULL, &dstrect, 0, NULL, (SDL_RendererFlip)flip);
 }
 
 void Graphics::draw_texture_part(SDL_Texture* image, const int x, const int y, const int x2, const int y2, const int w, const int h, const int scalex, const int scaley)
@@ -3465,6 +3491,8 @@ void Graphics::screenshake(void)
     get_stretch_info(&rect);
 
     copy_texture(tempShakeTexture, NULL, &rect, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+
+    touch::render();
 }
 
 void Graphics::updatescreenshake(void)
@@ -3549,6 +3577,8 @@ void Graphics::render(void)
     ime_set_rect(&stretch_info);
 
     copy_texture(gameTexture, NULL, &stretch_info, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+
+    touch::render();
 }
 
 void Graphics::renderwithscreeneffects(void)

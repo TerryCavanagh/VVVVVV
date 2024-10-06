@@ -1,3 +1,5 @@
+#include <Input.h>
+
 #include <tinyxml2.h>
 #include <vector>
 
@@ -23,6 +25,7 @@
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Touch.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -385,7 +388,7 @@ static void slidermodeinput(void)
     *user_changing_volume = SDL_clamp(*user_changing_volume, 0, USER_VOLUME_MAX);
 }
 
-static void menuactionpress(void)
+void menuactionpress(void)
 {
     if (game.menutestmode)
     {
@@ -422,6 +425,17 @@ static void menuactionpress(void)
 
 #undef OPTION_ID
 
+        // Special case for touch input: language button!
+        if (option_id == -1)
+        {
+            music.playef(Sound_VIRIDIAN);
+            loc::loadlanguagelist();
+            loc::pre_title_lang_menu = false;
+            game.createmenu(Menu::language);
+            game.currentmenuoption = loc::languagelist_curlang;
+            map.nexttowercolour();
+            break;
+        }
 
         switch (option_id)
         {
@@ -453,7 +467,14 @@ static void menuactionpress(void)
         case 2:
             //Options
             music.playef(Sound_VIRIDIAN);
-            game.createmenu(Menu::options);
+            if (key.using_touch)
+            {
+                game.createmenu(Menu::gameplayoptions);
+            }
+            else
+            {
+                game.createmenu(Menu::options);
+            }
             map.nexttowercolour();
             break;
         case 3:
@@ -707,6 +728,22 @@ static void menuactionpress(void)
             gameScreen.toggleVSync();
             game.savestatsandsettings_menu();
         }
+        if (game.currentmenuoption == -2)
+        {
+            // gameplay menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::gameplayoptions, true);
+            map.nexttowercolour();
+            processed = true;
+        }
+        if (game.currentmenuoption == -1)
+        {
+            // audio menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::audiooptions, true);
+            map.nexttowercolour();
+            processed = true;
+        }
         if (!processed)
         {
             //back
@@ -878,6 +915,22 @@ static void menuactionpress(void)
         break;
     case Menu::accessibility:
     {
+        if (game.currentmenuoption == -2)
+        {
+            // touch menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::touch_input, true);
+            map.nexttowercolour();
+        }
+        if (game.currentmenuoption == -1)
+        {
+            // gameplay menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::gameplayoptions, true);
+            map.nexttowercolour();
+            break;
+        }
+
         int accessibilityoffset = 0;
 #if !defined(MAKEANDPLAY)
         accessibilityoffset = 1;
@@ -1031,6 +1084,37 @@ static void menuactionpress(void)
             map.nexttowercolour();
         }
 
+        if (game.currentmenuoption == -2)
+        {
+            // accessibility menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::accessibility, true);
+            map.nexttowercolour();
+            break;
+        }
+        if (game.currentmenuoption == -1)
+        {
+            // graphics menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::graphicoptions, true);
+            map.nexttowercolour();
+        }
+
+        if (game.currentmenuoption == -3)
+        {
+            // For touch: toggle translucent roomname bg
+            music.playef(Sound_VIRIDIAN);
+            graphics.translucentroomname = !graphics.translucentroomname;
+            game.savestatsandsettings_menu();
+        }
+        if (game.currentmenuoption == -4)
+        {
+            // For touch: toggle checkpoint saving
+            music.playef(Sound_VIRIDIAN);
+            game.checkpoint_saving = !game.checkpoint_saving;
+            game.savestatsandsettings_menu();
+        }
+
         break;
     }
     case Menu::options:
@@ -1061,12 +1145,18 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         case 4:
+            // touch input options
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::touch_input);
+            map.nexttowercolour();
+            break;
+        case 5:
             //accessibility options
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::accessibility);
             map.nexttowercolour();
             break;
-        case 5:
+        case 6:
             //language options
             if (game.translator_cutscene_test)
             {
@@ -1135,6 +1225,22 @@ static void menuactionpress(void)
             map.nexttowercolour();
             music.playef(Sound_VIRIDIAN);
         }
+
+        if (game.currentmenuoption == -2)
+        {
+            // gameplay menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::graphicoptions, true);
+            map.nexttowercolour();
+        }
+        if (game.currentmenuoption == -1)
+        {
+            // touch input menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::touch_input, true);
+            map.nexttowercolour();
+        }
+
         break;
     case Menu::language:
     {
@@ -1142,32 +1248,84 @@ static void menuactionpress(void)
 
         music.playef(Sound_VIRIDIAN);
 
-        if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
+        if (game.currentmenuoption == -3)
         {
-            /* Update code also used in KeyPoll.cpp. */
-            loc::languagelist_curlang = game.currentmenuoption;
-            loc::lang = loc::languagelist[game.currentmenuoption].code;
-            loc::loadtext(false);
-            loc::lang_set = loc::lang_set_current;
-            graphics.grphx.init_translations();
+            // return
+
+            if (loc::pre_title_lang_menu)
+            {
+                /* Make the title screen appear, we haven't seen it yet.
+                 * game.returnmenu() works because Menu::mainmenu
+                 * is created before the language menu. */
+                game.menustart = false;
+                loc::pre_title_lang_menu = false;
+            }
+            else
+            {
+                map.nexttowercolour();
+                game.currentmenuoption = loc::languagelist_curlang;
+            }
+
+            game.returnmenu();
+        }
+        else if (game.currentmenuoption == -2)
+        {
+            // go left a page (or wrap to end)
+            game.languagepage = POS_MOD(game.languagepage - 1, (int) SDL_ceilf(loc::languagelist.size() / 12.0));
+            loc::loadlanguagelist();
+            game.createmenu(Menu::language, true);
+            game.currentmenuoption = loc::languagelist_curlang;
+            map.nexttowercolour();
+        }
+        else if (game.currentmenuoption == -1)
+        {
+            // go right a page (or wrap to start)
+            game.languagepage = POS_MOD(game.languagepage + 1, (int) SDL_ceilf(loc::languagelist.size() / 12.0));
+            loc::loadlanguagelist();
+            game.createmenu(Menu::language, true);
+            game.currentmenuoption = loc::languagelist_curlang;
+            map.nexttowercolour();
+        }
+        else
+        {
+            if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
+            {
+                /* Update code also used in KeyPoll.cpp. */
+                loc::languagelist_curlang = game.currentmenuoption;
+                loc::lang = loc::languagelist[game.currentmenuoption].code;
+                loc::loadtext(false);
+                loc::lang_set = loc::lang_set_current;
+                graphics.grphx.init_translations();
+            }
+
+            if (prev_lang != loc::lang)
+            {
+                recomputetextboxes();
+            }
+
+            if (!key.using_touch)
+            {
+                if (loc::pre_title_lang_menu)
+                {
+                    /* Make the title screen appear, we haven't seen it yet.
+                     * game.returnmenu() works because Menu::mainmenu
+                     * is created before the language menu. */
+                    game.menustart = false;
+                    loc::pre_title_lang_menu = false;
+                }
+
+                game.returnmenu();
+                map.nexttowercolour();
+            }
+            else
+            {
+                // We need to respawn the buttons
+                loc::loadlanguagelist();
+                game.createmenu(Menu::language, true);
+                game.currentmenuoption = loc::languagelist_curlang;
+            }
         }
 
-        if (loc::pre_title_lang_menu)
-        {
-            /* Make the title screen appear, we haven't seen it yet.
-             * game.returnmenu() works because Menu::mainmenu
-             * is created before the language menu. */
-            game.menustart = false;
-            loc::pre_title_lang_menu = false;
-        }
-
-        if (prev_lang != loc::lang)
-        {
-            recomputetextboxes();
-        }
-
-        game.returnmenu();
-        map.nexttowercolour();
         game.savestatsandsettings_menu();
 
         break;
@@ -1981,6 +2139,41 @@ static void menuactionpress(void)
             break;
         }
         break;
+    case Menu::touch_input:
+        switch (game.currentmenuoption)
+        {
+        case -2:
+            // audio menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::audiooptions, true);
+            map.nexttowercolour();
+            break;
+        case -1:
+            // accessibility menu
+            music.playef(Sound_VIRIDIAN);
+            game.createmenu(Menu::accessibility, true);
+            map.nexttowercolour();
+            break;
+        case 0:
+            music.playef(Sound_VIRIDIAN);
+            touch::style = (TouchControlStyle) ((touch::style + 1) % NUM_TOUCH_STYLES);
+            break;
+        case 1:
+            touch::scale += 5;
+            music.playef(Sound_VIRIDIAN);
+            if (touch::scale > 20)
+            {
+                touch::scale = 5;
+            }
+            game.savestatsandsettings_menu();
+            break;
+        case 2:
+            music.playef(Sound_VIRIDIAN);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
     case Menu::cleardatamenu:
         switch (game.currentmenuoption)
         {
@@ -2353,26 +2546,37 @@ void titleinput(void)
             controller_down |= key.controllerWantsLeft(false);
         }
 
-        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w) || controller_up)
+        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w) || controller_up || touch::button_tapped(TOUCH_BUTTON_LEFT))
         {
             game.press_left = true;
         }
-        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN)  || key.isDown(d) ||  key.isDown(KEYBOARD_s) || controller_down)
+        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN)  || key.isDown(d) ||  key.isDown(KEYBOARD_s) || controller_down || touch::button_tapped(TOUCH_BUTTON_RIGHT))
         {
             game.press_right = true;
         }
     }
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip)) game.press_action = true;
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip)
+        || (!game.menustart ? touch::screen_down() : touch::button_tapped(TOUCH_BUTTON_CONFIRM)))
+    {
+        game.press_action = true;
+    }
+
     //|| key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.press_action = true; //on menus, up and down don't work as action
     if (key.isDown(KEYBOARD_ENTER)) game.press_map = true;
 
     //In the menu system, all keypresses are single taps rather than holds. Therefore this test has to be done for all presses
-    if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_esc)) game.jumpheld = false;
+    if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_esc)
+        && !touch::button_tapped(TOUCH_BUTTON_CANCEL) && !key.pressed_android_back)
+    {
+        game.jumpheld = false;
+    }
+
     if (!game.press_map) game.mapheld = false;
 
     if (!game.jumpheld && graphics.fademode == FADE_NONE)
     {
-        if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_esc))
+        if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_esc)
+            || touch::button_tapped(TOUCH_BUTTON_CANCEL) || key.pressed_android_back)
         {
             game.jumpheld = true;
         }
@@ -2391,7 +2595,7 @@ void titleinput(void)
 
         if (game.menustart
         && game.menucountdown <= 0
-        && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
+        && (key.isDown(27) || key.isDown(game.controllerButton_esc) || touch::button_tapped(TOUCH_BUTTON_CANCEL) || key.pressed_android_back))
         {
             if (game.currentmenuname == Menu::language && loc::pre_title_lang_menu)
             {
@@ -2411,8 +2615,16 @@ void titleinput(void)
             }
             else if (game.currentmenuname == Menu::mainmenu)
             {
-                game.createmenu(Menu::youwannaquit);
-                map.nexttowercolour();
+                if (key.pressed_android_back)
+                {
+                    // Minimize the game!!! (Android only)
+                    SDL_MinimizeWindow(gameScreen.m_window);
+                }
+                else
+                {
+                    game.createmenu(Menu::youwannaquit);
+                    map.nexttowercolour();
+                }
             }
             else
             {
@@ -2522,6 +2734,7 @@ void titleinput(void)
             {
                 slidermodeinput();
             }
+            touch::update_sliders();
         }
 
         if (game.currentmenuoption < 0) game.currentmenuoption = game.menuoptions.size()-1;
@@ -2568,16 +2781,20 @@ void gameinput(void)
         game.press_action = false;
         game.press_interact = false;
 
-        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false))
+
+        touch::update_swipe_finger();
+
+        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) || touch::buttons[TOUCH_BUTTON_LEFT].down || (touch::swipe_delta < -TOUCH_SWIPE_SENSITIVITY))
         {
             game.press_left = true;
         }
-        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false))
+        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false) || touch::buttons[TOUCH_BUTTON_RIGHT].down || (touch::swipe_delta > TOUCH_SWIPE_SENSITIVITY))
         {
             game.press_right = true;
         }
         if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v)
-                || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w) || key.isDown(KEYBOARD_s)|| key.isDown(game.controllerButton_flip))
+            || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w)
+            || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip) || touch::touching_right())
         {
             game.press_action = true;
         }
@@ -2589,7 +2806,7 @@ void gameinput(void)
     }
 
     game.press_map = false;
-    if (key.isDown(KEYBOARD_ENTER) || key.isDown(SDLK_KP_ENTER) || key.isDown(game.controllerButton_map)  )
+    if (key.isDown(KEYBOARD_ENTER) || key.isDown(SDLK_KP_ENTER) || key.isDown(game.controllerButton_map) || touch::button_tapped(TOUCH_BUTTON_MAP))
     {
         game.press_map = true;
     }
@@ -2606,7 +2823,12 @@ void gameinput(void)
         {
             game.press_action = false;
             if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v)
-                    || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w) || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip)) game.press_action = true;
+                || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w)
+                || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip) || touch::screen_down()
+                )
+            {
+                game.press_action = true;
+            }
         }
 
         if (game.press_action && !game.jumpheld)
@@ -2639,7 +2861,8 @@ void gameinput(void)
     //immediately open again
     //We really need a better input system soon...
     && !key.isDown(27)
-    && !key.isDown(game.controllerButton_esc))
+    && !key.isDown(game.controllerButton_esc)
+    && !touch::button_tapped(TOUCH_BUTTON_CANCEL))
     {
         game.mapheld = false;
     }
@@ -2684,6 +2907,13 @@ void gameinput(void)
     bool enter_pressed = game.press_map && !game.mapheld;
     bool enter_already_processed = false;
     bool interact_pressed;
+
+    bool should_move = true;
+    if (game.tutorial_mode)
+    {
+        should_move = game.tutorial_touch_timer >= 8;
+    }
+
     if (game.separate_interact)
     {
         interact_pressed = game.press_interact && !game.interactheld;
@@ -2788,15 +3018,25 @@ void gameinput(void)
                     }
                 }
 
-                if(game.press_left)
+                if (game.press_left)
                 {
-                    obj.entities[ie].ax = -3;
-                    obj.entities[ie].dir = 0;
+                    if (should_move)
+                    {
+                        obj.entities[ie].ax = -3;
+                        obj.entities[ie].dir = 0;
+                    }
                 }
                 else if (game.press_right)
                 {
-                    obj.entities[ie].ax = 3;
-                    obj.entities[ie].dir = 1;
+                    if (should_move)
+                    {
+                        obj.entities[ie].ax = 3;
+                        obj.entities[ie].dir = 1;
+                    }
+                }
+                else
+                {
+                    game.tutorial_touch_timer = 0;
                 }
             }
         }
@@ -2807,6 +3047,10 @@ void gameinput(void)
         if (game.press_left)
         {
             game.tapleft++;
+            if (game.tutorial_mode)
+            {
+                game.tutorial_touch_timer++;
+            }
         }
         else
         {
@@ -2828,6 +3072,10 @@ void gameinput(void)
         if (game.press_right)
         {
             game.tapright++;
+            if (game.tutorial_mode)
+            {
+                game.tutorial_touch_timer++;
+            }
         }
         else
         {
@@ -2984,7 +3232,7 @@ void gameinput(void)
     }
 
     if (!game.mapheld
-    && (key.isDown(27) || key.isDown(game.controllerButton_esc))
+    && (key.isDown(27) || key.isDown(game.controllerButton_esc) || touch::button_tapped(TOUCH_BUTTON_CANCEL))
     && (!map.custommode || map.custommodeforreal))
     {
         game.mapheld = true;
@@ -2999,9 +3247,16 @@ void gameinput(void)
     {
         game.deathseq = 30;
     }
-}
 
-static void mapmenuactionpress(bool version2_2);
+    if (game.tutorial_mode && game.tutorial_state >= 13)
+    {
+        if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_v) || key.isDown(KEYBOARD_ENTER) || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || touch::screen_down())
+        {
+            music.playef(11);
+            game.tutorial_mode = false;
+        }
+    }
+}
 
 void mapinput(void)
 {
@@ -3106,15 +3361,15 @@ void mapinput(void)
             controller_down |= key.controllerWantsLeft(false);
         }
 
-        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w)|| controller_up)
+        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w)|| controller_up || touch::button_tapped(TOUCH_BUTTON_LEFT))
         {
             game.press_left = true;
         }
-        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN) || key.isDown(d) ||  key.isDown(KEYBOARD_s)|| controller_down)
+        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN) || key.isDown(d) ||  key.isDown(KEYBOARD_s)|| controller_down || touch::button_tapped(TOUCH_BUTTON_RIGHT))
         {
             game.press_right = true;
         }
-        if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
+        if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::button_tapped(TOUCH_BUTTON_CONFIRM))
         {
             game.press_action = true;
         }
@@ -3122,9 +3377,10 @@ void mapinput(void)
         || (game.menupage >= 20 && game.menupage <= 21)
         || (game.menupage >= 30 && game.menupage <= 32))
         {
-            if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) ) game.press_map = true;
+            if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) || touch::button_tapped(TOUCH_BUTTON_MAP_BACK)) game.press_map = true;
             if (key.isDown(27) && !game.mapheld)
             {
+                touch::remove_dynamic_buttons();
                 game.mapheld = true;
                 if (game.menupage < 9
                 || (game.menupage >= 20 && game.menupage <= 21))
@@ -3144,7 +3400,11 @@ void mapinput(void)
         }
         else
         {
-            if (key.isDown(KEYBOARD_ENTER) || key.isDown(27)|| key.isDown(game.controllerButton_map) ) game.press_map = true;
+            if (key.isDown(KEYBOARD_ENTER) || key.isDown(27) || key.isDown(game.controllerButton_map)
+                || touch::button_tapped(TOUCH_BUTTON_CANCEL))
+            {
+                game.press_map = true;
+            }
         }
 
         //In the menu system, all keypresses are single taps rather than holds. Therefore this test has to be done for all presses
@@ -3211,7 +3471,7 @@ void mapinput(void)
     }
 }
 
-static void mapmenuactionpress(const bool version2_2)
+void mapmenuactionpress(const bool version2_2)
 {
     switch (game.menupage)
     {
@@ -3318,7 +3578,14 @@ static void mapmenuactionpress(const bool version2_2)
 
         // Set this before we create the menu
         game.kludge_ingametemp = game.currentmenuname;
-        game.createmenu(Menu::options);
+        if (key.using_touch)
+        {
+            game.createmenu(Menu::gameplayoptions);
+        }
+        else
+        {
+            game.createmenu(Menu::options);
+        }
         map.nexttowercolour();
         break;
     case 32:
@@ -3345,11 +3612,16 @@ void teleporterinput(void)
 
     if(graphics.menuoffset==0)
     {
-        if (key.isDown(KEYBOARD_LEFT)|| key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) ) game.press_left = true;
-        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d)|| key.controllerWantsRight(false) ) game.press_right = true;
+        if (key.isDown(KEYBOARD_LEFT)|| key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) || touch::button_tapped(TOUCH_BUTTON_LEFT)) game.press_left = true;
+        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d)|| key.controllerWantsRight(false) || touch::button_tapped(TOUCH_BUTTON_RIGHT)) game.press_right = true;
         if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v)
-                || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)||  key.isDown(KEYBOARD_w)||  key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip)) game.press_action = true;
-        if (!game.separate_interact && (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map)))
+            || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w)
+            || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip)
+            || touch::button_tapped(TOUCH_BUTTON_CONFIRM))
+        {
+            game.press_action = true;
+        }
+        if (!game.separate_interact && (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) || touch::button_tapped(TOUCH_BUTTON_CONFIRM)))
         {
             game.press_map = true;
         }
@@ -3362,7 +3634,13 @@ void teleporterinput(void)
         if (!game.press_action && !game.press_left && !game.press_right && !game.press_interact) game.jumpheld = false;
         if (!game.press_map) game.mapheld = false;
 
-        if (key.isDown(27))
+        if (touch::button_tapped(TOUCH_BUTTON_MAP_BACK))
+        {
+            // Close teleporter menu
+            graphics.resumegamemode = true;
+            music.playef(Sound_VIRIDIAN);
+        }
+        else if (key.isDown(27))
         {
             if (!map.custommode || map.custommodeforreal)
             {
@@ -3489,7 +3767,7 @@ void gamecompleteinput(void)
     graphics.titlebg.bypos += graphics.titlebg.bscroll;
     game.oldcreditposition = game.creditposition;
 
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_down())
     {
         game.creditposition -= 6;
         if (game.creditposition <= -Credits::creditmaxposition)
@@ -3537,7 +3815,7 @@ void gamecompleteinput2(void)
     //Do this here because input comes first
     game.oldcreditposx = game.creditposx;
 
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip) || touch::screen_down())
     {
         game.creditposx++;
         game.oldcreditposx++;

@@ -1,6 +1,9 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+void menuactionpress(void);
+void mapmenuactionpress(const bool version2_2);
+
 void titleinput(void);
 
 void gameinput(void);
