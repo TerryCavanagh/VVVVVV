@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion 29
         targetSdkVersion 34
-        versionCode 20004000
-        versionName "2.4"
+        versionCode 20005000
+        versionName "2.5"
         applicationId "air.com.distractionware.vvvvvvmobile"
         externalNativeBuild {
             cmake {
