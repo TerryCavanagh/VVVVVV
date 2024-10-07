@@ -2653,7 +2653,14 @@ void editorclass::tool_place()
 
 static void creategameoptions(void)
 {
-    game.createmenu(Menu::options);
+    if (key.using_touch)
+    {
+        game.createmenu(Menu::gameplayoptions);
+    }
+    else
+    {
+        game.createmenu(Menu::options);
+    }
 }
 
 static void nextbgcolor(void)

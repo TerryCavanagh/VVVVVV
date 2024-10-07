@@ -25,12 +25,15 @@
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Touch.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
 static int tr;
 static int tg;
 static int tb;
+
+static bool dont_render_buttons;
 
 struct MapRenderData
 {
@@ -197,6 +200,38 @@ static inline void draw_skip_message()
     );
 }
 
+static void draw_summary(Game::Summary* summary, int offset)
+{
+    font::print(
+        PR_CEN, -1, 80 - 20 + offset,
+        loc::gettext_roomname_special(map.currentarea(summary->saverx, summary->savery)),
+        25, 255 - (help.glow / 2), 255 - (help.glow / 2)
+    );
+    for (int i = 0; i < 6; i++)
+    {
+        graphics.drawcrewman(169 - (3 * 42) + (i * 42), 95 - 20 + offset, i, summary->crewstats[i], true);
+    }
+    font::print(
+        0, 59, 132 - 20 + offset,
+        game.giventimestring(
+            summary->hours,
+            summary->minutes,
+            summary->seconds
+        ),
+        255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2)
+    );
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(buffer, sizeof(buffer),
+        loc::gettext("{savebox_n_trinkets|wordy}"),
+        "savebox_n_trinkets:int",
+        summary->trinkets
+    );
+    font::print(PR_RIGHT, 262, 132 - 20 + offset, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+
+    graphics.draw_sprite(34, 126 - 20 + offset, 50, graphics.col_clock);
+    graphics.draw_sprite(270, 126 - 20 + offset, 22, graphics.col_trinket);
+}
+
 static void menurender(void)
 {
 
@@ -204,7 +239,13 @@ static void menurender(void)
     {
     case Menu::mainmenu:
     {
-        const int temp = 50;
+        int temp = 50;
+
+        if (key.using_touch)
+        {
+            temp = 38;
+        }
+
         graphics.draw_sprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.draw_sprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
         graphics.draw_sprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
@@ -302,64 +343,72 @@ static void menurender(void)
         break;
     case Menu::gameplayoptions:
     {
-        int gameplayoptionsoffset = 0;
-#if !defined(MAKEANDPLAY)
-        if (game.ingame_titlemode && game.unlock[Unlock_FLIPMODE])
-#endif
+        if (key.using_touch)
         {
-            gameplayoptionsoffset = 1;
-            if (game.currentmenuoption == 0) {
-                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Flip Mode"), tr, tg, tb);
-                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Flip the entire game vertically."), tr, tg, tb);
-                if (graphics.setflipmode)
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Gameplay Options"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Adjust various gameplay settings."), tr, tg, tb);
+        }
+        else
+        {
+            int gameplayoptionsoffset = 0;
+#if !defined(MAKEANDPLAY)
+            if (game.ingame_titlemode && game.unlock[Unlock_FLIPMODE])
+#endif
+            {
+                gameplayoptionsoffset = 1;
+                if (game.currentmenuoption == 0) {
+                    font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Flip Mode"), tr, tg, tb);
+                    int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Flip the entire game vertically."), tr, tg, tb);
+                    if (graphics.setflipmode)
+                    {
+                        font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Currently ENABLED!"), tr, tg, tb);
+                    }
+                    else
+                    {
+                        font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Currently Disabled."), tr / 2, tg / 2, tb / 2);
+                    }
+                }
+            }
+
+            if (game.currentmenuoption == gameplayoptionsoffset + 0)
+            {
+                //Toggle FPS
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Toggle 30+ FPS"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change whether the game runs at 30 or over 30 FPS."), tr, tg, tb);
+
+                if (!game.over30mode)
                 {
-                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Currently ENABLED!"), tr, tg, tb);
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: 30 FPS"), tr / 2, tg / 2, tb / 2);
                 }
                 else
                 {
-                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2);
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: Over 30 FPS"), tr, tg, tb);
                 }
+                break;
             }
-        }
-
-        if (game.currentmenuoption == gameplayoptionsoffset + 0)
-        {
-            //Toggle FPS
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Toggle 30+ FPS"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change whether the game runs at 30 or over 30 FPS."), tr, tg, tb);
-
-            if (!game.over30mode)
+            else if (game.currentmenuoption == gameplayoptionsoffset + 1)
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: 30 FPS"), tr/2, tg/2, tb/2);
+                //Speedrunner options
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Speedrunner Options"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Access some advanced settings that might be of interest to speedrunners."), tr, tg, tb);
             }
-            else
+            else if (game.currentmenuoption == gameplayoptionsoffset + 2)
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: Over 30 FPS"), tr, tg, tb);
+                //Advanced options
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Advanced Options"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("All other gameplay settings."), tr, tg, tb);
             }
-            break;
-        }
-        else if (game.currentmenuoption == gameplayoptionsoffset + 1)
-        {
-            //Speedrunner options
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Speedrunner Options"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Access some advanced settings that might be of interest to speedrunners."), tr, tg, tb);
-        }
-        else if (game.currentmenuoption == gameplayoptionsoffset + 2)
-        {
-            //Advanced options
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Advanced Options"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("All other gameplay settings."), tr, tg, tb);
-        }
-        else if (game.currentmenuoption == gameplayoptionsoffset + 3)
-        {
-            //Clear Data
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Clear Data"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Delete your main game save data and unlocked play modes."), tr, tg, tb);
-        }
-        else if (game.currentmenuoption == gameplayoptionsoffset + 4)
-        {
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Clear Data"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Delete your custom level save data and completion stars."), tr, tg, tb);
+            else if (game.currentmenuoption == gameplayoptionsoffset + 3)
+            {
+                //Clear Data
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Clear Data"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Delete your main game save data and unlocked play modes."), tr, tg, tb);
+            }
+            else if (game.currentmenuoption == gameplayoptionsoffset + 4)
+            {
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Clear Data"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Delete your custom level save data and completion stars."), tr, tg, tb);
+            }
         }
 
         break;
@@ -391,139 +440,166 @@ static void menurender(void)
             font::print_wrap(PR_CEN, -1, 65, loc::gettext("Rebind your controller's buttons and adjust sensitivity."), tr, tg, tb);
             break;
         case 4:
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Touch Input"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change touch input options."), tr, tg, tb);
+            break;
+        case 5:
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Accessibility"), tr, tg, tb);
             font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disable screen effects, enable slowdown modes or invincibility."), tr, tg, tb);
             break;
-        case 5:
+        case 6:
             font::print(PR_2X | PR_CEN,  -1, 30, loc::gettext("Language"), tr, tg, tb);
             font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the language."), tr, tg, tb);
         }
         break;
     case Menu::graphicoptions:
     {
-        int offset = 0;
-        if (game.currentmenuoption == offset + 0 && !gameScreen.isForcedFullscreen())
+        if (key.using_touch)
         {
-            font::print(PR_2X | PR_CEN,  -1, 30, loc::gettext("Toggle Fullscreen"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change to fullscreen/windowed mode."), tr, tg, tb);
-
-            if (gameScreen.isWindowed)
-            {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: WINDOWED"), tr, tg, tb);
-            }
-            else
-            {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: FULLSCREEN"), tr, tg, tb);
-            }
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Graphics Options"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Adjust screen settings."), tr, tg, tb);
         }
-
-        if (gameScreen.isForcedFullscreen())
+        else
         {
-            --offset;
-        }
-
-        if (game.currentmenuoption == offset + 1)
-        {
-            font::print(PR_2X | PR_CEN,  -1, 30, loc::gettext("Scaling Mode"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Choose letterbox/stretch/integer mode."), tr, tg, tb);
-
-            switch (gameScreen.scalingMode)
+            int offset = 0;
+            if (game.currentmenuoption == offset + 0 && !gameScreen.isForcedFullscreen())
             {
-            case SCALING_INTEGER:
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: INTEGER"), tr, tg, tb);
-                break;
-            case SCALING_STRETCH:
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: STRETCH"), tr, tg, tb);
-                break;
-            case SCALING_LETTERBOX:
-            default:
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: LETTERBOX"), tr, tg, tb);
-                break;
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Toggle Fullscreen"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change to fullscreen/windowed mode."), tr, tg, tb);
+
+                if (gameScreen.isWindowed)
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: WINDOWED"), tr, tg, tb);
+                }
+                else
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: FULLSCREEN"), tr, tg, tb);
+                }
             }
-        }
-        if (game.currentmenuoption == offset + 2 && !gameScreen.isForcedFullscreen())
-        {
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Resize to Nearest"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Resize to the nearest window size that is of an integer multiple."), tr, tg, tb);
-            if (!gameScreen.isWindowed)
-            {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("You must be in windowed mode to use this option."), tr, tg, tb);
-            }
-        }
-        if (gameScreen.isForcedFullscreen())
-        {
-            --offset;
-        }
-        if (game.currentmenuoption == offset + 3)
-        {
-            font::print(PR_2X | PR_CEN,  -1, 30, loc::gettext("Toggle Filter"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change to nearest/linear filter."), tr, tg, tb);
 
-            if (gameScreen.isFiltered)
+            if (gameScreen.isForcedFullscreen())
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: LINEAR"), tr, tg, tb);
+                --offset;
             }
-            else
-            {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: NEAREST"), tr, tg, tb);
-            }
-        }
 
-        if (game.currentmenuoption == offset + 4)
-        {
-            font::print(PR_2X | PR_CEN,  -1, 30, loc::gettext("Analogue Mode"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("There is nothing wrong with your television set. Do not attempt to adjust the picture."), tr, tg, tb);
-        }
-        if (game.currentmenuoption == offset + 5)
-        {
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Toggle VSync"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Turn VSync on or off."), tr, tg, tb);
+            if (game.currentmenuoption == offset + 1)
+            {
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Scaling Mode"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Choose letterbox/stretch/integer mode."), tr, tg, tb);
 
-            if (!gameScreen.vsync)
-            {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: VSYNC OFF"), tr/2, tg/2, tb/2);
+                switch (gameScreen.scalingMode)
+                {
+                case SCALING_INTEGER:
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: INTEGER"), tr, tg, tb);
+                    break;
+                case SCALING_STRETCH:
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: STRETCH"), tr, tg, tb);
+                    break;
+                case SCALING_LETTERBOX:
+                default:
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: LETTERBOX"), tr, tg, tb);
+                    break;
+                }
             }
-            else
+            if (game.currentmenuoption == offset + 2 && !gameScreen.isForcedFullscreen())
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: VSYNC ON"), tr, tg, tb);
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Resize to Nearest"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Resize to the nearest window size that is of an integer multiple."), tr, tg, tb);
+                if (!gameScreen.isWindowed)
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("You must be in windowed mode to use this option."), tr, tg, tb);
+                }
+            }
+            if (gameScreen.isForcedFullscreen())
+            {
+                --offset;
+            }
+            if (game.currentmenuoption == offset + 3)
+            {
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Toggle Filter"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change to nearest/linear filter."), tr, tg, tb);
+
+                if (gameScreen.isFiltered)
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: LINEAR"), tr, tg, tb);
+                }
+                else
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: NEAREST"), tr, tg, tb);
+                }
+            }
+
+            if (game.currentmenuoption == offset + 4)
+            {
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Analogue Mode"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("There is nothing wrong with your television set. Do not attempt to adjust the picture."), tr, tg, tb);
+            }
+            if (game.currentmenuoption == offset + 5)
+            {
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Toggle VSync"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Turn VSync on or off."), tr, tg, tb);
+
+                if (!gameScreen.vsync)
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: VSYNC OFF"), tr / 2, tg / 2, tb / 2);
+                }
+                else
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Current mode: VSYNC ON"), tr, tg, tb);
+                }
             }
         }
         break;
     }
     case Menu::audiooptions:
-        switch (game.currentmenuoption)
+        if (key.using_touch)
         {
-        case 0:
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Music Volume"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the volume of the music."), tr, tg, tb);
-            volumesliderrender();
-            break;
-        case 1:
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Sound Volume"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the volume of sound effects."), tr, tg, tb);
-            volumesliderrender();
-            break;
-        case 2:
-        {
-            if (!music.mmmmmm)
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Audio Options"), tr, tg, tb);
+            if (music.mmmmmm)
             {
-                break;
-            }
-
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Soundtrack"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Toggle between MMMMMM and PPPPPP."), tr, tg, tb);
-
-            const char* soundtrack;
-            if (music.usingmmmmmm)
-            {
-                soundtrack = loc::gettext("Current soundtrack: MMMMMM");
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Adjust volume settings and soundtrack."), tr, tg, tb);
             }
             else
             {
-                soundtrack = loc::gettext("Current soundtrack: PPPPPP");
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Adjust volume settings."), tr, tg, tb);
             }
-            font::print_wrap(PR_CEN, -1, next_y, soundtrack, tr, tg, tb);
-            break;
+        }
+        else
+        {
+            switch (game.currentmenuoption)
+            {
+            case 0:
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Music Volume"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the volume of the music."), tr, tg, tb);
+                volumesliderrender();
+                break;
+            case 1:
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Sound Volume"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the volume of sound effects."), tr, tg, tb);
+                volumesliderrender();
+                break;
+            case 2:
+            {
+                if (!music.mmmmmm)
+                {
+                    break;
+                }
+
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Soundtrack"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Toggle between MMMMMM and PPPPPP."), tr, tg, tb);
+
+                const char* soundtrack;
+                if (music.usingmmmmmm)
+                {
+                    soundtrack = loc::gettext("Current soundtrack: MMMMMM");
+                }
+                else
+                {
+                    soundtrack = loc::gettext("Current soundtrack: PPPPPP");
+                }
+                font::print_wrap(PR_CEN, -1, next_y, soundtrack, tr, tg, tb);
+                break;
+            }
         }
 
         }
@@ -763,6 +839,59 @@ static void menurender(void)
 
         break;
     }
+    case Menu::touch_input:
+    {
+        if (key.using_touch)
+        {
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Touch Input"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change touch input options."), tr, tg, tb);
+
+            font::print(PR_CEN, -1, 128, loc::gettext("Current style:"), tr, tg, tb);
+            switch (touch::style)
+            {
+            case 0:
+                font::print(PR_CEN, -1, 138, loc::gettext("SWIPE"), tr, tg, tb);
+                break;
+            case 1:
+                font::print(PR_CEN, -1, 138, loc::gettext("D-PAD"), tr, tg, tb);
+                break;
+            }
+        }
+        else
+        {
+            switch (game.currentmenuoption)
+            {
+            case 0: // Control style
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Control Style"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the control style for touch input."), tr, tg, tb);
+
+                font::print(PR_CEN, -1, 88, loc::gettext("Current style:"), tr, tg, tb);
+                switch (touch::style)
+                {
+                case 0:
+                    font::print(PR_CEN, -1, 98, loc::gettext("SWIPE"), tr, tg, tb);
+                    break;
+                case 1:
+                    font::print(PR_CEN, -1, 98, loc::gettext("D-PAD"), tr, tg, tb);
+                    break;
+                }
+                break;
+            case 1:
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("UI Scale"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the scale of the UI buttons."), tr, tg, tb);
+
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                float scale = (float) touch::scale / 10.0;
+                vformat_buf(buffer, sizeof(buffer), loc::gettext("Current scale: {scale}.{extra}x"), "scale:int, extra:int",
+                    (int)scale,
+                    (int)((float)((float)scale - (int)scale) * 10)
+                );
+                font::print(PR_CEN, -1, 75, buffer, tr, tg, tb);
+                break;
+            }
+        }
+    }
+    break;
     case Menu::language:
         if (loc::languagelist.empty())
         {
@@ -771,22 +900,25 @@ static void menurender(void)
         else if ((unsigned)game.currentmenuoption < loc::languagelist.size())
         {
             font::print_wrap(PR_CEN, -1, 8, loc::languagelist[game.currentmenuoption].credit.c_str(), tr/2, tg/2, tb/2);
-            const char* select_hint;
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            if (BUTTONGLYPHS_keyboard_is_active())
+            if (!key.using_touch)
             {
-                select_hint = loc::languagelist[game.currentmenuoption].action_hint.c_str();
+                const char* select_hint;
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                if (BUTTONGLYPHS_keyboard_is_active())
+                {
+                    select_hint = loc::languagelist[game.currentmenuoption].action_hint.c_str();
+                }
+                else
+                {
+                    vformat_buf(buffer, sizeof(buffer),
+                        loc::languagelist[game.currentmenuoption].gamepad_hint.c_str(),
+                        "button:but",
+                        vformat_button(ActionSet_Menu, Action_Menu_Accept)
+                    );
+                    select_hint = buffer;
+                }
+                font::print(PR_CEN, -1, 230, select_hint, tr / 2, tg / 2, tb / 2);
             }
-            else
-            {
-                vformat_buf(buffer, sizeof(buffer),
-                    loc::languagelist[game.currentmenuoption].gamepad_hint.c_str(),
-                    "button:but",
-                    vformat_button(ActionSet_Menu, Action_Menu_Accept)
-                );
-                select_hint = buffer;
-            }
-            font::print(PR_CEN, -1, 230, select_hint, tr/2, tg/2, tb/2);
         }
         break;
     case Menu::translator_main:
@@ -1166,89 +1298,97 @@ static void menurender(void)
         break;
     case Menu::accessibility:
     {
+        if (key.using_touch)
+        {
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Accessibility"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disable screen effects, enable slowdown modes or invincibility."), tr, tg, tb);
+        }
+        else
+        {
 #ifdef MAKEANDPLAY
  #define OFFSET 0
 #else
  #define OFFSET 1
 #endif
 
-        switch (game.currentmenuoption)
-        {
+            switch (game.currentmenuoption)
+            {
 #if !defined(MAKEANDPLAY)
-        case 0:
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Unlock Play Modes"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Unlock parts of the game normally unlocked as you progress."), tr, tg, tb);
-            break;
+            case 0:
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Unlock Play Modes"), tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 65, loc::gettext("Unlock parts of the game normally unlocked as you progress."), tr, tg, tb);
+                break;
 #endif
-        case OFFSET+0:
-        {
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Invincibility"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Explore the game freely without dying. (Can cause glitches.)"), tr, tg, tb);
-            if (map.invincibility)
+            case OFFSET + 0:
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Invincibility is ON."), tr, tg, tb);
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Invincibility"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Explore the game freely without dying. (Can cause glitches.)"), tr, tg, tb);
+                if (map.invincibility)
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Invincibility is ON."), tr, tg, tb);
+                }
+                else
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Invincibility is OFF."), tr / 2, tg / 2, tb / 2);
+                }
+                break;
             }
-            else
+            case OFFSET + 1:
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Invincibility is OFF."), tr / 2, tg / 2, tb / 2);
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Slowdown"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Reduce the game speed."), tr, tg, tb);
+                drawslowdowntext(next_y);
+                break;
             }
-            break;
-        }
-        case OFFSET+1:
-        {
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Slowdown"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Reduce the game speed."), tr, tg, tb);
-            drawslowdowntext(next_y);
-            break;
-        }
-        case OFFSET+2:
-        {
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Backgrounds"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disable animated backgrounds in menus and during gameplay."), tr, tg, tb);
-            if (!game.colourblindmode)
+            case OFFSET + 2:
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Backgrounds are ON."), tr, tg, tb);
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Backgrounds"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disable animated backgrounds in menus and during gameplay."), tr, tg, tb);
+                if (!game.colourblindmode)
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Backgrounds are ON."), tr, tg, tb);
+                }
+                else
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Backgrounds are OFF."), tr / 2, tg / 2, tb / 2);
+                }
+                break;
             }
-            else
+            case OFFSET + 3:
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Backgrounds are OFF."), tr / 2, tg / 2, tb / 2);
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Screen Effects"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disables screen shakes and flashes."), tr, tg, tb);
+                if (!game.noflashingmode)
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Screen Effects are ON."), tr, tg, tb);
+                }
+                else
+                {
+                    font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Screen Effects are OFF."), tr / 2, tg / 2, tb / 2);
+                }
+                break;
             }
-            break;
-        }
-        case OFFSET+3:
-        {
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Screen Effects"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disables screen shakes and flashes."), tr, tg, tb);
-            if (!game.noflashingmode)
+            case OFFSET + 4:
             {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Screen Effects are ON."), tr, tg, tb);
-            }
-            else
-            {
-                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Screen Effects are OFF."), tr / 2, tg / 2, tb / 2);
-            }
-            break;
-        }
-        case OFFSET+4:
-        {
-            const char* text;
+                const char* text;
 
-            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Text Outline"), tr, tg, tb);
-            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disables outline on game text."), tr, tg, tb);
+                font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Text Outline"), tr, tg, tb);
+                int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disables outline on game text."), tr, tg, tb);
 
-            graphics.fill_rect(0, next_y-4, 320, 16, tr, tg, tb);
+                graphics.fill_rect(0, next_y - 4, 320, 16, tr, tg, tb);
 
-            if (!graphics.notextoutline)
-            {
-                text = loc::gettext("Text outlines are ON.");
+                if (!graphics.notextoutline)
+                {
+                    text = loc::gettext("Text outlines are ON.");
+                }
+                else
+                {
+                    text = loc::gettext("Text outlines are OFF.");
+                }
+
+                font::print(PR_BOR | PR_CEN, -1, next_y, text, 255, 255, 255);
+                break;
             }
-            else
-            {
-                text = loc::gettext("Text outlines are OFF.");
-            }
-
-            font::print(PR_BOR | PR_CEN, -1, next_y, text, 255, 255, 255);
-            break;
         }
 
         }
@@ -1330,52 +1470,37 @@ static void menurender(void)
     {
         const char* title = NULL;
         struct Game::Summary* summary = NULL;
+        struct Game::Summary* telesummary = &game.last_telesave;
+        struct Game::Summary* quicksummary = &game.last_quicksave;
 
         switch (game.currentmenuoption)
         {
         case 0:
             title = loc::gettext("Tele Save");
-            summary = &game.last_telesave;
+            summary = telesummary;
             break;
         case 1:
             title = loc::gettext("Quick Save");
-            summary = &game.last_quicksave;
+            summary = quicksummary;
             break;
         }
 
-        if (summary != NULL)
+        if (key.using_touch)
         {
-            graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
+            dont_render_buttons = true;
+            touch::render_buttons(tr, tg, tb, true);
 
+            draw_summary(telesummary, -32 + 6);
+            draw_summary(quicksummary, 64 + 6);
+
+            font::print(PR_CEN | PR_BOR, -1, 32 - 16 + 2, loc::gettext("Tele Save"), 196, 196, 255 - help.glow);
+            font::print(PR_CEN | PR_BOR, -1, 128 - 16 + 2, loc::gettext("Quick Save"), 196, 196, 255 - help.glow);
+        }
+        else if (summary != NULL)
+        {
+            graphics.drawpixeltextbox(17, 65 - 20, 286, 90, 65, 185, 207);
             font::print(PR_2X | PR_CEN, -1, 20, title, tr, tg, tb);
-            font::print(
-                PR_CEN, -1, 80-20,
-                loc::gettext_roomname_special(map.currentarea(summary->saverx, summary->savery)),
-                25, 255 - (help.glow / 2), 255 - (help.glow / 2)
-            );
-            for (int i = 0; i < 6; i++)
-            {
-                graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, summary->crewstats[i], true);
-            }
-            font::print(
-                0, 59, 132-20,
-                game.giventimestring(
-                    summary->hours,
-                    summary->minutes,
-                    summary->seconds
-                ),
-                255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2)
-            );
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(buffer, sizeof(buffer),
-                loc::gettext("{savebox_n_trinkets|wordy}"),
-                "savebox_n_trinkets:int",
-                summary->trinkets
-            );
-            font::print(PR_RIGHT, 262, 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-
-            graphics.draw_sprite(34, 126-20, 50, graphics.col_clock);
-            graphics.draw_sprite(270, 126-20, 22, graphics.col_trinket);
+            draw_summary(summary, 0);
         }
         break;
     }
@@ -1867,6 +1992,7 @@ static void menurender(void)
 
 void titlerender(void)
 {
+    dont_render_buttons = false;
     graphics.clear();
     if (!game.menustart)
     {
@@ -1917,7 +2043,18 @@ void titlerender(void)
         if(tg>255) tg=255;
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
-        graphics.drawmenu(tr, tg, tb, game.currentmenuname);
+
+        if (key.using_touch)
+        {
+            if (!dont_render_buttons)
+            {
+                touch::render_buttons(tr, tg, tb);
+            }
+        }
+        else
+        {
+            graphics.drawmenu(tr, tg, tb, game.currentmenuname);
+        }
     }
 
     graphics.drawfade();
@@ -2460,12 +2597,19 @@ void gamerender(void)
     if (game.advancetext)
     {
         char buffer_adv[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(
-            buffer_adv, sizeof(buffer_adv),
-            loc::gettext("- Press {button} to advance text -"),
-            "button:but",
-            vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-        );
+        if (key.using_touch)
+        {
+            SDL_strlcpy(buffer_adv, loc::gettext("- Tap screen to advance text -"), sizeof(buffer_adv));
+        }
+        else
+        {
+            vformat_buf(
+                buffer_adv, sizeof(buffer_adv),
+                loc::gettext("- Press {button} to advance text -"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+            );
+        }
 
         font::print(PR_CEN | PR_BOR, -1, graphics.flipmode ? 228 : 5, buffer_adv, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
@@ -3099,14 +3243,17 @@ void maprender(void)
         }
         else if (obj.flags[67] && !map.custommode)
         {
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(
-                buffer, sizeof(buffer),
-                loc::gettext("Press {button} to warp to the ship."),
-                "button:but",
-                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-            );
-            font::print_wrap(PR_CEN, -1, 105, buffer, 196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                vformat_buf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("Press {button} to warp to the ship."),
+                    "button:but",
+                    vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+                );
+                font::print_wrap(PR_CEN, -1, 105, buffer, 196, 196, 255 - help.glow);
+            }
         }
         else if(map.custommode){
             LevelMetaData& meta = cl.ListOfMetaData[game.playcustomlevel];
@@ -3255,7 +3402,7 @@ void maprender(void)
 
         /* We are not in a special case, so draw the save screen now... */
 
-        if (!map.custommode)
+        if (!map.custommode && ((!game.gamesaved && key.using_touch) || !key.using_touch))
         {
             /* FIXME: The text here should be automatically "balance-wrapped" instead of hardcoding the width.
              * In fact, maybe print_wrap should balance-wrap by default. */
@@ -3265,21 +3412,24 @@ void maprender(void)
         if (!game.gamesaved)
         {
             char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(
-                buffer, sizeof(buffer),
-                loc::gettext("[Press {button} to save your game]"),
-                "button:but",
-                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-            );
+            if (!key.using_touch)
+            {
+                vformat_buf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("[Press {button} to save your game]"),
+                    "button:but",
+                    vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+                );
 
-            font::print(PR_CEN, -1, 80, buffer, 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
+                font::print(PR_CEN, -1, 80, buffer, 255 - help.glow * 2, 255 - help.glow * 2, 255 - help.glow);
+            }
 
             if (map.custommode || !game.last_quicksave.exists)
             {
                 break;
             }
 
-            font::print(PR_CEN, -1, FLIP(100, 8), loc::gettext("Last Save:"), 164 - help.glow/4, 164 - help.glow/4, 164);
+            font::print(PR_CEN, -1, FLIP((key.using_touch ? 40 : 100), 8), loc::gettext("Last Save:"), 164 - help.glow / 4, 164 - help.glow / 4, 164);
 
             struct Game::Summary* last = &game.last_quicksave;
             vformat_buf(
@@ -3290,7 +3440,7 @@ void maprender(void)
                 game.giventimestring(last->hours, last->minutes, last->seconds).c_str()
             );
 
-            font::print(PR_CEN, -1, FLIP(112, 8), buffer, 164 - help.glow/4, 164 - help.glow/4, 164);
+            font::print(PR_CEN, -1, FLIP((key.using_touch ? 52 : 112), 8), buffer, 164 - help.glow/4, 164 - help.glow/4, 164);
             break;
         }
 
@@ -3355,8 +3505,11 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(PR_RTL_XFLIP, 80-selection_offset, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(PR_RTL_XFLIP, 80 + 32, 76, loc::gettext("yes, quit to menu"),  96, 96, 96);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80 - selection_offset, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+                font::print(PR_RTL_XFLIP, 80 + 32, 76, loc::gettext("yes, quit to menu"), 96, 96, 96);
+            }
         }
         else
         {
@@ -3370,8 +3523,11 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(PR_RTL_XFLIP, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, quit to menu"),  96, 96, 96);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80 - selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+                font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, quit to menu"), 96, 96, 96);
+            }
 
         }
         break;
@@ -3389,8 +3545,11 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(PR_RTL_XFLIP, 80, 88, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(PR_RTL_XFLIP, 80+32-selection_offset, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80, 88, loc::gettext("no, keep playing"), 96, 96, 96);
+                font::print(PR_RTL_XFLIP, 80 + 32 - selection_offset, 76, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            }
         }
         else
         {
@@ -3403,8 +3562,11 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(PR_RTL_XFLIP, 80+32-selection_offset, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
+                font::print(PR_RTL_XFLIP, 80 + 32 - selection_offset, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            }
         }
         break;
     case 20:
@@ -3413,14 +3575,20 @@ void maprender(void)
         if (graphics.flipmode)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(PR_RTL_XFLIP, 80-selection_offset, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(PR_RTL_XFLIP, 80 + 32, 130, loc::gettext("yes, return"),  96, 96, 96);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80 - selection_offset, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+                font::print(PR_RTL_XFLIP, 80 + 32, 130, loc::gettext("yes, return"), 96, 96, 96);
+            }
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(PR_RTL_XFLIP, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, return"),  96, 96, 96);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80 - selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+                font::print(PR_RTL_XFLIP, 80 + 32, 142, loc::gettext("yes, return"), 96, 96, 96);
+            }
         }
 
         break;
@@ -3430,17 +3598,25 @@ void maprender(void)
         if (graphics.flipmode)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(PR_RTL_XFLIP, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(PR_RTL_XFLIP, 80 + 32-selection_offset, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
+                font::print(PR_RTL_XFLIP, 80 + 32 - selection_offset, 130, loc::gettext("[ YES, RETURN ]"), 196, 196, 255 - help.glow);
+            }
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(PR_RTL_XFLIP, 80 + 32-selection_offset, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            if (!key.using_touch)
+            {
+                font::print(PR_RTL_XFLIP, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
+                font::print(PR_RTL_XFLIP, 80 + 32 - selection_offset, 142, loc::gettext("[ YES, RETURN ]"), 196, 196, 255 - help.glow);
+            }
         }
 
     }
+
+    touch::render_buttons();
 
     graphics.set_render_target(graphics.gameTexture);
 
@@ -3535,12 +3711,19 @@ void teleporterrender(void)
     if (game.advancetext)
     {
         char buffer_adv[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(
-            buffer_adv, sizeof(buffer_adv),
-            loc::gettext("- Press {button} to advance text -"),
-            "button:but",
-            vformat_button(ActionSet_InGame, Action_InGame_ACTION)
-        );
+        if (key.using_touch)
+        {
+            SDL_strlcpy(buffer_adv, loc::gettext("- Tap screen to advance text -"), sizeof(buffer_adv));
+        }
+        else
+        {
+            vformat_buf(
+                buffer_adv, sizeof(buffer_adv),
+                loc::gettext("- Press {button} to advance text -"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+            );
+        }
 
         font::print(PR_CEN | PR_BOR, -1, graphics.flipmode ? 228 : 5, buffer_adv, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
