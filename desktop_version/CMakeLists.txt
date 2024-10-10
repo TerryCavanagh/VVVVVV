@@ -280,17 +280,15 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     target_compile_options(VVVVVV PRIVATE -Wno-c99-extensions)
 endif()
 
+# Set standards version, disable exceptions and RTTI
 if(MSVC)
     # MSVC doesn't have /std:c99 or /std:c++98 switches!
 
     # MSVC does not officially support disabling exceptions,
     # so this is as far as we are willing to go to disable them.
     string(REGEX REPLACE "/EH[a-z]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS /EHsc)
-
-    # Disable RTTI
     string(REPLACE "/GR" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS /GR-)
+    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS "/EHsc /GR-")
 
     if(MSVC_VERSION GREATER 1900)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8")
@@ -301,15 +299,9 @@ else()
     set_source_files_properties(${VVV_C_SRC} PROPERTIES COMPILE_FLAGS -std=c99)
 
     string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS -std=c++98)
-
-    # Disable exceptions
     string(REPLACE "-fexceptions" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS -fno-exceptions)
-
-    # Disable RTTI
     string(REPLACE "-frtti" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS -fno-rtti)
+    set_source_files_properties(${VVV_CXX_SRC} PROPERTIES COMPILE_FLAGS "-std=c++98 -fno-exceptions -fno-rtti")
 
     # Dependencies (as needed)
     set_source_files_properties(${FAUDIO_SRC} PROPERTIES COMPILE_FLAGS -std=c99)
