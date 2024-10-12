@@ -35,10 +35,13 @@ void
 retro_set_environment(retro_environment_t cb)
 {
     static struct retro_log_callback log;
+    bool no_game = true;
 
     environ_cb = cb;
     if (environ_cb(RETRO_ENVIRONMENT_GET_LOG_INTERFACE, &log))
         log_cb = log.log;
+
+    environ_cb(RETRO_ENVIRONMENT_SET_SUPPORT_NO_GAME, &no_game);
 }
 
 void
@@ -97,10 +100,8 @@ retro_get_system_av_info(struct retro_system_av_info* info)
 void
 retro_init(void)
 {
-    bool yes = true;
     enum retro_pixel_format pixfmt = RETRO_PIXEL_FORMAT_XRGB8888;
     environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &pixfmt);
-    environ_cb(RETRO_ENVIRONMENT_SET_SUPPORT_NO_GAME, &yes);
 }
 
 
