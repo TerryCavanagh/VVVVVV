@@ -77,7 +77,7 @@ retro_get_system_info(struct retro_system_info* info)
     info->valid_extensions = "zip";
     info->library_version = "0.1";
     info->library_name = "vvvvvv";
-    info->block_extract = false;
+    info->block_extract = true;
 }
 
 void
@@ -135,7 +135,7 @@ retro_load_game(const struct retro_game_info* game)
         chdir(systemdir);
         chdir("vvvvvv");
     } else {
-        chdir(game->path);
+        chdir(dirname(SDL_strdup(game->path)));
     }
 
     game_thread = SDL_CreateThread(game_main, "VVVVVV", NULL);
