@@ -63,6 +63,9 @@ void Screen::init(const struct ScreenSettings* settings)
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 
     if (m_renderer == NULL)
+        m_renderer = SDL_CreateRenderer(m_window, -1, 0);
+
+    if (m_renderer == NULL)
     {
         vlog_error("Could not create renderer: %s", SDL_GetError());
         VVV_exit(1);
