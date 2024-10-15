@@ -372,7 +372,7 @@ float SoundTrack::volume = 0.0f;
 class MusicTrack
 {
 public:
-    MusicTrack(SDL_RWops *rw)
+    MusicTrack(SDL_RWops *rw, const char* name, bool loose_extra)
     {
         SDL_zerop(this);
         read_buf = (Uint8*) SDL_malloc(rw->size(rw));
@@ -380,6 +380,8 @@ public:
         int err;
         stb_vorbis_info vorbis_info;
         stb_vorbis_comment vorbis_comment;
+        filename = SDL_strdup(name);
+        looseextra = loose_extra;
         vorbis = stb_vorbis_open_memory(read_buf, rw->size(rw), &err, NULL);
         if (vorbis == NULL)
         {
@@ -526,6 +528,8 @@ end:
     Uint8* decoded_buf_playing;
     Uint8* decoded_buf_reserve;
     Uint8* read_buf;
+    const char* filename;
+    bool looseextra;
     bool shouldloop;
     bool valid;
 
@@ -809,7 +813,7 @@ void musicclass::init(void)
         } \
         else \
         { \
-            musicTracks.push_back(MusicTrack(rw)); \
+            musicTracks.push_back(MusicTrack(rw, track_name, false)); \
         } \
     }
 
@@ -833,7 +837,7 @@ void musicclass::init(void)
     } \
     else \
     { \
-        musicTracks.push_back(MusicTrack(rw)); \
+        musicTracks.push_back(MusicTrack(rw, track_name, false)); \
     }
 
             TRACK_NAMES(_)
@@ -859,7 +863,7 @@ void musicclass::init(void)
         while (mmmmmm_blob.nextExtra(&index_))
         {
             rw = SDL_RWFromConstMem(mmmmmm_blob.getAddress(index_), mmmmmm_blob.getSize(index_));
-            musicTracks.push_back(MusicTrack( rw ));
+            musicTracks.push_back(MusicTrack( rw, mmmmmm_blob.m_headers[index_].name, false));
 
             num_mmmmmm_tracks++;
             index_++;
@@ -881,11 +885,53 @@ void musicclass::init(void)
     while (pppppp_blob.nextExtra(&index_))
     {
         rw = SDL_RWFromConstMem(pppppp_blob.getAddress(index_), pppppp_blob.getSize(index_));
-        musicTracks.push_back(MusicTrack( rw ));
+        musicTracks.push_back(MusicTrack( rw, pppppp_blob.m_headers[index_].name, false));
 
         num_pppppp_tracks++;
         index_++;
     }
+
+    EnumHandle handle = {};
+    const char* item;
+    while ((item = FILESYSTEM_enumerateAssets("music", &handle)) != NULL)
+    {
+        char name[256];
+        char id[256];
+        SDL_snprintf(name, sizeof(name), "music/%s", item);
+
+        // We need an ID, so chop off the extension
+        SDL_strlcpy(id, item, sizeof(id));
+        char* dot = SDL_strrchr(id, '.');
+        if (dot != NULL)
+        {
+            *dot = '\0';
+        }
+
+        vlog_info("Reading loose music file %s as %s", item, id);
+
+        unsigned char* mem;
+        size_t len;
+        FILESYSTEM_loadAssetToMemory(name, &mem, &len);
+        if (mem == NULL)
+        {
+            vlog_error("Unable to read loose music file: %s", SDL_GetError());
+        }
+        else
+        {
+            rw = SDL_RWFromConstMem(mem, len);
+            if (rw == NULL)
+            {
+                vlog_error("Unable to read loose music file: %s", SDL_GetError());
+            }
+            else
+            {
+                musicTracks.push_back(MusicTrack(rw, id, true));
+                num_pppppp_tracks++;
+            }
+            VVV_free(mem);
+        }
+    }
+    FILESYSTEM_freeEnumerate(&handle);
 }
 
 void musicclass::destroy(void)
@@ -990,6 +1036,53 @@ void musicclass::play(int t)
             fadeMusicVolumeIn(3000);
         }
     }
+}
+
+void musicclass::playid(const char* id)
+{
+    for (size_t i = 0; i < musicTracks.size(); i++)
+    {
+        if (SDL_strcmp(musicTracks[i].filename, id) == 0)
+        {
+            play(i);
+            return;
+        }
+    }
+    vlog_error("playid() couldn't find music ID: %s", id);
+}
+
+bool musicclass::idexists(const char* id)
+{
+    for (size_t i = 0; i < musicTracks.size(); i++)
+    {
+        if (SDL_strcmp(musicTracks[i].filename, id) == 0)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool musicclass::isextra(int t)
+{
+    for (size_t i = 0; i < musicTracks.size(); i++)
+    {
+        if (musicTracks[i].looseextra)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+const char* musicclass::getid(int t)
+{
+    if (INBOUNDS_VEC(t, musicTracks))
+    {
+        return musicTracks[t].filename;
+    }
+    return "?";
 }
 
 void musicclass::resume(void)
