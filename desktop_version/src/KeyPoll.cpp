@@ -17,6 +17,7 @@
 #include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
+#include "Touch.h"
 #include "UTF8.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -63,6 +64,8 @@ KeyPoll::KeyPoll(void)
     linealreadyemptykludge = false;
 
     isActive = true;
+
+    using_touch = false;
 }
 
 void KeyPoll::enabletextentry(void)
@@ -219,6 +222,25 @@ bool cycle_language(bool should_recompute_textboxes)
     return should_recompute_textboxes;
 }
 
+static void remove_finger(int i)
+{
+    for (int j = 0; j < (int)touch::all_buttons.size(); j++)
+    {
+        if (touch::all_buttons[j]->fingerId == touch::fingers[i].id)
+        {
+            if (touch::all_buttons[j]->active && touch::all_buttons[j]->pressed && touch::all_buttons[j]->down)
+            {
+                touch::on_button_up(touch::all_buttons[j]);
+            }
+            touch::all_buttons[j]->down = false;
+            touch::all_buttons[j]->pressed = false;
+            touch::all_buttons[j]->fingerId = -1;
+        }
+    }
+
+    touch::fingers.erase(touch::fingers.begin() + i);
+}
+
 void KeyPoll::Poll(void)
 {
     static int raw_mousex = 0;
@@ -233,6 +255,14 @@ void KeyPoll::Poll(void)
     bool should_recompute_textboxes = false;
     bool active_input_device_changed = false;
     bool keyboard_was_active = BUTTONGLYPHS_keyboard_is_active();
+    int screen_width;
+    int screen_height;
+    gameScreen.GetScreenSize(&screen_width, &screen_height);
+
+    touch::reset();
+
+    pressed_android_back = false;
+
     while (SDL_PollEvent(&evt))
     {
         switch (evt.type)
@@ -245,6 +275,11 @@ void KeyPoll::Poll(void)
             if (evt.key.keysym.sym == SDLK_BACKSPACE)
             {
                 pressedbackspace = true;
+            }
+
+            if (evt.key.keysym.sym == SDLK_AC_BACK)
+            {
+                pressed_android_back = true;
             }
 
 #ifdef __APPLE__ /* OSX prefers the command keys over the alt keys. -flibit */
@@ -459,6 +494,61 @@ void KeyPoll::Poll(void)
             break;
         }
 
+        /* Touch Events */
+        case SDL_FINGERDOWN:
+        {
+            using_touch = true;
+
+            VVV_Finger finger;
+            finger.pressed = true;
+            finger.x = evt.tfinger.x * screen_width;
+            finger.y = evt.tfinger.y * screen_height;
+            finger.id = evt.tfinger.fingerId;
+            finger.on_button = false;
+            touch::fingers.push_back(finger);
+
+            raw_mousex = evt.tfinger.x * screen_width;
+            raw_mousey = evt.tfinger.y * screen_height;
+            leftbutton = 1;
+            break;
+        }
+        case SDL_FINGERMOTION:
+        {
+            using_touch = true;
+
+            for (int i = 0; i < (int) touch::fingers.size(); i++)
+            {
+                if (touch::fingers[i].id == evt.tfinger.fingerId)
+                {
+                    touch::fingers[i].x = evt.tfinger.x * screen_width;
+                    touch::fingers[i].y = evt.tfinger.y * screen_height;
+                    break;
+                }
+            }
+
+            raw_mousex = evt.tfinger.x * screen_width;
+            raw_mousey = evt.tfinger.y * screen_height;
+            break;
+        }
+        case SDL_FINGERUP:
+        {
+            using_touch = true;
+
+            for (int i = (int) touch::fingers.size() - 1; i >= 0; i--)
+            {
+                if (touch::fingers[i].id == evt.tfinger.fingerId)
+                {
+                    // Unpress any buttons that this finger may belong to
+                    remove_finger(i);
+                }
+            }
+
+            raw_mousex = evt.tfinger.x * screen_width;
+            raw_mousey = evt.tfinger.y * screen_height;
+            leftbutton = 0;
+            break;
+        }
+
         /* Window Events */
         case SDL_WINDOWEVENT:
             switch (evt.window.event)
@@ -540,6 +630,11 @@ void KeyPoll::Poll(void)
         switch (evt.type)
         {
         case SDL_KEYDOWN:
+            if (evt.key.keysym.sym != SDLK_AC_BACK)
+            {
+                using_touch = false;
+            }
+
             if (evt.key.repeat == 0)
             {
                 hidemouse = true;
@@ -548,6 +643,7 @@ void KeyPoll::Poll(void)
         case SDL_TEXTINPUT:
         case SDL_CONTROLLERBUTTONDOWN:
         case SDL_CONTROLLERAXISMOTION:
+            using_touch = false;
             hidemouse = true;
             break;
         case SDL_MOUSEMOTION:
@@ -580,6 +676,8 @@ void KeyPoll::Poll(void)
     {
         recomputetextboxes();
     }
+
+    touch::update_buttons();
 }
 
 bool KeyPoll::isDown(SDL_Keycode key)
