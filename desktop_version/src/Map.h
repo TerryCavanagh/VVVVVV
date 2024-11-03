@@ -213,7 +213,7 @@ public:
     int cursorstate, cursordelay;
 
     //Region system
-    struct regionstruct
+    struct Region
     {
         bool isvalid;
         int rx;
@@ -221,7 +221,7 @@ public:
         int rx2;
         int ry2;
     };
-    struct regionstruct region[401];
+    struct Region region[401];
     void setregion(int id, int rx, int ry, int rx2, int ry2);
     void removeregion(int id);
     void changeregion(int id);
