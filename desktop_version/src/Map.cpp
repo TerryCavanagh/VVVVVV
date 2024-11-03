@@ -2291,7 +2291,6 @@ MapRenderData mapclass::get_render_data(void)
 
 void mapclass::setregion(int id, int rx, int ry, int rx2, int ry2)
 {
-#if !defined(NO_CUSTOM_LEVELS)
     if (INBOUNDS_ARR(id, region))
     {
         region[id].isvalid = true;
@@ -2300,30 +2299,21 @@ void mapclass::setregion(int id, int rx, int ry, int rx2, int ry2)
         region[id].rx2 = SDL_clamp(rx2, 0, cl.mapwidth - 1);
         region[id].ry2 = SDL_clamp(ry2, 0, cl.mapheight - 1);
     }
-#endif
 }
 
 void mapclass::removeregion(int id)
 {
-#if !defined(NO_CUSTOM_LEVELS)
     if (INBOUNDS_ARR(id, region))
     {
-        region[id].isvalid = false;
-        region[id].rx = 0;
-        region[id].ry = 0;
-        region[id].rx2 = 0;
-        region[id].ry2 = 0;
+        SDL_zero(region[id]);
     }
-#endif
 }
 
 void mapclass::changeregion(int id)
 {
-#if !defined(NO_CUSTOM_LEVELS)
     if (INBOUNDS_ARR(id, region))
     {
         currentregion = id;
         cl.generatecustomminimap();
     }
-#endif
 }

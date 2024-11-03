@@ -5921,7 +5921,6 @@ void Game::customloadquick(const std::string& savfile)
         {
             map.currentregion = help.Int(pText);
         }
-#if !defined(NO_CUSTOM_LEVELS)
         else if (SDL_strcmp(pKey, "regions") == 0)
         {
             tinyxml2::XMLElement* pElem2;
@@ -5960,7 +5959,6 @@ void Game::customloadquick(const std::string& savfile)
                 map.setregion(thisid, thisrx, thisry, thisrx2, thisry2);
             }
         }
-#endif
     }
 }
 
