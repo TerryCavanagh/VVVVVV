@@ -43,6 +43,9 @@ textboxclass::textboxclass(int gap)
 
     image = TEXTIMAGE_NONE;
 
+    force_outline = false;
+    outline = false;
+
     crewmate_position = TextboxCrewmatePosition();
     original = TextboxOriginalContext();
     original.text_case = 1;

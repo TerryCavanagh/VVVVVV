@@ -929,13 +929,20 @@ void Graphics::drawgui(void)
             size_t j;
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                font::print(
-                    print_flags | PR_BOR,
-                    text_xp,
-                    yp + text_yoff + text_sign * (j * (font_height + textboxes[i].linegap)),
-                    textbox_line(buffer, sizeof(buffer), i, j),
-                    0, 0, 0
-                );
+                const int x = text_xp;
+                const int y = yp + text_yoff + text_sign * (j * (font_height + textboxes[i].linegap));
+                if (!textboxes[i].force_outline)
+                {
+                    font::print(print_flags | PR_BOR, x, y, textbox_line(buffer, sizeof(buffer), i, j), 0, 0, 0);
+                }
+                else if (textboxes[i].outline)
+                {
+                    // We're forcing an outline, so we'll have to draw it ourselves instead of relying on PR_BOR.
+                    font::print(print_flags, x - 1, y, textbox_line(buffer, sizeof(buffer), i, j), 0, 0, 0);
+                    font::print(print_flags, x + 1, y, textbox_line(buffer, sizeof(buffer), i, j), 0, 0, 0);
+                    font::print(print_flags, x, y - 1, textbox_line(buffer, sizeof(buffer), i, j), 0, 0, 0);
+                    font::print(print_flags, x, y + 1, textbox_line(buffer, sizeof(buffer), i, j), 0, 0, 0);
+                }
             }
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
@@ -1472,6 +1479,18 @@ void Graphics::setimage(TextboxImage image)
     }
 
     textboxes[m].setimage(image);
+}
+
+void Graphics::textboxoutline(bool enabled)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxoutline() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].force_outline = true;
+    textboxes[m].outline = enabled;
 }
 
 void Graphics::addline( const std::string& t )

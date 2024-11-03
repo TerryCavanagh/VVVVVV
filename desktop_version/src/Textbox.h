@@ -137,6 +137,9 @@ public:
     std::vector<TextboxSprite> sprites;
     TextboxImage image;
 
+    bool force_outline;
+    bool outline;
+
     TextboxCrewmatePosition crewmate_position;
     TextboxOriginalContext original;
     TextboxSpacing spacing;
