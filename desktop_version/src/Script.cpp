@@ -53,6 +53,7 @@ scriptclass::scriptclass(void)
     textlarge = false;
     textbox_sprites.clear();
     textbox_image = TEXTIMAGE_NONE;
+    textbox_forcepos = false;
 }
 
 void scriptclass::add_default_colours(void)
@@ -549,11 +550,13 @@ void scriptclass::run(void)
                 textcrewmateposition = TextboxCrewmatePosition();
                 textbox_sprites.clear();
                 textbox_image = TEXTIMAGE_NONE;
+                textbox_forcepos = false;
             }
             else if (words[0] == "position")
             {
                 //are we facing left or right? for some objects we don't care, default at 0.
                 j = 0;
+                textbox_forcepos = false;
 
                 //the first word is the object to position relative to
                 if (words[1] == "centerx")
@@ -574,6 +577,13 @@ void scriptclass::run(void)
                     j = -1;
                     textx = -500;
                     texty = -500;
+                }
+                else if (words[1] == "force")
+                {
+                    words[2] = "donothing";
+                    j = -1;
+                    textbox_forcepos = true;
+
                 }
                 else // Well, are they asking for a crewmate...?
                 {
@@ -757,16 +767,23 @@ void scriptclass::run(void)
 
                 graphics.setimage(textbox_image);
 
-                if (textx == -500 || textx == -1)
+                if (textbox_forcepos)
                 {
-                    graphics.textboxcenterx();
-                    textcrewmateposition.override_x = false;
+                    graphics.textboxforcepos(textx, texty);
                 }
-
-                if (texty == -500)
+                else
                 {
-                    graphics.textboxcentery();
-                    textcrewmateposition.override_y = false;
+                    if (textx == -500 || textx == -1)
+                    {
+                        graphics.textboxcenterx();
+                        textcrewmateposition.override_x = false;
+                    }
+
+                    if (texty == -500)
+                    {
+                        graphics.textboxcentery();
+                        textcrewmateposition.override_y = false;
+                    }
                 }
 
                 TextboxOriginalContext context = TextboxOriginalContext();

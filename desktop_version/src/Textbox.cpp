@@ -29,6 +29,8 @@ textboxclass::textboxclass(int gap)
 
     large = false;
 
+    position_forced = false;
+
     should_centerx = false;
     should_centery = false;
 
@@ -78,18 +80,21 @@ void textboxclass::centery(void)
 void textboxclass::applyposition(void)
 {
     resize();
-    reposition();
-    if (should_centerx)
+    if (!position_forced)
     {
-        centerx();
-    }
-    if (should_centery)
-    {
-        centery();
-    }
-    if (translate == TEXTTRANSLATE_CUTSCENE)
-    {
-        adjust();
+        reposition();
+        if (should_centerx)
+        {
+            centerx();
+        }
+        if (should_centery)
+        {
+            centery();
+        }
+        if (translate == TEXTTRANSLATE_CUTSCENE)
+        {
+            adjust();
+        }
     }
 }
 
