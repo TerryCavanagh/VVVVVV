@@ -568,6 +568,8 @@ void scriptclass::run(void)
                 textbox_sprites.clear();
                 textbox_image = TEXTIMAGE_NONE;
                 textbox_forcepos = false;
+                textbox_force_outline = false;
+                textbox_outline = false;
             }
             else if (words[0] == "position")
             {
@@ -746,6 +748,23 @@ void scriptclass::run(void)
                     textbox_image = TEXTIMAGE_NONE;
                 }
             }
+            else if (words[0] == "textoutline")
+            {
+                if (words[1] == "default")
+                {
+                    textbox_force_outline = false;
+                }
+                else if (words[1] == "on")
+                {
+                    textbox_force_outline = true;
+                    textbox_outline = true;
+                }
+                else if (words[1] == "off")
+                {
+                    textbox_force_outline = true;
+                    textbox_outline = false;
+                }
+            }
             else if (words[0] == "flipme")
             {
                 textflipme = !textflipme;
@@ -801,6 +820,11 @@ void scriptclass::run(void)
                         graphics.textboxcentery();
                         textcrewmateposition.override_y = false;
                     }
+                }
+
+                if (textbox_force_outline)
+                {
+                    graphics.textboxoutline(textbox_outline);
                 }
 
                 TextboxOriginalContext context = TextboxOriginalContext();

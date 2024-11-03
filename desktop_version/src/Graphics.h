@@ -137,6 +137,8 @@ public:
 
     void setimage(TextboxImage image);
 
+    void textboxoutline(bool enabled);
+
     void textboxindex(int index);
 
     void textboxremove(void);
