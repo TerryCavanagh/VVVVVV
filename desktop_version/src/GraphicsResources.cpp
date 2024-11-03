@@ -501,10 +501,7 @@ void GraphicsResources::destroy(void)
 
     for (size_t i = 0; i < SDL_arraysize(graphics.customminimaps); i++)
     {
-        if (graphics.customminimaps[i] != NULL)
-        {
-            CLEAR(graphics.customminimaps[i]);
-        }
+        CLEAR(graphics.customminimaps[i]);
     }
 #undef CLEAR
 
