@@ -122,6 +122,7 @@ public:
     int textboxtimer;
     std::vector<TextboxSprite> textbox_sprites;
     TextboxImage textbox_image;
+    bool textbox_forcepos;
 
     //Misc
     int i, j, k;

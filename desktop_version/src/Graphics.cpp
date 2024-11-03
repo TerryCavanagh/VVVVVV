@@ -3204,6 +3204,19 @@ SDL_Color Graphics::bigchunkygetcol(int t)
     return color;
 }
 
+void Graphics::textboxforcepos(int x, int y)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxforcepos() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].position_forced = true;
+    textboxes[m].xp = x;
+    textboxes[m].yp = y;
+}
+
 void Graphics::textboxcenterx(void)
 {
     if (!INBOUNDS_VEC(m, textboxes))
