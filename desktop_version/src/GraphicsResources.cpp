@@ -447,7 +447,7 @@ void GraphicsResources::init(void)
 
     EnumHandle handle = {};
     const char* item;
-    char full_item[73];
+    char full_item[64];
     while ((item = FILESYSTEM_enumerateAssets("graphics", &handle)) != NULL)
     {
         if (SDL_strncmp(item, "region", 6) != 0)
@@ -456,6 +456,11 @@ void GraphicsResources::init(void)
         }
         char* end;
         int i = SDL_strtol(&item[6], &end, 10);
+        // make sure the region id is actually in bounds!
+        if (i < 1 || i > 400)
+        {
+            continue;
+        }
         if (item == end || SDL_strcmp(end, ".png") != 0)
         {
             continue;

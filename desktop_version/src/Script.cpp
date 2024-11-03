@@ -3237,6 +3237,8 @@ void scriptclass::hardreset(void)
     SDL_memset(map.roomdeaths, 0, sizeof(map.roomdeaths));
     SDL_memset(map.roomdeathsfinal, 0, sizeof(map.roomdeathsfinal));
     map.resetmap();
+    map.currentregion = 0;
+    SDL_zeroa(map.region);
     //entityclass
     obj.nearelephant = false;
     obj.upsetmode = false;

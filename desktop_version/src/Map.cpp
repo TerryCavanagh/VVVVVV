@@ -86,6 +86,9 @@ mapclass::mapclass(void)
     roomtexton = false;
 
     nexttowercolour_set = false;
+
+    currentregion = 0;
+    SDL_zeroa(region);
 }
 
 static char roomname_static[SCREEN_WIDTH_CHARS];
@@ -2291,21 +2294,31 @@ MapRenderData mapclass::get_render_data(void)
 
 void mapclass::setregion(int id, int rx, int ry, int rx2, int ry2)
 {
-    if (INBOUNDS_ARR(id, region))
+    if (INBOUNDS_ARR(id, region) && id > 0)
     {
         region[id].isvalid = true;
         region[id].rx = SDL_clamp(rx, 0, cl.mapwidth - 1);
         region[id].ry = SDL_clamp(ry, 0, cl.mapheight - 1);
         region[id].rx2 = SDL_clamp(rx2, 0, cl.mapwidth - 1);
         region[id].ry2 = SDL_clamp(ry2, 0, cl.mapheight - 1);
+
+        if (id == currentregion)
+        {
+            cl.generatecustomminimap();
+        }
     }
 }
 
 void mapclass::removeregion(int id)
 {
-    if (INBOUNDS_ARR(id, region))
+    if (INBOUNDS_ARR(id, region) && id > 0)
     {
         SDL_zero(region[id]);
+
+        if (id == currentregion)
+        {
+            cl.generatecustomminimap();
+        }
     }
 }
 

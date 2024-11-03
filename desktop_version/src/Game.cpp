@@ -228,16 +228,6 @@ void Game::init(void)
 
     customcol=0;
 
-    map.currentregion = 0;
-    for (size_t i = 0; i < SDL_arraysize(map.region); i++)
-    {
-        map.region[i].isvalid = false;
-        map.region[i].rx = 0;
-        map.region[i].ry = 0;
-        map.region[i].rx2 = 0;
-        map.region[i].ry2 = 0;
-    }
-
     SDL_memset(crewstats, false, sizeof(crewstats));
     SDL_memset(ndmresultcrewstats, false, sizeof(ndmresultcrewstats));
     SDL_memset(besttimes, -1, sizeof(besttimes));
