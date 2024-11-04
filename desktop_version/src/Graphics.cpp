@@ -3214,15 +3214,15 @@ SDL_Color Graphics::bigchunkygetcol(int t)
     return color;
 }
 
-void Graphics::textboxforcepos(int x, int y)
+void Graphics::textboxabsolutepos(int x, int y)
 {
     if (!INBOUNDS_VEC(m, textboxes))
     {
-        vlog_error("textboxforcepos() out-of-bounds!");
+        vlog_error("textboxabsolutepos() out-of-bounds!");
         return;
     }
 
-    textboxes[m].position_forced = true;
+    textboxes[m].position_absolute = true;
     textboxes[m].xp = x;
     textboxes[m].yp = y;
 }

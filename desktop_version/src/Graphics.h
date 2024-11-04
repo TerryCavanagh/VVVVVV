@@ -94,7 +94,7 @@ public:
         int r, int g, int b
     );
 
-    void textboxforcepos(int x, int y);
+    void textboxabsolutepos(int x, int y);
 
     void textboxcenterx(void);
 
