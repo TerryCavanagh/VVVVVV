@@ -2296,6 +2296,20 @@ void mapclass::setregion(int id, int rx, int ry, int rx2, int ry2)
 {
     if (INBOUNDS_ARR(id, region) && id > 0)
     {
+        // swap the variables if they're entered in the wrong order
+        if (rx2 > rx)
+        {
+            int temp = rx;
+            rx = rx2;
+            rx2 = temp;
+        }
+        if (ry2 > ry)
+        {
+            int temp = ry;
+            ry = ry2;
+            ry2 = temp;
+        }
+        
         region[id].isvalid = true;
         region[id].rx = SDL_clamp(rx, 0, cl.mapwidth - 1);
         region[id].ry = SDL_clamp(ry, 0, cl.mapheight - 1);
