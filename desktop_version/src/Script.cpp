@@ -53,7 +53,7 @@ scriptclass::scriptclass(void)
     textlarge = false;
     textbox_sprites.clear();
     textbox_image = TEXTIMAGE_NONE;
-    textbox_forcepos = false;
+    textbox_absolutepos = false;
 }
 
 void scriptclass::add_default_colours(void)
@@ -567,7 +567,7 @@ void scriptclass::run(void)
                 textcrewmateposition = TextboxCrewmatePosition();
                 textbox_sprites.clear();
                 textbox_image = TEXTIMAGE_NONE;
-                textbox_forcepos = false;
+                textbox_absolutepos = false;
                 textbox_force_outline = false;
                 textbox_outline = false;
             }
@@ -575,7 +575,7 @@ void scriptclass::run(void)
             {
                 //are we facing left or right? for some objects we don't care, default at 0.
                 j = 0;
-                textbox_forcepos = false;
+                textbox_absolutepos = false;
 
                 //the first word is the object to position relative to
                 if (words[1] == "centerx")
@@ -597,11 +597,11 @@ void scriptclass::run(void)
                     textx = -500;
                     texty = -500;
                 }
-                else if (words[1] == "force")
+                else if (words[1] == "absolute")
                 {
                     words[2] = "donothing";
                     j = -1;
-                    textbox_forcepos = true;
+                    textbox_absolutepos = true;
 
                 }
                 else // Well, are they asking for a crewmate...?
@@ -803,9 +803,9 @@ void scriptclass::run(void)
 
                 graphics.setimage(textbox_image);
 
-                if (textbox_forcepos)
+                if (textbox_absolutepos)
                 {
-                    graphics.textboxforcepos(textx, texty);
+                    graphics.textboxabsolutepos(textx, texty);
                 }
                 else
                 {

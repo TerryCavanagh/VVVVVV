@@ -125,7 +125,7 @@ public:
 
     bool large;
 
-    bool position_forced;
+    bool position_absolute;
 
     bool should_centerx;
     bool should_centery;

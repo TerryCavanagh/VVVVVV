@@ -29,7 +29,7 @@ textboxclass::textboxclass(int gap)
 
     large = false;
 
-    position_forced = false;
+    position_absolute = false;
 
     should_centerx = false;
     should_centery = false;
@@ -83,7 +83,7 @@ void textboxclass::centery(void)
 void textboxclass::applyposition(void)
 {
     resize();
-    if (!position_forced)
+    if (!position_absolute)
     {
         reposition();
         if (should_centerx)
