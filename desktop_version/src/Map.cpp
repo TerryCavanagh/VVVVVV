@@ -2303,7 +2303,7 @@ void mapclass::setregion(int id, int rx, int ry, int rx2, int ry2)
             rx = rx2;
             rx2 = temp;
         }
-        if (ry2 > ry)
+        if (ry2 < ry)
         {
             int temp = ry;
             ry = ry2;
