@@ -2297,7 +2297,7 @@ void mapclass::setregion(int id, int rx, int ry, int rx2, int ry2)
     if (INBOUNDS_ARR(id, region) && id > 0)
     {
         // swap the variables if they're entered in the wrong order
-        if (rx2 > rx)
+        if (rx2 < rx)
         {
             int temp = rx;
             rx = rx2;
