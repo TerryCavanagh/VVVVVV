@@ -3294,8 +3294,7 @@ void check_if_dragging(void)
     for (size_t i = 0; i < customentities.size(); i++)
     {
         // If it's not in the current room, continue.
-        if (customentities[i].x < ed.levx * 40 || customentities[i].x >= (ed.levx + 1) * 40 ||
-            customentities[i].y < ed.levy * 30 || customentities[i].y >= (ed.levy + 1) * 30)
+        if (customentities[i].rx != ed.levx || customentities[i].ry != ed.levy)
         {
             continue;
         }
