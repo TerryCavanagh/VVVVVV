@@ -2741,11 +2741,10 @@ void Graphics::updatebackground(int t)
         else
         {
             // draw the whole thing for the first time!
-            backoffset = 0;
             clear();
             for (int j = 0; j < 15; j++)
             {
-                for (int i = 0; i < 21; i++)
+                for (int i = 0; i < 22; i++)
                 {
                     drawtile2((i * 16) - backoffset - 3, (j * 16), temp + 40);
                     drawtile2((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
@@ -2784,9 +2783,8 @@ void Graphics::updatebackground(int t)
         else
         {
             // draw the whole thing for the first time!
-            backoffset = 0;
             clear();
-            for (int j = 0; j < 16; j++)
+            for (int j = 0; j < 17; j++)
             {
                 for (int i = 0; i < 21; i++)
                 {
@@ -2850,7 +2848,14 @@ void Graphics::drawmap(void)
                 }
                 else
                 {
-                    tile = map.contents[TILE_IDX(x, y)];
+                    if (map.finalstretch && map.custommode)
+                    {
+                        tile = map.finalat(x, y);
+                    }
+                    else
+                    {
+                        tile = map.contents[TILE_IDX(x, y)];
+                    }
                     tileset = map.tileset;
                 }
 
