@@ -1864,6 +1864,11 @@ void Graphics::drawgravityline(const int t, const int x, const int y, const int 
         return;
     }
 
+    if (w <= 0 && h <= 0)
+    {
+        return;
+    }
+
     if (obj.entities[t].life == 0)
     {
         if (game.noflashingmode)
