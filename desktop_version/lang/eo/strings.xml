@@ -456,7 +456,7 @@
     <string english="New Trophy!" translation="Nova trofeo!" explanation="" max="20"/>
     <string english="[Press {button} to stop]" translation="[Premu {button} por eliri]" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="SUPERGRAVITRONO" explanation="" max="20"/>
-    <string english="SUPER GRAVITRON HIGHSCORE" translation="ALTPOENTARO DE SUPERGRAVITRONO" explanation="" max="38*4"/>
+    <string english="SUPER GRAVITRON HIGHSCORE" translation="REKORDO DE SUPERGRAVITRONO" explanation="" max="38*4"/>
     <string english="MAP" translation="MAPO" explanation="in-game menu" max="8"/>
     <string english="GRAV" translation="GRAV" explanation="in-game menu, Gravitron" max="8"/>
     <string english="SHIP" translation="ŜIPO" explanation="in-game menu, spaceship" max="8"/>
