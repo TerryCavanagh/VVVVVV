@@ -282,11 +282,11 @@ namespace level_debugger
             graphics.draw_rect(bounding_box.x, bounding_box.y, bounding_box.w, bounding_box.h, graphics.getRGB(15, 90, 90));
 
             // For gravity lines, show the true hitbox.
-            if (obj.entities[i].type == 9)
+            if (obj.entities[i].type == EntityType_HORIZONTAL_GRAVITY_LINE)
             {
                 graphics.draw_rect(bounding_box.x - 1, bounding_box.y + 1, bounding_box.w + 2, bounding_box.h, graphics.getRGB(90, 90, 15));
             }
-            else if (obj.entities[i].type == 10)
+            else if (obj.entities[i].type == EntityType_VERTICAL_GRAVITY_LINE)
             {
                 graphics.fill_rect(bounding_box.x - 2, bounding_box.y - 1, bounding_box.w + 1, bounding_box.h + 2, graphics.getRGB(90, 90, 15));
             }
@@ -390,32 +390,34 @@ namespace level_debugger
                 // Mostly contains duplicates, but for ease of use
                 switch (entity->type)
                 {
-                case 0:
+                case EntityType_PLAYER:
                     // Player
                     render_info(line++, "Gravity", help.String(game.gravitycontrol));
                     render_info(line++, "Checkpoint", help.String(game.savepoint));
                     break;
-                case 1:
+                case EntityType_MOVING:
                     // Moving platforms and enemies
                     render_info(line++, "Speed", help.String(entity->para));
                     render_info(line++, "Movement type", help.String(entity->behave));
                     break;
-                case 7:
+                case EntityType_TRINKET:
                     // Trinkets
                     render_info(line++, "ID", help.String(entity->para));
                     break;
-                case 8:
+                case EntityType_CHECKPOINT:
                     // Checkpoints
                     render_info(line++, "ID", help.String(entity->para));
                     render_info(line++, "Active", game.savepoint == entity->para ? "True" : "False");
                     break;
-                case 9:
+                case EntityType_HORIZONTAL_GRAVITY_LINE:
                     // Horizontal gravity lines
                     render_info(line++, "Horizontal");
                     break;
-                case 10:
+                case EntityType_VERTICAL_GRAVITY_LINE:
                     // Vertical gravity lines
                     render_info(line++, "Vertical");
+                    break;
+                default:
                     break;
                 }
 

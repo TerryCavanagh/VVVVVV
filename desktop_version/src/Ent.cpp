@@ -11,7 +11,7 @@ entclass::entclass(void)
 void entclass::clear(void)
 {
     invis = false;
-    type = 0;
+    type = EntityType_PLAYER;
     size = 0;
     tile = 0;
     rule = 0;
@@ -650,8 +650,8 @@ void entclass::updatecolour(void)
 
 bool entclass::ishumanoid(void)
 {
-    return type == 0
-        || type == 12
-        || type == 14
-        || type == 55;
+    return type == EntityType_PLAYER
+        || type == EntityType_CREWMATE
+        || type == EntityType_SUPERCREWMATE
+        || type == EntityType_COLLECTABLE_CREWMATE;
 }
