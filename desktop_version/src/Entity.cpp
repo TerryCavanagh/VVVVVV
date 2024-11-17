@@ -3444,6 +3444,8 @@ bool entityclass::updateentities( int i )
                 entities[i].state = 0;
             }
             break;
+        case EntityType_INVALID: // Invalid entity, do nothing!
+            break;
         }
     }
     else
