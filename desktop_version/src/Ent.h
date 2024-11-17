@@ -5,7 +5,7 @@
 
 #define        rn( rx,  ry) ((rx) + ((ry) * 100))
 
-enum EntityTypes
+enum EntityType
 {
     EntityType_INVALID = -1,
     EntityType_PLAYER,
@@ -54,7 +54,7 @@ public:
 public:
     //Fundamentals
     bool invis;
-    EntityTypes type;
+    EntityType type;
     int size, tile, rule;
     int state, statedelay;
     int behave, animate;

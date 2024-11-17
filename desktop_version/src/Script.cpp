@@ -305,7 +305,7 @@ void scriptclass::run(void)
                 {
                     for (size_t edi = 0; edi < obj.entities.size(); edi++)
                     {
-                        if (obj.entities[edi].type == 11)
+                        if (obj.entities[edi].type == EntityType_WARP_TOKEN)
                         {
                             obj.disableentity(edi);
                         }
