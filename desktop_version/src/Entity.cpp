@@ -1,6 +1,7 @@
 #define OBJ_DEFINITION
 #include "Entity.h"
 
+#include <map>
 #include <SDL.h>
 
 #include "CustomLevels.h"
@@ -99,6 +100,396 @@ void entityclass::init(void)
     SDL_memset(customcollect, false, sizeof(customcollect));
 
     k = 0;
+
+    enemy_types.clear();
+    add_default_types();
+}
+
+EnemyType* entityclass::create_type(
+    const char* type, int tile, int colour,
+    EntityAnimationTypes animation_type, int animation_frames, int animation_speed,
+    int width, int height
+)
+{
+    EnemyType enemy_type;
+    enemy_type.tile = tile;
+    enemy_type.colour = colour;
+    enemy_type.animation_type = animation_type;
+    enemy_type.animation_frames = animation_frames;
+    enemy_type.animation_speed = animation_speed;
+    enemy_type.width = width;
+    enemy_type.height = height;
+    enemy_type.harmful = true;
+    enemy_type.corner_x = 0;
+    enemy_type.corner_y = 0;
+    enemy_type.x_offset = 0;
+    enemy_type.y_offset = 0;
+    enemy_type.render_type = EntityRenderType_SPRITE;
+    enemy_type.override_behave = false;
+    enemy_type.override_para = false;
+    enemy_type.override_x1 = false;
+    enemy_type.override_x2 = false;
+    enemy_type.override_y1 = false;
+    enemy_type.override_y2 = false;
+    enemy_type.to_spawn = "";
+
+    enemy_types[type] = enemy_type;
+    return &enemy_types[type];
+}
+
+void entityclass::add_default_types(void)
+{
+    EnemyType* type;
+
+    // Copies for the editor, without the color set:
+    create_type("custom_square", 78, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_circle", 88, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_disc", 36, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_glitch", 164, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_coin", 68, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_cross", 48, -1, EntityAnimationType_LOOP, 2, 6, 16, 16);
+    create_type("custom_triangle", 176, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_ice", 168, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_heart", 112, -1, EntityAnimationType_LOOP, 2, 6, 16, 16);
+    create_type("custom_broken_heart", 114, -1, EntityAnimationType_LOOP, 2, 6, 16, 16);
+
+    create_type("square", 78, 7, EntityAnimationType_LOOP, 4, 8, 16, 16); // Vibrating String Problem
+    create_type("circle", 88, 11, EntityAnimationType_LOOP, 4, 8, 16, 16); // Kids His Age Bounce
+    create_type("disc", 36, 8, EntityAnimationType_LOOP, 4, 8, 16, 16); // Security Sweep
+    create_type("glitch", 164, 7, EntityAnimationType_LOOP, 4, 8, 16, 16); // Backsliders
+    create_type("coin", 68, 7, EntityAnimationType_LOOP, 4, 8, 16, 16); // $eeing Dollar $ign$
+    create_type("cross", 48, 9, EntityAnimationType_LOOP, 2, 6, 16, 16); // Ascending and Descending
+    create_type("triangle", 176, 6, EntityAnimationType_LOOP, 4, 8, 16, 16); // Shockwave Rider
+    create_type("ice", 168, 7, EntityAnimationType_LOOP, 4, 8, 16, 16); // Mind The Gap
+    create_type("heart", 112, 8, EntityAnimationType_LOOP, 2, 6, 16, 16); // I Love You
+    create_type("broken_heart", 114, 6, EntityAnimationType_LOOP, 2, 6, 16, 16); // That's Why I Have To Kill You
+
+    create_type("bowtie", 92, 6, EntityAnimationType_LOOP, 4, 8, 16, 16); // A Deception
+    create_type("crate", 24, 6, EntityAnimationType_LOOP, 4, 8, 16, 16); // UNUSED in main game
+
+    create_type("wavelength", 32, 7, EntityAnimationType_LOOP, 4, 8, 32, 16); // Linear Collider
+    create_type("stop", 28, 6, EntityAnimationType_LOOP, 4, 8, 22, 32); // Traffic Jam
+    create_type("yes", 40, 9, EntityAnimationType_LOOP, 4, 8, 20, 20); // The Yes Men
+    create_type("vertigo", 172, 7, EntityAnimationType_STILL, 1, 1, 32, 32); // Vertigo
+    create_type("guard", 44, 8, EntityAnimationType_LOOP, 4, 8, 16, 20); // Trench Warfare
+    create_type("obey", 51, 11, EntityAnimationType_STILL, 1, 1, 30, 14); // Time to get serious
+    create_type("ghost", 106, 7, EntityAnimationType_LOOP, 2, 2, 24, 25); // The Tomb of Mad Carew
+    create_type("wheel", 116, 12, EntityAnimationType_LOOP, 4, 8, 32, 32); // The Hanged Man, Reversed
+    create_type("skeleton", 56, 6, EntityAnimationType_LOOP, 4, 8, 15, 24); // You Chose... Poorly
+
+    type = create_type("mannequin", 52, 7, EntityAnimationType_LOOP, 2, 6, 16, 25); // Short Circuit
+    type->y_offset = -4;
+    type = create_type("numbers", 100, 6, EntityAnimationType_LOOP, 4, 8, 32, 14); // Take the Red Pill
+    type->y_offset = 1;
+    type = create_type("soldier", 82, 8, EntityAnimationType_LOOP, 2, 6, 28, 32); // Brass Sent Us Under The Top
+    type->corner_x = 4;
+    type = create_type("truth", 64, 7, EntityAnimationType_STILL, 1, 1, 44, 10); // Boldly To Go
+    type->render_type = EntityRenderType_SPRITE_2x1;
+    type = create_type("bus", 96, 6, EntityAnimationType_LOOP, 2, 6, 64, 44); // B-B-B-Busted
+    type->render_type = EntityRenderType_SPRITE_2x2;
+
+    type = create_type("transmitter", 104, 4, EntityAnimationType_LOOP, 2, 6, 16, 16); // Comms Relay
+    type->harmful = false;
+    type->x_offset = -24;
+    type->y_offset = -16;
+
+    type = create_type("radar", 124, 4, EntityAnimationType_LOOP, 4, 4, 64, 64); // Comms Relay
+    type->harmful = false;
+    type->x_offset = -4;
+    type->y_offset = -32;
+    type->corner_x = 4;
+    type->render_type = EntityRenderType_SPRITE_2x2;
+
+    create_type("edgegames_left", 160, 8, EntityAnimationType_LOOP, 4, 8, 16, 16); // Edge Games
+    create_type("edgegames_right", 156, 8, EntityAnimationType_LOOP, 4, 8, 16, 16); // Edge Games
+
+    type = create_type("centipede_right", 66, 12, EntityAnimationType_STILL, 1, 1, 60, 16); // Sweeney's Maze
+    type->render_type = EntityRenderType_SPRITE_2x1;
+    type = create_type("centipede_left", 54, 12, EntityAnimationType_STILL, 1, 1, 60, 16); // Sweeney's Maze
+    type->render_type = EntityRenderType_SPRITE_2x1;
+
+    // LIES
+    type = create_type("lies_emitter", 60, 6, EntityAnimationType_LOOP, 2, 2, 32, 32);
+    type->behave = 10;
+    type->x1 = -200;
+    type->override_behave = true;
+    type->override_x1 = true;
+    type->to_spawn = "lies";
+
+    type = create_type("lies", 63, 6, EntityAnimationType_STILL, 1, 1, 26, 10);
+    type->corner_x = 1;
+    type->corner_y = 1;
+    type->y_offset = 10;
+    type->behave = 11;
+    type->para = 9;
+    type->x1 = -200;
+    type->x2 = 400;
+    type->override_behave = true;
+    type->override_para = true;
+    type->override_x1 = true;
+    type->override_x2 = true;
+
+    type = create_type("lies_collector", 62, 6, EntityAnimationType_STILL, 1, 1, 32, 32);
+    type->behave = -1;
+    type->override_behave = true;
+
+    // Factory
+    type = create_type("factory_emitter", 72, 6, EntityAnimationType_LOOP, 2, 2, 64, 40);
+    type->corner_y = 24;
+    type->render_type = EntityRenderType_SPRITE_2x2;
+    type->behave = 12;
+    type->override_behave = true;
+    type->to_spawn = "factory_clouds";
+
+    type = create_type("factory_clouds", 76, 6, EntityAnimationType_STILL, 1, 1, 32, 12);
+    type->corner_y = 6;
+    type->x_offset = 4;
+    type->y_offset = -4;
+    type->behave = 13;
+    type->para = -6;
+    type->x2 = 400;
+    type->override_behave = true;
+    type->override_para = true;
+    type->override_x2 = true;
+
+    type = create_type("factory_collector", 77, 6, EntityAnimationType_STILL, 1, 1, 32, 16);
+    type->behave = -1;
+    type->override_behave = true;
+
+    // Elephant
+    type = create_type("elephant", 0, 102, EntityAnimationType_STILL, 1, 1, 464, 320);
+    type->render_type = EntityRenderType_ELEPHANT;
+    type->harmful = false;
+}
+
+void entityclass::set_enemy_type(entclass* entity, const char* type)
+{
+    if (entity == NULL)
+    {
+        return;
+    }
+
+    if (enemy_types.count(type) > 0)
+    {
+        EnemyType* enemyType = &enemy_types[type];
+        entity->tile = enemyType->tile;
+        entity->animation_frames = enemyType->animation_frames;
+        entity->animation_speed = enemyType->animation_speed;
+        entity->animation_type = enemyType->animation_type;
+        entity->w = enemyType->width;
+        entity->h = enemyType->height;
+        entity->harmful = enemyType->harmful;
+        entity->cx = enemyType->corner_x;
+        entity->cy = enemyType->corner_y;
+        entity->xp += enemyType->x_offset;
+        entity->lerpoldxp += enemyType->x_offset;
+        entity->yp += enemyType->y_offset;
+        entity->lerpoldyp += enemyType->y_offset;
+        entity->render_type = enemyType->render_type;
+        entity->to_spawn = enemyType->to_spawn;
+
+        if (enemyType->colour != -1)
+        {
+            entity->colour = enemyType->colour;
+        }
+
+        if (enemyType->override_behave)
+        {
+            entity->behave = enemyType->behave;
+        }
+
+        if (enemyType->override_para)
+        {
+            entity->para = enemyType->para;
+        }
+
+        if (enemyType->override_x1)
+        {
+            entity->x1 = enemyType->x1;
+        }
+
+        if (enemyType->override_x2)
+        {
+            entity->x2 = enemyType->x2;
+        }
+
+        if (enemyType->override_y1)
+        {
+            entity->y1 = enemyType->y1;
+        }
+
+        if (enemyType->override_y2)
+        {
+            entity->y2 = enemyType->y2;
+        }
+    }
+}
+
+const char* entityclass::legacy_id_to_entity(const int id)
+{
+    switch (id)
+    {
+    case 0:
+        return "custom_square";
+    case 1:
+        return "custom_circle";
+    case 2:
+        return "custom_disc";
+    case 3:
+        return "custom_glitch";
+    case 4:
+        return "custom_coin";
+    case 5:
+        return "custom_cross";
+    case 6:
+        return "custom_triangle";
+    case 7:
+        return "custom_ice";
+    case 8:
+        return "custom_heart";
+    case 9:
+        return "custom_broken_heart";
+    default:
+        return "custom_square";
+    }
+}
+
+void entityclass::set_enemy_colour(entclass* entity)
+{
+    if (entity == NULL)
+    {
+        return;
+    }
+
+    // For custom levels, color should be based on the room
+    if (customplatformtile > 0) {
+        // Special case for gray Warp Zone tileset!
+        const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
+        if (room->tileset == 3 && room->tilecol == 6)
+        {
+            entity->colour = 18;
+            return;
+        }
+
+        int entcol = (customplatformtile / 12);
+        switch (entcol) {
+        // RED
+        case 3:
+        case 7:
+        case 12:
+        case 23:
+        case 28:
+        case 34:
+        case 42:
+        case 48:
+        case 58:
+            entity->colour = 6;
+            break;
+        //GREEN
+        case 5:
+        case 9:
+        case 22:
+        case 25:
+        case 29:
+        case 31:
+        case 38:
+        case 46:
+        case 52:
+        case 53:
+            entity->colour = 7;
+            break;
+        // BLUE
+        case 1:
+        case 6:
+        case 14:
+        case 27:
+        case 33:
+        case 44:
+        case 50:
+        case 57:
+            entity->colour = 12;
+            break;
+        // YELLOW
+        case 4:
+        case 17:
+        case 24:
+        case 30:
+        case 37:
+        case 45:
+        case 51:
+        case 55:
+            entity->colour = 9;
+            break;
+        // PURPLE
+        case 2:
+        case 11:
+        case 15:
+        case 19:
+        case 32:
+        case 36:
+        case 49:
+            entity->colour = 20;
+            break;
+        // CYAN
+        case 8:
+        case 10:
+        case 13:
+        case 18:
+        case 26:
+        case 35:
+        case 41:
+        case 47:
+        case 54:
+            entity->colour = 11;
+            break;
+        // PINK
+        case 16:
+        case 20:
+        case 39:
+        case 43:
+        case 56:
+            entity->colour = 8;
+            break;
+        // ORANGE
+        case 21:
+        case 40:
+            entity->colour = 17;
+            break;
+        default:
+            entity->colour = 6;
+            break;
+        }
+    }
+}
+
+void entityclass::correct_emitter_colours(entclass* entity)
+{
+    /* Most colors are stored in the enemy type themselves,
+    * because each enemy is pretty much only in a single room.
+    * There's some special cases, though, like LIES and factory clouds,
+    * so let's correct their colors to match the rooms.
+    */
+
+    switch (rn(game.roomx - 100, game.roomy - 100))
+    {
+    // First, adjust the color of the LIES enemies
+    case rn(14, 11):
+        entity->colour = 17;
+        break;
+    case rn(16, 11):
+        entity->colour = 8;
+        break;
+        // Then, the factory enemies
+    case rn(13, 10):
+        entity->colour = 11;
+        break;
+    case rn(13, 9):
+        entity->colour = 9;
+        break;
+    case rn(13, 8):
+        entity->colour = 8;
+        break;
+    }
 }
 
 void entityclass::resetallflags(void)
@@ -1132,7 +1523,7 @@ bool entityclass::disableentity(int t)
     }
 
     entities[t].invis = true;
-    entities[t].size = -1;
+    entities[t].render_type = EntityRenderType_INVALID;
     entities[t].type = EntityType_INVALID;
     entities[t].rule = -1;
     entities[t].isplatform = false;
@@ -1230,33 +1621,7 @@ static bool gridmatch( int p1, int p2, int p3, int p4, int p11, int p21, int p31
     return false;
 }
 
-static void entityclonefix(entclass* entity)
-{
-    const bool is_lies_emitter = entity->behave == 10;
-    const bool is_factory_emitter = entity->behave == 12;
-
-    const bool is_emitter = is_lies_emitter || is_factory_emitter;
-    if (!is_emitter)
-    {
-        return;
-    }
-
-    const bool in_lies_emitter_room =
-        game.roomx >= 113 && game.roomx <= 117 && game.roomy == 111;
-    const bool in_factory_emitter_room =
-        game.roomx == 113 && game.roomy >= 108 && game.roomy <= 110;
-
-    const bool valid = (is_lies_emitter && in_lies_emitter_room)
-        || (is_factory_emitter && in_factory_emitter_room);
-
-    if (!valid)
-    {
-        /* Fix memory leak */
-        entity->behave = -1;
-    }
-}
-
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4)
 {
     k = entities.size();
 
@@ -1268,7 +1633,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     for (size_t i = 0; i < entities.size(); ++i)
     {
         if (entities[i].invis
-        && entities[i].size == -1
+        && entities[i].render_type == EntityRenderType_INVALID
         && entities[i].type == EntityType_INVALID
         && entities[i].rule == -1
         && !entities[i].isplatform)
@@ -1288,32 +1653,20 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entptr->clear();
     }
 
-    //Size 0 is a sprite
-    //Size 1 is a tile
-    //Beyond that are special cases (to do)
-    //Size 2 is a moving platform of width 4 (32)
-    //Size 3 is apparently a "bug chunky pixel"
-    //Size 4 is a coin/small pickup
-    //Size 5 is a horizontal line, 6 is vertical
+    // Size 0 is a sprite
+    // Size 1 is a tile
+    // Beyond that are special cases (to do)
+    // Size 2 is a moving platform of width 4 (32)
+    // Size 3 is apparently a "bug chunky pixel"
+    // Size 4 is a coin/small pickup
+    // Size 5 is a horizontal line, 6 is vertical
 
-    //Rule 0 is the playable character
-    //Rule 1 is anything harmful
-    //Rule 2 is anything decorative (no collisions)
-    //Rule 3 is anything that results in an entity to entity collision and state change
-    //Rule 4 is a horizontal line, 5 is vertical
-    //Rule 6 is a crew member
-
-    bool custom_gray;
-    // Special case for gray Warp Zone tileset!
-    if (map.custommode)
-    {
-        const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
-        custom_gray = room->tileset == 3 && room->tilecol == 6;
-    }
-    else
-    {
-        custom_gray = false;
-    }
+    // Rule 0 is the playable character
+    // Rule 1 is anything harmful
+    // Rule 2 is anything decorative (no collisions)
+    // Rule 3 is anything that results in an entity to entity collision and state change
+    // Rule 4 is a horizontal line, 5 is vertical
+    // Rule 6 is a crew member
 
     entclass& entity = *entptr;
     entity.xp = xp;
@@ -1356,41 +1709,32 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         entity.harmful = true;
         entity.tile = 24;
-        entity.animate = 0;
         entity.colour = 8;
 
         entity.type = EntityType_MOVING;
+        entity.animation_frames = 4;
+        entity.animation_type = EntityAnimationType_OSCILLATE;
+        entity.animation_speed = 8;
 
         if  (game.roomy == 111 && (game.roomx >= 113 && game.roomx <= 117))
         {
             entity.setenemy(0);
-            entity.setenemyroom(game.roomx, game.roomy); //For colour
+            correct_emitter_colours(&entity);
         }
         else if  (game.roomx == 113 && (game.roomy <= 110 && game.roomy >= 108))
         {
             entity.setenemy(1);
-            entity.setenemyroom(game.roomx, game.roomy); //For colour
-        }
-        else if (game.roomx == 113 && game.roomy == 107)
-        {
-            //MAVVERRRICK
-            entity.tile = 96;
-            entity.colour = 6;
-            entity.size = 9;
-            entity.w = 64;
-            entity.h = 44;
-            entity.animate = 4;
+            correct_emitter_colours(&entity);
         }
         else
         {
             entity.setenemyroom(game.roomx, game.roomy);
-            entityclonefix(&entity);
         }
         break;
     case 2: //A moving platform
         entity.rule = 2;
         entity.type = EntityType_MOVING;
-        entity.size = 2;
+        entity.render_type = EntityRenderType_PLATFORM;
         entity.tile = 1;
 
         if (customplatformtile > 0){
@@ -1421,7 +1765,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             entity.w = 64;
             entity.h = 8;
             meta1 -= 2;
-            entity.size = 8;
+            entity.render_type = EntityRenderType_PLATFORM_LONG;
         }
 
         entity.behave = meta1;
@@ -1430,20 +1774,20 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         if (meta1 >= 8  && meta1 <= 9)
         {
             horplatforms = true; //threadmill!
-            entity.animate = 10;
+            entity.animation_type = EntityAnimationType_CONVEYOR_LEFT;
             if(customplatformtile>0){
               entity.tile = customplatformtile+4;
               if (meta1 == 8) entity.tile += 4;
-              if (meta1 == 9) entity.animate = 11;
+              if (meta1 == 9) entity.animation_type = EntityAnimationType_CONVEYOR_RIGHT;
             }else{
               entity.settreadmillcolour(game.roomx, game.roomy);
               if (meta1 == 8) entity.tile += 40;
-              if (meta1 == 9) entity.animate = 11;
+              if (meta1 == 9) entity.animation_type = EntityAnimationType_CONVEYOR_RIGHT;
             }
         }
         else
         {
-            entity.animate = 100;
+            entity.animation_type = EntityAnimationType_STILL;
         }
 
         entity.x1 = p1;
@@ -1458,7 +1802,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 3: //Disappearing platforms
         entity.rule = 3;
         entity.type = EntityType_DISAPPEARING_PLATFORM;
-        entity.size = 2;
+        entity.render_type = EntityRenderType_PLATFORM;
         entity.tile = 2;
         //appearance again depends on location
         if(customplatformtile>0)
@@ -1481,14 +1825,14 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.behave = meta1;
         entity.para = meta2;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         createblock(0, xp, yp, 32, 8);
         break;
     case 4: //Breakable blocks
         entity.rule = 6;
         entity.type = EntityType_QUICKSAND;
-        entity.size = 1;
+        entity.render_type = EntityRenderType_TILE;
         entity.tile = 10;
         entity.cy = -1;
         entity.w = 8;
@@ -1496,27 +1840,27 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.behave = meta1;
         entity.para = meta2;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         createblock(0, xp, yp, 8, 8);
         break;
     case 5: //Gravity Tokens
         entity.rule = 3;
         entity.type = EntityType_GRAVITY_TOKEN;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 11;
         entity.w = 16;
         entity.h = 16;
         entity.behave = meta1;
         entity.para = meta2;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         break;
     case 6: //Decorative particles
         entity.rule = 2;
         entity.type = EntityType_PARTICLE;  //Particles
         entity.colour = 1;
-        entity.size = 3;
+        entity.render_type = EntityRenderType_PARTICLE;
         entity.vx = meta1;
         entity.vy = meta2;
 
@@ -1526,7 +1870,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.rule = 2;
         entity.type = EntityType_PARTICLE;  //Particles
         entity.colour = 2;
-        entity.size = 3;
+        entity.render_type = EntityRenderType_PARTICLE;
         entity.vx = meta1;
         entity.vy = meta2;
 
@@ -1535,42 +1879,42 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 8: //Small collectibles
         entity.rule = 3;
         entity.type = EntityType_COIN;
-        entity.size = 4;
+        entity.render_type = EntityRenderType_COIN;
         entity.tile = 48;
         entity.w = 8;
         entity.h = 8;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return;
+        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return NULL;
         break;
     case 9: //Something Shiny
         entity.rule = 3;
         entity.type = EntityType_TRINKET;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 22;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 3;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return;
+        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return NULL;
         break;
     case 10: //Savepoint
         entity.rule = 3;
         entity.type = EntityType_CHECKPOINT;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 20 + meta1;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
 
         if (game.savepoint == meta2)
@@ -1581,13 +1925,13 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         if (game.nodeathmode)
         {
-            return;
+            return NULL;
         }
         break;
     case 11: //Horizontal Gravity Line
         entity.rule = 4;
         entity.type = EntityType_HORIZONTAL_GRAVITY_LINE;
-        entity.size = 5;
+        entity.render_type = EntityRenderType_HORIZONTAL_LINE;
         entity.life = 0;
         entity.w = meta1;
         entity.h = 1;
@@ -1596,7 +1940,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 12: //Vertical Gravity Line
         entity.rule = 5;
         entity.type = EntityType_VERTICAL_GRAVITY_LINE;
-        entity.size = 6;
+        entity.render_type = EntityRenderType_VERTICAL_LINE;
         entity.life = 0;
         entity.w = 1;
         entity.h = meta1;
@@ -1606,13 +1950,12 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 13: //Warp token
         entity.rule = 3;
         entity.type = EntityType_WARP_TOKEN;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 18;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 10;
         entity.onentity = 1;
-        entity.animate = 2;
         //Added in port, hope it doesn't break anything
         entity.behave = meta1;
         entity.para = meta2;
@@ -1620,13 +1963,13 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 14: // Teleporter
         entity.rule = 3;
         entity.type = EntityType_TELEPORTER;
-        entity.size = 7;
+        entity.render_type = EntityRenderType_TELEPORTER;
         entity.tile = 1; //inactive
         entity.w = 96;
         entity.h = 96;
         entity.colour = 100;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
         break;
     case 15: // Crew Member (warp zone)
@@ -1721,41 +2064,41 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 20: //Terminal
         entity.rule = 3;
         entity.type = EntityType_TERMINAL;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 16 + meta1;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
         break;
     case 21: //as above, except doesn't highlight
         entity.rule = 3;
         entity.type = EntityType_TERMINAL;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 16 + meta1;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 0;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
         break;
     case 22: //Fake trinkets, only appear if you've collected them
         entity.rule = 3;
         entity.type = EntityType_TRINKET;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 22;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 3;
         entity.onentity = 0;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (INBOUNDS_ARR(meta1, collect) && !collect[meta1]) return;
+        if (INBOUNDS_ARR(meta1, collect) && !collect[meta1]) return NULL;
         break;
     case 23: //SWN Enemies
         //Given a different behavior, these enemies are especially for SWN mode and disappear outside the screen.
@@ -1776,10 +2119,12 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.harmful = true;
 
         //initilise tiles here based on behavior
-        entity.size = 12; //don't wrap around
+        entity.render_type = EntityRenderType_SPRITE_NO_WRAP; //don't wrap around
         entity.colour = 21;
         entity.tile = 78; //default case
-        entity.animate = 1;
+        entity.animation_frames = 4;
+        entity.animation_speed = 8;
+        entity.animation_type = EntityAnimationType_LOOP;
         if (game.swngame == SWN_SUPERGRAVITRON)
         {
             //set colour based on current state
@@ -1832,12 +2177,12 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 25: //Trophies
         entity.rule = 3;
         entity.type = EntityType_TROPHY;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
 
         //Decide tile here based on given achievement: both whether you have them and what they are
@@ -1995,7 +2340,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             {
                 entity.tile = 3;
                 entity.colour = 102;
-                entity.size = 13;
+                entity.render_type = EntityRenderType_SPRITE_6x;
                 entity.xp -= 64;
                 entity.yp -= 128;
             }
@@ -2007,15 +2352,14 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 26: //Epilogue super warp token
         entity.rule = 3;
         entity.type = EntityType_WARP_TOKEN;
-        entity.size = 0;
         entity.tile = 18;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 3;
         entity.onentity = 0;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
-        entity.size = 13;
+        entity.render_type = EntityRenderType_SPRITE_6x;
         break;
 
     /* Warp lines */
@@ -2048,14 +2392,14 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         case 51:
         case 52:
             entity.rule = 5;
-            entity.size = 6;
+            entity.render_type = EntityRenderType_VERTICAL_LINE;
             entity.w = 1;
             entity.h = meta1;
             break;
         case 53:
         case 54:
             entity.rule = 7;
-            entity.size = 5;
+            entity.render_type = EntityRenderType_HORIZONTAL_LINE;
             entity.w = meta1;
             entity.h = 1;
             break;
@@ -2067,7 +2411,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             map.warpy = false;
         }
         break;
-      case 55: // Crew Member (custom, collectable)
+    case 55: // Crew Member (custom, collectable)
         //1 - position in array
         //2 - colour
         entity.rule = 3;
@@ -2093,9 +2437,10 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (!INBOUNDS_ARR(meta1, customcollect) || customcollect[meta1]) return;
+        if (!INBOUNDS_ARR(meta1, customcollect) || customcollect[meta1]) return NULL;
         break;
-      case 56: //Custom enemy
+    case 56: //Custom enemy
+    {
         entity.rule = 1;
         entity.type = EntityType_MOVING;
         entity.behave = meta1;
@@ -2112,67 +2457,11 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         entity.harmful = true;
 
-        switch(customenemy){
-          case 0: entity.setenemyroom(4+100, 0+100); break;
-          case 1: entity.setenemyroom(2+100, 0+100); break;
-          case 2: entity.setenemyroom(12+100, 3+100); break;
-          case 3: entity.setenemyroom(13+100, 12+100); break;
-          case 4: entity.setenemyroom(16+100, 9+100); break;
-          case 5: entity.setenemyroom(19+100, 1+100); break;
-          case 6: entity.setenemyroom(19+100, 2+100); break;
-          case 7: entity.setenemyroom(18+100, 3+100); break;
-          case 8: entity.setenemyroom(16+100, 0+100); break;
-          case 9: entity.setenemyroom(14+100, 2+100); break;
-          default: entity.setenemyroom(4+100, 0+100); break;
-        }
-
-        //Set colour based on room tile
-         //Set custom colours
-        if(customplatformtile>0){
-          int entcol=(customplatformtile/12);
-          switch(entcol){
-            //RED
-            case 3: case 7: case 12: case 23: case 28:
-            case 34: case 42: case 48: case 58:
-              entity.colour = 6; break;
-            //GREEN
-            case 5: case 9: case 22: case 25: case 29:
-            case 31: case 38: case 46: case 52: case 53:
-              entity.colour = 7; break;
-            //BLUE
-            case 1: case 6: case 14: case 27: case 33:
-            case 44: case 50: case 57:
-              entity.colour = 12; break;
-            //YELLOW
-            case 4: case 17: case 24: case 30: case 37:
-            case 45: case 51: case 55:
-              entity.colour = 9; break;
-            //PURPLE
-            case 2: case 11: case 15: case 19: case 32:
-            case 36: case 49:
-              entity.colour = 20; break;
-            //CYAN
-            case 8: case 10: case 13: case 18: case 26:
-            case 35: case 41: case 47: case 54:
-              entity.colour = 11; break;
-            //PINK
-            case 16: case 20: case 39: case 43: case 56:
-              entity.colour = 8; break;
-            //ORANGE
-            case 21: case 40:
-              entity.colour = 17; break;
-            default:
-              entity.colour = 6;
-            break;
-          }
-        }
-
-        if(custom_gray){
-          entity.colour = 18;
-        }
-
-        entityclonefix(&entity);
+        const char* type = legacy_id_to_entity(customenemy);
+        set_enemy_type(&entity, type);
+        set_enemy_colour(&entity);
         break;
+    }
     case 100: // Invalid enemy, but gets treated as a teleporter
         entity.type = EntityType_TELEPORTER;
         break;
@@ -2187,48 +2476,51 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entities.push_back(entity);
     }
 
+    size_t indice;
+    if (reuse)
+    {
+        indice = entptr - entities.data();
+    }
+    else
+    {
+        indice = entities.size() - 1;
+    }
+
     /* Fix crewmate facing directions
      * This is a bit kludge-y but it's better than copy-pasting
      * and is okay to do because entity 12 does not change state on its own
      */
     if (entity.type == EntityType_CREWMATE)
     {
-        size_t indice;
-        if (reuse)
-        {
-            indice = entptr - entities.data();
-        }
-        else
-        {
-            indice = entities.size() - 1;
-        }
         updateentities(indice);
     }
+
+    return &entities[indice];
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2)
 {
-    createentity(xp, yp, t, meta1, meta2, p1, p2, 320, 240);
+    return createentity(xp, yp, t, meta1, meta2, p1, p2, 320, 240);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1)
 {
-    createentity(xp, yp, t, meta1, meta2, p1, 0);
+    return createentity(xp, yp, t, meta1, meta2, p1, 0);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2)
 {
-    createentity(xp, yp, t, meta1, meta2, 0);
+    return createentity(xp, yp, t, meta1, meta2, 0);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1)
 {
-    createentity(xp, yp, t, meta1, 0);
+    return createentity(xp, yp, t, meta1, 0);
 }
 
-void entityclass::createentity(int xp, int yp, int t)
+entclass* entityclass::createentity(int xp, int yp, int t)
 {
-    createentity(xp, yp, t, 0);
+    return createentity(xp, yp, t, 0);
 }
 
 //Returns true if entity is removed
@@ -2405,7 +2697,16 @@ bool entityclass::updateentities( int i )
                 //Emitter: shoot an enemy every so often
                 if (entities[i].state == 0)
                 {
-                    createentity(entities[i].xp+28, entities[i].yp, 1, 10, 1);
+                    std::string to_spawn = entities[i].to_spawn;
+                    if (to_spawn == "")
+                    {
+                        // A default, for supporting older custom levels
+                        to_spawn = "lies";
+                    }
+
+                    entclass* entity = createentity(entities[i].xp+28, entities[i].yp, 1, 10, -1);
+                    set_enemy_type(entity, to_spawn.c_str());
+                    entity->colour = entities[i].colour;
                     entities[i].state = 1;
                     entities[i].statedelay = 12;
                 }
@@ -2440,7 +2741,16 @@ bool entityclass::updateentities( int i )
                 //Emitter: shoot an enemy every so often (up)
                 if (entities[i].state == 0)
                 {
-                    createentity(entities[i].xp, entities[i].yp, 1, 12, 1);
+                    std::string to_spawn = entities[i].to_spawn;
+                    if (to_spawn == "")
+                    {
+                        // A default, for supporting older custom levels
+                        to_spawn = "factory_clouds";
+                    }
+
+                    entclass* entity = createentity(entities[i].xp, entities[i].yp, 1, 12, -1);
+                    set_enemy_type(entity, to_spawn.c_str());
+                    entity->colour = entities[i].colour;
                     entities[i].state = 1;
                     entities[i].statedelay = 16;
                 }
@@ -3523,28 +3833,48 @@ void entityclass::animateentities( int _i )
             break;
         case EntityType_MOVING:
         case EntityType_GRAVITRON_ENEMY:
-            //Variable animation
-            switch(entities[_i].animate)
+        {
+            int offset = 1;
+
+            if (entities[_i].render_type == EntityRenderType_SPRITE_2x1 || entities[_i].render_type == EntityRenderType_SPRITE_2x2)
             {
-            case 0:
-                //Simple oscilation
+                offset = 2;
+            }
+
+            switch (entities[_i].animation_type)
+            {
+            case EntityAnimationType_LOOP:
                 entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
+                if (entities[_i].framedelay <= 0)
                 {
-                    entities[_i].framedelay = 8;
-                    if(entities[_i].actionframe==0)
+                    entities[_i].framedelay = entities[_i].animation_speed;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe >= entities[_i].animation_frames)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile + entities[_i].walkingframe * offset;
+                break;
+            case EntityAnimationType_OSCILLATE:
+                entities[_i].framedelay--;
+                if (entities[_i].framedelay <= 0)
+                {
+                    entities[_i].framedelay = entities[_i].animation_speed;
+                    if (entities[_i].actionframe == 0)
                     {
                         entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 4)
+                        if (entities[_i].walkingframe >= entities[_i].animation_frames)
                         {
-                            entities[_i].walkingframe = 2;
+                            entities[_i].walkingframe = entities[_i].animation_frames - 1;
                             entities[_i].actionframe = 1;
                         }
                     }
                     else
                     {
                         entities[_i].walkingframe--;
-                        if (entities[_i].walkingframe == -1)
+                        if (entities[_i].walkingframe < 0)
                         {
                             entities[_i].walkingframe = 1;
                             entities[_i].actionframe = 0;
@@ -3553,126 +3883,12 @@ void entityclass::animateentities( int _i )
                 }
 
                 entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
+                entities[_i].drawframe += entities[_i].walkingframe * offset;
                 break;
-            case 1:
-                //Simple Loop
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 8;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 4)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
-                break;
-            case 2:
-                //Simpler Loop (just two frames)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 2;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
-                break;
-            case 3:
-                //Simpler Loop (just two frames, but double sized)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 2;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += (entities[_i].walkingframe*2);
-                break;
-            case 4:
-                //Simpler Loop (just two frames, but double sized) (as above but slower)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 6;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += (entities[_i].walkingframe*2);
-                break;
-            case 5:
-                //Simpler Loop (just two frames) (slower)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 6;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
-                break;
-            case 6:
-                //Normal Loop (four frames, double sized)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 4;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 4)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += (entities[_i].walkingframe*2);
-                break;
-            case 7:
-                //Simpler Loop (just two frames) (slower) (with directions!)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 6;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
-
-                if (entities[_i].vx > 0.000f ) entities[_i].drawframe += 2;
-                break;
-            case 10:
+            case EntityAnimationType_CONVEYOR_LEFT:
                 //Threadmill left
                 entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
+                if (entities[_i].framedelay <= 0)
                 {
                     entities[_i].framedelay = 3;//(6-entities[_i].para);
                     entities[_i].walkingframe--;
@@ -3685,10 +3901,10 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe = entities[_i].tile;
                 entities[_i].drawframe += entities[_i].walkingframe;
                 break;
-            case 11:
+            case EntityAnimationType_CONVEYOR_RIGHT:
                 //Threadmill right
                 entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
+                if (entities[_i].framedelay <= 0)
                 {
                     entities[_i].framedelay = 3;//(6-entities[_i].para);
                     entities[_i].walkingframe++;
@@ -3701,37 +3917,35 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe = entities[_i].tile;
                 entities[_i].drawframe += entities[_i].walkingframe;
                 break;
-            case 100:
-                //Simple case for no animation (platforms, etc)
-                entities[_i].drawframe = entities[_i].tile;
-                break;
+            case EntityAnimationType_STILL:
             default:
                 entities[_i].drawframe = entities[_i].tile;
                 break;
             }
+
             break;
+        }
         case EntityType_DISAPPEARING_PLATFORM: //Disappearing platforms
             entities[_i].drawframe = entities[_i].tile + entities[_i].walkingframe;
             break;
         case EntityType_WARP_TOKEN:
             entities[_i].drawframe = entities[_i].tile;
-            if(entities[_i].animate==2)
-            {
-                //Simpler Loop (just two frames)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 10;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
 
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
+            // Two frame loop
+            entities[_i].framedelay--;
+            if (entities[_i].framedelay <= 0)
+            {
+                entities[_i].framedelay = 10;
+                entities[_i].walkingframe++;
+                if (entities[_i].walkingframe == 2)
+                {
+                    entities[_i].walkingframe = 0;
+                }
             }
+
+            entities[_i].drawframe = entities[_i].tile;
+            entities[_i].drawframe += entities[_i].walkingframe;
+
             break;
         case EntityType_CREWMATE:
         case EntityType_COLLECTABLE_CREWMATE:
@@ -3979,7 +4193,7 @@ int entityclass::getlineat( int t )
     //Get the entity which is a horizontal line at height t (for SWN game)
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if (entities[i].size == 5)
+        if (entities[i].render_type == EntityRenderType_HORIZONTAL_LINE)
         {
             if (entities[i].yp == t)
             {
@@ -4824,7 +5038,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         //person i hits enemy or enemy bullet j
         if (entitycollide(i, j) && !map.invincibility)
         {
-            if (entities[i].size == 0 && (entities[j].size == 0 || entities[j].size == 12))
+            if (entities[i].render_type == EntityRenderType_SPRITE && (entities[j].render_type == EntityRenderType_SPRITE || entities[j].render_type == EntityRenderType_SPRITE_NO_WRAP))
             {
                 //They're both sprites, so do a per pixel collision
                 SDL_Point colpoint1;
