@@ -2460,6 +2460,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         const char* type = legacy_id_to_entity(customenemy);
         set_enemy_type(&entity, type);
         set_enemy_colour(&entity);
+        break;
     }
     case 100: // Invalid enemy, but gets treated as a teleporter
         entity.type = EntityType_TELEPORTER;

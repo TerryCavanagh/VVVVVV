@@ -2353,6 +2353,8 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(grphx.im_sprites, obj.entities[i].drawframe, xp, yp - yoff, sprites_rect.w, sprites_rect.h, obj.entities[i].realcol, 6, 6);
         break;
     }
+    case EntityRenderType_INVALID:
+        break;
     }
 }
 
