@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+#include <string>
+
 #define        rn( rx,  ry) ((rx) + ((ry) * 100))
 
 enum EntityType
@@ -117,6 +119,9 @@ public:
 
     SDL_Color realcol;
     int lerpoldxp, lerpoldyp;
+
+    // Emitter specific
+    std::string to_spawn;
 };
 
 #endif /* ENT_H */

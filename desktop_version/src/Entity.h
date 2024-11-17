@@ -60,6 +60,7 @@ struct EnemyType
     bool override_y1;
     int y2;
     bool override_y2;
+    std::string to_spawn;
 };
 
 class entityclass

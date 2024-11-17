@@ -131,6 +131,7 @@ EnemyType* entityclass::create_type(
     enemy_type.override_x2 = false;
     enemy_type.override_y1 = false;
     enemy_type.override_y2 = false;
+    enemy_type.to_spawn = "";
 
     enemy_types[type] = enemy_type;
     return &enemy_types[type];
@@ -213,6 +214,8 @@ void entityclass::add_default_types(void)
     type->x1 = -200;
     type->override_behave = true;
     type->override_x1 = true;
+    type->to_spawn = "lies";
+
     type = create_type("lies", 63, 6, EntityAnimationType_STILL, 1, 1, 26, 10);
     type->corner_x = 1;
     type->corner_y = 1;
@@ -225,6 +228,7 @@ void entityclass::add_default_types(void)
     type->override_para = true;
     type->override_x1 = true;
     type->override_x2 = true;
+
     type = create_type("lies_collector", 62, 6, EntityAnimationType_STILL, 1, 1, 32, 32);
     type->behave = -1;
     type->override_behave = true;
@@ -235,6 +239,8 @@ void entityclass::add_default_types(void)
     type->render_type = EntityRenderType_SPRITE_2x2;
     type->behave = 12;
     type->override_behave = true;
+    type->to_spawn = "factory_clouds";
+
     type = create_type("factory_clouds", 76, 6, EntityAnimationType_STILL, 1, 1, 32, 12);
     type->corner_y = 6;
     type->x_offset = 4;
@@ -245,6 +251,7 @@ void entityclass::add_default_types(void)
     type->override_behave = true;
     type->override_para = true;
     type->override_x2 = true;
+
     type = create_type("factory_collector", 77, 6, EntityAnimationType_STILL, 1, 1, 32, 16);
     type->behave = -1;
     type->override_behave = true;
@@ -279,6 +286,7 @@ void entityclass::set_enemy_type(entclass* entity, const char* type)
         entity->yp += enemyType->y_offset;
         entity->lerpoldyp += enemyType->y_offset;
         entity->render_type = enemyType->render_type;
+        entity->to_spawn = enemyType->to_spawn;
 
         if (enemyType->colour != -1)
         {
@@ -2688,8 +2696,15 @@ bool entityclass::updateentities( int i )
                 //Emitter: shoot an enemy every so often
                 if (entities[i].state == 0)
                 {
+                    std::string to_spawn = entities[i].to_spawn;
+                    if (to_spawn == "")
+                    {
+                        // A default, for supporting older custom levels
+                        to_spawn = "lies";
+                    }
+
                     entclass* entity = createentity(entities[i].xp+28, entities[i].yp, 1, 10, -1);
-                    set_enemy_type(entity, "lies");
+                    set_enemy_type(entity, to_spawn.c_str());
                     entity->colour = entities[i].colour;
                     entities[i].state = 1;
                     entities[i].statedelay = 12;
@@ -2725,8 +2740,15 @@ bool entityclass::updateentities( int i )
                 //Emitter: shoot an enemy every so often (up)
                 if (entities[i].state == 0)
                 {
+                    std::string to_spawn = entities[i].to_spawn;
+                    if (to_spawn == "")
+                    {
+                        // A default, for supporting older custom levels
+                        to_spawn = "factory_clouds";
+                    }
+
                     entclass* entity = createentity(entities[i].xp, entities[i].yp, 1, 12, -1);
-                    set_enemy_type(entity, "factory_clouds");
+                    set_enemy_type(entity, to_spawn.c_str());
                     entity->colour = entities[i].colour;
                     entities[i].state = 1;
                     entities[i].statedelay = 16;
