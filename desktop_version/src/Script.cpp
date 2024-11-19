@@ -448,7 +448,14 @@ void scriptclass::run(void)
             }
             if (words[0] == "playef")
             {
-                music.playef(ss_toi(words[1]));
+                if (is_number(words[1].c_str()) && ss_toi(words[1]) >= 0 && ss_toi(words[1]) < music.stockSoundTracks)
+                {
+                    music.playef(ss_toi(words[1]));
+                }
+                else
+                {
+                    music.playef_name(raw_words[1]);
+                }
             }
             if (words[0] == "play")
             {
