@@ -66,7 +66,7 @@ CreateWindowFramebuffer(SDL_VideoDevice* device,
     /* Create a new one */
     SDL_GetWindowSizeInPixels(window, &w, &h);
     _surface = SDL_CreateRGBSurfaceWithFormat(0, w, h, 0, surface_format);
-    _surface_real = SDL_CreateRGBSurfaceWithFormat(0, w, h, 0, surface_format);
+    _surface_real = SDL_CreateRGBSurfaceWithFormat(0, 320, 240, 0, surface_format);
     if (!_surface_real) {
         return -1;
     }
