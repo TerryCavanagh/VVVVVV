@@ -249,7 +249,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         "saves",
         pathSep
     );
-    mkdir(saveDir, 0777);
+    mkdir(saveDir, 0755);
     vlog_info("Save directory: %s", saveDir);
 
     /* Store full level directory */
@@ -258,7 +258,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         "levels",
         pathSep
     );
-    mkdir(levelDir, 0777);
+    mkdir(levelDir, 0755);
     vlog_info("Level directory: %s", levelDir);
 
     /* Store full screenshot directory */
@@ -267,7 +267,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         "screenshots",
         pathSep
     );
-    mkdir(screenshotDir, 0777);
+    mkdir(screenshotDir, 0755);
     vlog_info("Screenshot directory: %s", screenshotDir);
 
     /* We also need to make the subdirectories */
@@ -276,11 +276,11 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         SDL_snprintf(temp, sizeof(temp), "%s%s%s",
             screenshotDir, "1x", pathSep
         );
-        mkdir(temp, 0777);
+        mkdir(temp, 0755);
         SDL_snprintf(temp, sizeof(temp), "%s%s%s",
             screenshotDir, "2x", pathSep
         );
-        mkdir(temp, 0777);
+        mkdir(temp, 0755);
     }
 
     basePath = SDL_GetBasePath();
@@ -329,17 +329,11 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     if (!PHYSFS_mount(output, NULL, 1))
 #endif
     {
-        vlog_error("Error: data.zip missing!");
-        vlog_error("You do not have data.zip!");
-        vlog_error("Grab it from your purchased copy of the game,");
-        vlog_error("or get it from the free Make and Play Edition.");
+        vlog_error(NO_DATA_ZIP);
 
         SDL_ShowSimpleMessageBox(
             SDL_MESSAGEBOX_ERROR,
-            "data.zip missing!",
-            "You do not have data.zip!"
-            "\n\nGrab it from your purchased copy of the game,"
-            "\nor get it from the free Make and Play Edition.",
+            NO_DATA_ZIP,
             NULL
         );
         VVV_exit(1);
@@ -1317,7 +1311,7 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
     }
 
     SDL_strlcat(output, "\\VVVVVV\\", MAX_PATH);
-    mkdir(output, 0777);
+    mkdir(output, 0755);
     return 1;
 #elif defined(__ANDROID__)
     const char* externalStoragePath = SDL_AndroidGetExternalStoragePath();
