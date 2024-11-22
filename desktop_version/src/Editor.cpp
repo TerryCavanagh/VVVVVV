@@ -3787,7 +3787,7 @@ void editorinput(void)
 
             if (up_pressed && ed.keydelay <= 0)
             {
-                ed.keydelay = 3;
+                ed.keydelay = 6;
                 ed.script_cursor_y = SDL_max(0, ed.script_cursor_y - 1);
 
                 key.keybuffer = ed.script_buffer[ed.script_cursor_y];
@@ -3795,7 +3795,7 @@ void editorinput(void)
 
             if (down_pressed && ed.keydelay <= 0)
             {
-                ed.keydelay = 3;
+                ed.keydelay = 6;
                 ed.script_cursor_y = SDL_min((int) ed.script_buffer.size() - 1, ed.script_cursor_y + 1);
 
                 key.keybuffer = ed.script_buffer[ed.script_cursor_y];
@@ -3827,8 +3827,15 @@ void editorinput(void)
             }}
 
             ed.script_buffer[ed.script_cursor_y] = key.keybuffer;
-            ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
-
+            
+            if (left_pressed && ed.keydelay <= 0) {
+                ed.keydelay = 6;
+                ed.script_cursor_x = SDL_max(0, ed.script_cursor_x - 1);
+            }
+            if (right_pressed && ed.keydelay <= 0) {
+                ed.keydelay = 6;
+                ed.script_cursor_x = SDL_min((int) UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str()) - 1, ed.script_cursor_y + 1);
+            }
             if (enter_pressed)
             {
                 //Continue to next line
