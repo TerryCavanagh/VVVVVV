@@ -359,6 +359,7 @@ void editorclass::reset(void)
     note = "";
     note_timer = 0;
     old_note_timer = 0;
+    old_keybuffer = "";
     backspace_held = false;
     current_text_mode = TEXT_NONE;
 
@@ -1915,7 +1916,8 @@ void editorrender(void)
             // Draw cursor
             if (ed.entframe < 2)
             {
-                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, ed.script_buffer[ed.script_cursor_y].c_str()), 20 + ((ed.script_cursor_y - ed.script_offset) * font_height), "_", 123, 111, 218);
+                // FIXME: Ugly and shitty workaround for the X cursor should be avoided
+                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + (font::len(PR_FONT_LEVEL, "a")*ed.script_cursor_x), 20 + ((ed.script_cursor_y - ed.script_offset) * font_height), "_", 123, 111, 218);
             }
             break;
         }
@@ -3767,6 +3769,7 @@ void editorinput(void)
                     music.playef(Sound_VIRIDIAN);
                 }
             }
+            
             break;
         }
         case EditorSubState_SCRIPTS_EDIT:
@@ -3800,19 +3803,35 @@ void editorinput(void)
 
                 key.keybuffer = ed.script_buffer[ed.script_cursor_y];
             }
-
+            if (left_pressed && ed.keydelay <= 0)
+            {
+                ed.keydelay = 6;
+                ed.script_cursor_x = SDL_max(0, ed.script_cursor_x - 1);
+            }
+            if (right_pressed && ed.keydelay <= 0)
+            {
+                ed.keydelay = 6;
+                ed.script_cursor_x = SDL_min((int) UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str()), ed.script_cursor_x + 1);
+            }
+            
             if (key.linealreadyemptykludge)
             {
                 ed.keydelay = 6;
                 key.linealreadyemptykludge = false;
             }
-
+            if (key.pressedbackspace && ed.script_buffer[ed.script_cursor_y] != "" && ed.keydelay <= 0)
+            {
+                ed.script_buffer[ed.script_cursor_y].erase(ed.script_cursor_x-1, 1);
+                if(ed.script_cursor_x > 0)
+                    ed.script_cursor_x = ed.script_cursor_x - 1;
+                ed.keydelay = 2;
+            }
             if (key.pressedbackspace && ed.script_buffer[ed.script_cursor_y] == "" && ed.keydelay <= 0)
             {
                 //Remove this line completely
                 ed.remove_line(ed.script_cursor_y);
                 ed.script_cursor_y = SDL_max(0, ed.script_cursor_y - 1);
-                key.keybuffer = ed.script_buffer[ed.script_cursor_y];
+                ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
                 ed.keydelay = 6;
             }
 
@@ -3826,16 +3845,18 @@ void editorinput(void)
                 }
             }}
 
-            ed.script_buffer[ed.script_cursor_y] = key.keybuffer;
-            
-            if (left_pressed && ed.keydelay <= 0) {
-                ed.keydelay = 6;
-                ed.script_cursor_x = SDL_max(0, ed.script_cursor_x - 1);
+            if(ed.old_keybuffer.length() < key.keybuffer.length()) {
+                std::string keybufcopy = key.keybuffer;
+                std::string addition = keybufcopy.erase(0, ed.old_keybuffer.length());
+                //printf("Addition %s, keyBuffer %s\n", addition.c_str(), key.keybuffer.c_str());
+                
+                ed.script_buffer[ed.script_cursor_y].insert(ed.script_cursor_x, addition);
+                ed.script_cursor_x = ed.script_cursor_x + addition.length();
+                
             }
-            if (right_pressed && ed.keydelay <= 0) {
-                ed.keydelay = 6;
-                ed.script_cursor_x = SDL_min((int) UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str()) - 1, ed.script_cursor_y + 1);
-            }
+
+            //ed.script_buffer[ed.script_cursor_y] = key.keybuffer;
+
             if (enter_pressed)
             {
                 //Continue to next line
@@ -3866,7 +3887,7 @@ void editorinput(void)
             {
                 ed.script_offset = SDL_min((int) ed.script_buffer.size() - ed.lines_visible + SCRIPT_LINE_PADDING, ed.script_cursor_y - ed.lines_visible + SCRIPT_LINE_PADDING);
             }
-
+            ed.old_keybuffer = key.keybuffer;
             break;
         }
         default:

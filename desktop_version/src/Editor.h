@@ -222,6 +222,7 @@ public:
     int old_note_timer;
     std::string note;
     std::string keybuffer;
+    std::string old_keybuffer; // !!! at the moment for use with script editor only
     std::string filename;
     std::string loaded_filepath;
 
