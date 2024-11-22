@@ -6,6 +6,7 @@
  * FIXME: This should include more constants!
  */
 
+#define NO_DATA_ZIP "Error: data.zip missing!\nYou do not have data.zip!\nGrab it from your purchased copy of the game, or get it from the free Make and Play Edition.\n\nIf you are getting this error, and you do\n have data.zip, move it into the folder\ncontaining the executable.\n");
 #define SCREEN_WIDTH_TILES 40
 #define SCREEN_HEIGHT_TILES 30
 
