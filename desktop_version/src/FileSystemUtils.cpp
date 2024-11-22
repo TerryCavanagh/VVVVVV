@@ -329,10 +329,11 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     if (!PHYSFS_mount(output, NULL, 1))
 #endif
     {
-        vlog_error(NO_DATA_ZIP);
+        vlog_error(NO_DATA_ZIP_TITLE NO_DATA_ZIP);
 
         SDL_ShowSimpleMessageBox(
             SDL_MESSAGEBOX_ERROR,
+            NO_DATA_ZIP_TITLE,
             NO_DATA_ZIP,
             NULL
         );
