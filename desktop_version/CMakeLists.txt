@@ -146,7 +146,7 @@ if(WIN32)
 elseif(ANDROID)
     add_library(VVVVVV SHARED ${VVV_SRC})
 elseif(CMAKE_SYSTEM_NAME STREQUAL "iOS")
-    file(GLOB_RECURSE REPO_RESOURCES "fonts/*" "lang/*")
+    file(GLOB_RECURSE REPO_RESOURCES "fonts/*" "lang/*" "touch/*")
 
     add_executable(VVVVVV MACOSX_BUNDLE ${VVV_SRC} ${DATA_ZIP} AppIcon.xcassets ${REPO_RESOURCES})
     set_target_properties(VVVVVV PROPERTIES
