@@ -420,6 +420,7 @@ end:
         VVV_free(read_buf);
         VVV_free(decoded_buf_playing);
         VVV_free(decoded_buf_reserve);
+        VVV_free(filename);
         if (!IsHalted())
         {
             VVV_freefunc(FAudioVoice_DestroyVoice, musicVoice);
@@ -528,7 +529,7 @@ end:
     Uint8* decoded_buf_playing;
     Uint8* decoded_buf_reserve;
     Uint8* read_buf;
-    const char* filename;
+    char* filename;
     bool looseextra;
     bool shouldloop;
     bool valid;
@@ -833,7 +834,7 @@ void musicclass::init(void)
     rw = PHYSFSRWOPS_openRead(track_name); \
     if (rw == NULL) \
     { \
-        vlog_error("Unable to read loose music file: %s", SDL_GetError()); \
+        vlog_error("Unable to read extra loose music file: %s", SDL_GetError()); \
     } \
     else \
     { \
