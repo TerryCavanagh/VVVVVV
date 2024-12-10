@@ -234,7 +234,7 @@ void STEAM_shutdown(void)
     }
 }
 
-void STEAM_update(void)
+void STEAM_update(const char *level, const char *name)
 {
     if (!libHandle)
     {

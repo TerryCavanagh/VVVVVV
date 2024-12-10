@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 
 #include "MakeAndPlay.h"
 #include "Unused.h"
@@ -9,6 +10,9 @@
     #endif
     #ifdef GOG_NETWORK
         #undef GOG_NETWORK
+    #endif
+    #ifdef DISCORD_NETWORK
+        #undef DISCORD_NETWORK
     #endif
 #endif
 
@@ -22,18 +26,26 @@
 #else
 #define GOG_NUM 0
 #endif
+#ifdef DISCORD_NETWORK
+#define DISCORD_NUM 1
+#else
+#define DISCORD_NUM 0
+#endif
 
-#define NUM_BACKENDS (STEAM_NUM+GOG_NUM)
+#define NUM_BACKENDS (STEAM_NUM+GOG_NUM+DISCORD_NUM)
 #define DECLARE_BACKEND(name) \
     int32_t name##_init(void); \
     void name##_shutdown(void); \
-    void name##_update(void); \
+    void name##_update(const char *level, const char *name); \
     void name##_unlockAchievement(const char *name);
 #ifdef STEAM_NETWORK
 DECLARE_BACKEND(STEAM)
 #endif
 #ifdef GOG_NETWORK
 DECLARE_BACKEND(GOG)
+#endif
+#ifdef DISCORD_NETWORK
+DECLARE_BACKEND(DISCORD)
 #endif
 #undef DECLARE_BACKEND
 
@@ -42,7 +54,7 @@ typedef struct NetworkBackend
     int32_t IsInit;
     int32_t (*Init)(void);
     void (*Shutdown)(void);
-    void (*Update)(void);
+    void (*Update)(const char*, const char*);
     void (*UnlockAchievement)(const char*);
 } NetworkBackend;
 
@@ -63,6 +75,9 @@ int NETWORK_init(void)
     #endif
     #ifdef GOG_NETWORK
     ASSIGN_BACKEND(GOG, STEAM_NUM)
+    #endif
+    #ifdef DISCORD_NETWORK
+    ASSIGN_BACKEND(DISCORD, STEAM_NUM+GOG_NUM)
     #endif
     #undef ASSIGN_BACKEND
     #if NUM_BACKENDS > 0
@@ -89,14 +104,14 @@ void NETWORK_shutdown(void)
     #endif
 }
 
-void NETWORK_update(void)
+void NETWORK_update(const char *level, const char *name)
 {
     #if NUM_BACKENDS > 0
     int32_t i;
     for (i = 0; i < NUM_BACKENDS; i += 1)
     if (backends[i].IsInit)
     {
-        backends[i].Update();
+        backends[i].Update(level, name);
     }
     #endif
 }
