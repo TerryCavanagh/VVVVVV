@@ -15,7 +15,7 @@ void GOG_shutdown(void)
 {
 }
 
-void GOG_update(void)
+void GOG_update(const char *level, const char *name)
 {
 }
 

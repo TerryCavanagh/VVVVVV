@@ -11,6 +11,7 @@ option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and FAudio (if dis
 
 option(STEAM "Use the Steam API" OFF)
 option(GOG "Use the GOG API" OFF)
+option(DISCORD "Use the Discord API" OFF)
 
 option(OFFICIAL_BUILD "Compile an official build of the game" OFF)
 
@@ -19,6 +20,7 @@ option(MAKEANDPLAY "Compile a version of the game without the main campaign (pro
 if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
     set(STEAM ON)
     set(GOG ON)
+    set(DISCORD ON)
 endif()
 
 option(REMOVE_ABSOLUTE_PATHS "If supported by the compiler, replace all absolute paths to source directories compiled into the binary (if any) with relative paths" ON)
@@ -133,6 +135,9 @@ endif()
 if(GOG)
     list(APPEND VVV_C_SRC src/GOGNetwork.c)
 endif()
+if(DISCORD)
+    list(APPEND VVV_C_SRC src/DiscordNetwork.c)
+endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
     list(APPEND VVV_C_SRC src/SDL_uikit_main.c)
 endif()
@@ -209,6 +214,9 @@ if(STEAM)
 endif()
 if(GOG)
     target_compile_definitions(VVVVVV PRIVATE -DGOG_NETWORK)
+endif()
+if(DISCORD)
+    target_compile_definitions(VVVVVV PRIVATE -DDISCORD_NETWORK)
 endif()
 
 set(XML2_SRC
@@ -352,6 +360,10 @@ add_library(c-hashmap-static STATIC ${CHM_SRC})
 
 add_library(sheenbidi-static STATIC ${SBIDI_SRC})
 
+# Link after we did all of the other initialisation
+if(DISCORD)
+    target_link_options(VVVVVV PRIVATE ../../third_party/libdiscord_game_sdk.so)
+endif()
 target_compile_definitions(sheenbidi-static PRIVATE
     -DSB_CONFIG_UNITY
 )
