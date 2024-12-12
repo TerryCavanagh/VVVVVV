@@ -144,12 +144,9 @@ void DISCORD_update(const char *level, const char *name)
     {
         app.activityMan = app.core->get_activity_manager(app.core);
     }
-    strncpy(activity.state, name, 127);
-    strncpy(activity.assets.large_image, "vvvvvv", 127);
-    strncpy(activity.assets.large_text, level, 127);
-    activity.state[127] = '\0';
-    activity.assets.large_image[127] = '\0';
-    activity.assets.large_text[127] = '\0';
+    SDL_strlcpy(activity.state, name, sizeof(activity.state));
+    SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
+    SDL_strlcpy(activity.assets.large_text, level, sizeof(activity.assets.large_text));
 
     app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
 
