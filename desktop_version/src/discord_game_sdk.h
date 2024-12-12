@@ -720,7 +720,6 @@ void DiscordCreateParamsSetDefault(struct DiscordCreateParams* params)
     params->achievement_version = DISCORD_ACHIEVEMENT_MANAGER_VERSION;
 }
 
-enum EDiscordResult DISCORD_API DiscordCreate(DiscordVersion version, struct DiscordCreateParams* params, struct IDiscordCore** result);
 
 #ifdef __cplusplus
 }

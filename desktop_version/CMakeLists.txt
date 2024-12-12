@@ -360,10 +360,6 @@ add_library(c-hashmap-static STATIC ${CHM_SRC})
 
 add_library(sheenbidi-static STATIC ${SBIDI_SRC})
 
-# Link after we did all of the other initialisation
-if(DISCORD)
-    target_link_options(VVVVVV PRIVATE ../../third_party/libdiscord_game_sdk.so)
-endif()
 target_compile_definitions(sheenbidi-static PRIVATE
     -DSB_CONFIG_UNITY
 )
