@@ -4,13 +4,11 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include <assert.h>
 #include <SDL.h>
 #ifdef _WIN32
 #include <Windows.h>
 #else
 #include <unistd.h>
-#include <string.h>
 #endif
 
 #include "Vlogging.h"
@@ -106,10 +104,8 @@ int32_t DISCORD_init(void)
     }
 
 
-    strncpy(activity.state, "On the Main Menu", 128);
-    //strncpy(activity.details, "I'm Sorry", 128);
-    strncpy(activity.assets.large_image, "vvvvvv", 128);
-    strncpy(activity.assets.large_text, "Dimension  VVVVVV", 128);
+    SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
+    SDL_strlcpy(activity.assets.large_text, "Outside Dimension VVVVVV", sizeof(activity.assets.large_text));
 
     app.activityMan = app.core->get_activity_manager(app.core);
     app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
@@ -154,7 +150,7 @@ void DISCORD_update(const char *level, const char *name)
 }
 void DISCORD_unlockAchievement(const char *name)
 {
-    // No "achivements" in Discord
+    // No "achievements" in Discord
 }
 
 
