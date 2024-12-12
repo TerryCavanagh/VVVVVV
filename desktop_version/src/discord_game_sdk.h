@@ -703,22 +703,7 @@ inline
 #else
 static
 #endif
-void DiscordCreateParamsSetDefault(struct DiscordCreateParams* params)
-{
-    memset(params, 0, sizeof(struct DiscordCreateParams));
-    params->application_version = DISCORD_APPLICATION_MANAGER_VERSION;
-    params->user_version = DISCORD_USER_MANAGER_VERSION;
-    params->image_version = DISCORD_IMAGE_MANAGER_VERSION;
-    params->activity_version = DISCORD_ACTIVITY_MANAGER_VERSION;
-    params->relationship_version = DISCORD_RELATIONSHIP_MANAGER_VERSION;
-    params->lobby_version = DISCORD_LOBBY_MANAGER_VERSION;
-    params->network_version = DISCORD_NETWORK_MANAGER_VERSION;
-    params->overlay_version = DISCORD_OVERLAY_MANAGER_VERSION;
-    params->storage_version = DISCORD_STORAGE_MANAGER_VERSION;
-    params->store_version = DISCORD_STORE_MANAGER_VERSION;
-    params->voice_version = DISCORD_VOICE_MANAGER_VERSION;
-    params->achievement_version = DISCORD_ACHIEVEMENT_MANAGER_VERSION;
-}
+
 
 
 #ifdef __cplusplus

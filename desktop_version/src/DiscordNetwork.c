@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
+#include <SDL.h>
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -12,9 +13,11 @@
 #include <string.h>
 #endif
 
+#include "Vlogging.h"
+
 // Library includes
 #include "discord_game_sdk.h"
-#include <SDL.h>
+
 #if defined(_WIN32)
 #define DISCORD_LIBRARY "discord_game_sdk.dll"
 #elif defined(__APPLE__)
@@ -25,18 +28,19 @@
 #error DISCORD_LIBRARY: Unrecognized platform!
 #endif
 
-#include "Vlogging.h"
+
+#define DISCORD_CRASH_LIMIT 10
+#define DISCORD_CLIENT_ID 1315544357532729447 // TO TERRY/FLIBIT: You can create your own Discord instance at the Discord Developer Portal. This ID belongs to me, so just be aware that if my account was to get hacked, VVVVVV RPC would too. Use your own!
 
 
-#define DISCORD_REQUIRE(x) assert(x == DiscordResult_Ok)
-
-struct Application {
+struct DISCORD_application {
     struct IDiscordCore* core;
     struct IDiscordActivityManager* activityMan;
-};
+} app;
 
 struct DiscordActivity activity;
-struct Application app;
+
+int discordCrashes = 0; // This is here to ensure we do not get stuck in a theoratical softlock of opening and crashing Discord instances.
 
 static void* libHandle = NULL;
 
@@ -59,6 +63,13 @@ static void ClearPointers(void)
 #undef FOREACH_FUNC
 }
 
+void DISCORD_shutdown(void)
+{
+    if (libHandle)
+    {
+        ClearPointers();
+    }
+}
 
 int32_t DISCORD_init(void)
 {
@@ -86,7 +97,7 @@ int32_t DISCORD_init(void)
     memset(&app, 0, sizeof(app));
 
     struct DiscordCreateParams params;
-    params.client_id = 1315544357532729447;
+    params.client_id = DISCORD_CLIENT_ID;
     params.flags = DiscordCreateFlags_Default;
 
     if(!DiscordCreate(DISCORD_VERSION, &params, &app.core))
@@ -108,8 +119,27 @@ int32_t DISCORD_init(void)
     return 0;
 }
 
+void DISCORD_REQUIRE(int x) {
+    if(discordCrashes > DISCORD_CRASH_LIMIT)
+    {
+        DISCORD_shutdown();
+        return;
+    }
+    if(x != DiscordResult_Ok)
+    {
+        ++discordCrashes;
+        DISCORD_shutdown();
+        DISCORD_init();
+        return;
+    }
+    discordCrashes = 0;
+}
+
 void DISCORD_update(const char *level, const char *name)
 {
+    if(discordCrashes > DISCORD_CRASH_LIMIT) {
+        return;
+    }
     if(app.activityMan == NULL)
     {
         app.activityMan = app.core->get_activity_manager(app.core);
@@ -130,9 +160,6 @@ void DISCORD_unlockAchievement(const char *name)
     // No "achivements" in Discord
 }
 
-void DISCORD_shutdown(void)
-{
-    // ???
-}
+
 
 #endif // MakeAndPlay
