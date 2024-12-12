@@ -96,7 +96,7 @@ int32_t DISCORD_init(void)
 
     struct DiscordCreateParams params;
     params.client_id = DISCORD_CLIENT_ID;
-    params.flags = DiscordCreateFlags_Default;
+    params.flags = DiscordCreateFlags_NoRequireDiscord;
 
     if(!DiscordCreate(DISCORD_VERSION, &params, &app.core))
     {
