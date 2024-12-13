@@ -4,12 +4,8 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <SDL.h>
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
 
 #include "Vlogging.h"
 
@@ -38,6 +34,7 @@ struct DISCORD_application {
 
 struct DiscordActivity activity;
 
+bool discordNotDetected = false;
 int discordCrashes = 0; // This is here to ensure we do not get stuck in a theoratical softlock of opening and crashing Discord instances.
 
 static void* libHandle = NULL;
@@ -103,6 +100,12 @@ int32_t DISCORD_init(void)
         return 1;
     }
 
+    if(app.core == NULL)
+    {
+	discordNotDetected = true;
+        return 0;
+    }
+
 
     SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
     SDL_strlcpy(activity.assets.large_text, "Outside Dimension VVVVVV", sizeof(activity.assets.large_text));
@@ -116,6 +119,10 @@ int32_t DISCORD_init(void)
 }
 
 void DISCORD_REQUIRE(int x) {
+    if(discordNotDetected)
+    {
+        return;
+    }
     if(discordCrashes > DISCORD_CRASH_LIMIT)
     {
         DISCORD_shutdown();
