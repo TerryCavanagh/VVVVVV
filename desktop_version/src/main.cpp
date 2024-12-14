@@ -979,7 +979,7 @@ static enum LoopCode loop_begin(void)
     }
 
     // Update network per frame.
-    NETWORK_update(map.currentarea(game.roomx, game.roomy), loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special));
+    NETWORK_update(map.currentarea(game.roomx, game.roomy), map.roomname);
 
     return Loop_continue;
 }
