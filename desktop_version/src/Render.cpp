@@ -105,7 +105,7 @@ static void volumesliderrender(void)
     }
 
     char slider[40 + 1];
-    slider_get(slider, sizeof(slider), volume_max_position*volume/USER_VOLUME_MAX, volume_max_position+1, 240);
+    slider_get(slider, sizeof(slider), volume_max_position * volume / USER_VOLUME_MAX, volume_max_position + 1, 240);
 
     char buffer[SCREEN_WIDTH_CHARS + 1];
 
