@@ -96,6 +96,7 @@ int32_t DISCORD_init(void)
 
     if(DiscordCreate(DISCORD_VERSION, &params, &app.core) != DiscordResult_Ok)
     {
+        discordDetected = false;
         return 0;
     }
 
@@ -113,7 +114,7 @@ int32_t DISCORD_init(void)
     app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
 
 
-
+    discordDetected = true;
     return 1;
 }
 
