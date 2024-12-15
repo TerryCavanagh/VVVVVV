@@ -108,7 +108,7 @@ public:
 
     bool m_doFadeInVol;
     bool m_doFadeOutVol;
-    int musicVolume;
+    int controlVolume;
 
     /* 0..USER_VOLUME_MAX */
     int user_music_volume;
