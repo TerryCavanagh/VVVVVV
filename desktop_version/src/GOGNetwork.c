@@ -15,11 +15,11 @@ void GOG_shutdown(void)
 {
 }
 
-void GOG_update(const char *level, const char *name)
+void GOG_update(const char* area, const char* roomname)
 {
 }
 
-void GOG_unlockAchievement(const char *name)
+void GOG_unlockAchievement(const char* name)
 {
 }
 

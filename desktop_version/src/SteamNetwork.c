@@ -234,7 +234,7 @@ void STEAM_shutdown(void)
     }
 }
 
-void STEAM_update(const char *level, const char *name)
+void STEAM_update(const char* area, const char* roomname)
 {
     if (!libHandle)
     {

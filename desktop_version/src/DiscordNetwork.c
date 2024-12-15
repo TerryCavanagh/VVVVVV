@@ -3,7 +3,6 @@
 #ifndef MAKEANDPLAY
 
 #include <stdint.h>
-#include <stdio.h>
 #include <stdbool.h>
 #include <SDL.h>
 
@@ -23,8 +22,9 @@
 #endif
 
 
-#define DISCORD_CRASH_LIMIT 10
-#define DISCORD_CLIENT_ID 1315544357532729447 // TO TERRY/FLIBIT: You can create your own Discord instance at the Discord Developer Portal. This ID belongs to me, so just be aware that if my account was to get hacked, VVVVVV RPC would too. Use your own!
+#define DISCORD_CLIENT_ID 1315544357532729447
+
+// TO TERRY/FLIBIT: You can create your own Discord instance at the Discord Developer Portal. This ID belongs to me, so just be aware that if my account was to get hacked, VVVVVV RPC would too. Use your own!
 
 
 struct DISCORD_application {
@@ -34,8 +34,7 @@ struct DISCORD_application {
 
 struct DiscordActivity activity;
 
-bool discordNotDetected = false;
-int discordCrashes = 0; // This is here to ensure we do not get stuck in a theoratical softlock of opening and crashing Discord instances.
+bool discordDetected = false;
 
 static void* libHandle = NULL;
 
@@ -95,14 +94,14 @@ int32_t DISCORD_init(void)
     params.client_id = DISCORD_CLIENT_ID;
     params.flags = DiscordCreateFlags_NoRequireDiscord;
 
-    if(!DiscordCreate(DISCORD_VERSION, &params, &app.core))
+    if(DiscordCreate(DISCORD_VERSION, &params, &app.core) != DiscordResult_Ok)
     {
-        return 1;
+        return 0;
     }
 
     if(app.core == NULL)
     {
-	discordNotDetected = true;
+        discordDetected = false;
         return 0;
     }
 
@@ -115,41 +114,38 @@ int32_t DISCORD_init(void)
 
 
 
-    return 0;
+    return 1;
 }
 
-void DISCORD_REQUIRE(int x) {
-    if(discordNotDetected)
+bool DISCORD_REQUIRE(int x) {
+    if(!discordDetected)
     {
-        return;
-    }
-    if(discordCrashes > DISCORD_CRASH_LIMIT)
-    {
-        DISCORD_shutdown();
-        return;
+        return false;
     }
     if(x != DiscordResult_Ok)
     {
-        ++discordCrashes;
-        DISCORD_shutdown();
-        DISCORD_init();
-        return;
+        return false;
     }
-    discordCrashes = 0;
+    return true;
 }
 
-void DISCORD_update(const char *level, const char *name)
+void DISCORD_update(const char* area, const char* roomname)
 {
-    if(discordCrashes > DISCORD_CRASH_LIMIT) {
+    if(app.core == NULL) {
         return;
     }
     if(app.activityMan == NULL)
     {
         app.activityMan = app.core->get_activity_manager(app.core);
     }
-    SDL_strlcpy(activity.state, name, sizeof(activity.state));
+    if(activity.state == roomname || activity.assets.large_text == area)
+    {
+        DISCORD_REQUIRE(app.core->run_callbacks(app.core));
+        return;
+    }
+    SDL_strlcpy(activity.state, roomname, sizeof(activity.state));
     SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
-    SDL_strlcpy(activity.assets.large_text, level, sizeof(activity.assets.large_text));
+    SDL_strlcpy(activity.assets.large_text, area, sizeof(activity.assets.large_text));
 
     app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
 

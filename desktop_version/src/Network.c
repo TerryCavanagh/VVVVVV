@@ -36,7 +36,7 @@
 #define DECLARE_BACKEND(name) \
     int32_t name##_init(void); \
     void name##_shutdown(void); \
-    void name##_update(const char *level, const char *name); \
+    void name##_update(const char *area, const char *roomname); \
     void name##_unlockAchievement(const char *name);
 #ifdef STEAM_NETWORK
 DECLARE_BACKEND(STEAM)
@@ -104,14 +104,14 @@ void NETWORK_shutdown(void)
     #endif
 }
 
-void NETWORK_update(const char *level, const char *name)
+void NETWORK_update(const char *area, const char *roomname)
 {
     #if NUM_BACKENDS > 0
     int32_t i;
     for (i = 0; i < NUM_BACKENDS; i += 1)
     if (backends[i].IsInit)
     {
-        backends[i].Update(level, name);
+        backends[i].Update(area, roomname);
     }
     #endif
 }
