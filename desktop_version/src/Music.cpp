@@ -504,9 +504,9 @@ end:
         }
     }
 
-    static void SetVolume(int musicVolume)
+    static void SetVolume(int controlVolume)
     {
-        float adj_vol = (float) musicVolume / VVV_MAX_VOLUME;
+        float adj_vol = (float)controlVolume / VVV_MAX_VOLUME;
         if (!IsHalted())
         {
             FAudioVoice_SetVolume(musicVoice, adj_vol, FAUDIO_COMMIT_NOW);
@@ -715,7 +715,7 @@ musicclass::musicclass(void)
     safeToProcessMusic= false;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
-    musicVolume = 0;
+    controlVolume = 0;
 
     user_music_volume = USER_VOLUME_MAX;
     user_sound_volume = USER_VOLUME_MAX;
@@ -971,8 +971,8 @@ void musicclass::play(int t)
         {
             m_doFadeInVol = false;
             m_doFadeOutVol = false;
-            musicVolume = VVV_MAX_VOLUME;
-            set_music_volume(musicVolume);
+            controlVolume = VVV_MAX_VOLUME;
+            set_music_volume(controlVolume);
         }
     }
     else
@@ -1050,7 +1050,7 @@ void musicclass::haltdasmusik(const bool from_fade)
 
 void musicclass::silencedasmusik(void)
 {
-    musicVolume = 0;
+    controlVolume = 0;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
 }
@@ -1107,7 +1107,7 @@ void musicclass::fadeMusicVolumeIn(int ms)
     m_doFadeOutVol = false;
 
     /* Ensure it starts at 0 */
-    musicVolume = 0;
+    controlVolume = 0;
 
     /* Fix 1-frame glitch */
     set_music_volume(0);
@@ -1130,8 +1130,8 @@ void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 
     fade.step_ms = 0;
     /* Duration is proportional to current volume. */
-    fade.duration_ms = fadeout_ms * musicVolume / VVV_MAX_VOLUME;
-    fade.start_volume = musicVolume;
+    fade.duration_ms = fadeout_ms * controlVolume / VVV_MAX_VOLUME;
+    fade.start_volume = controlVolume;
     fade.end_volume = 0;
 }
 
@@ -1143,7 +1143,7 @@ void musicclass::fadeout(const bool quick_fade_ /*= true*/)
 
 void musicclass::processmusicfadein(void)
 {
-    enum FadeCode fade_code = processmusicfade(&fade, &musicVolume);
+    enum FadeCode fade_code = processmusicfade(&fade, &controlVolume);
     if (fade_code == Fade_finished)
     {
         m_doFadeInVol = false;
@@ -1152,10 +1152,10 @@ void musicclass::processmusicfadein(void)
 
 void musicclass::processmusicfadeout(void)
 {
-    enum FadeCode fade_code = processmusicfade(&fade, &musicVolume);
+    enum FadeCode fade_code = processmusicfade(&fade, &controlVolume);
     if (fade_code == Fade_finished)
     {
-        musicVolume = 0;
+        controlVolume = 0;
         m_doFadeOutVol = false;
         haltdasmusik(true);
     }
@@ -1322,7 +1322,7 @@ void musicclass::updatemutestate(void)
         }
         else
         {
-            set_music_volume(musicVolume);
+            set_music_volume(controlVolume);
         }
     }
 }
