@@ -909,6 +909,16 @@ void musicclass::destroy(void)
     VVV_freefunc(FAudio_Release, faudioctx);
 }
 
+void musicclass::set_music_volume(int volume)
+{
+    MusicTrack::SetVolume(volume * user_music_volume / USER_VOLUME_MAX);
+}
+
+void musicclass::set_sound_volume(int volume)
+{
+    SoundTrack::SetVolume(volume * user_sound_volume / USER_VOLUME_MAX);
+}
+
 void musicclass::play(int t)
 {
     if (mmmmmm && usingmmmmmm)
@@ -962,7 +972,7 @@ void musicclass::play(int t)
             m_doFadeInVol = false;
             m_doFadeOutVol = false;
             musicVolume = VVV_MAX_VOLUME;
-            MusicTrack::SetVolume(VVV_MAX_VOLUME * user_music_volume / USER_VOLUME_MAX);
+            set_music_volume(musicVolume);
         }
     }
     else
@@ -1100,7 +1110,7 @@ void musicclass::fadeMusicVolumeIn(int ms)
     musicVolume = 0;
 
     /* Fix 1-frame glitch */
-    MusicTrack::SetVolume(0);
+    set_music_volume(0);
 
     fade.step_ms = 0;
     fade.duration_ms = ms;
@@ -1299,20 +1309,20 @@ void musicclass::updatemutestate(void)
 {
     if (game.muted)
     {
-        MusicTrack::SetVolume(0);
-        SoundTrack::SetVolume(0);
+        set_music_volume(0);
+        set_sound_volume(0);
     }
     else
     {
-        SoundTrack::SetVolume(VVV_MAX_VOLUME * user_sound_volume / USER_VOLUME_MAX);
+        set_sound_volume(VVV_MAX_VOLUME);
 
         if (game.musicmuted)
         {
-            MusicTrack::SetVolume(0);
+            set_music_volume(0);
         }
         else
         {
-            MusicTrack::SetVolume(musicVolume * user_music_volume / USER_VOLUME_MAX);
+            set_music_volume(musicVolume);
         }
     }
 }

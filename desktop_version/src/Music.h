@@ -70,6 +70,9 @@ public:
     void init(void);
     void destroy(void);
 
+    void set_music_volume(int volume);
+    void set_sound_volume(int volume);
+
     void play(int t);
     void resume(void);
     void resumefade(const int fadein_ms);
