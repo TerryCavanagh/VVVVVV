@@ -254,7 +254,7 @@ void STEAM_update(const char* area, const char* roomname)
     }
 }
 
-void STEAM_unlockAchievement(const char *name)
+void STEAM_unlockAchievement(const char* name)
 {
     if (libHandle)
     {
