@@ -1040,7 +1040,7 @@ void gamelogic(void)
                     || obj.entities[i].type == EntityType_WARP_LINE_RIGHT
                     || obj.entities[i].type == EntityType_WARP_LINE_TOP
                     || obj.entities[i].type == EntityType_WARP_LINE_BOTTOM /* Don't warp warp lines */
-                    || obj.entities[i].size == 12) /* Don't warp gravitron squares */
+                    || obj.entities[i].render_type == EntityRenderType_SPRITE_NO_WRAP) /* Don't warp gravitron squares */
                 {
                     continue;
                 }
