@@ -35,8 +35,59 @@ struct DISCORD_application {
 struct DiscordActivity activity;
 
 bool discordDetected = false;
+bool discordPostInit = false;
+
 
 static void* libHandle = NULL;
+
+static const char* DiscordResult_Strings[] = {
+    "DiscordResult_Ok",
+    "DiscordResult_ServiceUnavailable",
+    "DiscordResult_InvalidVersion",
+    "DiscordResult_LockFailed",
+    "DiscordResult_InternalError",
+    "DiscordResult_InvalidPayload",
+    "DiscordResult_InvalidCommand",
+    "DiscordResult_InvalidPermissions",
+    "DiscordResult_NotFetched",
+    "DiscordResult_NotFound",
+    "DiscordResult_Conflict",
+    "DiscordResult_InvalidSecret",
+    "DiscordResult_InvalidJoinSecret",
+    "DiscordResult_NoEligibleActivity",
+    "DiscordResult_InvalidInvite",
+    "DiscordResult_NotAuthenticated",
+    "DiscordResult_InvalidAccessToken",
+    "DiscordResult_ApplicationMismatch",
+    "DiscordResult_InvalidDataUrl",
+    "DiscordResult_InvalidBase64",
+    "DiscordResult_NotFiltered",
+    "DiscordResult_LobbyFull",
+    "DiscordResult_InvalidLobbySecret",
+    "DiscordResult_InvalidFilename",
+    "DiscordResult_InvalidFileSize",
+    "DiscordResult_InvalidEntitlement",
+    "DiscordResult_NotInstalled",
+    "DiscordResult_NotRunning",
+    "DiscordResult_InsufficientBuffer",
+    "DiscordResult_PurchaseCanceled",
+    "DiscordResult_InvalidGuild",
+    "DiscordResult_InvalidEvent",
+    "DiscordResult_InvalidChannel",
+    "DiscordResult_InvalidOrigin",
+    "DiscordResult_RateLimited",
+    "DiscordResult_OAuth2Error",
+    "DiscordResult_SelectChannelTimeout",
+    "DiscordResult_GetGuildTimeout",
+    "DiscordResult_SelectVoiceForceRequired",
+    "DiscordResult_CaptureShortcutAlreadyListening",
+    "DiscordResult_UnauthorizedForAchievement",
+    "DiscordResult_InvalidGiftCode",
+    "DiscordResult_PurchaseError",
+    "DiscordResult_TransactionAborted",
+    "DiscordResult_DrawingInitFailed"
+};
+
 
 
 #define FUNC_LIST \
@@ -47,6 +98,21 @@ static void* libHandle = NULL;
 #define FOREACH_FUNC(rettype, name, params) static rettype (*name) params = NULL;
 FUNC_LIST
 #undef FOREACH_FUNC
+
+bool DISCORD_REQUIRE(int x) {
+    //vlog_error(DiscordResult_Strings[x]);
+    if(!discordDetected && discordPostInit)
+    {
+        return false;
+    }
+    if(x != DiscordResult_Ok)
+    {
+        return false;
+    }
+    return true;
+}
+
+
 
 static void ClearPointers(void)
 {
@@ -94,19 +160,24 @@ int32_t DISCORD_init(void)
     params.client_id = DISCORD_CLIENT_ID;
     params.flags = DiscordCreateFlags_NoRequireDiscord;
 
-    if(DiscordCreate(DISCORD_VERSION, &params, &app.core) != DiscordResult_Ok)
-    {
+    if(!DISCORD_REQUIRE(DiscordCreate(DISCORD_VERSION, &params, &app.core)))
+    { // Discord's API couldn't initialise, so just ignore it
+        discordPostInit = true; // even if it fails, set post init to true.
+        //vlog_error("Discord API failed to initialise!");
         discordDetected = false;
         return 0;
     }
 
     if(app.core == NULL)
     {
+        discordPostInit = true;
+        //vlog_error("app.core == null. DiscordCreate failed with a positive result?");
         discordDetected = false;
         return 0;
     }
+    discordPostInit = true;
 
-
+    // Placeholder, is this really nesaccary
     SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
     SDL_strlcpy(activity.assets.large_text, "Outside Dimension VVVVVV", sizeof(activity.assets.large_text));
 
@@ -118,39 +189,33 @@ int32_t DISCORD_init(void)
     return 1;
 }
 
-bool DISCORD_REQUIRE(int x) {
-    if(!discordDetected)
-    {
-        return false;
-    }
-    if(x != DiscordResult_Ok)
-    {
-        return false;
-    }
-    return true;
-}
-
 void DISCORD_update(const char* area, const char* roomname)
 {
-    if(app.core == NULL) {
+    if(app.core == NULL || !discordDetected) {
+        //vlog_error("404: Discord not found!");
+	// No Discord
+        return;
+    }
+    if(!DISCORD_REQUIRE(app.core->run_callbacks(app.core)))
+    {
+        // Something  or other is wrong, but do we care?
+        //vlog_error("Something went wrong (true windows moment)");
         return;
     }
     if(app.activityMan == NULL)
     {
+        //vlog_error("No activityMan!");
         app.activityMan = app.core->get_activity_manager(app.core);
     }
-    if(activity.state == roomname || activity.assets.large_text == area)
+    if(activity.state != roomname || activity.assets.large_text != area)
     {
-        DISCORD_REQUIRE(app.core->run_callbacks(app.core));
-        return;
+        //vlog_info("activity updated");
+        SDL_strlcpy(activity.state, roomname, sizeof(activity.state));
+        SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
+        SDL_strlcpy(activity.assets.large_text, area, sizeof(activity.assets.large_text));
+
+        app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
     }
-    SDL_strlcpy(activity.state, roomname, sizeof(activity.state));
-    SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
-    SDL_strlcpy(activity.assets.large_text, area, sizeof(activity.assets.large_text));
-
-    app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
-
-    DISCORD_REQUIRE(app.core->run_callbacks(app.core));
 }
 void DISCORD_unlockAchievement(const char *name)
 {
