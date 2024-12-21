@@ -40,54 +40,6 @@ bool discordPostInit = false;
 
 static void* libHandle = NULL;
 
-static const char* DiscordResult_Strings[] = {
-    "DiscordResult_Ok",
-    "DiscordResult_ServiceUnavailable",
-    "DiscordResult_InvalidVersion",
-    "DiscordResult_LockFailed",
-    "DiscordResult_InternalError",
-    "DiscordResult_InvalidPayload",
-    "DiscordResult_InvalidCommand",
-    "DiscordResult_InvalidPermissions",
-    "DiscordResult_NotFetched",
-    "DiscordResult_NotFound",
-    "DiscordResult_Conflict",
-    "DiscordResult_InvalidSecret",
-    "DiscordResult_InvalidJoinSecret",
-    "DiscordResult_NoEligibleActivity",
-    "DiscordResult_InvalidInvite",
-    "DiscordResult_NotAuthenticated",
-    "DiscordResult_InvalidAccessToken",
-    "DiscordResult_ApplicationMismatch",
-    "DiscordResult_InvalidDataUrl",
-    "DiscordResult_InvalidBase64",
-    "DiscordResult_NotFiltered",
-    "DiscordResult_LobbyFull",
-    "DiscordResult_InvalidLobbySecret",
-    "DiscordResult_InvalidFilename",
-    "DiscordResult_InvalidFileSize",
-    "DiscordResult_InvalidEntitlement",
-    "DiscordResult_NotInstalled",
-    "DiscordResult_NotRunning",
-    "DiscordResult_InsufficientBuffer",
-    "DiscordResult_PurchaseCanceled",
-    "DiscordResult_InvalidGuild",
-    "DiscordResult_InvalidEvent",
-    "DiscordResult_InvalidChannel",
-    "DiscordResult_InvalidOrigin",
-    "DiscordResult_RateLimited",
-    "DiscordResult_OAuth2Error",
-    "DiscordResult_SelectChannelTimeout",
-    "DiscordResult_GetGuildTimeout",
-    "DiscordResult_SelectVoiceForceRequired",
-    "DiscordResult_CaptureShortcutAlreadyListening",
-    "DiscordResult_UnauthorizedForAchievement",
-    "DiscordResult_InvalidGiftCode",
-    "DiscordResult_PurchaseError",
-    "DiscordResult_TransactionAborted",
-    "DiscordResult_DrawingInitFailed"
-};
-
 
 
 #define FUNC_LIST \
@@ -100,12 +52,11 @@ FUNC_LIST
 #undef FOREACH_FUNC
 
 bool DISCORD_REQUIRE(int x) {
-    //vlog_error(DiscordResult_Strings[x]);
-    if(!discordDetected && discordPostInit)
+    if (!discordDetected && discordPostInit)
     {
         return false;
     }
-    if(x != DiscordResult_Ok)
+    if (x != DiscordResult_Ok)
     {
         return false;
     }
@@ -125,8 +76,9 @@ static void ClearPointers(void)
 
 void DISCORD_shutdown(void)
 {
-    if (libHandle)
+    if (libHandle != NULL)
     {
+        app.core->destroy(app.core);
         ClearPointers();
     }
 }
@@ -140,7 +92,7 @@ int32_t DISCORD_init(void)
     if (!libHandle)
     {
         vlog_info(DISCORD_LIBRARY " not found!");
-        printf("Can't load object %s : %s\n", DISCORD_LIBRARY, SDL_GetError());
+        vlog_debug("Can't load object %s : %s\n", DISCORD_LIBRARY, SDL_GetError());
         return 0;
     }
 
@@ -154,7 +106,7 @@ int32_t DISCORD_init(void)
     }
     FUNC_LIST
 #undef FOREACH_FUNC
-    memset(&app, 0, sizeof(app));
+    SDL_memset(&app, 0, sizeof(app));
 
     struct DiscordCreateParams params;
     params.client_id = DISCORD_CLIENT_ID;
@@ -163,7 +115,7 @@ int32_t DISCORD_init(void)
     if(!DISCORD_REQUIRE(DiscordCreate(DISCORD_VERSION, &params, &app.core)))
     { // Discord's API couldn't initialise, so just ignore it
         discordPostInit = true; // even if it fails, set post init to true.
-        //vlog_error("Discord API failed to initialise!");
+        vlog_debug("Discord API failed to initialise!");
         discordDetected = false;
         return 0;
     }
@@ -171,7 +123,7 @@ int32_t DISCORD_init(void)
     if(app.core == NULL)
     {
         discordPostInit = true;
-        //vlog_error("app.core == null. DiscordCreate failed with a positive result?");
+        vlog_debug("app.core == null. DiscordCreate failed with a positive result?\nCheck DISCORD_REQUIRE  for bugs.");
         discordDetected = false;
         return 0;
     }
@@ -191,25 +143,28 @@ int32_t DISCORD_init(void)
 
 void DISCORD_update(const char* area, const char* roomname)
 {
-    if(app.core == NULL || !discordDetected) {
-        //vlog_error("404: Discord not found!");
-	// No Discord
+    if(libHandle == NULL) {
+        // no discord or just shutdown
         return;
     }
-    if(!DISCORD_REQUIRE(app.core->run_callbacks(app.core)))
+    if (app.core == NULL || !discordDetected)
+    {
+        // No Discord
+        return;
+    }
+    if (!DISCORD_REQUIRE(app.core->run_callbacks(app.core)))
     {
         // Something  or other is wrong, but do we care?
-        //vlog_error("Something went wrong (true windows moment)");
+        vlog_debug("Something went wrong in the Discord API update method");
         return;
     }
-    if(app.activityMan == NULL)
+    if (app.activityMan == NULL)
     {
-        //vlog_error("No activityMan!");
+        vlog_debug("No activityMan!  - it\'s fine, we can recreate this" );
         app.activityMan = app.core->get_activity_manager(app.core);
     }
-    if(activity.state != roomname || activity.assets.large_text != area)
+    if (SDL_strcmp(activity.state, roomname) != 0 || SDL_strcmp(activity.assets.large_text, area) != 0)
     {
-        //vlog_info("activity updated");
         SDL_strlcpy(activity.state, roomname, sizeof(activity.state));
         SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
         SDL_strlcpy(activity.assets.large_text, area, sizeof(activity.assets.large_text));
