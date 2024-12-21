@@ -2371,16 +2371,25 @@ void titleinput(void)
             game.jumpheld = true;
         }
 
+        static bool controller_held = false;
+
         if (    game.currentmenuname == Menu::controller &&
                 game.currentmenuoption > 0 &&
                 game.currentmenuoption < 6 &&
                 (game.separate_interact || game.currentmenuoption < 5) &&
                 key.controllerButtonDown()      )
         {
-            updatebuttonmappings(game.currentmenuoption);
-            music.playef(Sound_VIRIDIAN);
-            game.savestatsandsettings_menu();
+            if (!controller_held)
+            {
+                controller_held = true;
+                updatebuttonmappings(game.currentmenuoption);
+                game.savestatsandsettings_menu();
+            }
             return;
+        }
+        else
+        {
+            controller_held = false;
         }
 
         if (game.menustart
