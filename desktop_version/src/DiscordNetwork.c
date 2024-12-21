@@ -155,7 +155,6 @@ void DISCORD_update(const char* area, const char* roomname)
     if (!DISCORD_REQUIRE(app.core->run_callbacks(app.core)))
     {
         // Something  or other is wrong, but do we care?
-        vlog_debug("Something went wrong in the Discord API update method");
         return;
     }
     if (app.activityMan == NULL)
