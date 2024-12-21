@@ -89,7 +89,7 @@ int32_t DISCORD_init(void)
     return 0;
 #endif
     libHandle = SDL_LoadObject(DISCORD_LIBRARY);
-    if (!libHandle)
+    if (libHandle == NULL)
     {
         vlog_info(DISCORD_LIBRARY " not found!");
         vlog_debug("Can't load object %s : %s\n", DISCORD_LIBRARY, SDL_GetError());
