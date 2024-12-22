@@ -51,7 +51,8 @@ static void* libHandle = NULL;
 FUNC_LIST
 #undef FOREACH_FUNC
 
-bool DISCORD_REQUIRE(int x) {
+bool DISCORD_REQUIRE(int x)
+{
     if (!discordDetected && discordPostInit)
     {
         return false;
@@ -112,7 +113,7 @@ int32_t DISCORD_init(void)
     params.client_id = DISCORD_CLIENT_ID;
     params.flags = DiscordCreateFlags_NoRequireDiscord;
 
-    if(!DISCORD_REQUIRE(DiscordCreate(DISCORD_VERSION, &params, &app.core)))
+    if (!DISCORD_REQUIRE(DiscordCreate(DISCORD_VERSION, &params, &app.core)))
     { // Discord's API couldn't initialise, so just ignore it
         discordPostInit = true; // even if it fails, set post init to true.
         vlog_debug("Discord API failed to initialise!");
@@ -120,7 +121,7 @@ int32_t DISCORD_init(void)
         return 0;
     }
 
-    if(app.core == NULL)
+    if (app.core == NULL)
     {
         discordPostInit = true;
         vlog_debug("app.core == null. DiscordCreate failed with a positive result?\nCheck DISCORD_REQUIRE  for bugs.");
@@ -143,7 +144,8 @@ int32_t DISCORD_init(void)
 
 void DISCORD_update(const char* area, const char* roomname)
 {
-    if(libHandle == NULL) {
+    if (libHandle == NULL)
+    {
         // no discord or just shutdown
         return;
     }
