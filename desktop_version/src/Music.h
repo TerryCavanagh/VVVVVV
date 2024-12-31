@@ -70,6 +70,9 @@ public:
     void init(void);
     void destroy(void);
 
+    void set_music_volume(int volume);
+    void set_sound_volume(int volume);
+
     void play(int t);
     void resume(void);
     void resumefade(const int fadein_ms);
@@ -105,7 +108,7 @@ public:
 
     bool m_doFadeInVol;
     bool m_doFadeOutVol;
-    int musicVolume;
+    int controlVolume;
 
     /* 0..USER_VOLUME_MAX */
     int user_music_volume;

@@ -504,9 +504,9 @@ end:
         }
     }
 
-    static void SetVolume(int musicVolume)
+    static void SetVolume(int controlVolume)
     {
-        float adj_vol = (float) musicVolume / VVV_MAX_VOLUME;
+        float adj_vol = (float)controlVolume / VVV_MAX_VOLUME;
         if (!IsHalted())
         {
             FAudioVoice_SetVolume(musicVoice, adj_vol, FAUDIO_COMMIT_NOW);
@@ -715,7 +715,7 @@ musicclass::musicclass(void)
     safeToProcessMusic= false;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
-    musicVolume = 0;
+    controlVolume = 0;
 
     user_music_volume = USER_VOLUME_MAX;
     user_sound_volume = USER_VOLUME_MAX;
@@ -909,6 +909,16 @@ void musicclass::destroy(void)
     VVV_freefunc(FAudio_Release, faudioctx);
 }
 
+void musicclass::set_music_volume(int volume)
+{
+    MusicTrack::SetVolume(volume * user_music_volume / USER_VOLUME_MAX);
+}
+
+void musicclass::set_sound_volume(int volume)
+{
+    SoundTrack::SetVolume(volume * user_sound_volume / USER_VOLUME_MAX);
+}
+
 void musicclass::play(int t)
 {
     if (mmmmmm && usingmmmmmm)
@@ -961,8 +971,8 @@ void musicclass::play(int t)
         {
             m_doFadeInVol = false;
             m_doFadeOutVol = false;
-            musicVolume = VVV_MAX_VOLUME;
-            MusicTrack::SetVolume(VVV_MAX_VOLUME * user_music_volume / USER_VOLUME_MAX);
+            controlVolume = VVV_MAX_VOLUME;
+            set_music_volume(controlVolume);
         }
     }
     else
@@ -1040,7 +1050,7 @@ void musicclass::haltdasmusik(const bool from_fade)
 
 void musicclass::silencedasmusik(void)
 {
-    musicVolume = 0;
+    controlVolume = 0;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
 }
@@ -1097,10 +1107,10 @@ void musicclass::fadeMusicVolumeIn(int ms)
     m_doFadeOutVol = false;
 
     /* Ensure it starts at 0 */
-    musicVolume = 0;
+    controlVolume = 0;
 
     /* Fix 1-frame glitch */
-    MusicTrack::SetVolume(0);
+    set_music_volume(0);
 
     fade.step_ms = 0;
     fade.duration_ms = ms;
@@ -1120,8 +1130,8 @@ void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 
     fade.step_ms = 0;
     /* Duration is proportional to current volume. */
-    fade.duration_ms = fadeout_ms * musicVolume / VVV_MAX_VOLUME;
-    fade.start_volume = musicVolume;
+    fade.duration_ms = fadeout_ms * controlVolume / VVV_MAX_VOLUME;
+    fade.start_volume = controlVolume;
     fade.end_volume = 0;
 }
 
@@ -1133,7 +1143,7 @@ void musicclass::fadeout(const bool quick_fade_ /*= true*/)
 
 void musicclass::processmusicfadein(void)
 {
-    enum FadeCode fade_code = processmusicfade(&fade, &musicVolume);
+    enum FadeCode fade_code = processmusicfade(&fade, &controlVolume);
     if (fade_code == Fade_finished)
     {
         m_doFadeInVol = false;
@@ -1142,10 +1152,10 @@ void musicclass::processmusicfadein(void)
 
 void musicclass::processmusicfadeout(void)
 {
-    enum FadeCode fade_code = processmusicfade(&fade, &musicVolume);
+    enum FadeCode fade_code = processmusicfade(&fade, &controlVolume);
     if (fade_code == Fade_finished)
     {
-        musicVolume = 0;
+        controlVolume = 0;
         m_doFadeOutVol = false;
         haltdasmusik(true);
     }
@@ -1299,20 +1309,20 @@ void musicclass::updatemutestate(void)
 {
     if (game.muted)
     {
-        MusicTrack::SetVolume(0);
-        SoundTrack::SetVolume(0);
+        set_music_volume(0);
+        set_sound_volume(0);
     }
     else
     {
-        SoundTrack::SetVolume(VVV_MAX_VOLUME * user_sound_volume / USER_VOLUME_MAX);
+        set_sound_volume(VVV_MAX_VOLUME);
 
         if (game.musicmuted)
         {
-            MusicTrack::SetVolume(0);
+            set_music_volume(0);
         }
         else
         {
-            MusicTrack::SetVolume(musicVolume * user_music_volume / USER_VOLUME_MAX);
+            set_music_volume(controlVolume);
         }
     }
 }
