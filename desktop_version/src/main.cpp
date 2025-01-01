@@ -72,6 +72,10 @@ static volatile Uint64 f_time = 0;
 static volatile Uint64 f_timePrev = 0;
 #endif
 
+// RPC variables
+static const char* rpcArea = "";
+static const char* rpcRoomname = "";
+
 enum FuncType
 {
     Func_null,
@@ -978,8 +982,25 @@ static enum LoopCode loop_begin(void)
         key.Poll();
     }
 
-    // Update network per frame.
-    NETWORK_update(map.currentarea(game.roomx, game.roomy), map.roomname);
+    // Discord RPC handling (and maybe later Steam RPC OwO)
+    rpcArea = map.currentarea(game.roomx, game.roomy);
+    rpcRoomname = map.roomname;
+    if (game.gamestate == TITLEMODE)
+    {
+        rpcArea = "Exploring the Menus";
+        rpcRoomname = "";
+    }
+    if (game.gamestate == EDITORMODE)
+    {
+        rpcArea = "Making a Level";
+        rpcRoomname = "";
+    }
+    // Dirty fix for custom levels getting the area from Dimension VVVVVV
+    if (map.custommode) {
+        rpcArea = game.customleveltitle.c_str();
+    }
+    // Update network APIs once per frame
+    NETWORK_update(rpcArea, rpcRoomname);
 
     return Loop_continue;
 }
