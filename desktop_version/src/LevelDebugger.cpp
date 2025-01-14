@@ -382,7 +382,7 @@ namespace level_debugger
                 line++;
                 render_info(line++, "Tile", help.String(entity->tile));
                 render_info(line++, "Draw Frame", help.String(entity->drawframe));
-                render_info(line++, "Size", help.String(entity->size));
+                //render_info(line++, "Size", help.String(entity->size));
                 render_info(line++, "Direction", help.String(entity->dir));
 
                 line++;

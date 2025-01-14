@@ -521,21 +521,25 @@ void mapclass::changefinalcol(int t)
     {
         if (obj.entities[i].type == EntityType_MOVING)
         {
-            if (obj.entities[i].animate == 10 || obj.entities[i].animate == 11) //treadmill
+            if (obj.entities[i].animation_type == EntityAnimationType_CONVEYOR_LEFT || obj.entities[i].animation_type == EntityAnimationType_CONVEYOR_RIGHT) //treadmill
             {
-                if(temp<3)
+                if (temp < 3)
                 {
                     obj.entities[i].tile = 907 + (temp * 80);
                 }
                 else
                 {
-                    obj.entities[i].tile = 911 + ((temp-3) * 80);
+                    obj.entities[i].tile = 911 + ((temp - 3) * 80);
                 }
-                if(obj.entities[i].animate == 10)    obj.entities[i].tile += 40;
+
+                if (obj.entities[i].animation_type == EntityAnimationType_CONVEYOR_LEFT)
+                {
+                    obj.entities[i].tile += 40;
+                }
             }
             else if (obj.entities[i].isplatform)
             {
-                obj.entities[i].tile = 915+(temp*40);
+                obj.entities[i].tile = 915 + (temp * 40);
             }
             else    //just an enemy
             {
@@ -818,7 +822,7 @@ void mapclass::resetplayer(const bool player_died)
         }
         if (!GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
         {
-            obj.entities[i].size = 0;
+            obj.entities[i].render_type = EntityRenderType_SPRITE;
             obj.entities[i].cx = 6;
             obj.entities[i].cy = 2;
             obj.entities[i].w = 12;

@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+#include <string>
+
 #define        rn( rx,  ry) ((rx) + ((ry) * 100))
 
 enum EntityType
@@ -33,6 +35,35 @@ enum EntityType
     EntityType_TELEPORTER = 100
 };
 
+enum EntityRenderType
+{
+    EntityRenderType_INVALID = -1,
+    EntityRenderType_SPRITE,
+    EntityRenderType_TILE,
+    EntityRenderType_PLATFORM,
+    EntityRenderType_PARTICLE,
+    EntityRenderType_COIN,
+    EntityRenderType_HORIZONTAL_LINE,
+    EntityRenderType_VERTICAL_LINE,
+    EntityRenderType_TELEPORTER,
+    EntityRenderType_PLATFORM_LONG,
+    EntityRenderType_SPRITE_2x2,
+    EntityRenderType_SPRITE_2x1,
+    EntityRenderType_ELEPHANT,
+    EntityRenderType_SPRITE_NO_WRAP,
+    EntityRenderType_SPRITE_6x
+};
+
+enum EntityAnimationTypes
+{
+    EntityAnimationType_STILL,
+    EntityAnimationType_OSCILLATE,
+    EntityAnimationType_LOOP,
+    EntityAnimationType_ONESHOT,
+    EntityAnimationType_CONVEYOR_LEFT,
+    EntityAnimationType_CONVEYOR_RIGHT
+};
+
 class entclass
 {
 public:
@@ -55,9 +86,10 @@ public:
     //Fundamentals
     bool invis;
     EntityType type;
-    int size, tile, rule;
+    EntityRenderType render_type;
+    int tile, rule;
     int state, statedelay;
-    int behave, animate;
+    int behave;
     float para;
     int life, colour;
 
@@ -78,12 +110,18 @@ public:
     int onground, onroof;
     //Animation
     int framedelay, drawframe, walkingframe, dir, actionframe;
+    int animation_frames;
+    EntityAnimationTypes animation_type;
+    int animation_speed;
     int collisionframedelay, collisiondrawframe, collisionwalkingframe;
     int visualonground, visualonroof;
     int yp;int xp;
 
     SDL_Color realcol;
     int lerpoldxp, lerpoldyp;
+
+    // Emitter specific
+    std::string to_spawn;
 };
 
 #endif /* ENT_H */

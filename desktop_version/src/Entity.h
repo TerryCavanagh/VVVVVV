@@ -1,6 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include <map>
 #include <SDL.h>
 #include <string>
 #include <vector>
@@ -32,10 +33,52 @@ enum
     TELEPORTER = 102
 };
 
+struct EnemyType
+{
+    int tile;
+    int colour;
+    int animation_frames;
+    EntityAnimationTypes animation_type;
+    int animation_speed;
+    int width;
+    int height;
+    int harmful;
+    int corner_x;
+    int corner_y;
+    int x_offset;
+    int y_offset;
+    EntityRenderType render_type;
+    int behave;
+    bool override_behave;
+    int para;
+    bool override_para;
+    int x1;
+    bool override_x1;
+    int x2;
+    bool override_x2;
+    int y1;
+    bool override_y1;
+    int y2;
+    bool override_y2;
+    std::string to_spawn;
+};
+
 class entityclass
 {
 public:
     void init(void);
+
+    EnemyType* create_type(
+        const char* type, int tile, int colour,
+        EntityAnimationTypes animation_type, int animation_frames, int animation_speed,
+        int width, int height
+    );
+
+    void add_default_types(void);
+    const char* legacy_id_to_entity(int id);
+    void set_enemy_type(entclass* entity, const char* type);
+    void set_enemy_colour(entclass* entity);
+    void correct_emitter_colours(entclass* entity);
 
     void resetallflags(void);
 
@@ -82,15 +125,15 @@ public:
 
     void revertlinecross(std::vector<entclass>& linecrosskludge, int t, int s);
 
-    void createentity(int xp, int yp, int t, int meta1, int meta2,
+    entclass* createentity(int xp, int yp, int t, int meta1, int meta2,
                       int p1, int p2, int p3, int p4);
-    void createentity(int xp, int yp, int t, int meta1, int meta2,
+    entclass* createentity(int xp, int yp, int t, int meta1, int meta2,
                       int p1, int p2);
-    void createentity(int xp, int yp, int t, int meta1, int meta2,
+    entclass* createentity(int xp, int yp, int t, int meta1, int meta2,
                       int p1);
-    void createentity(int xp, int yp, int t, int meta1, int meta2);
-    void createentity(int xp, int yp, int t, int meta1);
-    void createentity(int xp, int yp, int t);
+    entclass* createentity(int xp, int yp, int t, int meta1, int meta2);
+    entclass* createentity(int xp, int yp, int t, int meta1);
+    entclass* createentity(int xp, int yp, int t);
 
     bool updateentities(int i);
 
@@ -200,6 +243,8 @@ public:
     std::string customactivitycolour;
     std::string customactivitytext;
     int customactivitypositiony;
+
+    std::map<std::string, EnemyType> enemy_types;
 };
 
 #ifndef OBJ_DEFINITION
