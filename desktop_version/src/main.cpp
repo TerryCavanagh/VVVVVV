@@ -75,6 +75,10 @@ static volatile Uint64 f_timePrev = 0;
 // RPC variables
 static const char* rpcArea = "";
 static const char* rpcRoomname = "";
+static const char* old_rpcArea = "";
+static const char* old_rpcRoomname = "";
+
+
 
 enum FuncType
 {
@@ -999,8 +1003,12 @@ static enum LoopCode loop_begin(void)
     if (map.custommode) {
         rpcArea = game.customleveltitle.c_str();
     }
-    // Update network APIs once per frame
-    NETWORK_update(rpcArea, rpcRoomname);
+    // Update network APIs once per frame (nested in if loop)
+    if( NETWORK_update() && ( SDL_strcmp(rpcArea, old_rpcArea) != 0 || SDL_strcmp(rpcRoomname, old_rpcRoomname) != 0 ) )
+    NETWORK_setRPC(rpcArea, rpcRoomname);
+
+    old_rpcArea = rpcArea;
+    old_rpcRoomname = rpcRoomname;
 
     return Loop_continue;
 }

@@ -32,10 +32,10 @@ struct DISCORD_application {
     struct IDiscordActivityManager* activityMan;
 } app;
 
-struct DiscordActivity activity;
+static struct DiscordActivity activity;
 
-bool discordDetected = false;
-bool discordPostInit = false;
+static bool discordDetected = false;
+static bool discordPostInit = false;
 
 
 static void* libHandle = NULL;
@@ -142,42 +142,47 @@ int32_t DISCORD_init(void)
     return 1;
 }
 
-void DISCORD_update(const char* area, const char* roomname)
+int32_t DISCORD_update(void)
 {
     if (libHandle == NULL)
     {
-        // no discord or just shutdown
-        return;
+        // no Discord or just shutdown
+        return 0;
     }
     if (app.core == NULL || !discordDetected)
     {
         // No Discord
-        return;
+        return 0;
     }
+
     if (!DISCORD_REQUIRE(app.core->run_callbacks(app.core)))
     {
-        // Something  or other is wrong, but do we care?
-        return;
+        // Something or other is wrong, but do we care?
+        return 0;
     }
-    if (app.activityMan == NULL)
-    {
-        vlog_debug("No activityMan!  - it\'s fine, we can recreate this" );
-        app.activityMan = app.core->get_activity_manager(app.core);
-    }
-    if (SDL_strcmp(activity.state, roomname) != 0 || SDL_strcmp(activity.assets.large_text, area) != 0)
-    {
-        SDL_strlcpy(activity.state, roomname, sizeof(activity.state));
-        SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
-        SDL_strlcpy(activity.assets.large_text, area, sizeof(activity.assets.large_text));
-
-        app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
-    }
+    return 1;
 }
 void DISCORD_unlockAchievement(const char *name)
 {
     // No "achievements" in Discord
 }
 
+void DISCORD_setRPC(const char *area, const char *roomname)
+{
+    if (app.activityMan == NULL)
+    {
+     	vlog_debug("No activityMan!  - it\'s fine, we can recreate this" );
+        app.activityMan = app.core->get_activity_manager(app.core);
+    }
+    if (SDL_strcmp(activity.state, roomname) != 0 || SDL_strcmp(activity.assets.large_text, area) != 0)
+    {
+     	SDL_strlcpy(activity.state, roomname, sizeof(activity.state));
+        SDL_strlcpy(activity.assets.large_image, "vvvvvv", sizeof(activity.assets.large_image));
+        SDL_strlcpy(activity.assets.large_text, area, sizeof(activity.assets.large_text));
 
+        app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
+    }
+
+}
 
 #endif // MakeAndPlay

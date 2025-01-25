@@ -234,11 +234,11 @@ void STEAM_shutdown(void)
     }
 }
 
-void STEAM_update(const char* area, const char* roomname)
+int32_t STEAM_update(void)
 {
     if (!libHandle)
     {
-        return;
+        return 0;
     }
 
     SteamAPI_ManualDispatch_RunFrame(steamPipe);
@@ -252,6 +252,7 @@ void STEAM_update(const char* area, const char* roomname)
         }
         SteamAPI_ManualDispatch_FreeLastCallback(steamPipe);
     }
+    return 1;
 }
 
 void STEAM_unlockAchievement(const char* name)
@@ -264,6 +265,11 @@ void STEAM_unlockAchievement(const char* name)
         );
         SteamAPI_ISteamUserStats_StoreStats(steamUserStats);
     }
+}
+
+void STEAM_setRPC(const char* area, const char* roomname)
+{
+    // TODO: implement staem rpc :)
 }
 
 #endif /* MAKEANDPLAY */

@@ -15,12 +15,18 @@ void GOG_shutdown(void)
 {
 }
 
-void GOG_update(const char* area, const char* roomname)
+int32_t GOG_update(void)
 {
+     return 0;
 }
 
 void GOG_unlockAchievement(const char* name)
 {
 }
+
+void GOG_setRPC(const char* area, const char* roomname)
+{
+}
+
 
 #endif /* MAKEANDPLAY */

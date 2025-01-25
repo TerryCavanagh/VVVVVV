@@ -11,13 +11,15 @@ int32_t NETWORK_init(void);
 
 void NETWORK_shutdown(void);
 
-void NETWORK_update(const char *area, const char *roomname);
+int32_t NETWORK_update(void);
 
 void NETWORK_unlockAchievement(const char *name);
 
 int32_t NETWORK_getAchievementProgress(const char *name);
 
 void NETWORK_setAchievementProgress(const char *name, int32_t stat);
+
+void NETWORK_setRPC(const char *area, const char *roomname);
 
 #ifdef __cplusplus
 }

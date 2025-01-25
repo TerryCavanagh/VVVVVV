@@ -36,8 +36,9 @@
 #define DECLARE_BACKEND(name) \
     int32_t name##_init(void); \
     void name##_shutdown(void); \
-    void name##_update(const char *area, const char *roomname); \
-    void name##_unlockAchievement(const char *name);
+    int32_t name##_update(void); \
+    void name##_unlockAchievement(const char *name); \
+    void name##_setRPC(const char *area, const char *roomname);
 #ifdef STEAM_NETWORK
 DECLARE_BACKEND(STEAM)
 #endif
@@ -54,8 +55,9 @@ typedef struct NetworkBackend
     int32_t IsInit;
     int32_t (*Init)(void);
     void (*Shutdown)(void);
-    void (*Update)(const char*, const char*);
+    int32_t (*Update)(void);
     void (*UnlockAchievement)(const char*);
+    void (*SetRPC)(const char*, const char*);
 } NetworkBackend;
 
 #if NUM_BACKENDS > 0
@@ -69,7 +71,9 @@ int NETWORK_init(void)
         backends[index].Init = name##_init; \
         backends[index].Shutdown = name##_shutdown; \
         backends[index].Update = name##_update; \
-        backends[index].UnlockAchievement = name##_unlockAchievement;
+        backends[index].UnlockAchievement = name##_unlockAchievement; \
+        backends[index].SetRPC = name##_setRPC;
+
     #ifdef STEAM_NETWORK
     ASSIGN_BACKEND(STEAM, 0)
     #endif
@@ -104,16 +108,22 @@ void NETWORK_shutdown(void)
     #endif
 }
 
-void NETWORK_update(const char *area, const char *roomname)
+
+int32_t NETWORK_update(void)
 {
+    int32_t result = 0;
     #if NUM_BACKENDS > 0
     int32_t i;
     for (i = 0; i < NUM_BACKENDS; i += 1)
     if (backends[i].IsInit)
     {
-        backends[i].Update(area, roomname);
+        if ( backends[i].Update() )
+        {
+            result |= (1 << i);
+        }
     }
     #endif
+    return result;
 }
 
 void NETWORK_unlockAchievement(const char *name)
@@ -129,3 +139,16 @@ void NETWORK_unlockAchievement(const char *name)
     UNUSED(name);
     #endif
 }
+
+void NETWORK_setRPC(const char *area, const char *roomname)
+{
+    #if NUM_BACKENDS > 0
+    int32_t i;
+    for (i = 0; i < NUM_BACKENDS; i += 1)
+    if (backends[i].IsInit)
+    {
+        backends[i].SetRPC(area, roomname);
+    }
+    #endif
+}
+
