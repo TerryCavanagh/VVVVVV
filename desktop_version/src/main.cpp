@@ -987,25 +987,52 @@ static enum LoopCode loop_begin(void)
     }
 
     // Discord RPC handling (and maybe later Steam RPC OwO)
-    rpcArea = map.currentarea(game.roomx, game.roomy);
-    rpcRoomname = map.roomname;
-    if (game.gamestate == TITLEMODE)
+    if (game.gamestate != rpcGameState)
     {
-        rpcArea = "Exploring the Menus";
-        rpcRoomname = "";
+        rpcGameState = game.gamestate;
+        if (game.gamestate == TITLEMODE)
+        {
+            rpcArea = "Exploring the Menus";
+            rpcRoomname = "";
+        }
+        else if (game.gamestate == EDITORMODE)
+        {
+            rpcArea = "Making a Level";
+            rpcRoomname = "";
+        }
+        else
+        {
+            rpcArea = map.currentarea(game.roomx, game.roomy);
+            rpcRoomname = map.roomname;
+        }
+        NETWORK_setRPC(rpcArea, rpcRoomname);
     }
-    if (game.gamestate == EDITORMODE)
+    else
     {
-        rpcArea = "Making a Level";
-        rpcRoomname = "";
+         const char *nextArea, *nextRoom;
+
+        // Dirty fix for custom levels getting the area from Dimension VVVVVV
+        if (map.custommode)
+        {
+            nextArea = game.customleveltitle.c_str();
+        }
+        else
+        {
+            nextArea = map.currentarea(game.roomx, game.roomy);
+        }
+        nextRoom = map.roomname;
+
+        if ((SDL_strcmp(rpcArea, nextArea) != 0) || (SDL_strcmp(rpcRoomname, nextRoom) != 0))
+        {
+            // FIXME: Are these pointers atually safe to store?
+            rpcArea = nextArea;
+            rpcRoom = nextRoom;
+            NETWORK_setRPC(rpcArea, rpcRoomname);
+        }
     }
-    // Dirty fix for custom levels getting the area from Dimension VVVVVV
-    if (map.custommode) {
-        rpcArea = game.customleveltitle.c_str();
-    }
-    // Update network APIs once per frame (nested in if loop)
-    if( NETWORK_update() && ( SDL_strcmp(rpcArea, old_rpcArea) != 0 || SDL_strcmp(rpcRoomname, old_rpcRoomname) != 0 ) )
-    NETWORK_setRPC(rpcArea, rpcRoomname);
+
+    // Update network per frame.
+    NETWORK_update();
 
     old_rpcArea = rpcArea;
     old_rpcRoomname = rpcRoomname;
