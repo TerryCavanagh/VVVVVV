@@ -75,8 +75,7 @@ static volatile Uint64 f_timePrev = 0;
 // RPC variables
 static const char* rpcArea = "";
 static const char* rpcRoomname = "";
-static const char* old_rpcArea = "";
-static const char* old_rpcRoomname = "";
+static enum GameGamestate rpcGameState;
 
 
 
@@ -986,16 +985,17 @@ static enum LoopCode loop_begin(void)
         key.Poll();
     }
 
-    // Discord RPC handling (and maybe later Steam RPC OwO)
+    // Discord RPC handling (and maybe later Steam RPC?)
     if (game.gamestate != rpcGameState)
     {
+        //printf("gamestate has changed: %d != %d\n", game.gamestate, rpcGameState);
         rpcGameState = game.gamestate;
-        if (game.gamestate == TITLEMODE)
+        if (rpcGameState == TITLEMODE)
         {
             rpcArea = "Exploring the Menus";
             rpcRoomname = "";
         }
-        else if (game.gamestate == EDITORMODE)
+        else if (rpcGameState == EDITORMODE)
         {
             rpcArea = "Making a Level";
             rpcRoomname = "";
@@ -1021,12 +1021,12 @@ static enum LoopCode loop_begin(void)
             nextArea = map.currentarea(game.roomx, game.roomy);
         }
         nextRoom = map.roomname;
-
+        //printf("room %s == %s, area %s == %s\n", rpcRoomname, nextRoom, rpcArea, nextArea);
         if ((SDL_strcmp(rpcArea, nextArea) != 0) || (SDL_strcmp(rpcRoomname, nextRoom) != 0))
         {
-            // FIXME: Are these pointers atually safe to store?
+            // FIXME BEFORE PUSHING!!: These pointers aren't safe to use and result in RPC not updating when it needs to.
             rpcArea = nextArea;
-            rpcRoom = nextRoom;
+            rpcRoomname = nextRoom;
             NETWORK_setRPC(rpcArea, rpcRoomname);
         }
     }
@@ -1034,9 +1034,7 @@ static enum LoopCode loop_begin(void)
     // Update network per frame.
     NETWORK_update();
 
-    old_rpcArea = rpcArea;
-    old_rpcRoomname = rpcRoomname;
-
+    
     return Loop_continue;
 }
 
