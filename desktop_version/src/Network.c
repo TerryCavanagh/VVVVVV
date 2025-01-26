@@ -36,8 +36,8 @@
     int32_t name##_init(void); \
     void name##_shutdown(void); \
     int32_t name##_update(void); \
-    void name##_unlockAchievement(const char *name); \
-    void name##_setRPC(const char *area, const char *roomname);
+    void name##_unlockAchievement(const char* name); \
+    void name##_setRPC(const char* area, const char* roomname);
 #ifdef STEAM_NETWORK
 DECLARE_BACKEND(STEAM)
 #endif
@@ -125,7 +125,7 @@ int32_t NETWORK_update(void)
     return result;
 }
 
-void NETWORK_unlockAchievement(const char *name)
+void NETWORK_unlockAchievement(const char* name)
 {
     #if NUM_BACKENDS > 0
     int32_t i;
@@ -139,7 +139,7 @@ void NETWORK_unlockAchievement(const char *name)
     #endif
 }
 
-void NETWORK_setRPC(const char *area, const char *roomname)
+void NETWORK_setRPC(const char* area, const char* roomname)
 {
     #if NUM_BACKENDS > 0
     int32_t i;

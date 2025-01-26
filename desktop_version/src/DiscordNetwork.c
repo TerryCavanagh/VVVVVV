@@ -162,12 +162,12 @@ int32_t DISCORD_update(void)
     }
     return 1;
 }
-void DISCORD_unlockAchievement(const char *name)
+void DISCORD_unlockAchievement(const char* name)
 {
     // No "achievements" in Discord
 }
 
-void DISCORD_setRPC(const char *area, const char *roomname)
+void DISCORD_setRPC(const char* area, const char* roomname)
 {
     if (app.activityMan == NULL)
     {
