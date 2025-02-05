@@ -1292,7 +1292,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     //Size 1 is a tile
     //Beyond that are special cases (to do)
     //Size 2 is a moving platform of width 4 (32)
-    //Size 3 is apparently a "bug chunky pixel"
+    //Size 3 is apparently a "big chunky pixel"
     //Size 4 is a coin/small pickup
     //Size 5 is a horizontal line, 6 is vertical
 
@@ -1515,7 +1515,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 6: //Decorative particles
         entity.rule = 2;
         entity.type = EntityType_PARTICLE;  //Particles
-        entity.colour = 1;
+        entity.colour = 27;
         entity.size = 3;
         entity.vx = meta1;
         entity.vy = meta2;
@@ -1525,7 +1525,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 7: //Decorative particles
         entity.rule = 2;
         entity.type = EntityType_PARTICLE;  //Particles
-        entity.colour = 2;
+        entity.colour = 0;
         entity.size = 3;
         entity.vx = meta1;
         entity.vy = meta2;
@@ -1536,6 +1536,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.rule = 3;
         entity.type = EntityType_COIN;
         entity.size = 4;
+        entity.colour = 26;
         entity.tile = 48;
         entity.w = 8;
         entity.h = 8;
@@ -1589,6 +1590,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.type = EntityType_HORIZONTAL_GRAVITY_LINE;
         entity.size = 5;
         entity.life = 0;
+        entity.colour = 25;
         entity.w = meta1;
         entity.h = 1;
         entity.onentity = 1;
@@ -1598,6 +1600,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.type = EntityType_VERTICAL_GRAVITY_LINE;
         entity.size = 6;
         entity.life = 0;
+        entity.colour = 25;
         entity.w = 1;
         entity.h = meta1;
         //entity.colour = 0;

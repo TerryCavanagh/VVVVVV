@@ -1869,53 +1869,7 @@ void Graphics::drawgravityline(const int t, const int x, const int y, const int 
         return;
     }
 
-    if (obj.entities[t].life == 0)
-    {
-        if (game.noflashingmode)
-        {
-            set_color(200 - 20, 200 - 20, 200 - 20);
-            draw_line(x, y, x + w, y + h);
-            return;
-        }
-
-        switch(linestate)
-        {
-        case 0:
-            set_color(200 - 20, 200 - 20, 200 - 20);
-            break;
-        case 1:
-            set_color(245 - 30, 245 - 30, 225 - 30);
-            break;
-        case 2:
-            set_color(225 - 30, 245 - 30, 245 - 30);
-            break;
-        case 3:
-            set_color(200 - 20, 200 - 20, 164 - 10);
-            break;
-        case 4:
-            set_color(196 - 20, 255 - 30, 224 - 20);
-            break;
-        case 5:
-            set_color(196 - 20, 235 - 30, 205 - 20);
-            break;
-        case 6:
-            set_color(164 - 10, 164 - 10, 164 - 10);
-            break;
-        case 7:
-            set_color(205 - 20, 245 - 30, 225 - 30);
-            break;
-        case 8:
-            set_color(225 - 30, 255 - 30, 205 - 20);
-            break;
-        case 9:
-            set_color(245 - 30, 245 - 30, 245 - 30);
-            break;
-        }
-    }
-    else
-    {
-        set_color(96, 96, 96);
-    }
+    set_color(obj.entities[t].realcol);
 
     draw_line(x, y, x + w, y + h);
 }
@@ -3084,8 +3038,49 @@ SDL_Color Graphics::getcol( int t )
     case 23: // Enemy : Indicator Gray
         return getRGB(255 - help.glow / 2 - (int) (GETCOL_RANDOM * 40), 255 - help.glow/2 - (int) (GETCOL_RANDOM * 40), 255 - help.glow/2 - (int) (GETCOL_RANDOM * 40));
 
-        // Trophies
-        // cyan
+    case 24: // Gravity line (Inactive)
+        return getRGB(96, 96, 96);
+    case 25: // Gravity line (Active)
+        if (game.noflashingmode)
+        {
+            return getRGB(200 - 20, 200 - 20, 200 - 20);
+        }
+
+        switch (linestate)
+        {
+        default:
+        case 0:
+            return getRGB(200 - 20, 200 - 20, 200 - 20);
+        case 1:
+            return getRGB(245 - 30, 245 - 30, 225 - 30);
+        case 2:
+            return getRGB(225 - 30, 245 - 30, 245 - 30);
+        case 3:
+            return getRGB(200 - 20, 200 - 20, 164 - 10);
+        case 4:
+            return getRGB(196 - 20, 255 - 30, 224 - 20);
+        case 5:
+            return getRGB(196 - 20, 235 - 30, 205 - 20);
+        case 6:
+            return getRGB(164 - 10, 164 - 10, 164 - 10);
+        case 7:
+            return getRGB(205 - 20, 245 - 30, 225 - 30);
+        case 8:
+            return getRGB(225 - 30, 255 - 30, 205 - 20);
+        case 9:
+            return getRGB(245 - 30, 245 - 30, 245 - 30);
+        }
+    case 26: // Coin
+        if (game.noflashingmode)
+        {
+            return getRGB(234, 234, 10);
+        }
+        return getRGB(250 - (int) (GETCOL_RANDOM * 32), 250 - (int) (GETCOL_RANDOM * 32), 10);
+    case 27: // Particle flashy red
+        return getRGB((GETCOL_RANDOM * 64), 10, 10);
+
+    // Trophies
+    // cyan
     case 30:
         return RGBf(160, 200, 220);
         // Purple
@@ -3200,32 +3195,6 @@ void Graphics::menuoffrender(void)
     {
         return;
     }
-}
-
-SDL_Color Graphics::huetilegetcol()
-{
-    if (game.noflashingmode)
-    {
-        return getRGB(234, 234, 10);
-    }
-
-    return getRGB(250 - (int) (fRandom() * 32), 250 - (int) (fRandom() * 32), 10);
-}
-
-SDL_Color Graphics::bigchunkygetcol(int t)
-{
-    // A seperate index of colours, for simplicity
-    float random = game.noflashingmode ? 0.5 : fRandom();
-
-    switch (t)
-    {
-    case 1:
-        return getRGB(random * 64, 10, 10);
-    case 2:
-        return getRGB(160 - help.glow / 2 - (int) (random * 20), 200 - help.glow / 2, 220 - help.glow);
-    }
-    const SDL_Color color = {0, 0, 0, 0};
-    return color;
 }
 
 void Graphics::textboxabsolutepos(int x, int y)
