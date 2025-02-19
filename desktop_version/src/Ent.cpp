@@ -613,17 +613,24 @@ void entclass::updatecolour(void)
     switch (size)
     {
     case 0: // Sprites
+    case 3: // Big chunky pixels!
+    case 4: // Small pickups
     case 7: // Teleporter
     case 9: // Really Big Sprite! (2x2)
     case 10: // 2x1 Sprite
     case 13: // Special for epilogue: huge hero!
         realcol = graphics.getcol(colour);
         break;
-    case 3: // Big chunky pixels!
-        realcol = graphics.bigchunkygetcol(colour);
-        break;
-    case 4: // Small pickups
-        realcol = graphics.huetilegetcol();
+    case 5: // Horizontal gravity line
+    case 6: // Vertical gravity line
+        if (life == 0)
+        {
+            realcol = graphics.getcol(colour);
+        }
+        else
+        {
+            realcol = graphics.getcol(24);
+        }
         break;
     case 11: // The fucking elephant
         if (game.noflashingmode)

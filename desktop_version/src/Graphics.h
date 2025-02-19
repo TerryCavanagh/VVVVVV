@@ -51,9 +51,6 @@ public:
 
     GraphicsResources grphx;
 
-    SDL_Color huetilegetcol();
-    SDL_Color bigchunkygetcol(int t);
-
     void drawgravityline(int t, int x, int y, int w, int h);
 
     void drawcoloredtile(int x, int y, int t, int r, int g, int b);
