@@ -2,6 +2,7 @@
 #define MUSIC_H
 
 #include "BinaryBlob.h"
+#include <string>
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
@@ -95,6 +96,7 @@ public:
     int haltedsong;
 
     void playef(int t);
+    void playef_name(std::string& t);
     void pauseef(void);
     void resumeef(void);
 
@@ -119,6 +121,8 @@ public:
     // MMMMMM mod settings
     bool mmmmmm;
     bool usingmmmmmm;
+
+    int stockSoundTracks;
 
     binaryBlob pppppp_blob;
     binaryBlob mmmmmm_blob;
