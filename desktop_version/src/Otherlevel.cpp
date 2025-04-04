@@ -1,6 +1,7 @@
 #include "Otherlevel.h"
 
 #include "Game.h"
+#include "Graphics.h"
 #include "Entity.h"
 #include "MakeAndPlay.h"
 #include "UtilityClass.h"
@@ -8904,7 +8905,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 
             //violet
             obj.createentity(83, 126, 18, 20, 0, 18);
-            int crewman = obj.getcrewman(PURPLE);
+            int crewman = obj.getcrewman(EntityColour_CREW_PURPLE);
             if (INBOUNDS_VEC(crewman, obj.entities))
             {
                 obj.entities[crewman].rule = 7;
