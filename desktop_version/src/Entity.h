@@ -5,10 +5,10 @@
 #include <string>
 #include <vector>
 
-#include "Maths.h"
-#include "Ent.h"
 #include "BlockV.h"
+#include "Ent.h"
 #include "Game.h"
+#include "Maths.h"
 
 enum
 {
@@ -18,18 +18,6 @@ enum
     DIRECTIONAL = 3,
     SAFE = 4,
     ACTIVITY = 5
-};
-
-enum
-{
-    CYAN = 0,
-    PURPLE = 20,
-    YELLOW = 14,
-    RED = 15,
-    GREEN = 13,
-    BLUE = 16,
-    GRAY = 19,
-    TELEPORTER = 102
 };
 
 class entityclass
@@ -56,7 +44,7 @@ public:
         createblock(DAMAGE, 312, -8, 16, 260);
     }
 
-    int swncolour(int t );
+    int swncolour(int t);
 
     void swnenemiescol(int t);
 
@@ -106,7 +94,7 @@ public:
 
     int getlineat(int t);
 
-    int getcrewman(int t, int fallback = 0);
+    int getcrewman(int t);
     int getcustomcrewman(int t);
 
     int getteleporter(void);

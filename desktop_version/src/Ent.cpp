@@ -18,7 +18,7 @@ void entclass::clear(void)
     state = 0;
     statedelay = 0;
     life = 0;
-    colour = 0;
+    colour = EntityColour_CREW_CYAN;
     para = 0;
     behave = 0;
     animate = 0;
@@ -108,7 +108,7 @@ void entclass::setenemy( int t )
         case 0:
             tile = 60;
             animate = 2;
-            colour = 6;
+            colour = EntityColour_ENEMY_RED;
             behave = 10;
             w = 32;
             h = 32;
@@ -119,7 +119,7 @@ void entclass::setenemy( int t )
             lerpoldyp += 10;
             tile = 63;
             animate = 100; //LIES
-            colour = 6;
+            colour = EntityColour_ENEMY_RED;
             behave = 11;
             para = 9; //destroyed when outside
             x1 = -200;
@@ -132,7 +132,7 @@ void entclass::setenemy( int t )
         case 2:
             tile = 62;
             animate = 100;
-            colour = 6;
+            colour = EntityColour_ENEMY_RED;
             behave = -1;
             w = 32;
             h = 32;
@@ -147,7 +147,7 @@ void entclass::setenemy( int t )
             tile = 72;
             animate = 3;
             size = 9;
-            colour = 6;
+            colour = EntityColour_ENEMY_RED;
             behave = 12;
             w = 64;
             h = 40;
@@ -161,7 +161,7 @@ void entclass::setenemy( int t )
             lerpoldyp -= 4;
             tile = 76;
             animate = 100; // Clouds
-            colour = 6;
+            colour = EntityColour_ENEMY_RED;
             behave = 13;
             para = -6; //destroyed when outside
             x2 = 400;
@@ -173,7 +173,7 @@ void entclass::setenemy( int t )
         case 2:
             tile = 77;
             animate = 100;
-            colour = 6;
+            colour = EntityColour_ENEMY_RED;
             behave = -1;
             w = 32;
             h = 16;
@@ -195,32 +195,32 @@ void entclass::setenemyroom( int rx, int ry )
         //Space Station 1
     case rn(12, 3):  //Security Drone
         tile = 36;
-        colour = 8;
+        colour = EntityColour_ENEMY_PINK;
         animate = 1;
         break;
     case rn(13, 3):  //Wavelengths
         tile = 32;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 1;
         w = 32;
         break;
     case rn(15, 3):  //Traffic
         tile = 28;
-        colour = 6;
+        colour = EntityColour_ENEMY_RED;
         animate = 1;
         w = 22;
         h = 32;
         break;
     case rn(12, 5):  //The Yes Men
         tile = 40;
-        colour = 9;
+        colour = EntityColour_ENEMY_YELLOW;
         animate = 1;
         w = 20;
         h = 20;
         break;
     case rn(13, 6):  //Hunchbacked Guards
         tile = 44;
-        colour = 8;
+        colour = EntityColour_ENEMY_PINK;
         animate = 1;
         w = 16;
         h = 20;
@@ -231,7 +231,7 @@ void entclass::setenemyroom( int rx, int ry )
         {
             //transmittor
             tile = 104;
-            colour = 4;
+            colour = EntityColour_INACTIVE_ENTITY;
             animate = 7;
             w = 16;
             h = 16;
@@ -244,7 +244,7 @@ void entclass::setenemyroom( int rx, int ry )
         {
             //radar dish
             tile =124;
-            colour = 4;
+            colour = EntityColour_INACTIVE_ENTITY;
             animate = 6;
             w = 32;
             h = 32;
@@ -260,37 +260,37 @@ void entclass::setenemyroom( int rx, int ry )
         //The Lab
     case rn(4, 0):
         tile = 78;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(2, 0):
         tile = 88;
-        colour = 11;
+        colour = EntityColour_ENEMY_CYAN;
         animate = 1;
         w = 16;
         h = 16;
         break;
         //Space Station 2
     case rn(14, 11):
-        colour = 17;
+        colour = EntityColour_ENEMY_ORANGE;
         break; //Lies
     case rn(16, 11):
-        colour = 8;
+        colour = EntityColour_ENEMY_PINK;
         break; //Lies
     case rn(13, 10):
-        colour = 11;
+        colour = EntityColour_ENEMY_CYAN;
         break; //Factory
     case rn(13, 9):
-        colour = 9;
+        colour = EntityColour_ENEMY_YELLOW;
         break; //Factory
     case rn(13, 8):
-        colour = 8;
+        colour = EntityColour_ENEMY_PINK;
         break; //Factory
     case rn(11, 13): //Truth
         tile = 64;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 100;
         w = 44;
         h = 10;
@@ -298,7 +298,7 @@ void entclass::setenemyroom( int rx, int ry )
         break;
     case rn(17, 7): //Brass sent us under the top
         tile =82;
-        colour = 8;
+        colour = EntityColour_ENEMY_PINK;
         animate = 5;
         w = 28;
         h = 32;
@@ -306,42 +306,42 @@ void entclass::setenemyroom( int rx, int ry )
         break;
     case rn(10, 7): // (deception)
         tile = 92;
-        colour = 6;
+        colour = EntityColour_ENEMY_RED;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(14, 13): // (chose poorly)
         tile = 56;
-        colour = 6;
+        colour = EntityColour_ENEMY_RED;
         animate = 1;
         w = 15;
         h = 24;
         break;
     case rn(13, 12): // (backsliders)
         tile = 164;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(14, 8): // (wheel of fortune room)
         tile = 116;
-        colour = 12;
+        colour = EntityColour_ENEMY_BLUE;
         animate = 1;
         w = 32;
         h = 32;
         break;
     case rn(16, 9): // (seeing dollar signs)
         tile = 68;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(16, 7): // (tomb of mad carew)
         tile = 106;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 2;
         w = 24;
         h = 25;
@@ -349,7 +349,7 @@ void entclass::setenemyroom( int rx, int ry )
         //Warp Zone
     case rn(15, 2): // (numbers)
         tile = 100;
-        colour = 6;
+        colour = EntityColour_ENEMY_RED;
         animate = 1;
         w = 32;
         h = 14;
@@ -358,7 +358,7 @@ void entclass::setenemyroom( int rx, int ry )
         break;
     case rn(16, 2): // (Manequins)
         tile = 52;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 5;
         w = 16;
         h = 25;
@@ -367,28 +367,28 @@ void entclass::setenemyroom( int rx, int ry )
         break;
     case rn(18, 0): // (Obey)
         tile = 51;
-        colour = 11;
+        colour = EntityColour_ENEMY_CYAN;
         animate = 100;
         w = 30;
         h = 14;
         break;
     case rn(19, 1): // Ascending and Descending
         tile = 48;
-        colour = 9;
+        colour = EntityColour_ENEMY_YELLOW;
         animate = 5;
         w = 16;
         h = 16;
         break;
     case rn(19, 2): // Shockwave Rider
         tile = 176;
-        colour = 6;
+        colour = EntityColour_ENEMY_RED;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(18, 3): // Mind the gap
         tile = 168;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 1;
         w = 16;
         h = 16;
@@ -397,7 +397,7 @@ void entclass::setenemyroom( int rx, int ry )
         if (yp ==96)
         {
             tile = 160;
-            colour = 8;
+            colour = EntityColour_ENEMY_PINK;
             animate = 1;
             w = 16;
             h = 16;
@@ -405,7 +405,7 @@ void entclass::setenemyroom( int rx, int ry )
         else
         {
             tile = 156;
-            colour = 8;
+            colour = EntityColour_ENEMY_PINK;
             animate = 1;
             w = 16;
             h = 16;
@@ -413,14 +413,14 @@ void entclass::setenemyroom( int rx, int ry )
         break;
     case rn(16, 0): // I love you
         tile = 112;
-        colour = 8;
+        colour = EntityColour_ENEMY_PINK;
         animate = 5;
         w = 16;
         h = 16;
         break;
     case rn(14, 2): // That's why I have to kill you
         tile = 114;
-        colour = 6;
+        colour = EntityColour_ENEMY_RED;
         animate = 5;
         w = 16;
         h = 16;
@@ -430,7 +430,7 @@ void entclass::setenemyroom( int rx, int ry )
         if (xp ==88)
         {
             tile = 54+12;
-            colour = 12;
+            colour = EntityColour_ENEMY_BLUE;
             animate = 100;
             w = 60;
             h = 16;
@@ -439,7 +439,7 @@ void entclass::setenemyroom( int rx, int ry )
         else
         {
             tile = 54;
-            colour = 12;
+            colour = EntityColour_ENEMY_BLUE;
             animate = 100;
             w = 60;
             h = 16;
@@ -449,62 +449,62 @@ void entclass::setenemyroom( int rx, int ry )
         //Final level
     case rn(50-100, 53-100):  //The Yes Men
         tile = 40;
-        colour = 9;
+        colour = EntityColour_ENEMY_YELLOW;
         animate = 1;
         w = 20;
         h = 20;
         break;
     case rn(48-100, 51-100):  //Wavelengths
         tile = 32;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 1;
         w = 32;
         break;
     case rn(43-100,52-100): // Ascending and Descending
         tile = 48;
-        colour = 9;
+        colour = EntityColour_ENEMY_YELLOW;
         animate = 5;
         w = 16;
         h = 16;
         break;
     case rn(46-100,51-100): //kids his age
         tile = 88;
-        colour = 11;
+        colour = EntityColour_ENEMY_CYAN;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(43-100,51-100): // Mind the gap
         tile = 168;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(44-100,51-100): // vertigo?
         tile = 172;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 100;
         w = 32;
         h = 32;
         break;
     case rn(44-100,52-100): // (backsliders)
         tile = 164;
-        colour = 7;
+        colour = EntityColour_ENEMY_GREEN;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(43-100, 56-100): //Intermission 1
         tile = 88;
-        colour = 21;
+        colour = EntityColour_ENEMY_GRAVITRON;
         animate = 1;
         w = 16;
         h = 16;
         break;
     case rn(45-100, 56-100): //Intermission 1
         tile = 88;
-        colour = 21;
+        colour = EntityColour_ENEMY_GRAVITRON;
         animate = 1;
         w = 16;
         h = 16;
@@ -515,7 +515,7 @@ void entclass::setenemyroom( int rx, int ry )
     case rn(11, 8):
     case rn(12, 8):
         tile = 0;
-        colour = 102;
+        colour = EntityColour_TELEPORTER_FLASHING;
         animate = 0;
         w = 464;
         h = 320;

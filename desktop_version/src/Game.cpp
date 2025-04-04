@@ -146,7 +146,7 @@ void Game::init(void)
     prevroomy = 0;
     saverx = 0;
     savery = 0;
-    savecolour = 0;
+    savecolour = EntityColour_CREW_CYAN;
 
     mutebutton = 0;
     muted = false;
@@ -2563,7 +2563,7 @@ void Game::updatestate(void)
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
 
                 int j = obj.getteleporter();
@@ -2584,7 +2584,7 @@ void Game::updatestate(void)
             if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 1;
-                obj.entities[i].colour = 101;
+                obj.entities[i].colour = EntityColour_TELEPORTER_ACTIVE;
             }
             break;
         }
@@ -2757,7 +2757,7 @@ void Game::updatestate(void)
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = true;
             }
 
@@ -2771,7 +2771,7 @@ void Game::updatestate(void)
             if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 1;
-                obj.entities[i].colour = 100;
+                obj.entities[i].colour = EntityColour_TELEPORTER_INACTIVE;
             }
             break;
         }
@@ -3365,7 +3365,7 @@ void Game::updatestate(void)
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
-                obj.entities[i].colour = 102;
+                obj.entities[i].colour = EntityColour_TELEPORTER_FLASHING;
             }
 
             incstate();
@@ -3407,7 +3407,7 @@ void Game::updatestate(void)
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = true;
             }
 
@@ -3492,7 +3492,7 @@ void Game::updatestate(void)
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = true;
             }
 
@@ -3500,7 +3500,7 @@ void Game::updatestate(void)
             if(INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 1;
-                obj.entities[i].colour = 100;
+                obj.entities[i].colour = EntityColour_TELEPORTER_INACTIVE;
             }
             break;
         }
@@ -3544,9 +3544,9 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 1;
 
@@ -3675,9 +3675,9 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 1;
 
@@ -3788,9 +3788,9 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 0;
 
@@ -3901,9 +3901,9 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 1;
 
@@ -4019,9 +4019,9 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 1;
 
@@ -4137,9 +4137,9 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 0;
 
@@ -4253,7 +4253,7 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 1;
@@ -4366,9 +4366,9 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 1;
 
@@ -4479,9 +4479,9 @@ void Game::updatestate(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
-                    obj.entities[j].colour = 101;
+                    obj.entities[j].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
-                obj.entities[i].colour = 0;
+                obj.entities[i].colour = EntityColour_CREW_CYAN;
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 1;
 
@@ -5363,7 +5363,7 @@ void Game::deathsequence(void)
     }
     if (INBOUNDS_VEC(i, obj.entities))
     {
-        obj.entities[i].colour = 1;
+        obj.entities[i].colour = EntityColour_DEAD;
 
         obj.entities[i].invis = false;
     }

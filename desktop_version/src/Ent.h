@@ -59,7 +59,8 @@ public:
     int state, statedelay;
     int behave, animate;
     float para;
-    int life, colour;
+    int life;
+    int colour; // As out-of-bounds colours are allowed, this should be an int instead of an EnemyColour.
 
     //Position and velocity
     int oldxp, oldyp;
