@@ -486,28 +486,28 @@ int mapclass::maptiletoenemycol(int t)
     switch(t)
     {
     case 0:
-        return 11;
+        return EntityColour_ENEMY_CYAN;
         break;
     case 1:
-        return 6;
+        return EntityColour_ENEMY_RED;
         break;
     case 2:
-        return 8;
+        return EntityColour_ENEMY_PINK;
         break;
     case 3:
-        return 12;
+        return EntityColour_ENEMY_BLUE;
         break;
     case 4:
-        return 9;
+        return EntityColour_ENEMY_YELLOW;
         break;
     case 5:
-        return 7;
+        return EntityColour_ENEMY_GREEN;
         break;
     case 6:
-        return 18;
+        return EntityColour_ENEMY_GRAY;
         break;
     }
-    return 11;
+    return EntityColour_ENEMY_CYAN;
 }
 
 void mapclass::changefinalcol(int t)
@@ -2185,7 +2185,7 @@ void mapclass::loadlevel(int rx, int ry)
             {
                 //A slight varation - she's upside down
                 obj.createentity(249, 62, 18, 16, 0, 18);
-                int j = obj.getcrewman(BLUE);
+                int j = obj.getcrewman(EntityColour_CREW_BLUE);
                 if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[j].rule = 7;

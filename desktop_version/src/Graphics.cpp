@@ -3423,19 +3423,19 @@ int Graphics::crewcolour(const int t)
     switch (t)
     {
     case 0:
-        return CYAN;
+        return EntityColour_CREW_CYAN;
     case 1:
-        return PURPLE;
+        return EntityColour_CREW_PURPLE;
     case 2:
-        return YELLOW;
+        return EntityColour_CREW_YELLOW;
     case 3:
-        return RED;
+        return EntityColour_CREW_RED;
     case 4:
-        return GREEN;
+        return EntityColour_CREW_GREEN;
     case 5:
-        return BLUE;
+        return EntityColour_CREW_BLUE;
     default:
-        return 0;
+        return EntityColour_CREW_CYAN;
     }
 }
 
