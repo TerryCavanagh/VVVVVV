@@ -93,7 +93,7 @@ static FAudioMasteringVoice* masteringvoice = NULL;
 class SoundTrack
 {
 public:
-    SoundTrack(const char* fileName)
+    SoundTrack(const char* fileName, const char* _id, bool _extra)
     {
         unsigned char* mem;
         size_t length;
@@ -118,6 +118,9 @@ public:
         {
             LoadWAV(fileName, mem, length);
         }
+
+        extra = _extra;
+        id = SDL_strdup(_id);
     }
 
     void LoadWAV(const char* fileName, unsigned char* mem, const size_t length)
@@ -180,6 +183,7 @@ end:
         VVV_free(decoded_buf_reserve);
         VVV_freefunc(stb_vorbis_close, vorbis);
         VVV_free(ogg_file);
+        VVV_free(id);
     }
 
     void Play(void)
@@ -364,6 +368,9 @@ end:
     static FAudioSourceVoice** voices;
     static FAudioWaveFormatEx voice_formats[VVV_MAX_CHANNELS];
     static float volume;
+
+    char* id;
+    bool extra;
 };
 FAudioSourceVoice** SoundTrack::voices = NULL;
 FAudioWaveFormatEx SoundTrack::voice_formats[VVV_MAX_CHANNELS];
@@ -729,6 +736,13 @@ musicclass::musicclass(void)
     usingmmmmmm = false;
 }
 
+static void add_builtin_sound(const char* id)
+{
+    char asset_filename[256];
+    SDL_snprintf(asset_filename, sizeof(asset_filename), "sounds/%s.wav", id);
+    soundTracks.push_back(SoundTrack(asset_filename, id, false));
+}
+
 void musicclass::init(void)
 {
     if (FAudioCreate(&faudioctx, 0, FAUDIO_DEFAULT_PROCESSOR))
@@ -744,34 +758,61 @@ void musicclass::init(void)
 
     SoundTrack::Init(44100);
 
-    soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/hurt.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/souleyeminijingle.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/coin.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/save.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crumble.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/vanish.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/blip.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/preteleport.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/teleport.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crew1.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crew2.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crew3.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crew4.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crew5.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crew6.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/terminal.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/gamesaved.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crashing.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/blip2.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/countdown.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/go.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/crash.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/combine.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/newrecord.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/trophy.wav" ));
-    soundTracks.push_back(SoundTrack( "sounds/rescue.wav" ));
+    add_builtin_sound("jump");
+    add_builtin_sound("jump2");
+    add_builtin_sound("hurt");
+    add_builtin_sound("souleyeminijingle");
+    add_builtin_sound("coin");
+    add_builtin_sound("save");
+    add_builtin_sound("crumble");
+    add_builtin_sound("vanish");
+    add_builtin_sound("blip");
+    add_builtin_sound("preteleport");
+    add_builtin_sound("teleport");
+    add_builtin_sound("crew1");
+    add_builtin_sound("crew2");
+    add_builtin_sound("crew3");
+    add_builtin_sound("crew4");
+    add_builtin_sound("crew5");
+    add_builtin_sound("crew6");
+    add_builtin_sound("terminal");
+    add_builtin_sound("gamesaved");
+    add_builtin_sound("crashing");
+    add_builtin_sound("blip2");
+    add_builtin_sound("countdown");
+    add_builtin_sound("go");
+    add_builtin_sound("crash");
+    add_builtin_sound("combine");
+    add_builtin_sound("newrecord");
+    add_builtin_sound("trophy");
+    add_builtin_sound("rescue");
+
+    EnumHandle handle = {};
+    const char* item;
+    while ((item = FILESYSTEM_enumerateAssets("sounds", &handle)) != NULL)
+    {
+        char asset_filename[256];
+        char id[256];
+        SDL_snprintf(asset_filename, sizeof(asset_filename), "sounds/%s", item);
+
+        // We need an ID, so chop off the extension
+        SDL_strlcpy(id, item, sizeof(id));
+        char* dot = SDL_strrchr(id, '.');
+        if (dot != NULL)
+        {
+            *dot = '\0';
+        }
+
+        if (soundidexists(id))
+        {
+            // Make sure we haven't already loaded this file
+            continue;
+        }
+
+        vlog_info("Reading extra sound file %s as %s", item, id);
+        soundTracks.push_back(SoundTrack(asset_filename, id, true));
+    }
+    FILESYSTEM_freeEnumerate(&handle);
 
 #ifdef VVV_COMPILEMUSIC
     binaryBlob musicWriteBlob;
@@ -1288,6 +1329,49 @@ void musicclass::playef(int t)
         return;
     }
     soundTracks[t].Play();
+}
+
+void musicclass::playefid(const char* id)
+{
+    for (size_t i = 0; i < soundTracks.size(); i++)
+    {
+        if (SDL_strcmp(soundTracks[i].id, id) == 0)
+        {
+            playef(i);
+            return;
+        }
+    }
+    vlog_error("playefid() couldn't find sound ID: %s", id);
+}
+
+bool musicclass::soundidexists(const char* id)
+{
+    for (size_t i = 0; i < soundTracks.size(); i++)
+    {
+        if (SDL_strcmp(soundTracks[i].id, id) == 0)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool musicclass::soundisextra(int t)
+{
+    if (INBOUNDS_VEC(t, soundTracks))
+    {
+        return soundTracks[t].extra;
+    }
+    return false;
+}
+
+const char* musicclass::getsoundid(int t)
+{
+    if (INBOUNDS_VEC(t, soundTracks))
+    {
+        return soundTracks[t].id;
+    }
+    return NULL;
 }
 
 void musicclass::pauseef(void)

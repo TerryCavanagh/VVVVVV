@@ -95,6 +95,10 @@ public:
     int haltedsong;
 
     void playef(int t);
+    void playefid(const char* id);
+    bool soundidexists(const char* id);
+    bool soundisextra(int t);
+    const char* getsoundid(int t);
     void pauseef(void);
     void resumeef(void);
 
