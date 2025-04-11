@@ -1850,8 +1850,9 @@ void scriptclass::run(void)
                 i = obj.getplayer();
                 if (INBOUNDS_VEC(i, obj.entities))
                 {
-                    obj.entities[i].colour = 0;
+                    obj.entities[i].colour = cl.player_colour;
                 }
+                game.savecolour = cl.player_colour;
             }
             else if (words[0] == "changeplayercolour")
             {
@@ -2652,7 +2653,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
         }
     }
 
-    /* Containers which need to be reset before gameplay starts
+    /* State which needs to be reset before gameplay starts
      * ex. before custom levels get loaded */
 
     switch (mode)
@@ -2662,6 +2663,8 @@ void scriptclass::startgamemode(const enum StartMode mode)
     default:
         textbox_colours.clear();
         add_default_colours();
+        cl.onewaycol_override = false;
+        cl.player_colour = 0;
         break;
     }
 
@@ -3207,7 +3210,7 @@ void scriptclass::hardreset(void)
         game.savey = 0;
         game.savegc = 0;
     }
-    game.savecolour = 0;
+    game.savecolour = cl.player_colour;
 
     game.intimetrial = false;
     game.timetrialcountdown = 0;
