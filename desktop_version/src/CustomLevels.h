@@ -170,6 +170,8 @@ public:
     SDL_Color getonewaycol(int rx, int ry);
     SDL_Color getonewaycol(void);
     bool onewaycol_override;
+
+    int player_colour;
 };
 
 bool translate_title(const std::string& title);
