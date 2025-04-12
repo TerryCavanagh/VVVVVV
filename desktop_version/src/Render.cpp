@@ -3102,26 +3102,30 @@ void maprender(void)
 
             font::print(title_flags | PR_2X | PR_CEN, -1, FLIP(45, 8), meta.title, 196, 196, 255 - help.glow);
             int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
+            int desc_pos = (cl.numcrewmates() > 0) ? 70 : 70 + (sp*2);
             graphics.print_level_creator(creator_flags, FLIP(70, 8), meta.creator, 196, 196, 255 - help.glow);
-            font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(70+sp, 8), meta.website, 196, 196, 255 - help.glow);
-            font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(70+sp*3, 8), meta.Desc1, 196, 196, 255 - help.glow);
-            font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(70+sp*4, 8), meta.Desc2, 196, 196, 255 - help.glow);
+            font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(70 + sp, 8), meta.website, 196, 196, 255 - help.glow);
+            font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(desc_pos + sp*3, 8), meta.Desc1, 196, 196, 255 - help.glow);
+            font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(desc_pos + sp*4, 8), meta.Desc2, 196, 196, 255 - help.glow);
             if (sp <= 10)
             {
-                font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(70+sp*5, 8), meta.Desc3, 196, 196, 255 - help.glow);
+                font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(desc_pos + sp*5, 8), meta.Desc3, 196, 196, 255 - help.glow);
             }
 
-            int remaining = cl.numcrewmates() - game.crewmates();
+            if (cl.numcrewmates() > 0)
+            {
+                int remaining = cl.numcrewmates() - game.crewmates();
 
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            loc::gettext_plural_fill(
-                buffer, sizeof(buffer),
-                "{n_crew|wordy} crewmates remain",
-                "{n_crew|wordy} crewmate remains",
-                "n_crew:int",
-                remaining
-            );
-            font::print_wrap(PR_CEN, -1, FLIP(165, 8), buffer, 196, 196, 255 - help.glow);
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                loc::gettext_plural_fill(
+                    buffer, sizeof(buffer),
+                    "{n_crew|wordy} crewmates remain",
+                    "{n_crew|wordy} crewmate remains",
+                    "n_crew:int",
+                    remaining
+                );
+                font::print_wrap(PR_CEN, -1, FLIP(165, 8), buffer, 196, 196, 255 - help.glow);
+            }
         }
         else
         {
@@ -3194,21 +3198,26 @@ void maprender(void)
         }
 
         /* Stats. */
-        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow);
-        char buffer[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(
-            buffer, sizeof(buffer),
-            loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
-            "n_trinkets:int, max_trinkets:int",
-            game.trinkets(), max_trinkets
-        );
-        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(64, 8), buffer, 96, 96, 96);
+        int deaths_pos = (cl.numtrinkets() > 0) ? 102 : 72;
+        int time_pos = (cl.numtrinkets() > 0) ? 152 : 132;
+        if (cl.numtrinkets() > 0)
+        {
+            font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
+                "n_trinkets:int, max_trinkets:int",
+                game.trinkets(), max_trinkets
+            );
+            font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(64, 8), buffer, 96, 96, 96);
+        }
 
-        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow);
-        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96);
+        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(deaths_pos, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(deaths_pos + 12, 8), help.String(game.deathcounts), 96, 96, 96);
 
-        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(152, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow);
-        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(164, 8), game.timestring(), 96, 96, 96);
+        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(time_pos, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(time_pos + 12, 8), game.timestring(), 96, 96, 96);
         break;
     }
     case 3:
