@@ -787,36 +787,56 @@ static void menuactionpress(void)
         {
         case 0:
             // Glitchrunner mode
+            if (game.glitchlessmode)
+            {
+                music.playef(Sound_CRY);
+                break;
+            }
+
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::setglitchrunner);
             game.currentmenuoption = GlitchrunnerMode_get();
             map.nexttowercolour();
             break;
         case 1:
+            /* Glitchless mode */
+            if (GlitchrunnerMode_get() != GlitchrunnerNone)
+            {
+                music.playef(2);
+                break;
+            }
+
+            music.playef(11);
+            game.glitchlessmode = !game.glitchlessmode;
+
+            /* Recreate menu to update glitchrunner mode */
+            game.createmenu(game.currentmenuname, true);
+            break;
+        case 2:
             /* Input delay */
             music.playef(Sound_VIRIDIAN);
             game.inputdelay = !game.inputdelay;
             game.savestatsandsettings_menu();
             break;
-        case 2:
+        case 3:
             /* Interact button toggle */
             music.playef(Sound_VIRIDIAN);
             game.separate_interact = !game.separate_interact;
             game.savestatsandsettings_menu();
             break;
-        case 3:
+        case 4:
             // toggle fake load screen
             game.skipfakeload = !game.skipfakeload;
             game.savestatsandsettings_menu();
             music.playef(Sound_VIRIDIAN);
             break;
-        case 4:
+        case 5:
             // toggle in game timer
             game.showingametimer = !game.showingametimer;
             game.savestatsandsettings_menu();
             music.playef(Sound_VIRIDIAN);
             break;
-        case 5:
+        case 6:
             // english sprites
             loc::english_sprites = !loc::english_sprites;
             if (!loc::english_sprites)
@@ -3004,7 +3024,10 @@ void gameinput(void)
         game.menupage = 30; // Pause screen
     }
 
-    if (game.deathseq == -1 && (key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart)) && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
+    if (game.deathseq == -1 &&
+        (key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart))
+        && !game.nodeathmode
+        && (map.custommode || !game.glitchlessmode)) /* Have fun glitchrunners! */
     {
         game.deathseq = 30;
     }

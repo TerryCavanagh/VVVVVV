@@ -1013,10 +1013,38 @@ static void menurender(void)
         {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Glitchrunner Mode"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Re-enable glitches that existed in previous versions of the game."), tr, tg, tb);
+
+            if (game.glitchlessmode)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Glitchrunner mode is incompatible with glitchless mode."), tr, tg, tb);
+                break;
+            }
+
             drawglitchrunnertext(next_y);
             break;
         }
         case 1:
+        {
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Glitchless Mode"), tr, tg, tb);
+            const int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disable glitches that might otherwise be useful for speedruns."), tr, tg, tb);
+
+            if (GlitchrunnerMode_get() != GlitchrunnerNone)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Glitchless mode is incompatible with glitchrunner mode."), tr, tg, tb);
+                break;
+            }
+
+            if (game.glitchlessmode)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Glitchless mode is ON"), tr, tg, tb);
+            }
+            else
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Glitchless mode is OFF"), tr / 2, tg / 2, tb / 2);
+            }
+            break;
+        }
+        case 2:
         {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Input Delay"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Re-enable the 1-frame input delay from previous versions of the game."), tr, tg, tb);
@@ -1030,7 +1058,7 @@ static void menurender(void)
             }
             break;
         }
-        case 2:
+        case 3:
         {
             char buffer[SCREEN_WIDTH_CHARS + 1];
             const char* button;
@@ -1051,7 +1079,7 @@ static void menurender(void)
             font::print_wrap(PR_CEN, -1, next_y, buffer, tr, tg, tb);
             break;
         }
-        case 3:
+        case 4:
         {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Fake Load Screen"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disable the fake loading screen which appears on game launch."), tr, tg, tb);
@@ -1061,7 +1089,7 @@ static void menurender(void)
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Fake loading screen is ON"), tr, tg, tb);
             break;
         }
-        case 4:
+        case 5:
         {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("In-Game Timer"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Toggle the in-game timer outside of time trials."), tr, tg, tb);
@@ -1075,7 +1103,7 @@ static void menurender(void)
             }
             break;
         }
-        case 5:
+        case 6:
         {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("English Sprites"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Show the original English word enemies regardless of your language setting."), tr, tg, tb);
@@ -2272,6 +2300,12 @@ static void mode_indicator_text(const int alpha)
         y += spacing;
     }
 
+    if (game.glitchlessmode)
+    {
+        font::print(flags, x, y, loc::gettext("Glitchless mode enabled"), r, g, b);
+        y += spacing;
+    }
+
     if (graphics.flipmode)
     {
         const char* english = "Flip Mode enabled";
@@ -2363,6 +2397,7 @@ void gamerender(void)
     );
     bool any_mode_active = map.invincibility
         || GlitchrunnerMode_get() != GlitchrunnerNone
+        || game.glitchlessmode
         || graphics.flipmode
         || game.slowdown < 30;
     bool draw_mode_indicator_text = mode_indicator_alpha > 100 && any_mode_active;

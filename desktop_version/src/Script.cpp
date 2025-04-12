@@ -132,7 +132,7 @@ void scriptclass::tokenize( const std::string& t )
     }
 }
 
-static int getcolorfromname(std::string name)
+static int getcolorfromname(const std::string& name)
 {
     if      (name == "player")     return CYAN;
     else if (name == "cyan")       return CYAN;
@@ -150,12 +150,34 @@ static int getcolorfromname(std::string name)
     return color; // Last effort to give a valid color, maybe they just input the color?
 }
 
-static int getcrewmanfromname(std::string name)
+static int getcrewmanfromname(const std::string& name)
 {
     if (name == "player") return obj.getplayer(); //  Return the player
     int color = getcolorfromname(name); // Maybe they passed in a crewmate name, or an id?
     if (color == -1) return -1; // ...Nope, return -1
     return obj.getcrewman(color);
+}
+
+static bool color_valid(const int index, const std::string& name)
+{
+    if (!INBOUNDS_VEC(index, obj.entities))
+    {
+        return false;
+    }
+
+    if (!game.glitchlessmode)
+    {
+        return true;
+    }
+
+    const int color = getcolorfromname(name);
+    const bool using_aem = color == -1;
+    if (using_aem)
+    {
+        return true;
+    }
+
+    return obj.entities[index].colour == color;
 }
 
 
@@ -1080,7 +1102,7 @@ void scriptclass::run(void)
                 int crewmate = getcrewmanfromname(words[1]);
                 if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
-                if (INBOUNDS_VEC(i, obj.entities))
+                if (color_valid(i, words[1]))
                 {
                     obj.entities[i].tile = ss_toi(words[2]);
                 }
