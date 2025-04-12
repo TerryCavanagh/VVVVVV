@@ -2737,14 +2737,14 @@ void gameinput(void)
                                 int player = obj.getplayer();
                                 if (INBOUNDS_VEC(player, obj.entities))
                                 {
-                                    obj.entities[player].colour = 102;
+                                    obj.entities[player].colour = EntityColour_TELEPORTER_FLASHING;
                                 }
 
                                 int teleporter = obj.getteleporter();
                                 if (INBOUNDS_VEC(teleporter, obj.entities))
                                 {
                                     obj.entities[teleporter].tile = 6;
-                                    obj.entities[teleporter].colour = 102;
+                                    obj.entities[teleporter].colour = EntityColour_TELEPORTER_FLASHING;
                                 }
                                 //which teleporter script do we use? it depends on the companion!
                                 game.setstate(4000);
@@ -2768,16 +2768,16 @@ void gameinput(void)
                                 int player = obj.getplayer();
                                 if (INBOUNDS_VEC(player, obj.entities))
                                 {
-                                    obj.entities[player].colour = 102;
+                                    obj.entities[player].colour = EntityColour_TELEPORTER_FLASHING;
                                 }
                                 int companion = obj.getcompanion();
-                                if(INBOUNDS_VEC(companion, obj.entities)) obj.entities[companion].colour = 102;
+                                if(INBOUNDS_VEC(companion, obj.entities)) obj.entities[companion].colour = EntityColour_TELEPORTER_FLASHING;
 
                                 int teleporter = obj.getteleporter();
                                 if (INBOUNDS_VEC(teleporter, obj.entities))
                                 {
                                     obj.entities[teleporter].tile = 6;
-                                    obj.entities[teleporter].colour = 102;
+                                    obj.entities[teleporter].colour = EntityColour_TELEPORTER_FLASHING;
                                 }
                                 //which teleporter script do we use? it depends on the companion!
                                 game.setstate(3000);
@@ -3241,7 +3241,7 @@ static void mapmenuactionpress(const bool version2_2)
         int i = obj.getplayer();
         if (INBOUNDS_VEC(i, obj.entities))
         {
-            obj.entities[i].colour = 102;
+            obj.entities[i].colour = EntityColour_TELEPORTER_FLASHING;
         }
 
         //which teleporter script do we use? it depends on the companion!
@@ -3463,14 +3463,14 @@ void teleporterinput(void)
                 int i = obj.getplayer();
                 if (INBOUNDS_VEC(i, obj.entities))
                 {
-                    obj.entities[i].colour = 102;
+                    obj.entities[i].colour = EntityColour_TELEPORTER_FLASHING;
                 }
 
                 i = obj.getteleporter();
                 if (INBOUNDS_VEC(i, obj.entities))
                 {
                     obj.entities[i].tile = 6;
-                    obj.entities[i].colour = 102;
+                    obj.entities[i].colour = EntityColour_TELEPORTER_FLASHING;
                 }
                 //which teleporter script do we use? it depends on the companion!
                 game.setstate(4000);

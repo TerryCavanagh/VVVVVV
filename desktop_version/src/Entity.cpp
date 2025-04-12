@@ -109,13 +109,13 @@ void entityclass::resetallflags(void)
 int entityclass::swncolour( int t )
 {
     //given colour t, return colour in setcol
-    if (t == 0) return 11;
-    if (t == 1) return 6;
-    if (t == 2) return 8;
-    if (t == 3) return 12;
-    if (t == 4) return 9;
-    if (t == 5) return 7;
-    return 0;
+    if (t == 0) return EntityColour_ENEMY_CYAN;
+    if (t == 1) return EntityColour_ENEMY_RED;
+    if (t == 2) return EntityColour_ENEMY_PINK;
+    if (t == 3) return EntityColour_ENEMY_BLUE;
+    if (t == 4) return EntityColour_ENEMY_YELLOW;
+    if (t == 5) return EntityColour_ENEMY_GREEN;
+    return EntityColour_CREW_CYAN; // Fallback to color 0
 }
 
 void entityclass::swnenemiescol( int t )
@@ -1324,7 +1324,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 0: //Player
         entity.rule = 0; //Playable character
         entity.tile = 0;
-        entity.colour = 0;
+        entity.colour = EntityColour_CREW_CYAN;
         entity.cx = 6;
         entity.cy = 2;
         entity.w = 12;
@@ -1357,7 +1357,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.harmful = true;
         entity.tile = 24;
         entity.animate = 0;
-        entity.colour = 8;
+        entity.colour = EntityColour_ENEMY_PINK;
 
         entity.type = EntityType_MOVING;
 
@@ -1375,7 +1375,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         {
             //MAVVERRRICK
             entity.tile = 96;
-            entity.colour = 6;
+            entity.colour = EntityColour_ENEMY_RED;
             entity.size = 9;
             entity.w = 64;
             entity.h = 44;
@@ -1515,7 +1515,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 6: //Decorative particles
         entity.rule = 2;
         entity.type = EntityType_PARTICLE;  //Particles
-        entity.colour = 27;
+        entity.colour = EntityColour_PARTICLE_RED;
         entity.size = 3;
         entity.vx = meta1;
         entity.vy = meta2;
@@ -1525,7 +1525,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     case 7: //Decorative particles
         entity.rule = 2;
         entity.type = EntityType_PARTICLE;  //Particles
-        entity.colour = 0;
+        entity.colour = EntityColour_CREW_CYAN;
         entity.size = 3;
         entity.vx = meta1;
         entity.vy = meta2;
@@ -1536,7 +1536,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.rule = 3;
         entity.type = EntityType_COIN;
         entity.size = 4;
-        entity.colour = 26;
+        entity.colour = EntityColour_COIN;
         entity.tile = 48;
         entity.w = 8;
         entity.h = 8;
@@ -1554,7 +1554,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 22;
         entity.w = 16;
         entity.h = 16;
-        entity.colour = 3;
+        entity.colour = EntityColour_TRINKET;
         entity.onentity = 1;
         entity.animate = 100;
 
@@ -1569,14 +1569,14 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 20 + meta1;
         entity.w = 16;
         entity.h = 16;
-        entity.colour = 4;
+        entity.colour = EntityColour_INACTIVE_ENTITY;
         entity.onentity = 1;
         entity.animate = 100;
         entity.para = meta2;
 
         if (game.savepoint == meta2)
         {
-            entity.colour = 5;
+            entity.colour = EntityColour_ACTIVE_ENTITY;
             entity.onentity = 0;
         }
 
@@ -1590,7 +1590,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.type = EntityType_HORIZONTAL_GRAVITY_LINE;
         entity.size = 5;
         entity.life = 0;
-        entity.colour = 25;
+        entity.colour = EntityColour_GRAVITY_LINE_ACTIVE;
         entity.w = meta1;
         entity.h = 1;
         entity.onentity = 1;
@@ -1600,10 +1600,10 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.type = EntityType_VERTICAL_GRAVITY_LINE;
         entity.size = 6;
         entity.life = 0;
-        entity.colour = 25;
+        entity.colour = EntityColour_GRAVITY_LINE_ACTIVE;
         entity.w = 1;
         entity.h = meta1;
-        //entity.colour = 0;
+        //entity.colour = EntityColour_CREW_CYAN;
         entity.onentity = 1;
         break;
     case 13: //Warp token
@@ -1613,7 +1613,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 18;
         entity.w = 16;
         entity.h = 16;
-        entity.colour = 10;
+        entity.colour = EntityColour_WARP_TOKEN;
         entity.onentity = 1;
         entity.animate = 2;
         //Added in port, hope it doesn't break anything
@@ -1627,7 +1627,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 1; //inactive
         entity.w = 96;
         entity.h = 96;
-        entity.colour = 100;
+        entity.colour = EntityColour_TELEPORTER_INACTIVE;
         entity.onentity = 1;
         entity.animate = 100;
         entity.para = meta2;
@@ -1636,7 +1636,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.rule = 6;
         entity.type = EntityType_CREWMATE; //A special case!
         entity.tile = 144;
-        entity.colour = 13; //144 for sad :(
+        entity.colour = EntityColour_CREW_GREEN; //144 for sad :(
         entity.cx = 6;
         entity.cy = 2;
         entity.w = 12;
@@ -1651,7 +1651,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.rule = 7;
         entity.type = EntityType_CREWMATE; //A special case!
         entity.tile = 144+6;
-        entity.colour = 14; //144 for sad (upside down+12):(
+        entity.colour = EntityColour_CREW_YELLOW; //144 for sad (upside down+12):(
         entity.cx = 6;
         entity.cy = 2;
         entity.w = 12;
@@ -1666,7 +1666,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.rule = 6;
         entity.type = EntityType_CREWMATE; //A special case!
         entity.tile = 144;
-        entity.colour = 16; //144 for sad :(
+        entity.colour = EntityColour_CREW_BLUE; //144 for sad :(
         entity.cx = 6;
         entity.cy = 2;
         entity.w = 12;
@@ -1710,7 +1710,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.rule = 6;
         entity.type = EntityType_CREWMATE; //A special case!
         entity.tile = 0;
-        entity.colour = 6; //54 for sad :(
+        entity.colour = EntityColour_ENEMY_RED; //54 for sad :(
         entity.cx = 6;
         entity.cy = 2;
         entity.w = 12;
@@ -1728,7 +1728,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 16 + meta1;
         entity.w = 16;
         entity.h = 16;
-        entity.colour = 4;
+        entity.colour = EntityColour_INACTIVE_ENTITY;
         entity.onentity = 1;
         entity.animate = 100;
         entity.para = meta2;
@@ -1740,7 +1740,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 16 + meta1;
         entity.w = 16;
         entity.h = 16;
-        entity.colour = 4;
+        entity.colour = EntityColour_INACTIVE_ENTITY;
         entity.onentity = 0;
         entity.animate = 100;
         entity.para = meta2;
@@ -1752,7 +1752,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 22;
         entity.w = 16;
         entity.h = 16;
-        entity.colour = 3;
+        entity.colour = EntityColour_TRINKET;
         entity.onentity = 0;
         entity.animate = 100;
 
@@ -1780,7 +1780,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         //initilise tiles here based on behavior
         entity.size = 12; //don't wrap around
-        entity.colour = 21;
+        entity.colour = EntityColour_ENEMY_GRAVITRON;
         entity.tile = 78; //default case
         entity.animate = 1;
         if (game.swngame == SWN_SUPERGRAVITRON)
@@ -1838,7 +1838,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.size = 0;
         entity.w = 16;
         entity.h = 16;
-        entity.colour = 4;
+        entity.colour = EntityColour_INACTIVE_ENTITY;
         entity.onentity = 1;
         entity.animate = 100;
         entity.para = meta2;
@@ -1852,42 +1852,42 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             if (game.bestrank[TimeTrial_SPACESTATION1] >= 3)
             {
                 entity.tile = 184 + meta1;
-                entity.colour = 31;
+                entity.colour = EntityColour_TROPHY_SPACE_STATION_1;
             }
             break;
         case 2:
             if (game.bestrank[TimeTrial_LABORATORY] >= 3)
             {
                 entity.tile = 186 + meta1;
-                entity.colour = 35;
+                entity.colour = EntityColour_TROPHY_LABORATORY;
             }
             break;
         case 3:
             if (game.bestrank[TimeTrial_TOWER] >= 3)
             {
                 entity.tile = 184 + meta1;
-                entity.colour = 33;
+                entity.colour = EntityColour_TROPHY_TOWER;
             }
             break;
         case 4:
             if (game.bestrank[TimeTrial_SPACESTATION2] >= 3)
             {
                 entity.tile = 184 + meta1;
-                entity.colour = 32;
+                entity.colour = EntityColour_TROPHY_SPACE_STATION_2;
             }
             break;
         case 5:
             if (game.bestrank[TimeTrial_WARPZONE] >= 3)
             {
                 entity.tile = 184 + meta1;
-                entity.colour = 34;
+                entity.colour = EntityColour_TROPHY_WARP_ZONE;
             }
             break;
         case 6:
             if (game.bestrank[TimeTrial_FINALLEVEL] >= 3)
             {
                 entity.tile = 184 + meta1;
-                entity.colour = 30;
+                entity.colour = EntityColour_TROPHY_FINAL_LEVEL;
             }
             break;
 
@@ -1895,7 +1895,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             if (game.unlock[UnlockTrophy_GAME_COMPLETE])
             {
                 entity.tile = 188 + meta1;
-                entity.colour = 37;
+                entity.colour = EntityColour_TROPHY_GAME_COMPLETE;
                 entity.h += 3;
                 entity.yp -= 3;
             }
@@ -1904,7 +1904,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             if (game.unlock[UnlockTrophy_FLIPMODE_COMPLETE])
             {
                 entity.tile = 188 + meta1;
-                entity.colour = 37;
+                entity.colour = EntityColour_TROPHY_GAME_COMPLETE;
                 entity.h += 3;
             }
             break;
@@ -1915,7 +1915,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
                 if (game.bestgamedeaths <= 50)
                 {
                     entity.tile = 182 + meta1;
-                    entity.colour = 40;
+                    entity.colour = EntityColour_TROPHY_FLASHY;
                 }
             }
             break;
@@ -1925,7 +1925,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
                 if (game.bestgamedeaths <= 100)
                 {
                     entity.tile = 182 + meta1;
-                    entity.colour = 36;
+                    entity.colour = EntityColour_TROPHY_GOLD;
                 }
             }
             break;
@@ -1935,7 +1935,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
                 if (game.bestgamedeaths <= 250)
                 {
                     entity.tile = 182 + meta1;
-                    entity.colour = 38;
+                    entity.colour = EntityColour_TROPHY_SILVER;
                 }
             }
             break;
@@ -1945,7 +1945,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
                 if (game.bestgamedeaths <= 500)
                 {
                     entity.tile = 182 + meta1;
-                    entity.colour = 39;
+                    entity.colour = EntityColour_TROPHY_BRONZE;
                 }
             }
             break;
@@ -1954,42 +1954,42 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             if(game.swnbestrank>=1)
             {
                 entity.tile = 182 + meta1;
-                entity.colour = 39;
+                entity.colour = EntityColour_TROPHY_BRONZE;
             }
             break;
         case 14:
             if(game.swnbestrank>=2)
             {
                 entity.tile = 182 + meta1;
-                entity.colour = 39;
+                entity.colour = EntityColour_TROPHY_BRONZE;
             }
             break;
         case 15:
             if(game.swnbestrank>=3)
             {
                 entity.tile = 182 + meta1;
-                entity.colour = 39;
+                entity.colour = EntityColour_TROPHY_BRONZE;
             }
             break;
         case 16:
             if(game.swnbestrank>=4)
             {
                 entity.tile = 182 + meta1;
-                entity.colour = 38;
+                entity.colour = EntityColour_TROPHY_SILVER;
             }
             break;
         case 17:
             if(game.swnbestrank>=5)
             {
                 entity.tile = 182 + meta1;
-                entity.colour = 36;
+                entity.colour = EntityColour_TROPHY_GOLD;
             }
             break;
         case 18:
             if(game.swnbestrank>=6)
             {
                 entity.tile = 182 + meta1;
-                entity.colour = 40;
+                entity.colour = EntityColour_TROPHY_FLASHY;
             }
             break;
 
@@ -1997,7 +1997,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             if (game.unlock[UnlockTrophy_NODEATHMODE_COMPLETE])
             {
                 entity.tile = 3;
-                entity.colour = 102;
+                entity.colour = EntityColour_TELEPORTER_FLASHING;
                 entity.size = 13;
                 entity.xp -= 64;
                 entity.yp -= 128;
@@ -2014,7 +2014,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.tile = 18;
         entity.w = 16;
         entity.h = 16;
-        entity.colour = 3;
+        entity.colour = EntityColour_TRINKET;
         entity.onentity = 0;
         entity.animate = 100;
         entity.para = meta2;
@@ -2137,41 +2137,41 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             //RED
             case 3: case 7: case 12: case 23: case 28:
             case 34: case 42: case 48: case 58:
-              entity.colour = 6; break;
+              entity.colour = EntityColour_ENEMY_RED; break;
             //GREEN
             case 5: case 9: case 22: case 25: case 29:
             case 31: case 38: case 46: case 52: case 53:
-              entity.colour = 7; break;
+              entity.colour = EntityColour_ENEMY_GREEN; break;
             //BLUE
             case 1: case 6: case 14: case 27: case 33:
             case 44: case 50: case 57:
-              entity.colour = 12; break;
+              entity.colour = EntityColour_ENEMY_BLUE; break;
             //YELLOW
             case 4: case 17: case 24: case 30: case 37:
             case 45: case 51: case 55:
-              entity.colour = 9; break;
+              entity.colour = EntityColour_ENEMY_YELLOW; break;
             //PURPLE
             case 2: case 11: case 15: case 19: case 32:
             case 36: case 49:
-              entity.colour = 20; break;
+              entity.colour = EntityColour_CREW_PURPLE; break;
             //CYAN
             case 8: case 10: case 13: case 18: case 26:
             case 35: case 41: case 47: case 54:
-              entity.colour = 11; break;
+              entity.colour = EntityColour_ENEMY_CYAN; break;
             //PINK
             case 16: case 20: case 39: case 43: case 56:
-              entity.colour = 8; break;
+              entity.colour = EntityColour_ENEMY_PINK; break;
             //ORANGE
             case 21: case 40:
-              entity.colour = 17; break;
+              entity.colour = EntityColour_ENEMY_ORANGE; break;
             default:
-              entity.colour = 6;
+              entity.colour = EntityColour_ENEMY_RED;
             break;
           }
         }
 
         if(custom_gray){
-          entity.colour = 18;
+          entity.colour = EntityColour_ENEMY_GRAY;
         }
 
         entityclonefix(&entity);
@@ -2744,11 +2744,11 @@ bool entityclass::updateentities( int i )
                 {
                     if (entities[j].type == EntityType_CHECKPOINT)
                     {
-                        entities[j].colour = 4;
+                        entities[j].colour = EntityColour_INACTIVE_ENTITY;
                         entities[j].onentity = 1;
                     }
                 }
-                entities[i].colour = 5;
+                entities[i].colour = EntityColour_ACTIVE_ENTITY;
                 entities[i].onentity = 0;
                 game.savepoint = entities[i].para;
                 music.playef(Sound_CHECKPOINT);
@@ -2936,7 +2936,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 11)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(PURPLE);
+                int j=getcrewman(EntityColour_CREW_PURPLE);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2961,7 +2961,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 12)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(YELLOW);
+                int j=getcrewman(EntityColour_CREW_YELLOW);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2986,7 +2986,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 13)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(RED);
+                int j=getcrewman(EntityColour_CREW_RED);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -3011,7 +3011,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 14)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(GREEN);
+                int j=getcrewman(EntityColour_CREW_GREEN);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -3036,7 +3036,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 15)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(BLUE);
+                int j=getcrewman(EntityColour_CREW_BLUE);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -3190,7 +3190,7 @@ bool entityclass::updateentities( int i )
             //wait for collision
             if (entities[i].state == 1)
             {
-                entities[i].colour = 5;
+                entities[i].colour = EntityColour_ACTIVE_ENTITY;
                 entities[i].onentity = 0;
                 music.playef(Sound_TERMINALTOUCH);
 
@@ -3390,7 +3390,7 @@ bool entityclass::updateentities( int i )
                 {
                     music.playef(Sound_GAMESAVED);
                     entities[i].tile = 2;
-                    entities[i].colour = 101;
+                    entities[i].colour = EntityColour_TELEPORTER_ACTIVE;
                     if(!game.intimetrial && !game.nodeathmode)
                     {
                         game.setstate(2000);
@@ -3410,7 +3410,7 @@ bool entityclass::updateentities( int i )
                     {
                         if (entities[j].type == EntityType_CHECKPOINT)
                         {
-                            entities[j].colour = 4;
+                            entities[j].colour = EntityColour_INACTIVE_ENTITY;
                             entities[j].onentity = 1;
                         }
                     }
@@ -3436,7 +3436,7 @@ bool entityclass::updateentities( int i )
                 //Initilise the teleporter without changing the game state or playing sound
                 entities[i].onentity = 0;
                 entities[i].tile = 6;
-                entities[i].colour = 102;
+                entities[i].colour = EntityColour_TELEPORTER_FLASHING;
 
                 game.activetele = true;
                 game.teleblock.x = entities[i].xp - 32;
@@ -3994,34 +3994,29 @@ int entityclass::getlineat( int t )
     return 0;
 }
 
-int entityclass::getcrewman( int t, int fallback /*= 0*/ )
+int entityclass::getcrewman(int t)
 {
-    //Returns the index of the crewman with colour index given by t
+    // Returns the index of the crewman with colour index given by t.
+    // Note: this takes an int, not an EntityColour, as invalid colours are allowed in scripting
 
     for (size_t i = 0; i < entities.size(); i++)
     {
         if ((entities[i].type == EntityType_CREWMATE || entities[i].type == EntityType_SUPERCREWMATE)
-        && (entities[i].rule == 6 || entities[i].rule == 7))
+            && (entities[i].rule == 6 || entities[i].rule == 7))
         {
-            if(entities[i].colour==t)
+            if (entities[i].colour == t)
             {
                 return i;
             }
         }
     }
 
-    return fallback;
+    return -1;
 }
 
-int entityclass::getcustomcrewman( int t )
+int entityclass::getcustomcrewman(int t)
 {
-    //Returns the index of the crewman with colour index given by t
-    if (t == 0) t = 0;
-    if (t == 1) t = 20;
-    if (t == 2) t = 14;
-    if (t == 3) t = 15;
-    if (t == 4) t = 13;
-    if (t == 5) t = 16;
+    // like getcrewman, this returns the index of the CUSTOM crewman with colour index given by t
 
     for (size_t i = 0; i < entities.size(); i++)
     {

@@ -40,6 +40,54 @@ enum ImageNames
 
 #define FADEMODE_IS_FADING(mode) ((mode) != FADE_NONE && (mode) != FADE_FULLY_BLACK)
 
+enum EntityColour
+{
+    EntityColour_CREW_CYAN = 0,
+    EntityColour_DEAD = 1,
+    EntityColour_ENEMY_DARK_ORANGE = 2,
+    EntityColour_TRINKET = 3,
+    EntityColour_INACTIVE_ENTITY = 4,
+    EntityColour_ACTIVE_ENTITY = 5,
+    EntityColour_ENEMY_RED = 6,
+    EntityColour_ENEMY_GREEN = 7,
+    EntityColour_ENEMY_PINK = 8,
+    EntityColour_ENEMY_YELLOW = 9,
+    EntityColour_WARP_TOKEN = 10,
+    EntityColour_ENEMY_CYAN = 11,
+    EntityColour_ENEMY_BLUE = 12,
+    EntityColour_CREW_GREEN = 13,
+    EntityColour_CREW_YELLOW = 14,
+    EntityColour_CREW_RED = 15,
+    EntityColour_CREW_BLUE = 16,
+    EntityColour_ENEMY_ORANGE = 17,
+    EntityColour_ENEMY_GRAY = 18,
+
+    EntityColour_CREW_GRAY = 19, // Despite the comment in the color code saying this is for enemies, it's used as a fallback for crew colors.
+
+    EntityColour_CREW_PURPLE = 20,
+    EntityColour_ENEMY_GRAVITRON = 21,
+    EntityColour_ENEMY_LIGHT_GRAY = 22,
+    EntityColour_GRAVITRON_INDICATOR = 23,
+    EntityColour_GRAVITY_LINE_TOUCHED = 24,
+    EntityColour_GRAVITY_LINE_ACTIVE = 25,
+    EntityColour_COIN = 26,
+    EntityColour_PARTICLE_RED = 27,
+    EntityColour_TROPHY_FINAL_LEVEL = 30,
+    EntityColour_TROPHY_SPACE_STATION_1 = 31,
+    EntityColour_TROPHY_SPACE_STATION_2 = 32,
+    EntityColour_TROPHY_TOWER = 33,
+    EntityColour_TROPHY_WARP_ZONE = 34,
+    EntityColour_TROPHY_LABORATORY = 35,
+    EntityColour_TROPHY_GOLD = 36,
+    EntityColour_TROPHY_GAME_COMPLETE = 37,
+    EntityColour_TROPHY_SILVER = 38,
+    EntityColour_TROPHY_BRONZE = 39,
+    EntityColour_TROPHY_FLASHY = 40,
+    EntityColour_TELEPORTER_INACTIVE = 100,
+    EntityColour_TELEPORTER_ACTIVE = 101,
+    EntityColour_TELEPORTER_FLASHING = 102
+};
+
 class Graphics
 {
 public:
