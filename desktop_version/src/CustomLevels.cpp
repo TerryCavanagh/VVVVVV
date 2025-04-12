@@ -1420,6 +1420,7 @@ next:
         if (SDL_strcmp(pKey, "PlayerColour") == 0)
         {
             player_colour = help.Int(pText);
+            game.savecolour = player_colour;
         }
     }
 
