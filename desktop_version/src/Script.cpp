@@ -448,13 +448,20 @@ void scriptclass::run(void)
             }
             if (words[0] == "playef")
             {
+                bool played = false;
+                int sound_id = help.Int(words[1].c_str(), -1);
+
                 if (music.soundidexists(words[1].c_str()))
                 {
-                    music.playefid(words[1].c_str());
+                    played = music.playefid(words[1].c_str());
                 }
-                else if (!music.soundisextra(ss_toi(words[1])))
+                else if (!music.soundisextra(sound_id))
                 {
-                    music.playef(ss_toi(words[1]));
+                    played = music.playef(sound_id);
+                }
+                if (!played)
+                {
+                    vlog_error("playef() couldn't play sound: %s", words[1].c_str());
                 }
             }
             if (words[0] == "play")

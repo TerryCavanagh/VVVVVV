@@ -795,8 +795,31 @@ void musicclass::init(void)
         char id[256];
         SDL_snprintf(asset_filename, sizeof(asset_filename), "sounds/%s", item);
 
-        // We need an ID, so chop off the extension
-        SDL_strlcpy(id, item, sizeof(id));
+        // Create the ID
+        size_t current_char = 0;
+        size_t item_len = SDL_strlen(item);
+        for (size_t i = 0; i < item_len; i++)
+        {
+            // If it's a space, we don't want to include this.
+            if (item[i] == ' ')
+            {
+                continue;
+            }
+            // Otherwise, add it to our ID string, lowered
+            id[current_char] = SDL_tolower(item[i]);
+
+            current_char++;
+
+            if (current_char >= 255)
+            {
+                break;
+            }
+        }
+
+        // Null-terminate the string
+        id[current_char] = '\0';
+
+        // Chop off the extension!
         char* dot = SDL_strrchr(id, '.');
         if (dot != NULL)
         {
@@ -1322,26 +1345,31 @@ void musicclass::changemusicarea(int x, int y)
     niceplay(track);
 }
 
-void musicclass::playef(int t)
+bool musicclass::playef(int t)
 {
     if (!INBOUNDS_VEC(t, soundTracks))
     {
-        return;
+        return false;
     }
-    soundTracks[t].Play();
+    if (soundTracks[t].valid)
+    {
+        soundTracks[t].Play();
+        return true;
+    }
+    return false;
 }
 
-void musicclass::playefid(const char* id)
+bool musicclass::playefid(const char* id)
 {
     for (size_t i = 0; i < soundTracks.size(); i++)
     {
         if (SDL_strcmp(soundTracks[i].id, id) == 0)
         {
-            playef(i);
-            return;
+            return playef(i);
         }
     }
     vlog_error("playefid() couldn't find sound ID: %s", id);
+    return false;
 }
 
 bool musicclass::soundidexists(const char* id)

@@ -94,8 +94,8 @@ public:
     int currentsong;
     int haltedsong;
 
-    void playef(int t);
-    void playefid(const char* id);
+    bool playef(int t);
+    bool playefid(const char* id);
     bool soundidexists(const char* id);
     bool soundisextra(int t);
     const char* getsoundid(int t);
