@@ -1566,20 +1566,6 @@ bool customlevelclass::save(const std::string& _path)
         }
     }
 
-    if (player_colour != 0)
-    {
-        xml::update_tag(msg, "PlayerColour", player_colour);
-    }
-    else
-    {
-        // Get rid of this one as well, since older levels don't have this property anyways
-        tinyxml2::XMLElement* element;
-        while ((element = msg->FirstChildElement("PlayerColour")) != NULL)
-        {
-            doc.DeleteNode(element);
-        }
-    }
-
     xml::update_tag(data, "mapwidth", mapwidth);
 
     xml::update_tag(data, "mapheight", mapheight);
@@ -1698,6 +1684,21 @@ bool customlevelclass::save(const std::string& _path)
         }
     }
     xml::update_tag(data, "script", scriptString.c_str());
+
+
+    if (player_colour != 0)
+    {
+        xml::update_tag(data, "PlayerColour", player_colour);
+    }
+    else
+    {
+        // Get rid of this one as well, since older levels don't have this property anyways
+        tinyxml2::XMLElement* element;
+        while ((element = data->FirstChildElement("PlayerColour")) != NULL)
+        {
+            doc.DeleteNode(element);
+        }
+    }
 
     return FILESYSTEM_saveTiXml2Document(newpath.c_str(), doc);
 }
