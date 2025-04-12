@@ -921,14 +921,14 @@ void musicclass::init(void)
         FILESYSTEM_loadAssetToMemory(asset_filename, &mem, &len);
         if (mem == NULL)
         {
-            vlog_error("Unable to read loose music file: %s", SDL_GetError());
+            vlog_error("Unable to load loose music file to memory: %s", SDL_GetError());
         }
         else
         {
             rw = SDL_RWFromConstMem(mem, len);
             if (rw == NULL)
             {
-                vlog_error("Unable to read loose music file: %s", SDL_GetError());
+                vlog_error("Unable to read loose music file from memory: %s", SDL_GetError());
             }
             else
             {
