@@ -76,10 +76,9 @@
     <cutscene id="bigopenworldskip" explanation="">
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="اگر کمک خواستی من اینجا هستم!"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
+    <cutscene id="talkpurple_intro" explanation="">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="من کمی گیج شدم دکتر."/>
         <dialogue speaker="player" english="Where do I begin?" translation="از کجا شروع کنم؟"/>
-        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="با فشار دادن کلید Enter می‌تونید روی نقشه مکان خودتون را ببینید!"/>
         <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="با فشار دادن کلید {b_map} می‌تونید روی نقشه مکان خودتون را ببینید!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="دنبال جاهایی باشید که ممکنه بقیه‌ی خدمه باشن..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="اگر گم شدید، می‌تونید از هر دورنورد به کشتی برگردید."/>
