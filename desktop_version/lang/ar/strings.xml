@@ -663,7 +663,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="{area} / {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area}‏ / {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="ختمت المستوى!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="Game Complete!" translation="ختمت اللعبة!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="You have rescued a crew member!" translation="أنقذت أحد أفراد طاقمك!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2" max_local="30*2"/>
