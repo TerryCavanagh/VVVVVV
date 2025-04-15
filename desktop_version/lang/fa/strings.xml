@@ -232,11 +232,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="می‌توانید ببینید پشت اسم در پایین صفحه چی قرار دارد." explanation="" max="38*3" max_local="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="پس‌زمینه‌ی نام اتاق شفاف است" explanation="" max="38*2" max_local="38*2"/>
     <string english="Room name background is OPAQUE" translation="پس‌زمینه‌ی نام اتاق کدر است" explanation="" max="38*2" max_local="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
+    <string english="checkpoint saving" translation="ذخیره در چک‌پوینت" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="ذخیره در چک‌پوینت" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="اگر می‌خواهی هر چک‌پوینت بازی را ذخیره کنه، فعال کن." explanation="" max="38*3" max_local="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="ذخیره در چک‌پوینت خاموش شد" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
+    <string english="Checkpoint saving is ON" translation="ذخیره در چک‌پوینت روشن شد" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
     <string english="speedrun options" translation="گزینه‌های اسپیدران" explanation="menu option"/>
     <string english="Speedrunner Options" translation="گزینههای اسپیدران" explanation="title" max="20" max_local="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="دسترسی به تنظیمات پیشرفته‌ای که به درد اسپیدرانرها می‌خورد." explanation="description for speedrunner options" max="38*5" max_local="38*5"/>
@@ -322,9 +322,9 @@
     <string english="Currently ENABLED!" translation="اکنون فعال است!" explanation="flip mode" max="38*3" max_local="38*3"/>
     <string english="Currently Disabled." translation="اکنون غیرفعال." explanation="flip mode" max="38*3" max_local="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="برای باز کردن: بازی را تکمیل کنید." explanation="" max="38*3" max_local="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39" max_local="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39" max_local="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Invincibility mode enabled" translation="حالت ضربه‌ناپذیری فعال شد" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="حالت گلیچ فعال شد ({version})" explanation="in-game message" max="39" max_local="39"/>
+    <string english="Flip Mode enabled" translation="حالت برعکس فعال" explanation="in-game message" max="39" max_local="39"/>
     <string english="Are you sure you want to quit?" translation="از خروج اطمینان دارید؟" explanation="quit the program" max="38*4" max_local="38*4"/>
     <string english="GAME OVER" translation="بازی تمام" explanation="bigger title" max="13" max_local="13"/>
     <string english="You managed to reach:" translation="توانستید برسید به:" explanation="you managed to reach the following room" max="40" max_local="40"/>
@@ -441,8 +441,8 @@
     <string english="[Press {button} to return to editor]" translation="[برای برگشت به ویراستار{button} بزنید]" explanation="`to editor` is sorta redundant" max="40" max_local="40"/>
     <string english="- Press {button} to advance text -" translation="برای جلو بردن متن {button} بزنید" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="40"/>
     <string english="Press {button} to continue" translation="برای ادامه {button} را بزنید" explanation="Expect `ACTION`" max="34" max_local="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[برای ادامه بازی دکمه {button} را بزن]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[برای توقف بازی دکمه {button} را بزن]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="39"/>
     <string english="Current Time" translation="زمان کنونی" explanation="super gravitron, stopwatch time" max="20" max_local="20"/>
     <string english="Best Time" translation="بهترین زمان" explanation="super gravitron, best stopwatch time" max="20" max_local="20"/>
     <string english="Next Trophy at 5 seconds" translation="جایزه بعدی در ۵ ثانیه" explanation="" max="38*2" max_local="38*2"/>
@@ -627,7 +627,7 @@
     <string english="Tileset Colour Changed" translation="رنگ کاشی تغییر کرد" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" max_local="38*3"/>
     <string english="Enemy Type Changed" translation="نوع دشمن تغییر کرد" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="38*3"/>
     <string english="Platform speed is now {speed}" translation="سرعت سکو اکنون برابر با {speed} است" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="سرعت دشمن اکنون برابر با {speed} است" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*3"/>
     <string english="Reloaded resources" translation="بارگذاری مجدد منابع" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="38*3"/>
     <string english="ERROR: Invalid format" translation="خطا: فرمت اشتباه" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="نقشه‌ی بارگذاری شده {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3" max_local="38*3"/>
@@ -770,7 +770,7 @@ You have found the secret lab!" translation="مبارکه!
     <string english="Pan-European Font Design by" translation="طراحی فونت اروپایی از" explanation="" max="40" max_local="40"/>
     <string english="Fonts by" translation="فونت‌ها از" explanation=""/>
     <string english="Other Fonts by" translation="دیگر فونت‌ها از" explanation=""/>
-    <string english="Editing and LQA" translation="" explanation=""/>
+    <string english="Editing and LQA" translation="ویرایش و تضمین کیفیت زبانی" explanation=""/>
     <string english="Arabic" translation="عربی" explanation=""/>
     <string english="Catalan" translation="کاتالان" explanation=""/>
     <string english="Welsh" translation="ولزی" explanation=""/>
@@ -792,9 +792,9 @@ You have found the secret lab!" translation="مبارکه!
     <string english="Ukrainian" translation="اوکراینی" explanation=""/>
     <string english="Chinese (Simplified)" translation="چینی ساده" explanation=""/>
     <string english="Chinese (Traditional)" translation="چینی (سنتی)" explanation=""/>
-    <string english="Spanish (ES)" translation="" explanation=""/>
-    <string english="Spanish (LATAM)" translation="" explanation=""/>
-    <string english="Spanish (ARG.)" translation="" explanation=""/>
+    <string english="Spanish (ES)" translation="اسپانیایی (اروپا)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="اسپانیایی (آمریکای لاتین)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="اسپانیایی (آرژانتین)" explanation=""/>
     <string english="Persian" translation="فارسی" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
