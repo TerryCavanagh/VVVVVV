@@ -274,7 +274,7 @@ const char* BUTTONGLYPHS_get_wasd_text(void)
 
 const char* BUTTONGLYPHS_sdlbutton_to_glyph(const SDL_GameControllerButton button)
 {
-    if (button > SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+    if (button < 0 || button > SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
     {
         SDL_assert(0 && "Unhandled button!");
         return glyph[GLYPH_UNKNOWN];
