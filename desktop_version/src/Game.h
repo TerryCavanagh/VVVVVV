@@ -401,6 +401,10 @@ public:
     int creditposx, creditposy, creditposdelay;
     int oldcreditposx;
 
+    SDL_GameControllerButton gpmenu_lastbutton;
+    bool gpmenu_confirming;
+    bool gpmenu_showremove;
+
     bool silence_settings_error;
 
 

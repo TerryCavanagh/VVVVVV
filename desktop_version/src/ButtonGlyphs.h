@@ -20,6 +20,7 @@ void BUTTONGLYPHS_keyboard_set_active(bool active);
 void BUTTONGLYPHS_update_layout(SDL_GameController *c);
 
 const char* BUTTONGLYPHS_get_wasd_text(void);
+const char* BUTTONGLYPHS_sdlbutton_to_glyph(SDL_GameControllerButton button);
 const char* BUTTONGLYPHS_get_button(ActionSet actionset, Action action, int binding);
 
 char* BUTTONGLYPHS_get_all_gamepad_buttons(

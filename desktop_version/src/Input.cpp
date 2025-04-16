@@ -35,6 +35,37 @@ static void updatebuttonmappings(int bind)
     ) {
         if (key.isDown(i))
         {
+            if (!game.gpmenu_confirming || i != game.gpmenu_lastbutton)
+            {
+                game.gpmenu_confirming = true;
+                game.gpmenu_lastbutton = i;
+
+                // Is this button already in the list for this action?
+                std::vector<SDL_GameControllerButton>* vec = NULL;
+                switch (bind)
+                {
+                case 1: vec = &game.controllerButton_flip; break;
+                case 2: vec = &game.controllerButton_map; break;
+                case 3: vec = &game.controllerButton_esc; break;
+                case 4: vec = &game.controllerButton_restart; break;
+                case 5: vec = &game.controllerButton_interact; break;
+                default: return;
+                }
+
+                game.gpmenu_showremove = false;
+                for (size_t j = 0; j < vec->size(); j += 1)
+                {
+                    if (i == (*vec)[j])
+                    {
+                        game.gpmenu_showremove = true;
+                        break;
+                    }
+                }
+
+                return;
+            }
+            game.gpmenu_confirming = false;
+
             bool dupe = false;
             switch (bind)
             {
@@ -46,13 +77,14 @@ static void updatebuttonmappings(int bind)
                     if (i == game.controllerButton_flip[j])
                     {
                         dupe = true;
+                        game.controllerButton_flip.erase(game.controllerButton_flip.begin() + j);
                     }
                 }
                 if (!dupe)
                 {
                     game.controllerButton_flip.push_back(i);
-                    music.playef(Sound_VIRIDIAN);
                 }
+                music.playef(Sound_VIRIDIAN);
                 for (j = 0; j < game.controllerButton_map.size(); j += 1)
                 {
                     if (i == game.controllerButton_map[j])
@@ -91,13 +123,14 @@ static void updatebuttonmappings(int bind)
                     if (i == game.controllerButton_map[j])
                     {
                         dupe = true;
+                        game.controllerButton_map.erase(game.controllerButton_map.begin() + j);
                     }
                 }
                 if (!dupe)
                 {
                     game.controllerButton_map.push_back(i);
-                    music.playef(Sound_VIRIDIAN);
                 }
+                music.playef(Sound_VIRIDIAN);
                 for (j = 0; j < game.controllerButton_flip.size(); j += 1)
                 {
                     if (i == game.controllerButton_flip[j])
@@ -136,13 +169,14 @@ static void updatebuttonmappings(int bind)
                     if (i == game.controllerButton_esc[j])
                     {
                         dupe = true;
+                        game.controllerButton_esc.erase(game.controllerButton_esc.begin() + j);
                     }
                 }
                 if (!dupe)
                 {
                     game.controllerButton_esc.push_back(i);
-                    music.playef(Sound_VIRIDIAN);
                 }
+                music.playef(Sound_VIRIDIAN);
                 for (j = 0; j < game.controllerButton_flip.size(); j += 1)
                 {
                     if (i == game.controllerButton_flip[j])
@@ -181,13 +215,14 @@ static void updatebuttonmappings(int bind)
                     if (i == game.controllerButton_restart[j])
                     {
                         dupe = true;
+                        game.controllerButton_restart.erase(game.controllerButton_restart.begin() + j);
                     }
                 }
                 if (!dupe)
                 {
                     game.controllerButton_restart.push_back(i);
-                    music.playef(Sound_VIRIDIAN);
                 }
+                music.playef(Sound_VIRIDIAN);
                 for (j = 0; j < game.controllerButton_flip.size(); j += 1)
                 {
                     if (i == game.controllerButton_flip[j])
@@ -226,13 +261,14 @@ static void updatebuttonmappings(int bind)
                     if (i == game.controllerButton_interact[j])
                     {
                         dupe = true;
+                        game.controllerButton_interact.erase(game.controllerButton_interact.begin() + j);
                     }
                 }
                 if (!dupe)
                 {
                     game.controllerButton_interact.push_back(i);
-                    music.playef(Sound_VIRIDIAN);
                 }
+                music.playef(Sound_VIRIDIAN);
                 for (j = 0; j < game.controllerButton_flip.size(); j += 1)
                 {
                     if (i == game.controllerButton_flip[j])
@@ -2519,6 +2555,11 @@ void titleinput(void)
                 else if (game.press_right)
                 {
                     game.currentmenuoption++;
+                }
+
+                if (game.currentmenuname == Menu::controller && (game.press_left || game.press_right))
+                {
+                    game.gpmenu_confirming = false;
                 }
             }
             else

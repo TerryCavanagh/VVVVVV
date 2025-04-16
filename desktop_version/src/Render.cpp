@@ -700,9 +700,6 @@ static void menurender(void)
     }
     case Menu::controller:
     {
-        font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Game Pad"), tr, tg, tb);
-        font::print_wrap(PR_CEN, -1, 55, loc::gettext("Change controller options."), tr, tg, tb);
-
         int spacing = font::height(0);
         spacing = SDL_max(spacing, 10);
 
@@ -710,12 +707,15 @@ static void menurender(void)
         {
         case 0:
         {
-            font::print(PR_RTL_XFLIP, 32, 75, loc::gettext("Low"), tr, tg, tb);
-            font::print(PR_CEN, -1, 75, loc::gettext("Medium"), tr, tg, tb);
-            font::print(PR_RIGHT | PR_RTL_XFLIP, 288, 75, loc::gettext("High"), tr, tg, tb);
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Stick Sensitivity"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 55, loc::gettext("Change the sensitivity of the analog stick."), tr, tg, tb);
+
+            font::print(PR_RTL_XFLIP, 32, 95, loc::gettext("Low"), tr, tg, tb);
+            font::print(PR_CEN, -1, 95, loc::gettext("Medium"), tr, tg, tb);
+            font::print(PR_RIGHT | PR_RTL_XFLIP, 288, 95, loc::gettext("High"), tr, tg, tb);
             char slider[SCREEN_WIDTH_CHARS + 1];
             slider_get(slider, sizeof(slider), key.sensitivity, 5, 240);
-            font::print(PR_CEN, -1, 75+spacing, slider, tr, tg, tb);
+            font::print(PR_CEN, -1, 95+spacing, slider, tr, tg, tb);
             break;
         }
         case 1:
@@ -724,38 +724,117 @@ static void menurender(void)
         case 4:
         case 5:
         {
-            char buffer_a[SCREEN_WIDTH_CHARS + 1];
-            char buffer_b[SCREEN_WIDTH_CHARS + 1];
+            const char* title = "";
+            switch (game.currentmenuoption)
+            {
+            case 1: title = loc::gettext("Bind Flip"); break;
+            case 2: title = loc::gettext("Bind Enter"); break;
+            case 3: title = loc::gettext("Bind Menu"); break;
+            case 4: title = loc::gettext("Bind Restart"); break;
+            case 5: title = loc::gettext("Bind Interact"); break;
+            }
+            font::print(PR_2X | PR_CEN, -1, 30, title, tr, tg, tb);
 
-            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
-                loc::gettext("Flip is bound to: "),
-                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_ACTION)
-            );
-            font::print(PR_CEN, -1, 75, buffer_a, tr, tg, tb);
+            if (game.currentmenuoption == 5 && !game.separate_interact)
+            {
+                font::print_wrap(
+                    PR_CEN, -1, 55,
+                    loc::gettext("Interact is currently Enter!|See speedrunner options."),
+                    tr, tg, tb
+                );
+            }
+            else if (!game.gpmenu_confirming)
+            {
+                font::print_wrap(
+                    PR_CEN | PR_BRIGHTNESS(255 - help.glow*2), -1, 55,
+                    loc::gettext("Press a button...|(or press ↑↓)"),
+                    tr, tg, tb
+                );
+            }
+            else
+            {
+                char expl[SCREEN_WIDTH_CHARS*3 + 1];
+                const char* expl_template;
 
-            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
-                loc::gettext("Enter is bound to: "),
-                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Map)
-            );
-            font::print(PR_CEN, -1, 75+spacing, buffer_a, tr, tg, tb);
+                if (game.gpmenu_showremove)
+                {
+                    expl_template = loc::gettext("Remove {button}?|Press again to confirm");
+                }
+                else
+                {
+                    expl_template = loc::gettext("Add {button}?|Press again to confirm");
+                }
 
-            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
-                loc::gettext("Menu is bound to: "),
-                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Esc)
-            );
-            font::print(PR_CEN, -1, 75+spacing*2, buffer_a, tr, tg, tb);
+                vformat_buf(
+                    expl, sizeof(expl),
+                    expl_template,
+                    "button:str",
+                    BUTTONGLYPHS_sdlbutton_to_glyph(game.gpmenu_lastbutton)
+                );
 
-            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
-                loc::gettext("Restart is bound to: "),
-                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Restart)
-            );
-            font::print(PR_CEN, -1, 75+spacing*3, buffer_a, tr, tg, tb);
+                font::print_wrap(PR_CEN, -1, 55, expl, tr, tg, tb);
+            }
 
-            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
-                loc::gettext("Interact is bound to: "),
-                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Interact)
-            );
-            font::print(PR_CEN | PR_BRIGHTNESS(game.separate_interact ? 255 : 128), -1, 75+spacing*4, buffer_a, tr, tg, tb);
+            for (int bind = 1; bind <= 5; bind++)
+            {
+                char buffer_a[SCREEN_WIDTH_CHARS + 1];
+                char buffer_b[SCREEN_WIDTH_CHARS + 1];
+
+                const char* lbl;
+                ActionSet actionset;
+                int action;
+
+                switch (bind)
+                {
+                case 1:
+                    lbl = loc::gettext("Flip is bound to: ");
+                    actionset = ActionSet_InGame;
+                    action = Action_InGame_ACTION;
+                    break;
+                case 2:
+                    lbl = loc::gettext("Enter is bound to: ");
+                    actionset = ActionSet_InGame;
+                    action = Action_InGame_Map;
+                    break;
+                case 3:
+                    lbl = loc::gettext("Menu is bound to: ");
+                    actionset = ActionSet_InGame;
+                    action = Action_InGame_Esc;
+                    break;
+                case 4:
+                    lbl = loc::gettext("Restart is bound to: ");
+                    actionset = ActionSet_InGame;
+                    action = Action_InGame_Restart;
+                    break;
+                default:
+                    lbl = loc::gettext("Interact is bound to: ");
+                    actionset = ActionSet_InGame;
+                    action = Action_InGame_Interact;
+                }
+
+                SDL_snprintf(
+                    buffer_a, sizeof(buffer_a), "%s%s", lbl,
+                    BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), actionset, action)
+                );
+
+                int brightness = 255;
+                if (bind == 5 && !game.separate_interact)
+                {
+                    brightness = 128;
+                }
+                else if (game.gpmenu_confirming && game.currentmenuoption == bind)
+                {
+                    brightness = 255 - help.glow*2;
+                }
+
+                font::print(
+                    PR_CEN | PR_BRIGHTNESS(brightness),
+                    -1, 85 + (spacing * (bind-1)),
+                    buffer_a,
+                    tr, tg, tb
+                );
+            }
+
             break;
         }
         }
