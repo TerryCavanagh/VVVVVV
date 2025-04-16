@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<numbers>
+    <number value="0" form="0" english="Zero" translation="صفر"/>
+    <number value="1" form="1" english="One" translation="یک"/>
+    <number value="2" form="1" english="Two" translation="دو"/>
+    <number value="3" form="1" english="Three" translation="سه"/>
+    <number value="4" form="1" english="Four" translation="چهار"/>
+    <number value="5" form="1" english="Five" translation="پنج"/>
+    <number value="6" form="1" english="Six" translation="شش"/>
+    <number value="7" form="1" english="Seven" translation="هفت"/>
+    <number value="8" form="1" english="Eight" translation="هشت"/>
+    <number value="9" form="1" english="Nine" translation="نه"/>
+    <number value="10" form="1" english="Ten" translation="ده"/>
+    <number value="11" form="1" english="Eleven" translation="یازده"/>
+    <number value="12" form="1" english="Twelve" translation="دوازده"/>
+    <number value="13" form="1" english="Thirteen" translation="سیزده"/>
+    <number value="14" form="1" english="Fourteen" translation="چهارده"/>
+    <number value="15" form="1" english="Fifteen" translation="پانزده"/>
+    <number value="16" form="1" english="Sixteen" translation="شانزده"/>
+    <number value="17" form="1" english="Seventeen" translation="هفده"/>
+    <number value="18" form="1" english="Eighteen" translation="هجده"/>
+    <number value="19" form="1" english="Nineteen" translation="نوزده"/>
+    <number value="20" form="1" english="Twenty" translation="بیست"/>
+    <number value="21" form="1" english="Twenty One" translation="بیست و یک"/>
+    <number value="22" form="1" english="Twenty Two" translation="بیست و دو"/>
+    <number value="23" form="1" english="Twenty Three" translation="بیست و سه"/>
+    <number value="24" form="1" english="Twenty Four" translation="بیست و چهار"/>
+    <number value="25" form="1" english="Twenty Five" translation="بیست و پنج"/>
+    <number value="26" form="1" english="Twenty Six" translation="بیست و شش"/>
+    <number value="27" form="1" english="Twenty Seven" translation="بیست و هفت"/>
+    <number value="28" form="1" english="Twenty Eight" translation="بیست و هشت"/>
+    <number value="29" form="1" english="Twenty Nine" translation="بیست و نه"/>
+    <number value="30" form="1" english="Thirty" translation="سی"/>
+    <number value="31" form="1" english="Thirty One" translation="سی و یک"/>
+    <number value="32" form="1" english="Thirty Two" translation="سی و دو"/>
+    <number value="33" form="1" english="Thirty Three" translation="سی و سه"/>
+    <number value="34" form="1" english="Thirty Four" translation="سی و چهار"/>
+    <number value="35" form="1" english="Thirty Five" translation="سی و پنج"/>
+    <number value="36" form="1" english="Thirty Six" translation="سی و شش"/>
+    <number value="37" form="1" english="Thirty Seven" translation="سی و هفت"/>
+    <number value="38" form="1" english="Thirty Eight" translation="سی و هشت"/>
+    <number value="39" form="1" english="Thirty Nine" translation="سی و نه"/>
+    <number value="40" form="1" english="Forty" translation="چهل"/>
+    <number value="41" form="1" english="Forty One" translation="چهل و یک"/>
+    <number value="42" form="1" english="Forty Two" translation="چهل و دو"/>
+    <number value="43" form="1" english="Forty Three" translation="چهل و سه"/>
+    <number value="44" form="1" english="Forty Four" translation="چهل و چهار"/>
+    <number value="45" form="1" english="Forty Five" translation="چهل و پنج"/>
+    <number value="46" form="1" english="Forty Six" translation="چهل و شش"/>
+    <number value="47" form="1" english="Forty Seven" translation="چهل و هفت"/>
+    <number value="48" form="1" english="Forty Eight" translation="چهل و هشت"/>
+    <number value="49" form="1" english="Forty Nine" translation="چهل و نه"/>
+    <number value="50" form="1" english="Fifty" translation="پنجاه"/>
+    <number value="51" form="1" english="Fifty One" translation="پنجاه و یک"/>
+    <number value="52" form="1" english="Fifty Two" translation="پنجاه و دو"/>
+    <number value="53" form="1" english="Fifty Three" translation="پنجاه و سه"/>
+    <number value="54" form="1" english="Fifty Four" translation="پنجاه و چهار"/>
+    <number value="55" form="1" english="Fifty Five" translation="پنجاه و پنج"/>
+    <number value="56" form="1" english="Fifty Six" translation="پنجاه و شش"/>
+    <number value="57" form="1" english="Fifty Seven" translation="پنجاه و هفت"/>
+    <number value="58" form="1" english="Fifty Eight" translation="پنجاه و هشت"/>
+    <number value="59" form="1" english="Fifty Nine" translation="پنجاه و نه"/>
+    <number value="60" form="1" english="Sixty" translation="شصت"/>
+    <number value="61" form="1" english="Sixty One" translation="شصت و یک"/>
+    <number value="62" form="1" english="Sixty Two" translation="شصت و دو"/>
+    <number value="63" form="1" english="Sixty Three" translation="شصت و سه"/>
+    <number value="64" form="1" english="Sixty Four" translation="شصت و چهار"/>
+    <number value="65" form="1" english="Sixty Five" translation="شصت و پنج"/>
+    <number value="66" form="1" english="Sixty Six" translation="شصت و شش"/>
+    <number value="67" form="1" english="Sixty Seven" translation="شصت و هفت"/>
+    <number value="68" form="1" english="Sixty Eight" translation="شصت و هشت"/>
+    <number value="69" form="1" english="Sixty Nine" translation="شصت و نه"/>
+    <number value="70" form="1" english="Seventy" translation="هفتاد"/>
+    <number value="71" form="1" english="Seventy One" translation="هفتاد و یک"/>
+    <number value="72" form="1" english="Seventy Two" translation="هفتاد و دو"/>
+    <number value="73" form="1" english="Seventy Three" translation="هفتاد و سه"/>
+    <number value="74" form="1" english="Seventy Four" translation="هفتاد و چهار"/>
+    <number value="75" form="1" english="Seventy Five" translation="هفتاد و پنج"/>
+    <number value="76" form="1" english="Seventy Six" translation="هفتاد و شش"/>
+    <number value="77" form="1" english="Seventy Seven" translation="هفتاد و هفت"/>
+    <number value="78" form="1" english="Seventy Eight" translation="هفتاد و هشت"/>
+    <number value="79" form="1" english="Seventy Nine" translation="هفتاد و نه"/>
+    <number value="80" form="1" english="Eighty" translation="هشتاد"/>
+    <number value="81" form="1" english="Eighty One" translation="هشتاد و یک"/>
+    <number value="82" form="1" english="Eighty Two" translation="هشتاد و دو"/>
+    <number value="83" form="1" english="Eighty Three" translation="هشتاد و سه"/>
+    <number value="84" form="1" english="Eighty Four" translation="هشتاد و چهار"/>
+    <number value="85" form="1" english="Eighty Five" translation="هشتاد و پنج"/>
+    <number value="86" form="1" english="Eighty Six" translation="هشتاد و شش"/>
+    <number value="87" form="1" english="Eighty Seven" translation="هشتاد و هفت"/>
+    <number value="88" form="1" english="Eighty Eight" translation="هشتاد و هشت"/>
+    <number value="89" form="1" english="Eighty Nine" translation="هشتاد و نه"/>
+    <number value="90" form="1" english="Ninety" translation="نود"/>
+    <number value="91" form="1" english="Ninety One" translation="نود و یک"/>
+    <number value="92" form="1" english="Ninety Two" translation="نود و دو"/>
+    <number value="93" form="1" english="Ninety Three" translation="نود و سه"/>
+    <number value="94" form="1" english="Ninety Four" translation="نود و چهار"/>
+    <number value="95" form="1" english="Ninety Five" translation="نود و پنج"/>
+    <number value="96" form="1" english="Ninety Six" translation="نود و شش"/>
+    <number value="97" form="1" english="Ninety Seven" translation="نود و هفت"/>
+    <number value="98" form="1" english="Ninety Eight" translation="نود و هشت"/>
+    <number value="99" form="1" english="Ninety Nine" translation="نود و نه"/>
+    <number value="100" form="1" english="One Hundred" translation="یکصد"/>
+    <number value="101" form="1"/>
+    <number value="102" form="1"/>
+    <number value="103" form="1"/>
+    <number value="104" form="1"/>
+    <number value="105" form="1"/>
+    <number value="106" form="1"/>
+    <number value="107" form="1"/>
+    <number value="108" form="1"/>
+    <number value="109" form="1"/>
+    <number value="110" form="1"/>
+    <number value="111" form="1"/>
+    <number value="112" form="1"/>
+    <number value="113" form="1"/>
+    <number value="114" form="1"/>
+    <number value="115" form="1"/>
+    <number value="116" form="1"/>
+    <number value="117" form="1"/>
+    <number value="118" form="1"/>
+    <number value="119" form="1"/>
+</numbers>

@@ -795,6 +795,7 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="Spanish (ES)" translation="Hispanen (Hispanio)" explanation=""/>
     <string english="Spanish (LATAM)" translation="Hispanen (Latinameriko)" explanation=""/>
     <string english="Spanish (ARG.)" translation="Hispanen (Argentino)" explanation=""/>
+    <string english="Persian" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

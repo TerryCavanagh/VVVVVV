@@ -795,6 +795,7 @@ Hai trovato il laboratorio segreto!" explanation="" max="34*4"/>
     <string english="Spanish (ES)" translation="Spagnolo" explanation=""/>
     <string english="Spanish (LATAM)" translation="Spagnolo" explanation=""/>
     <string english="Spanish (ARG.)" translation="Spagnolo" explanation=""/>
+    <string english="Persian" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

@@ -28,6 +28,9 @@ static const char* translators[] = {
     "Spanish (ARG.)",
     " LocQuest",
     " Guido Di Carlo",
+    "Persian",
+    " Amir Arzani",
+    " Masoud Varaste",
     "French",
     " Words of Magic",
     "Irish",
@@ -74,7 +77,7 @@ static const char* translators[] = {
 };
 
 /* Hardcoded pagesizes for the translator credits. Simplifies paging backwards and forwards */
-static const int translator_pagesize[] = { 6, 6, 9, 12, 10, 11, 10 };
+static const int translator_pagesize[] = { 6, 6, 12, 12, 10, 11, 10 };
 
 /* Terry's Patrons... */
 static const char* superpatrons[] = {
