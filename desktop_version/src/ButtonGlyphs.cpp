@@ -272,7 +272,7 @@ const char* BUTTONGLYPHS_get_wasd_text(void)
     return loc::gettext("Press left/right to move");
 }
 
-static const char* sdlbutton_to_glyph(const SDL_GameControllerButton button)
+const char* BUTTONGLYPHS_sdlbutton_to_glyph(const SDL_GameControllerButton button)
 {
     if (button > SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
     {
@@ -292,7 +292,7 @@ static const char* glyph_for_vector(
         return NULL;
     }
 
-    return sdlbutton_to_glyph(buttons[index]);
+    return BUTTONGLYPHS_sdlbutton_to_glyph(buttons[index]);
 }
 
 const char* BUTTONGLYPHS_get_button(const ActionSet actionset, const Action action, int binding)
