@@ -133,6 +133,33 @@ struct GhostInfo
     int frame; // .drawframe
 };
 
+
+enum EditorUndoTypes
+{
+    EditorUndoType_TILES, // Tiles modified
+    EditorUndoType_ROOMDATA, // Room data modified
+    EditorUndoType_ROOMDATA_TILES, // Room data modified (and stores tiles)
+    EditorUndoType_ENTITY_ADDED, // Entity added
+    EditorUndoType_ENTITY_REMOVED, // Entity removed
+    EditorUndoType_ENTITY_MODIFIED, // Entity properties modified
+    EditorUndoType_LEVEL_SIZE // Level size modified
+};
+
+struct EditorUndoInfo
+{
+    EditorUndoTypes type;
+    int tiles[SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES];
+    int room_x;
+    int room_y;
+    EditorTilesets tileset;
+    int tilecol;
+    int entity_id;
+    CustomEntity entity;
+    RoomProperty room_data;
+    int level_width;
+    int level_height;
+};
+
 class editorclass
 {
 public:
@@ -282,6 +309,11 @@ public:
 
     std::vector<GhostInfo> ghosts;
     int current_ghosts;
+
+    std::vector<EditorUndoInfo> undo_buffer;
+    std::vector<EditorUndoInfo> redo_buffer;
+    bool placing_tiles = false;
+    int old_tiles[SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES];
 };
 
 void editorrender(void);
