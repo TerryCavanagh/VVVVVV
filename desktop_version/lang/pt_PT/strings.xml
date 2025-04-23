@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="desbloquear laboratório secreto" explanation="menu option"/>
     <string english="game pad" translation="comando" explanation="menu option"/>
     <string english="Game Pad Options" translation="Comandos" explanation="title" max="20"/>
-    <string english="Game Pad" translation="Comando" explanation="title" max="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="Reconfigura os botões do comando e ajusta a sensibilidade." explanation="" max="38*5"/>
-    <string english="Change controller options." translation="Altera as opções do comando." explanation="" max="38*2"/>
     <string english="language" translation="idioma" explanation="menu option"/>
     <string english="Language" translation="Idioma" explanation="title" max="20"/>
     <string english="Change the language." translation="Altera o idioma." explanation="" max="38*2"/>
@@ -135,19 +133,30 @@
     <string english="disable cutscenes" translation="desativar cenas" explanation="menu option"/>
     <string english="enable cutscenes" translation="ativar cenas" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="sensibilidade do manípulo" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="Sensibilidade" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Ajusta a sensibilidade do manípulo." explanation="" max="38*3"/>
     <string english="Low" translation="Baixa" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Média" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Alta" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="definir inversão" explanation="menu option"/>
+    <string english="Bind Flip" translation="Definir inversão" explanation="title" max="20"/>
     <string english="bind enter" translation="definir entrar" explanation="menu option"/>
+    <string english="Bind Enter" translation="Definir Enter" explanation="title" max="20"/>
     <string english="bind menu" translation="definir menu" explanation="menu option"/>
+    <string english="Bind Menu" translation="Definir menu" explanation="title" max="20"/>
     <string english="bind restart" translation="definir reiniciar" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="Definir reiniciar" explanation="title" max="20"/>
     <string english="bind interact" translation="definir interação" explanation="menu option"/>
+    <string english="Bind Interact" translation="Definir interagir" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Inversão: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Entrar: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menu: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Reiniciar: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Interação: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Prime um botão...|(ou prime ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="Adicionar {button}?|Prime de novo para confirmar" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="Remover {button}?|Prime de novo para confirmar" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Interagir está no Enter!|Ver opções de corrida." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="ERRO: Não há ficheiros de idioma." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Pasta de idioma:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Pasta de repositório de idioma:" explanation="Language folder from the Git repository" max="39"/>

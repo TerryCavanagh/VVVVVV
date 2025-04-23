@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="비밀 실험실 해금" explanation="menu option"/>
     <string english="game pad" translation="컨트롤러" explanation="menu option"/>
     <string english="Game Pad Options" translation="컨트롤러 설정" explanation="title" max="20" max_local="16"/>
-    <string english="Game Pad" translation="컨트롤러" explanation="title" max="20" max_local="16"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="컨트롤러의 버튼을 지정하고 민감도를 조정합니다." explanation="" max="38*5" max_local="30*5"/>
-    <string english="Change controller options." translation="컨트롤러 설정을 변경합니다." explanation="" max="38*2" max_local="30*2"/>
     <string english="language" translation="언어" explanation="menu option"/>
     <string english="Language" translation="언어" explanation="title" max="20" max_local="16"/>
     <string english="Change the language." translation="언어를 변경합니다." explanation="" max="38*2" max_local="30*2"/>
@@ -135,19 +133,30 @@
     <string english="disable cutscenes" translation="컷신 비활성화" explanation="menu option"/>
     <string english="enable cutscenes" translation="컷신 활성화" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="아날로그 스틱 민감도" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="스틱 민감도" explanation="title" max="20" max_local="16"/>
+    <string english="Change the sensitivity of the analog stick." translation="아날로그 스틱의 민감도를 조절합니다." explanation="" max="38*3" max_local="30*3"/>
     <string english="Low" translation="낮음" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="중간" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="높음" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="뒤집기 키 설정" explanation="menu option"/>
+    <string english="Bind Flip" translation="뒤집기 키 설정" explanation="title" max="20" max_local="16"/>
     <string english="bind enter" translation="Enter 키 설정" explanation="menu option"/>
+    <string english="Bind Enter" translation="Enter 키 설정" explanation="title" max="20" max_local="16"/>
     <string english="bind menu" translation="메뉴 키 설정" explanation="menu option"/>
+    <string english="Bind Menu" translation="메뉴 키 설정" explanation="title" max="20" max_local="16"/>
     <string english="bind restart" translation="재시작 키 설정" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="재시작 키 설정" explanation="title" max="20" max_local="16"/>
     <string english="bind interact" translation="상호작용 키 설정" explanation="menu option"/>
+    <string english="Bind Interact" translation="상호작용 키 설정" explanation="title" max="20" max_local="16"/>
     <string english="Flip is bound to: " translation="뒤집기: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="25"/>
     <string english="Enter is bound to: " translation="ENTER: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="25"/>
     <string english="Menu is bound to: " translation="메뉴: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="25"/>
     <string english="Restart is bound to: " translation="재시작: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="25"/>
     <string english="Interact is bound to: " translation="상호작용: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="25"/>
+    <string english="Press a button...|(or press ↑↓)" translation="버튼을 누르세요...|(또는 ↑↓를 누르세요)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2" max_local="30*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="{button} 버튼을 추가할까요?|확인하려면 한 번 더 누르세요" explanation="Bind the X button to this action? Press X again to really add it" max="38*2" max_local="30*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="{button} 버튼을 뺄까요?|확인하려면 한 번 더 누르세요" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2" max_local="30*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="상호작용은 현재 Enter 키입니다!|스피드런 설정을 보세요." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2" max_local="30*2"/>
     <string english="ERROR: No language files found." translation="오류: 언어 파일을 찾을 수 없음." explanation="" max="38*3" max_local="30*3"/>
     <string english="Language folder:" translation="언어 폴더:" explanation="" max="39" max_local="31"/>
     <string english="Repository language folder:" translation="언어 폴더 저장 위치:" explanation="Language folder from the Git repository" max="39" max_local="31"/>
