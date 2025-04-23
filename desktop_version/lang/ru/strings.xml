@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="секретная лаборатория" explanation="menu option"/>
     <string english="game pad" translation="геймпад" explanation="menu option"/>
     <string english="Game Pad Options" translation="Настройки геймпада" explanation="title" max="20"/>
-    <string english="Game Pad" translation="Геймпад" explanation="title" max="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="Переназначьте кнопки контроллера и настройте чувствительность." explanation="" max="38*5"/>
-    <string english="Change controller options." translation="Измените настройки контроллера." explanation="" max="38*2"/>
     <string english="language" translation="язык" explanation="menu option"/>
     <string english="Language" translation="Язык" explanation="title" max="20"/>
     <string english="Change the language." translation="Смените язык." explanation="" max="38*2"/>
@@ -135,19 +133,30 @@
     <string english="disable cutscenes" translation="отключить катсцены" explanation="menu option"/>
     <string english="enable cutscenes" translation="включить катсцены" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="чувствительность джойстика" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="Чувствительность" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Измените чувствительность джойстика." explanation="" max="38*3"/>
     <string english="Low" translation="Низкая" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Средняя" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Высокая" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="назначить переворот" explanation="menu option"/>
+    <string english="Bind Flip" translation="Переворот" explanation="title" max="20"/>
     <string english="bind enter" translation="назначить ввод" explanation="menu option"/>
+    <string english="Bind Enter" translation="Ввод" explanation="title" max="20"/>
     <string english="bind menu" translation="назначить меню" explanation="menu option"/>
+    <string english="Bind Menu" translation="Меню" explanation="title" max="20"/>
     <string english="bind restart" translation="назначить возврат" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="Возврат" explanation="title" max="20"/>
     <string english="bind interact" translation="назначить взаимодействие" explanation="menu option"/>
+    <string english="Bind Interact" translation="Взаимодействие" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Переворот назначен на: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Ввод назначен на: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Меню назначено на: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Возврат назначен на: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Взаимодействие назначено на: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Нажмите на кнопку...|(или нажмите ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="Добавить {button}?|Нажмите ещё раз, чтобы подтвердить" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="Убрать {button}?|Нажмите ещё раз, чтобы подтвердить" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Взаимодействие назначено на кнопку ввода! См. настройки спидрана." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="ОШИБКА: Файлы локализации не обнаружены." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Папка локализации:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Папка локализации из репозитория:" explanation="Language folder from the Git repository" max="39"/>

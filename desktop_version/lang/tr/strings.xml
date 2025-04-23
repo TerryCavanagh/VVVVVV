@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="gizli laboratuvarı aç" explanation="menu option"/>
     <string english="game pad" translation="kumanda seçenekleri" explanation="menu option"/>
     <string english="Game Pad Options" translation="Kumanda Seçenekleri" explanation="title" max="20"/>
-    <string english="Game Pad" translation="Oyun Kumandası" explanation="title" max="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="Oyun kumandasındaki tuşları tekrar ata|ve hassasiyeti ayarla." explanation="" max="38*5"/>
-    <string english="Change controller options." translation="Oyun kumandası seçeneklerini değiştir." explanation="" max="38*2"/>
     <string english="language" translation="dil" explanation="menu option"/>
     <string english="Language" translation="Dil" explanation="title" max="20"/>
     <string english="Change the language." translation="Dili değiştir." explanation="" max="38*2"/>
@@ -135,19 +133,30 @@
     <string english="disable cutscenes" translation="ara sahneleri devre dışı bırak" explanation="menu option"/>
     <string english="enable cutscenes" translation="ara sahneleri etkinleştir" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="analog çubuk hassasiyeti" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="Çubuk Hassasiyeti" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Analog çubuk hassasiyetini değiştir." explanation="" max="38*3"/>
     <string english="Low" translation="Düşük" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Orta" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Yüksek" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="ata - ters dönme" explanation="menu option"/>
+    <string english="Bind Flip" translation="Ata - Ters Dönme" explanation="title" max="20"/>
     <string english="bind enter" translation="ata - girme" explanation="menu option"/>
+    <string english="Bind Enter" translation="Ata - Girme" explanation="title" max="20"/>
     <string english="bind menu" translation="ata - menü" explanation="menu option"/>
+    <string english="Bind Menu" translation="Ata - Menü" explanation="title" max="20"/>
     <string english="bind restart" translation="ata - yeniden başlatma" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="Ata - Y. Başlatma" explanation="title" max="20"/>
     <string english="bind interact" translation="ata - etkileşim" explanation="menu option"/>
+    <string english="Bind Interact" translation="Ata - Etkileşim" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Ters Dönme: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Girme: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menü şuna atandı: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Yeniden Başlatma: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Etkileşim: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Bir tuşa (veya ↑↓ tuşlarına) bas" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="{button} atansın mı?|Tekrar basarak onayla" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="{button} kaldırılsın mı?|Tekrar basarak onayla" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Etkileşim tuşu şu an Enter!|Speedrun seçeneklerine bak." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="HATA: Dil dosyaları bulunamadı." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Dil klasörü:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Depo dil klasörü:" explanation="Language folder from the Git repository" max="39"/>
