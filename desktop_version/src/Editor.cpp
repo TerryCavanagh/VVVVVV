@@ -1048,11 +1048,11 @@ static void draw_entities(void)
 
                 if (entity->p1 == 0)  // Facing right
                 {
-                    graphics.draw_sprite(x - 4, y, 0, graphics.col_crewcyan);
+                    graphics.draw_sprite(x - 4, y, 0, graphics.getcol(cl.player_colour));
                 }
                 else // Non-zero is facing left
                 {
-                    graphics.draw_sprite(x - 4, y, 3, graphics.col_crewcyan);
+                    graphics.draw_sprite(x - 4, y, 3, graphics.getcol(cl.player_colour));
                 }
 
                 graphics.draw_rect(x, y, 16, 24, graphics.getRGB(255, 255, 164));
@@ -1958,6 +1958,8 @@ void editorrenderfixed(void)
     extern editorclass ed;
     const RoomProperty* const room = cl.getroomprop(ed.levx, ed.levy);
     graphics.updatetitlecolours();
+
+    graphics.trinketcolset = false;
 
     game.customcol = cl.getlevelcol(room->tileset, room->tilecol) + 1;
     ed.entcol = cl.getenemycol(game.customcol);

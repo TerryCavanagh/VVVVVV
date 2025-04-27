@@ -134,16 +134,16 @@ void scriptclass::tokenize( const std::string& t )
 
 static int getcolorfromname(std::string name)
 {
-    if      (name == "player")     return CYAN;
-    else if (name == "cyan")       return CYAN;
-    else if (name == "red")        return RED;
-    else if (name == "green")      return GREEN;
-    else if (name == "yellow")     return YELLOW;
-    else if (name == "blue")       return BLUE;
-    else if (name == "purple")     return PURPLE;
-    else if (name == "customcyan") return CYAN;
-    else if (name == "gray")       return GRAY;
-    else if (name == "teleporter") return TELEPORTER;
+    if      (name == "player")     return EntityColour_CREW_CYAN;
+    else if (name == "cyan")       return EntityColour_CREW_CYAN;
+    else if (name == "red")        return EntityColour_CREW_RED;
+    else if (name == "green")      return EntityColour_CREW_GREEN;
+    else if (name == "yellow")     return EntityColour_CREW_YELLOW;
+    else if (name == "blue")       return EntityColour_CREW_BLUE;
+    else if (name == "purple")     return EntityColour_CREW_PURPLE;
+    else if (name == "customcyan") return EntityColour_CREW_CYAN;
+    else if (name == "gray")       return EntityColour_CREW_GRAY;
+    else if (name == "teleporter") return EntityColour_TELEPORTER_FLASHING;
 
     int color = help.Int(name.c_str(), -1);
     if (color < 0) return -1; // Not a number (or it's negative), so we give up
@@ -157,7 +157,6 @@ static int getcrewmanfromname(std::string name)
     if (color == -1) return -1; // ...Nope, return -1
     return obj.getcrewman(color);
 }
-
 
 /* Also used in gamestate 1001. */
 void foundtrinket_textbox1(textboxclass* THIS);
@@ -638,37 +637,37 @@ void scriptclass::run(void)
                 //the first word is the object to position relative to
                 if (words[1] == "player")
                 {
-                    i = obj.getcustomcrewman(0);
+                    i = obj.getcustomcrewman(EntityColour_CREW_CYAN);
                     j = obj.entities[i].dir;
                 }
                 else if (words[1] == "cyan")
                 {
-                    i = obj.getcustomcrewman(0);
+                    i = obj.getcustomcrewman(EntityColour_CREW_CYAN);
                     j = obj.entities[i].dir;
                 }
                 else if (words[1] == "purple")
                 {
-                    i = obj.getcustomcrewman(1);
+                    i = obj.getcustomcrewman(EntityColour_CREW_PURPLE);
                     j = obj.entities[i].dir;
                 }
                 else if (words[1] == "yellow")
                 {
-                    i = obj.getcustomcrewman(2);
+                    i = obj.getcustomcrewman(EntityColour_CREW_YELLOW);
                     j = obj.entities[i].dir;
                 }
                 else if (words[1] == "red")
                 {
-                    i = obj.getcustomcrewman(3);
+                    i = obj.getcustomcrewman(EntityColour_CREW_RED);
                     j = obj.entities[i].dir;
                 }
                 else if (words[1] == "green")
                 {
-                    i = obj.getcustomcrewman(4);
+                    i = obj.getcustomcrewman(EntityColour_CREW_GREEN);
                     j = obj.entities[i].dir;
                 }
                 else if (words[1] == "blue")
                 {
-                    i = obj.getcustomcrewman(5);
+                    i = obj.getcustomcrewman(EntityColour_CREW_BLUE);
                     j = obj.entities[i].dir;
                 }
                 else if (words[1] == "centerx")
@@ -910,7 +909,7 @@ void scriptclass::run(void)
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[i].size = 13;
-                    obj.entities[i].colour = 23;
+                    obj.entities[i].colour = EntityColour_GRAVITRON_INDICATOR;
                     obj.entities[i].cx = 36;// 6;
                     obj.entities[i].cy = 12+80;// 2;
                     obj.entities[i].h = 126-80;// 21;
@@ -925,7 +924,7 @@ void scriptclass::run(void)
                     obj.entities[i].xp = 100;
                     obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].size = 0;
-                    obj.entities[i].colour = 0;
+                    obj.entities[i].colour = EntityColour_CREW_CYAN;
                     obj.entities[i].cx = 6;
                     obj.entities[i].cy = 2;
                     obj.entities[i].h = 21;
@@ -1022,47 +1021,47 @@ void scriptclass::run(void)
             {
                 if (words[1] == "player")
                 {
-                    i=obj.getcustomcrewman(0);
+                    i=obj.getcustomcrewman(EntityColour_CREW_CYAN);
                     obj.customcrewmoods[0]=ss_toi(words[2]);
                 }
                 else if (words[1] == "cyan")
                 {
-                    i=obj.getcustomcrewman(0);
+                    i=obj.getcustomcrewman(EntityColour_CREW_CYAN);
                     obj.customcrewmoods[0]=ss_toi(words[2]);
                 }
                 else if (words[1] == "customcyan")
                 {
-                    i=obj.getcustomcrewman(0);
+                    i=obj.getcustomcrewman(EntityColour_CREW_CYAN);
                     obj.customcrewmoods[0]=ss_toi(words[2]);
                 }
                 else if (words[1] == "red")
                 {
-                    i=obj.getcustomcrewman(3);
+                    i=obj.getcustomcrewman(EntityColour_CREW_RED);
                     obj.customcrewmoods[3]=ss_toi(words[2]);
                 }
                 else if (words[1] == "green")
                 {
-                    i=obj.getcustomcrewman(4);
+                    i=obj.getcustomcrewman(EntityColour_CREW_GREEN);
                     obj.customcrewmoods[4]=ss_toi(words[2]);
                 }
                 else if (words[1] == "yellow")
                 {
-                    i=obj.getcustomcrewman(2);
+                    i=obj.getcustomcrewman(EntityColour_CREW_YELLOW);
                     obj.customcrewmoods[2]=ss_toi(words[2]);
                 }
                 else if (words[1] == "blue")
                 {
-                    i=obj.getcustomcrewman(5);
+                    i=obj.getcustomcrewman(EntityColour_CREW_BLUE);
                     obj.customcrewmoods[5]=ss_toi(words[2]);
                 }
                 else if (words[1] == "purple")
                 {
-                    i=obj.getcustomcrewman(1);
+                    i=obj.getcustomcrewman(EntityColour_CREW_PURPLE);
                     obj.customcrewmoods[1]=ss_toi(words[2]);
                 }
                 else if (words[1] == "pink")
                 {
-                    i=obj.getcustomcrewman(1);
+                    i=obj.getcustomcrewman(EntityColour_CREW_PURPLE);
                     obj.customcrewmoods[1]=ss_toi(words[2]);
                 }
 
@@ -1188,7 +1187,7 @@ void scriptclass::run(void)
                 if (INBOUNDS_VEC(i, obj.entities))
                 {
                     obj.entities[i].tile = 6;
-                    obj.entities[i].colour = 102;
+                    obj.entities[i].colour = EntityColour_TELEPORTER_FLASHING;
                 }
             }
             else if (words[0] == "changecolour")
@@ -1650,7 +1649,7 @@ void scriptclass::run(void)
                 {
                     if (obj.entities[j].type == EntityType_TERMINAL)
                     {
-                        obj.entities[j].colour = 4;
+                        obj.entities[j].colour = EntityColour_INACTIVE_ENTITY;
                     }
                 }
                 if (ss_toi(words[1]) == 1)
@@ -1660,7 +1659,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 88 && obj.entities[j].yp==80)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1671,7 +1670,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 128 && obj.entities[j].yp==80)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1682,7 +1681,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 176 && obj.entities[j].yp==80)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1693,7 +1692,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 216 && obj.entities[j].yp==80)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1704,7 +1703,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 88 && obj.entities[j].yp==128)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1715,7 +1714,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 176 && obj.entities[j].yp==128)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1726,7 +1725,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 40 && obj.entities[j].yp==40)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1737,7 +1736,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 216 && obj.entities[j].yp==128)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1748,7 +1747,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 128 && obj.entities[j].yp==128)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1759,7 +1758,7 @@ void scriptclass::run(void)
                     {
                         if (obj.entities[j].xp == 264 && obj.entities[j].yp==40)
                         {
-                            obj.entities[j].colour = 5;
+                            obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
                         }
                     }
                 }
@@ -1770,31 +1769,31 @@ void scriptclass::run(void)
                 if (words[1] == "red")
                 {
                     i = 3;
-                    crew_color = RED;
+                    crew_color = EntityColour_CREW_RED;
                 }
                 else if (words[1] == "green")
                 {
                     i = 4;
-                    crew_color = GREEN;
+                    crew_color = EntityColour_CREW_GREEN;
                 }
                 else if (words[1] == "yellow")
                 {
                     i = 2;
-                    crew_color = YELLOW;
+                    crew_color = EntityColour_CREW_YELLOW;
                 }
                 else if (words[1] == "blue")
                 {
                     i = 5;
-                    crew_color = BLUE;
+                    crew_color = EntityColour_CREW_BLUE;
                 }
                 else if (words[1] == "purple")
                 {
                     i = 1;
-                    crew_color = PURPLE;
+                    crew_color = EntityColour_CREW_PURPLE;
                 }
 
                 int crewman = obj.getcrewman(crew_color);
-                if (INBOUNDS_VEC(crewman, obj.entities) && crew_color == GREEN)
+                if (INBOUNDS_VEC(crewman, obj.entities) && crew_color == EntityColour_CREW_GREEN)
                 {
                     obj.createblock(5, obj.entities[crewman].xp - 32, obj.entities[crewman].yp-20, 96, 60, i, "", (i == 35));
                 }
@@ -1850,8 +1849,9 @@ void scriptclass::run(void)
                 i = obj.getplayer();
                 if (INBOUNDS_VEC(i, obj.entities))
                 {
-                    obj.entities[i].colour = 0;
+                    obj.entities[i].colour = cl.player_colour;
                 }
+                game.savecolour = cl.player_colour;
             }
             else if (words[0] == "changeplayercolour")
             {
@@ -1875,7 +1875,7 @@ void scriptclass::run(void)
                 i = obj.getteleporter();
                 if (INBOUNDS_VEC(i, obj.entities))
                 {
-                    obj.entities[i].colour = 101;
+                    obj.entities[i].colour = EntityColour_TELEPORTER_ACTIVE;
                 }
             }
             else if (words[0] == "foundtrinket")
@@ -1990,9 +1990,9 @@ void scriptclass::run(void)
             else if (words[0] == "createlastrescued")
             {
                 r = graphics.crewcolour(game.lastsaved);
-                if (r == 0 || r == PURPLE)
+                if (r == EntityColour_CREW_CYAN || r == EntityColour_CREW_PURPLE)
                 {
-                    r = GRAY; // Default to gray if invalid color.
+                    r = EntityColour_CREW_GRAY; // Default to gray if invalid color.
                 }
 
                 obj.createentity(200, 153, 18, r, 0, 19, 30);
@@ -2652,7 +2652,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
         }
     }
 
-    /* Containers which need to be reset before gameplay starts
+    /* State which needs to be reset before gameplay starts
      * ex. before custom levels get loaded */
 
     switch (mode)
@@ -2662,6 +2662,8 @@ void scriptclass::startgamemode(const enum StartMode mode)
     default:
         textbox_colours.clear();
         add_default_colours();
+        cl.onewaycol_override = false;
+        cl.player_colour = 0;
         break;
     }
 
@@ -3207,7 +3209,7 @@ void scriptclass::hardreset(void)
         game.savey = 0;
         game.savegc = 0;
     }
-    game.savecolour = 0;
+    game.savecolour = cl.player_colour;
 
     game.intimetrial = false;
     game.timetrialcountdown = 0;

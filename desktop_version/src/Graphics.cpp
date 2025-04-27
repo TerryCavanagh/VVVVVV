@@ -425,22 +425,23 @@ void Graphics::print_level_creator(
     int width_for_face = 17;
     int total_width = width_for_face + font::len(print_flags, creator.c_str());
     int face_x, text_x, sprite_x;
+    int offset_x = -7;
     if (!font::is_rtl(print_flags))
     {
         face_x = (SCREEN_WIDTH_PIXELS - total_width) / 2;
         text_x = face_x + width_for_face;
-        sprite_x = 7;
+        sprite_x = 0;
     }
     else
     {
         face_x = (SCREEN_WIDTH_PIXELS + total_width) / 2;
         text_x = face_x - width_for_face;
         face_x -= 10; // sprite origin
-        sprite_x = 103;
+        sprite_x = 96;
         print_flags |= PR_RIGHT;
     }
     set_texture_color_mod(grphx.im_sprites, r, g, b);
-    draw_texture_part(grphx.im_sprites, face_x, y - 1, sprite_x, 2, 10, 10, 1, 1);
+    draw_texture_part(grphx.im_sprites, face_x + offset_x, y - 3, sprite_x, 0, 24, 12, 1, 1);
     set_texture_color_mod(grphx.im_sprites, 255, 255, 255);
     font::print(print_flags, text_x, y, creator, r, g, b);
 }
@@ -3422,19 +3423,19 @@ int Graphics::crewcolour(const int t)
     switch (t)
     {
     case 0:
-        return CYAN;
+        return EntityColour_CREW_CYAN;
     case 1:
-        return PURPLE;
+        return EntityColour_CREW_PURPLE;
     case 2:
-        return YELLOW;
+        return EntityColour_CREW_YELLOW;
     case 3:
-        return RED;
+        return EntityColour_CREW_RED;
     case 4:
-        return GREEN;
+        return EntityColour_CREW_GREEN;
     case 5:
-        return BLUE;
+        return EntityColour_CREW_BLUE;
     default:
-        return 0;
+        return EntityColour_CREW_CYAN;
     }
 }
 

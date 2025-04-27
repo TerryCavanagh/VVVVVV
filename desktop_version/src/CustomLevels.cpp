@@ -404,6 +404,8 @@ void customlevelclass::reset(void)
     script.textbox_colours.clear();
     script.add_default_colours();
     map.specialroomnames.clear();
+
+    player_colour = 0;
 }
 
 const int* customlevelclass::loadlevel( int rxi, int ryi )
@@ -1414,6 +1416,12 @@ next:
                 map.specialroomnames.push_back(name);
             }
         }
+
+        if (SDL_strcmp(pKey, "PlayerColour") == 0)
+        {
+            player_colour = help.Int(pText);
+            game.savecolour = player_colour;
+        }
     }
 
     if (mapwidth < maxwidth)
@@ -1676,6 +1684,21 @@ bool customlevelclass::save(const std::string& _path)
         }
     }
     xml::update_tag(data, "script", scriptString.c_str());
+
+
+    if (player_colour != 0)
+    {
+        xml::update_tag(data, "PlayerColour", player_colour);
+    }
+    else
+    {
+        // Get rid of this one as well, since older levels don't have this property anyways
+        tinyxml2::XMLElement* element;
+        while ((element = data->FirstChildElement("PlayerColour")) != NULL)
+        {
+            doc.DeleteNode(element);
+        }
+    }
 
     return FILESYSTEM_saveTiXml2Document(newpath.c_str(), doc);
 }
