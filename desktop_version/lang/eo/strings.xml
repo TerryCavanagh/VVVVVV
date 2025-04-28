@@ -242,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Ebligi vidi tion, kio estas malantaŭ la nomo ĉe la ekranmalsupro" explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Ĉambronoma fono estas TRAVIDEBLA" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Ĉambronoma fono estas NETRAVIDEBLA" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="konserveja konduto" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Konserveja konduto" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Baskuligi ĉu la ludo aŭtomate konserviĝu ĉe konservejoj." explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Aŭtomata konservado estas MALŜALTA" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Aŭtomata konservado estas ŜALTA" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="opcioj de kurludado" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Kurludaj opcioj" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Iuj altnivelaj agordoj, utilaj por kurludistoj." explanation="description for speedrunner options" max="38*5"/>
@@ -637,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Kahelara koloro ŝanĝiĝis" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Malamika tipo ŝanĝiĝis" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Platforma rapido nun estas {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Malamika rapido nun estas {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Resursoj reŝargiĝis" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERARO: malĝusta formo" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Ŝargiĝis mapo: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>

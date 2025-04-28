@@ -246,11 +246,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="وضوح رؤية ما وراء اسم الغرفة أسفل الشاشة." explanation="" max="38*3" max_local="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="خلفية اسم الغرفة شفافة" explanation="" max="38*2" max_local="38*2"/>
     <string english="Room name background is OPAQUE" translation="خلفية اسم الغرفة ليست شفافة" explanation="" max="38*2" max_local="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
+    <string english="checkpoint saving" translation="تخزين نقطة الحفظ" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="تخزين نقطة الحفظ" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="تفعيل تخزين التقدم عند كل نقطة حفظ." explanation="" max="38*3" max_local="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="نقاط الحفظ لا تخزن التقدم" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
+    <string english="Checkpoint saving is ON" translation="نقاط الحفظ تخزن التقدم" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
     <string english="speedrun options" translation="إعدادات التختيم السريع" explanation="menu option"/>
     <string english="Speedrunner Options" translation="إعدادات التختيم السريع" explanation="title" max="20" max_local="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="دخول إعدادات متقدمة قد تحظى باهتمام
@@ -645,7 +645,7 @@
     <string english="Tileset Colour Changed" translation="تغير لون مجموعة الخلايا" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" max_local="38*3"/>
     <string english="Enemy Type Changed" translation="تغير نوع الأعداء" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="38*3"/>
     <string english="Platform speed is now {speed}" translation="تغيرت سرعة المنصات إلى {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="تغيرت سرعة الأعداء إلى {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*3"/>
     <string english="Reloaded resources" translation="أعيد فتح ملفات الموارد" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="38*3"/>
     <string english="ERROR: Invalid format" translation="خطأ: صيغة المكتوب غير مناسبة" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="فتحت الغرفة: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3" max_local="38*3"/>

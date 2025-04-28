@@ -256,11 +256,11 @@ Escキーを押すと表示を終了する。" explanation="" max="38*6" max_loc
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="画面下部に表示されるルームタイトルの背景を半透明にする。" explanation="" max="38*3" max_local="38*2"/>
     <string english="Room name background is TRANSLUCENT" translation="現在の設定: 半透明" explanation="" max="38*2" max_local="38*1"/>
     <string english="Room name background is OPAQUE" translation="現在の設定: 不透明" explanation="" max="38*2" max_local="38*1"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="38*2"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*1"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*1"/>
+    <string english="checkpoint saving" translation="チェックポイントでセーブ" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="チェックポイントでセーブ" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="チェックポイント通過時にゲームを自動セーブするかを切り替える。" explanation="" max="38*3" max_local="38*2"/>
+    <string english="Checkpoint saving is OFF" translation="現在の設定: OFF" explanation="makes checkpoints save the game" max="38*2" max_local="38*1"/>
+    <string english="Checkpoint saving is ON" translation="現在の設定: ON" explanation="makes checkpoints save the game" max="38*2" max_local="38*1"/>
     <string english="speedrun options" translation="RTA用設定" explanation="menu option"/>
     <string english="Speedrunner Options" translation="RTA用設定" explanation="title" max="20" max_local="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="RTA/スピードランで役に立つ設定を変更する。" explanation="description for speedrunner options" max="38*5" max_local="38*4"/>
@@ -673,7 +673,7 @@ Steam Deckには対応していません。" explanation="" max="38*5" max_local
     <string english="Tileset Colour Changed" translation="タイルセットのカラーを変更しました" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" max_local="38*2"/>
     <string english="Enemy Type Changed" translation="敵の種類を変更しました" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="38*2"/>
     <string english="Platform speed is now {speed}" translation="プラットフォームの速度を {speed} に変更しました" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="38*2"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*2"/>
+    <string english="Enemy speed is now {speed}" translation="敵のスピードを {speed} に変更しました" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*2"/>
     <string english="Reloaded resources" translation="リソースを再読み込みしました" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="38*2"/>
     <string english="ERROR: Invalid format" translation="エラー: 無効な記述形式" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="38*2"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="{filename}.vvvvvv をロードしました" explanation="successfully loaded level file" max="38*3" max_local="38*2"/>
