@@ -242,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="화면 아래에 있는 이름 뒤쪽에 있는 것을 볼 수 있게 합니다." explanation="" max="38*3" max_local="30*3"/>
     <string english="Room name background is TRANSLUCENT" translation="방 이름 배경 투명" explanation="" max="38*2" max_local="30*2"/>
     <string english="Room name background is OPAQUE" translation="방 이름 배경 불투명" explanation="" max="38*2" max_local="30*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="16"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="30*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="30*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="30*2"/>
+    <string english="checkpoint saving" translation="체크포인트 저장" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="체크포인트 저장" explanation="title, makes checkpoints save the game" max="20" max_local="16"/>
+    <string english="Toggle if checkpoints should save the game." translation="체크포인트 저장 기능을 켜거나 끕니다." explanation="" max="38*3" max_local="30*3"/>
+    <string english="Checkpoint saving is OFF" translation="체크포인트 저장 꺼짐" explanation="makes checkpoints save the game" max="38*2" max_local="30*2"/>
+    <string english="Checkpoint saving is ON" translation="체크포인트 저장 켜짐" explanation="makes checkpoints save the game" max="38*2" max_local="30*2"/>
     <string english="speedrun options" translation="스피드런 설정" explanation="menu option"/>
     <string english="Speedrunner Options" translation="스피드런 설정" explanation="title" max="20" max_local="16"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="스피드런을 하는 유저들에게 흥미가 갈만한 고급 설정에 진입합니다." explanation="description for speedrunner options" max="38*5" max_local="30*5"/>
@@ -637,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="타일셋 색 변경됨" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" max_local="30*3"/>
     <string english="Enemy Type Changed" translation="적 종류 변경됨" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="30*3"/>
     <string english="Platform speed is now {speed}" translation="플랫폼 속도 현재 {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="30*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="30*3"/>
+    <string english="Enemy speed is now {speed}" translation="적의 속도 현재 {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="30*3"/>
     <string english="Reloaded resources" translation="자원 다시 불러오기" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="30*3"/>
     <string english="ERROR: Invalid format" translation="오류: 이용 불가능한 포맷" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="30*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="불러온 지도: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3" max_local="30*3"/>
