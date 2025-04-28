@@ -243,11 +243,11 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Beidh tú in ann a fheiceáil céard atá taobh thiar den ainm ag bun an scáileáin." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Cúlra Ainmneacha na Seomraí: TRÉSHOILSEACH" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Cúlra Ainmneacha na Seomraí: TEIMHNEACH" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="ceadaigh &apos;sábháil seicphointí&apos;" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Sábháil seicphointí" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Roghnaigh an sábhálfar seicphointí an chluiche " explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Tá sábháil seicphointí AS FEIDHM" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Tá sábháil seicphointí I bhFEIDHM" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="socruithe sciuirde" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Socruithe Sciuirde" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Socruithe breise a bhaineann le sciuirdeanna." explanation="description for speedrunner options" max="38*5"/>
@@ -639,7 +639,7 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="Tileset Colour Changed" translation="Athraíodh Dath na dTíleanna" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Athraíodh Cineál Naimhde" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Luas na n-ardán {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Luas na naimhde {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Athlódáladh acmhainní" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="EARRÁID: Formáid Neamhbhailí" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Mapa lódáilte: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
