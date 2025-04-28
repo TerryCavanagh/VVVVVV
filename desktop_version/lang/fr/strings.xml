@@ -242,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Vous permet de voir ce qui se|trouve derrière le nom affiché|en bas de l&apos;écran." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Fond de nom des salles TRANSPARENT" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Fond de nom des salles OPAQUE" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="sauvegarde aux points de contrôle" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Sauvegarde auto" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Active ou non la sauvegarde aux points de contrôle" explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Sauvegarde auto DÉSACTIVÉE" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Sauvegarde auto ACTIVÉE" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="options de speedrun" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Options de speedrun" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Accédez à des paramètres|avancés susceptibles d&apos;intéresser|les speedrunners." explanation="description for speedrunner options" max="38*5"/>
@@ -637,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Couleur des tuiles modifiée" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Type d&apos;ennemis modifié" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Vitesse des plateformes réglée sur {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Vitesse des ennemis réglée sur {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Recharger les ressources" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERREUR : format invalide" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Carte chargée : {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
