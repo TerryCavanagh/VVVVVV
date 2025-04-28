@@ -242,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Laat zien wat er achter de naam van een kamer zit onder in beeld." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Kamernaamachtergrond is DOORZICHTIG" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Kamernaamachtergrond is ONDOORZICHTIG" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="opslaan bij checkpoints" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Checkpoint-opslaan" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Bepaal of checkpoints het spel op moeten slaan." explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Opslaan bij checkpoints staat UIT" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Opslaan bij checkpoints staat AAN" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="speedrunopties" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Speedrunopties" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Een aantal geavanceerde instellingen die interessant kunnen zijn voor speedrunners." explanation="description for speedrunner options" max="38*5"/>
@@ -637,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Tilesetkleur aangepast" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Vijandtype aangepast" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Platformsnelheid is nu {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Vijandsnelheid is nu {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Bronnen opnieuw geladen" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="FOUT: Ongeldig formaat" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Level geladen: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>

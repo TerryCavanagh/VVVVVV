@@ -242,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Yn gadael i chi weld trwy&apos;r hyn sydd y tu ôl i&apos;r enw ar waelod y sgrin." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Mae cefndir enw ystafell yn TRYLOYW" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Mae cefndir enw ystafell yn DI-DRAIDD" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="siecbwyntiau yn arbed" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Arbed-Awto" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Toglwch os dylai siecbwynt arbed y gêm." explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Siecbwyntiau yn arbed wedi&apos;i DDIFFODD" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Siecbwyntiau yn arbed YMLAEN" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="opsiynau rhediad-gwib" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Opsiynau Rhedwr-Gwib" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Cyrchwch rai gosodiadau uwch a allai fod o ddiddordeb i redwyr cyflym ." explanation="description for speedrunner options" max="38*5"/>
@@ -637,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Lliw Set Teil wedi&apos;i Newid" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Newidiodd Math y Gelyn" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Cyflymder llwyfan yw {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Cyflymder y gelyn yw {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Adnoddau wedi&apos;u hail-lwytho" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="GWALL: Fformat annilys" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Map wedi&apos;i lwytho: {filename}.vvvvv" explanation="successfully loaded level file" max="38*3"/>

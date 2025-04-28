@@ -242,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Dozwŏlo widzieć, co je za mianami izbōw." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Tło za mianami je PRZEZDZIYRNE" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Tło za mianami je NIYPRZEZDZIYRNE" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="zapis ôd pōnktōw przywrōcynio" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Pōnkty Przywrōcynio" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Nasztaluj, eli szpil bydzie zachowywany bez pōnkty przywrōcynio." explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Zapis ôd pōnktōw przywrōcynio je WYŁŌNCZŌNY" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Zapis ôd pōnktōw przywrōcynio je ZAŁŌNCZŌNY" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="ôpcyje do speedrunnerōw" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Ôpcyje Speedrunnerōw" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Zaawansowane sztalowania|do speedrunnerōw." explanation="description for speedrunner options" max="38*5"/>
@@ -637,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Zmiyniōno Farba Klockōw" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Zmiyniōno Zorta Niyprzŏciela" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Gibkoś platformy: {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Gibkoś ôpacznikōw: {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Nafolowano zasoby drugi rŏz" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="FELER: Felerny format" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Nafolowano poziōm: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
