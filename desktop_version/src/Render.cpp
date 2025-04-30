@@ -3198,9 +3198,12 @@ void maprender(void)
         }
 
         /* Stats. */
-        int deaths_pos = (cl.numtrinkets() > 0) ? 102 : 72;
-        int time_pos = (cl.numtrinkets() > 0) ? 152 : 132;
-        if (cl.numtrinkets() > 0)
+
+        // Always show trinkets if you're in the main game, otherwise only show them if any exist in the level
+        bool show_trinkets = map.custommode ? (cl.numtrinkets() > 0) : true;
+        int deaths_pos = show_trinkets ? 102 : 72;
+        int time_pos = show_trinkets ? 152 : 132;
+        if (show_trinkets)
         {
             font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow);
             char buffer[SCREEN_WIDTH_CHARS + 1];
