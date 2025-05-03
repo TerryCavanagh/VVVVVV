@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="باز کردن آزمایشگاه پنهان" explanation="menu option"/>
     <string english="game pad" translation="دسته‌ی بازی" explanation="menu option"/>
     <string english="Game Pad Options" translation="گزینه‌های دسته‌ی بازی" explanation="title" max="20" max_local="20"/>
-    <string english="Game Pad" translation="دسته‌ی بازی" explanation="title" max="20" max_local="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="تنظیم مجدد دکمه‌های دسته و حساسیت آن." explanation="" max="38*5" max_local="38*5"/>
-    <string english="Change controller options." translation="تغییر گزینه‌های دسته." explanation="" max="38*2" max_local="38*2"/>
     <string english="language" translation="زبان" explanation="menu option"/>
     <string english="Language" translation="زبان" explanation="title" max="20" max_local="20"/>
     <string english="Change the language." translation="تغییر زبان." explanation="" max="38*2" max_local="38*2"/>
@@ -135,19 +133,30 @@
     <string english="disable cutscenes" translation="غیرفعال‌سازی" explanation="menu option"/>
     <string english="enable cutscenes" translation="فعال‌سازی" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="حساسیت اهرم آنالوگ" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="حساسیت اهرم" explanation="title" max="20" max_local="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="تغییر حساسیت اهرم آنالوگ" explanation="" max="38*3" max_local="38*3"/>
     <string english="Low" translation="کم" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="متوسط" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="زیاد" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="انتخاب پرش" explanation="menu option"/>
+    <string english="Bind Flip" translation="انتخاب پرش" explanation="title" max="20" max_local="20"/>
     <string english="bind enter" translation="انتخاب اینتر" explanation="menu option"/>
+    <string english="Bind Enter" translation="انتخاب اینتر" explanation="title" max="20" max_local="20"/>
     <string english="bind menu" translation="انتخاب منو" explanation="menu option"/>
+    <string english="Bind Menu" translation="انتخاب منو" explanation="title" max="20" max_local="20"/>
     <string english="bind restart" translation="انتخاب بازشروع" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="انتخاب بازشروع" explanation="title" max="20" max_local="20"/>
     <string english="bind interact" translation="انتخاب تعامل" explanation="menu option"/>
+    <string english="Bind Interact" translation="انتخاب تعامل" explanation="title" max="20" max_local="20"/>
     <string english="Flip is bound to: " translation="پرش بسته شد به: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="Enter is bound to: " translation="اینتر بسته شد به: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="Menu is bound to: " translation="منو بسته شد به: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="Restart is bound to: " translation="بازشروع بسته شد به: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="Interact is bound to: " translation="تعامل بسته شد به: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="دکمه‌ای را بزن...|(یا ↑↓ را بزن)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2" max_local="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="افزودن {button}؟|برای تایید دوباره بزن" explanation="Bind the X button to this action? Press X again to really add it" max="38*2" max_local="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="حذف {button}؟|برای تایید دوباره بزن" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2" max_local="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="تعامل الان اینتر است!|به گزینه‌های اسپیدران مراجعه کن" explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2" max_local="38*2"/>
     <string english="ERROR: No language files found." translation="خطا: فایل زبانی پیدا نشد." explanation="" max="38*3" max_local="38*3"/>
     <string english="Language folder:" translation="پوشه‌ی زبان:" explanation="" max="39" max_local="39"/>
     <string english="Repository language folder:" translation="پوشه‌ی زبان مخزن:" explanation="Language folder from the Git repository" max="39" max_local="39"/>
@@ -220,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="Enter" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="ACTION" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="دکمه‌ی تعامل: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2" max_local="38*2"/>
     <string english="fake load screen" translation="صفحه‌ی بارگذاری کاذب" explanation="menu option"/>

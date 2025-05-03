@@ -229,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="AÇÃO" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Botão de Interação: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="carregamento simulado" explanation="menu option"/>
@@ -331,9 +332,9 @@
     <string english="Currently ENABLED!" translation="Inversão: SIM" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Inversão: NÃO" explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="REQUISITO: Concluir o jogo." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Modo Invencibilidade ligado" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Modo Corrida aos Erros ligado ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Modo Inversão ligado" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="De certeza que queres sair?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="PERDESTE" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Conseguiste chegar a:" explanation="you managed to reach the following room" max="40"/>
@@ -450,8 +451,8 @@
     <string english="[Press {button} to return to editor]" translation="[Prime {button} para voltar ao editor]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Prime {button} para avançar o texto -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Prime {button} para continuar" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[Prime {button} para descongelar o jogo]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[Prime {button} para congelar o jogo]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Tempo Atual" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Recorde" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Troféu seguinte aos cinco segundos" explanation="" max="38*2"/>
@@ -779,7 +780,7 @@ Encontraste o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Tipo de letra Pan-European criado por" explanation="" max="40"/>
     <string english="Fonts by" translation="Tipos de letra por" explanation=""/>
     <string english="Other Fonts by" translation="Tipos de letra adicionais por" explanation=""/>
-    <string english="Editing and LQA" translation="agradecemos também a:" explanation=""/>
+    <string english="Editing and LQA" translation="Edição e LQA" explanation=""/>
     <string english="Arabic" translation="Árabe" explanation=""/>
     <string english="Catalan" translation="Catalão" explanation=""/>
     <string english="Welsh" translation="Galês" explanation=""/>
@@ -801,10 +802,10 @@ Encontraste o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ucraniano" explanation=""/>
     <string english="Chinese (Simplified)" translation="Mandarim (simplificado)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Mandarim (tradicional)" explanation=""/>
-    <string english="Spanish (ES)" translation="Castelhano" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Spanish (LATAM)" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Spanish (ARG.)" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Spanish (ES)" translation="Espanhol (ES)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Espanhol (LAT)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Espanhol (ARG.)" explanation=""/>
+    <string english="Persian" translation="Persa" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
