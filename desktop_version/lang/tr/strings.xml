@@ -229,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="AKSİYON" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Etkileşim düğmesi: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="sahte yükleme ekranı" explanation="menu option"/>
@@ -326,9 +327,9 @@
     <string english="Currently ENABLED!" translation="Şu Anda ETKİN!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Şu Anda Devre Dışı." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="AÇMAK İÇİN: Oyunu tamamla." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Yenilmezlik modu etkin" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Hata Avcısı modu etkin ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Ters Yüz modu etkin" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="Çıkmak istediğinden emin misin?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="OYUN BİTTİ" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Ulaşabildiğin seviye:" explanation="you managed to reach the following room" max="40"/>
@@ -445,8 +446,8 @@
     <string english="[Press {button} to return to editor]" translation="Düzenleyiciye dönmek için {button} kullan" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Metni geçmek için {button} tuşuna bas -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Devam etmek için {button} tuşuna bas" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[{button} ile oyunu sürdür]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[{button} ile oyunu dondur]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Mevcut Süre" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="En İyi Süre" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Sıradaki Ödüle 5 Saniye" explanation="" max="38*2"/>
@@ -773,7 +774,7 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Pan-European Yazı Tipi Tasarımı" explanation="" max="40"/>
     <string english="Fonts by" translation="Yazı Tipleri" explanation=""/>
     <string english="Other Fonts by" translation="Diğer Yazı Tipleri" explanation=""/>
-    <string english="Editing and LQA" translation="Son olarak da:" explanation=""/>
+    <string english="Editing and LQA" translation="Redaksiyon ve Kontrol" explanation=""/>
     <string english="Arabic" translation="Arapça" explanation=""/>
     <string english="Catalan" translation="Katalanca" explanation=""/>
     <string english="Welsh" translation="Galce" explanation=""/>
@@ -795,10 +796,10 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ukraynaca" explanation=""/>
     <string english="Chinese (Simplified)" translation="Basitlestirilmis Çince" explanation=""/>
     <string english="Chinese (Traditional)" translation="Geleneksel Çince" explanation=""/>
-    <string english="Spanish (ES)" translation="Ispanyolca" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Ispanyolca" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Ispanyolca" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Spanish (ES)" translation="İspanyolca (İSP.)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="İspanyolca (LATAM)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="İspanyolca (ARJ.)" explanation=""/>
+    <string english="Persian" translation="Farsça" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

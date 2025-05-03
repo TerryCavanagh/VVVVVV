@@ -133,30 +133,30 @@
     <string english="disable cutscenes" translation="sequenzen ausschalten" explanation="menu option"/>
     <string english="enable cutscenes" translation="sequenzen einschalten" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="analogstick-empfindlichkeit" explanation="menu option"/>
-    <string english="Stick Sensitivity" translation="" explanation="title" max="20"/>
-    <string english="Change the sensitivity of the analog stick." translation="" explanation="" max="38*3"/>
+    <string english="Stick Sensitivity" translation="Stick-Empfindlichk." explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Ändert die Empfindlichkeit des Analogsticks." explanation="" max="38*3"/>
     <string english="Low" translation="Niedrig" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Mittel" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Hoch" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="flippen zuweisen" explanation="menu option"/>
-    <string english="Bind Flip" translation="" explanation="title" max="20"/>
+    <string english="Bind Flip" translation="Flippen zuweisen" explanation="title" max="20"/>
     <string english="bind enter" translation="enter zuweisen" explanation="menu option"/>
-    <string english="Bind Enter" translation="" explanation="title" max="20"/>
+    <string english="Bind Enter" translation="Enter zuweisen" explanation="title" max="20"/>
     <string english="bind menu" translation="menü zuweisen" explanation="menu option"/>
-    <string english="Bind Menu" translation="" explanation="title" max="20"/>
+    <string english="Bind Menu" translation="Menü zuweisen" explanation="title" max="20"/>
     <string english="bind restart" translation="neustart zuweisen" explanation="menu option. In-game death key to restart at checkpoint"/>
-    <string english="Bind Restart" translation="" explanation="title" max="20"/>
+    <string english="Bind Restart" translation="Neustart zuweisen" explanation="title" max="20"/>
     <string english="bind interact" translation="interagieren zuweisen" explanation="menu option"/>
-    <string english="Bind Interact" translation="" explanation="title" max="20"/>
+    <string english="Bind Interact" translation="Interagieren" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Flippen ist belegt mit: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Enter ist belegt mit: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menü ist belegt mit: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Neustart ist belegt mit: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Interagieren ist belegt mit: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Press a button...|(or press ↑↓)" translation="" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
-    <string english="Add {button}?|Press again to confirm" translation="" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
-    <string english="Remove {button}?|Press again to confirm" translation="" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
-    <string english="Interact is currently Enter!|See speedrunner options." translation="" explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Drücke eine Taste ...|(oder drücke ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="{button} hinzufügen?|Drücke nochmal zum Bestätigen" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="{button} entfernen?|Drücke nochmal zum Bestätigen" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Interagieren ist gerade Enter!|Schau dir die Speedrunner-Optionen an." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="FEHLER: keine Sprachdateien gefunden." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Sprachordner:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Repository-Sprachordner:" explanation="Language folder from the Git repository" max="39"/>
@@ -229,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="HANDLUNG" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Handlungstaste: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="falscher ladebildschirm" explanation="menu option"/>
@@ -326,9 +327,9 @@
     <string english="Currently ENABLED!" translation="Derzeit AKTIVIERT!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Derzeit deaktiviert." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="ZUM FREISCHALTEN: Beende das Spiel" explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Unbesiegbarkeitsmodus aktiv" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Glitchrunner-Modus aktiv ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Flipp-Modus aktiv" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="Willst du das Spiel wirklich beenden?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="GAME OVER" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Du hast erreicht:" explanation="you managed to reach the following room" max="40"/>
@@ -445,8 +446,8 @@
     <string english="[Press {button} to return to editor]" translation="[Kehre mit {button} zum Editor zurück]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Drücke {button} zum Fortsetzen -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Drücke {button} zum Fortfahren" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[Drücke {button}, um fortzusetzen]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[Drücke {button} und stoppe die Zeit]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Aktuelle Zeit" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Beste Zeit" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Nächste Trophäe bei 5 Sekunden" explanation="" max="38*2"/>
@@ -773,7 +774,7 @@ Du hast das Geheimlabor gefunden!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Pan-European Font Design von" explanation="" max="40"/>
     <string english="Fonts by" translation="Schriftarten von" explanation=""/>
     <string english="Other Fonts by" translation="Andere Schriftarten von" explanation=""/>
-    <string english="Editing and LQA" translation="vielen Dank auch an:" explanation=""/>
+    <string english="Editing and LQA" translation="Bearbeitung und LQA" explanation=""/>
     <string english="Arabic" translation="Arabisch" explanation=""/>
     <string english="Catalan" translation="Katalanisch" explanation=""/>
     <string english="Welsh" translation="Walisisch" explanation=""/>
@@ -795,10 +796,10 @@ Du hast das Geheimlabor gefunden!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ukrainisch" explanation=""/>
     <string english="Chinese (Simplified)" translation="Chinesisch (Vereinfacht)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Chinesisch (traditionell)" explanation=""/>
-    <string english="Spanish (ES)" translation="Spanisch" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Spanisch" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Spanisch" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Spanish (ES)" translation="Spanisch (ES)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Spanisch (LATAM)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Spanisch (ARG)" explanation=""/>
+    <string english="Persian" translation="Persisch" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

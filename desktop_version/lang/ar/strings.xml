@@ -233,6 +233,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="زر الفعل" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="زر التفاعل: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2" max_local="38*2"/>
     <string english="fake load screen" translation="شاشة التحميل المزيفة" explanation="menu option"/>
@@ -781,7 +782,7 @@ You have found the secret lab!" translation="تهانينا!
     <string english="Pan-European Font Design by" translation="تصميم الخط الأوروبي من" explanation="" max="40" max_local="40"/>
     <string english="Fonts by" translation="الخطوط من" explanation=""/>
     <string english="Other Fonts by" translation="الخطوط الأخرى من" explanation=""/>
-    <string english="Editing and LQA" translation="مع شكر خاص كذلك:" explanation=""/>
+    <string english="Editing and LQA" translation="التحرير وضمان الجودة" explanation=""/>
     <string english="Arabic" translation="العربية" explanation=""/>
     <string english="Catalan" translation="الكاتالونية" explanation=""/>
     <string english="Welsh" translation="الويلزية" explanation=""/>
@@ -803,10 +804,10 @@ You have found the secret lab!" translation="تهانينا!
     <string english="Ukrainian" translation="الأوكرانية" explanation=""/>
     <string english="Chinese (Simplified)" translation="الصينية المبسطة" explanation=""/>
     <string english="Chinese (Traditional)" translation="الصينية التقليدية" explanation=""/>
-    <string english="Spanish (ES)" translation="الإسبانية" explanation=""/>
-    <string english="Spanish (LATAM)" translation="الإسبانية" explanation=""/>
-    <string english="Spanish (ARG.)" translation="الإسبانية" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Spanish (ES)" translation="الإسبانية الأوروبية" explanation=""/>
+    <string english="Spanish (LATAM)" translation="الإسبانية الأمريكية" explanation=""/>
+    <string english="Spanish (ARG.)" translation="الإسبانية الأرجنتينية" explanation=""/>
+    <string english="Persian" translation="الفارسية" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

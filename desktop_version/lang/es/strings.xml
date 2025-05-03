@@ -133,30 +133,30 @@
     <string english="disable cutscenes" translation="desactivar las cinemáticas" explanation="menu option"/>
     <string english="enable cutscenes" translation="activar las cinemáticas" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="sensibilidad del stick analógico" explanation="menu option"/>
-    <string english="Stick Sensitivity" translation="" explanation="title" max="20"/>
-    <string english="Change the sensitivity of the analog stick." translation="" explanation="" max="38*3"/>
+    <string english="Stick Sensitivity" translation="Sensib. del stick" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Cambia la sensibilidad del stick analógico." explanation="" max="38*3"/>
     <string english="Low" translation="Baja" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Media" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Alta" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="asignar giro" explanation="menu option"/>
-    <string english="Bind Flip" translation="" explanation="title" max="20"/>
+    <string english="Bind Flip" translation="Asignación giro" explanation="title" max="20"/>
     <string english="bind enter" translation="asignar entrar" explanation="menu option"/>
-    <string english="Bind Enter" translation="" explanation="title" max="20"/>
+    <string english="Bind Enter" translation="Asignación entrar" explanation="title" max="20"/>
     <string english="bind menu" translation="asignar menú" explanation="menu option"/>
-    <string english="Bind Menu" translation="" explanation="title" max="20"/>
+    <string english="Bind Menu" translation="Asignación menú" explanation="title" max="20"/>
     <string english="bind restart" translation="asignar reiniciar" explanation="menu option. In-game death key to restart at checkpoint"/>
-    <string english="Bind Restart" translation="" explanation="title" max="20"/>
+    <string english="Bind Restart" translation="Asignación reiniciar" explanation="title" max="20"/>
     <string english="bind interact" translation="asignar interactuar" explanation="menu option"/>
-    <string english="Bind Interact" translation="" explanation="title" max="20"/>
+    <string english="Bind Interact" translation="Asig. interactuar" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Giro está asignado a: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Entrar está asignado a: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menú está asignado a: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Reinicio está asignado a: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Interactuar está asignado a: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Press a button...|(or press ↑↓)" translation="" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
-    <string english="Add {button}?|Press again to confirm" translation="" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
-    <string english="Remove {button}?|Press again to confirm" translation="" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
-    <string english="Interact is currently Enter!|See speedrunner options." translation="" explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Pulsa un botón...|(o pulsa ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="¿Añadir {button}?|Pulsa de nuevo para confirmar" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="¿Quitar {button}?|Pulsa de nuevo para confirmar" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="¡Interactuar ya está en Entrar!|Consulta las opciones de speedrun." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="ERROR: No se han detectado archivos de idioma." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Carpeta de idioma:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Carpeta de idioma de repositorio:" explanation="Language folder from the Git repository" max="39"/>
@@ -229,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTRAR" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="ACCIÓN" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Botón de interacción: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="pantalla de carga" explanation="menu option"/>
@@ -798,7 +799,7 @@ You have found the secret lab!" translation="¡Enhorabuena!
     <string english="Spanish (ES)" translation="Español (España)" explanation=""/>
     <string english="Spanish (LATAM)" translation="Español (Latinoamérica)" explanation=""/>
     <string english="Spanish (ARG.)" translation="Español (Argentina)" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Persian" translation="Farsi" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

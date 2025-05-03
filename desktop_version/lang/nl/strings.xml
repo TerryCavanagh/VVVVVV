@@ -229,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="ACTIE" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Interactie-knop: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="nep-laadscherm" explanation="menu option"/>
@@ -799,7 +800,7 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="Spanish (ES)" translation="Spaans (Spanje)" explanation=""/>
     <string english="Spanish (LATAM)" translation="Spaans (Latijns-Amerika)" explanation=""/>
     <string english="Spanish (ARG.)" translation="Spaans (Argentinië)" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Persian" translation="Perzisch" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

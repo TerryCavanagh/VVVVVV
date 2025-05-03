@@ -133,30 +133,30 @@
     <string english="disable cutscenes" translation="cuir preabradhairc as feidhm" explanation="menu option"/>
     <string english="enable cutscenes" translation="cuir preabradhairc i ~b~hfeidhm" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="íogaireacht" explanation="menu option"/>
-    <string english="Stick Sensitivity" translation="" explanation="title" max="20"/>
-    <string english="Change the sensitivity of the analog stick." translation="" explanation="" max="38*3"/>
+    <string english="Stick Sensitivity" translation="An Íogaireacht" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Athraigh íogaireacht an mhaide gluaiseachta" explanation="" max="38*3"/>
     <string english="Low" translation="Íseal" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Meánach" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Ard" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="ceangail &apos;tiontaigh&apos;" explanation="menu option"/>
-    <string english="Bind Flip" translation="" explanation="title" max="20"/>
+    <string english="Bind Flip" translation="Ceangail &apos;tiontaigh&apos;" explanation="title" max="20"/>
     <string english="bind enter" translation="ceangail &apos;enter&apos;" explanation="menu option"/>
-    <string english="Bind Enter" translation="" explanation="title" max="20"/>
+    <string english="Bind Enter" translation="Ceangail &apos;enter&apos;" explanation="title" max="20"/>
     <string english="bind menu" translation="ceangail &apos;roghchlár&apos;" explanation="menu option"/>
-    <string english="Bind Menu" translation="" explanation="title" max="20"/>
+    <string english="Bind Menu" translation="Ceangail &apos;roghchlár&apos;" explanation="title" max="20"/>
     <string english="bind restart" translation="ceangail &apos;atosaigh&apos;" explanation="menu option. In-game death key to restart at checkpoint"/>
-    <string english="Bind Restart" translation="" explanation="title" max="20"/>
+    <string english="Bind Restart" translation="Ceangail &apos;atosaigh&apos;" explanation="title" max="20"/>
     <string english="bind interact" translation="ceangail &apos;idirghníomhaigh&apos;" explanation="menu option"/>
-    <string english="Bind Interact" translation="" explanation="title" max="20"/>
+    <string english="Bind Interact" translation="Idirghníomhaigh" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Tiontaigh: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Enter: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Roghchlár: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Atosaigh: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Idirghníomhaigh: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Press a button...|(or press ↑↓)" translation="" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
-    <string english="Add {button}?|Press again to confirm" translation="" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
-    <string english="Remove {button}?|Press again to confirm" translation="" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
-    <string english="Interact is currently Enter!|See speedrunner options." translation="" explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Brúigh cnaipe...|(nó brúigh ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="Brúigh {button} arís le deimhniú go gceanglófar é leis an ngníomh seo" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="Brúigh {button} arís le deimhniú go mbainfear an ceangal idir é agus an gníomh seo" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Is é atá ceangailte le &quot;Idirghníomhaigh&quot; faoi láthair ná Iontráil! Féach na socruithe sciuirde." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="EARRÁID: Níl na comhaid le fáil." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Fillteán teangacha:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Fillteán teangacha an stóir:" explanation="Language folder from the Git repository" max="39"/>
@@ -230,6 +230,7 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TÁB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="GNÍOMHAIGH" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Cnaipe Idirghníomhaithe: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="scáileán lódála bréagach" explanation="menu option"/>
@@ -327,9 +328,9 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="Currently ENABLED!" translation="I bhFEIDHM faoi láthair!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="AS FEIDHM faoi láthair!" explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="LE DÍGHLASÁIL: Críochnaigh an cluiche." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Dochloíteacht i bhfeidhm" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Tá an Modh Glitchrunner {version} i bhfeidhm" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Tá an Modh Tiontaithe i bhfeidhm" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="An bhfuil tú cinnte go bhfuil tú ag iarraidh éirí as an gcluiche?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="CLUICHE THART" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Shroich tú:" explanation="you managed to reach the following room" max="40"/>
@@ -447,8 +448,8 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="[Press {button} to return to editor]" translation="[Brúigh {button} le filleadh]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Brúigh {button} le dul ar aghaidh -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="{button} le dul ar aghaidh" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[Brúigh {button} chun leanúint ort]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[Brúigh {button} le reo]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="An tAchar Reatha" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="An tAchar is Fearr" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="An Chéad Chorn Eile ag 5 soicind" explanation="" max="38*2"/>
@@ -603,7 +604,7 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="Y: Script Boxes" translation="Y: Boscaí Scripte" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
     <string english="U: Warp Tokens" translation="U: Teiliompróir" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
     <string english="I: Warp Lines" translation="I: Línte Freangtha" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
-    <string english="O: Crewmates" translation="O: Leathbhádóirí" explanation="editor tool. Crewmate that can be rescued" max="32"/>
+    <string english="O: Crewmates" translation="O: Loingseoirí" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Áit Tosaithe" explanation="editor tool" max="32"/>
     <string english="START" translation="TOSACH" explanation="start point in level editor" max="10"/>
     <string english="SPACE ^  SHIFT ^" translation="SPACE ^ SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
@@ -649,7 +650,7 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="Room warping disabled" translation="Tá freangadh an tseomra as feidhm" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
     <string english="ERROR: No checkpoint to spawn at" translation="EARRÁID: Níl seicphointe ann chun saolaithe" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="EARRÁID: Ní féidir ach 100 ornáid a bheith ann ar a mhéad" explanation="editor, user tried to place another trinket" max="38*3"/>
-    <string english="ERROR: Max number of crewmates is 100" translation="EARRÁID: Ní féidir ach 100 leathbhádóir a bheith ann ar mhéad" explanation="editor, user tried to place another crewmate" max="38*3"/>
+    <string english="ERROR: Max number of crewmates is 100" translation="EARRÁID: Ní féidir ach 100 loingseoir a bheith ann ar mhéad" explanation="editor, user tried to place another crewmate" max="38*3"/>
     <string english="Level quits to menu" translation="Chuirfí an t-imreoir ar ais go dtí an príomh-roghchlár." explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
     <string english="Level completed" translation="Leibhéal críochnaithe" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
     <string english="Rolled credits" translation="Thaispeánfaí na creidiúintí" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
@@ -688,7 +689,7 @@ Fuair tú ornáid lonrach!" explanation="" max="34*4"/>
 
 You have found a lost crewmate!" translation="Comhghairdeas!
 
-Fuair tú leathbhádóir a bhí ar strae!" explanation="" max="34*4"/>
+Fuair tú loingseoir a bhí ar strae!" explanation="" max="34*4"/>
     <string english="Congratulations!
 
 You have found the secret lab!" translation="Comhghairdeas!
@@ -726,12 +727,12 @@ Fuair tú an tsaotharlann rúnda!" explanation="" max="34*4"/>
     <string english="When you&apos;re NOT standing on the floor, Vermilion will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an úrlár, stopfaidh Vermilion agus fanfaidh sé leat." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re NOT standing on the floor, Verdigris will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an úrlár, stopfaidh Verdigris agus fanfaidh sé leat." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re NOT standing on the floor, Victoria will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an úrlár, stopfaidh Victoria agus fanfaidh sí leat." explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the floor, your companion will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an úrlár, stopfaidh an leathbhádóir leat agus fanfaidh sé leat." explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, your companion will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an úrlár, stopfaidh an loingseoir agus fanfaidh sé leat." explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
     <string english="When you&apos;re NOT standing on the ceiling, Vitellary will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an tsíleáil, stopfaidh Vitellary agus fanfaidh sé leat." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re NOT standing on the ceiling, Vermilion will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an tsíleáil, stopfaidh Vermilion agus fanfaidh sé leat." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re NOT standing on the ceiling, Verdigris will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an tsíleáil, stopfaidh Verdigris agus fanfaidh sé leat." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re NOT standing on the ceiling, Victoria will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an tsíleáil, stopfaidh Victoria agus fanfaidh sí leat." explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the ceiling, your companion will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an tsíleáil, stopfaidh an leathbhádóir leat agus fanfaidh sé leat." explanation="Intermission 1 in flip mode, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, your companion will stop and wait for you." translation="Nuair NACH mbeidh tú i do sheasamh ar an tsíleáil, stopfaidh an loingseoir agus fanfaidh sé leat." explanation="Intermission 1 in flip mode, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
     <string english="You can&apos;t continue to the next room until he is safely across." translation="Ní féidir leat bogadh ar aghaidh go dtí an chéad seomra eile go dtí go mbeidh sé trasna slán sábháilte." explanation="Intermission 1" max="34*4"/>
     <string english="You can&apos;t continue to the next room until she is safely across." translation="Ní féidir leat bogadh ar aghaidh go dtí an chéad seomra eile go dtí go mbeidh sí sábháilte thall." explanation="Intermission 1" max="34*4"/>
     <string english="You can&apos;t continue to the next room until they are safely across." translation="Ní féidir leat bogadh ar aghaidh go dtí an chéad seomra eile go dtí go mbeidh sé trasna slán sábháilte." explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
@@ -775,7 +776,7 @@ Fuair tú an tsaotharlann rúnda!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Cló Pan-Eorpach le" explanation="" max="40"/>
     <string english="Fonts by" translation="Clónna le" explanation=""/>
     <string english="Other Fonts by" translation="Clónna eile le" explanation=""/>
-    <string english="Editing and LQA" translation="agus buíochas..." explanation=""/>
+    <string english="Editing and LQA" translation="An Eagarthóireacht agus LQA" explanation=""/>
     <string english="Arabic" translation="Araibis" explanation=""/>
     <string english="Catalan" translation="Catalóinis" explanation=""/>
     <string english="Welsh" translation="Breatnais" explanation=""/>
@@ -797,10 +798,10 @@ Fuair tú an tsaotharlann rúnda!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Úcráinis" explanation=""/>
     <string english="Chinese (Simplified)" translation="Sínis (Shimplithe)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Sínis (Thraidisiúnta)" explanation=""/>
-    <string english="Spanish (ES)" translation="Spáinnis" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Spáinnis" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Spáinnis" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Spanish (ES)" translation="Spáinnis (ES)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Spáinnis (LATAM)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Spáinnis (ARG.)" explanation=""/>
+    <string english="Persian" translation="Peirsis" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
