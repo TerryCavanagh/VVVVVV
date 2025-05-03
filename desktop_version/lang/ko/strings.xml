@@ -229,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="행동" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="상호작용 버튼: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2" max_local="30*2"/>
     <string english="fake load screen" translation="가짜 불러오기 화면" explanation="menu option"/>
@@ -331,9 +332,9 @@
     <string english="Currently ENABLED!" translation="현재 활성화 됨!" explanation="flip mode" max="38*3" max_local="30*3"/>
     <string english="Currently Disabled." translation="현재 비활성화 됨." explanation="flip mode" max="38*3" max_local="30*3"/>
     <string english="TO UNLOCK: Complete the game." translation="해금 방법: 게임을 완료합니다." explanation="" max="38*3" max_local="30*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39" max_local="31"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39" max_local="31"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39" max_local="31"/>
+    <string english="Invincibility mode enabled" translation="무적 모드 켜짐" explanation="in-game message" max="39" max_local="31"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="글리치러너 모드 켜짐 ({version})" explanation="in-game message" max="39" max_local="31"/>
+    <string english="Flip Mode enabled" translation="뒤집기 모드 켜짐" explanation="in-game message" max="39" max_local="31"/>
     <string english="Are you sure you want to quit?" translation="정말로 종료하시겠습니까?" explanation="quit the program" max="38*4" max_local="30*4"/>
     <string english="GAME OVER" translation="게임 오버" explanation="bigger title" max="13" max_local="10"/>
     <string english="You managed to reach:" translation="가장 멀리까지 도달한 방 이름:" explanation="you managed to reach the following room" max="40" max_local="32"/>
@@ -450,8 +451,8 @@
     <string english="[Press {button} to return to editor]" translation="[{button} 버튼을 눌러 에디터로 돌아갑니다]" explanation="`to editor` is sorta redundant" max="40" max_local="32"/>
     <string english="- Press {button} to advance text -" translation="- {button} 버튼을 눌러 텍스트를 진행합니다 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="32"/>
     <string english="Press {button} to continue" translation="{button} 버튼을 눌러 계속" explanation="Expect `ACTION`" max="34" max_local="27"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="31"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="31"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[게임플레이 정지 상태를 풀려면 {button} 누르기]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="31"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[게임플레이를 정지시키려면 {button} 누르기]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="31"/>
     <string english="Current Time" translation="현재 시간" explanation="super gravitron, stopwatch time" max="20" max_local="16"/>
     <string english="Best Time" translation="최고 시간" explanation="super gravitron, best stopwatch time" max="20" max_local="16"/>
     <string english="Next Trophy at 5 seconds" translation="5초 후 다음 트로피" explanation="" max="38*2" max_local="30*2"/>
@@ -779,7 +780,7 @@ You have found the secret lab!" translation="축하합니다!
     <string english="Pan-European Font Design by" translation="범유럽 폰트 디자인" explanation="" max="40" max_local="32"/>
     <string english="Fonts by" translation="폰트" explanation=""/>
     <string english="Other Fonts by" translation="기타 폰트" explanation=""/>
-    <string english="Editing and LQA" translation="그리고" explanation=""/>
+    <string english="Editing and LQA" translation="편집 및 LQA" explanation=""/>
     <string english="Arabic" translation="아랍어" explanation=""/>
     <string english="Catalan" translation="카탈루냐어" explanation=""/>
     <string english="Welsh" translation="웨일스어" explanation=""/>
@@ -801,10 +802,10 @@ You have found the secret lab!" translation="축하합니다!
     <string english="Ukrainian" translation="우크라이나어" explanation=""/>
     <string english="Chinese (Simplified)" translation="중국어 간체" explanation=""/>
     <string english="Chinese (Traditional)" translation="중국어 번체" explanation=""/>
-    <string english="Spanish (ES)" translation="스페인어" explanation=""/>
-    <string english="Spanish (LATAM)" translation="스페인어" explanation=""/>
-    <string english="Spanish (ARG.)" translation="스페인어" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Spanish (ES)" translation="스페인어 (ES)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="스페인어 (LATAM)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="스페인어 (ARG.)" explanation=""/>
+    <string english="Persian" translation="페르시아어" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
