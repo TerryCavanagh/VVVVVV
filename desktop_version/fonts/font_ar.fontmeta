@@ -10,6 +10,7 @@
         <range start="0xFE80" end="0xFEFF"/>
         <range start="0x0600" end="0x06FF"/>
         <range start="0xFB50" end="0xFBFF"/>
+        <range start="0x2190" end="0x2193"/>
     </chars>
     <special>
         <range start="0x064B" end="0x065F" advance="0"/>

@@ -461,7 +461,7 @@ namespace level_debugger
             buffer, sizeof(buffer),
             text,
             "button:str",
-            "TAB"
+            loc::gettext("TAB")
         );
 
         font::print(PR_BOR, 5, 14, buffer, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));

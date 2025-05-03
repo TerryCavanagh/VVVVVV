@@ -235,6 +235,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="回车" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="行动键" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="交互按钮：{button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2" max_local="25*1"/>
     <string english="fake load screen" translation="假载入画面" explanation="menu option"/>
@@ -338,9 +339,9 @@
     <string english="Currently ENABLED!" translation="现在开启中！" explanation="flip mode" max="38*3" max_local="25*2"/>
     <string english="Currently Disabled." translation="现在已关闭。" explanation="flip mode" max="38*3" max_local="25*2"/>
     <string english="TO UNLOCK: Complete the game." translation="解锁方式：完成游戏。" explanation="" max="38*3" max_local="25*2"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39" max_local="26"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39" max_local="26"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39" max_local="26"/>
+    <string english="Invincibility mode enabled" translation="无敌模式已开启" explanation="in-game message" max="39" max_local="26"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Bug竞速模式已开启（{version}）" explanation="in-game message" max="39" max_local="26"/>
+    <string english="Flip Mode enabled" translation="翻转模式已开启" explanation="in-game message" max="39" max_local="26"/>
     <string english="Are you sure you want to quit?" translation="你确定想要退出吗？" explanation="quit the program" max="38*4" max_local="25*3"/>
     <string english="GAME OVER" translation="游戏结束" explanation="bigger title" max="13" max_local="8"/>
     <string english="You managed to reach:" translation="你成功到达了：" explanation="you managed to reach the following room" max="40" max_local="26"/>
@@ -460,8 +461,8 @@
     <string english="[Press {button} to return to editor]" translation="[按 {button} 返回编辑器]" explanation="`to editor` is sorta redundant" max="40" max_local="26"/>
     <string english="- Press {button} to advance text -" translation="按 {button} 来推进文本 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="26"/>
     <string english="Press {button} to continue" translation="按 {button} 继续" explanation="Expect `ACTION`" max="34" max_local="22"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="26"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="26"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[按 {button} 解除游戏暂停]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="26"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[按 {button} 让游戏暂停]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="26"/>
     <string english="Current Time" translation="当前时间" explanation="super gravitron, stopwatch time" max="20" max_local="13"/>
     <string english="Best Time" translation="最佳时间" explanation="super gravitron, best stopwatch time" max="20" max_local="13"/>
     <string english="Next Trophy at 5 seconds" translation="5秒时获得下一个奖杯" explanation="" max="38*2" max_local="25*1"/>
@@ -789,7 +790,7 @@ You have found the secret lab!" translation="恭喜你！
     <string english="Pan-European Font Design by" translation="泛欧洲字体设计" explanation="" max="40" max_local="26"/>
     <string english="Fonts by" translation="字体" explanation=""/>
     <string english="Other Fonts by" translation="其他字体" explanation=""/>
-    <string english="Editing and LQA" translation="此外还要感谢：" explanation=""/>
+    <string english="Editing and LQA" translation="编辑与LQA" explanation=""/>
     <string english="Arabic" translation="阿拉伯语" explanation=""/>
     <string english="Catalan" translation="加泰罗尼亚语" explanation=""/>
     <string english="Welsh" translation="威尔士语" explanation=""/>
@@ -811,10 +812,10 @@ You have found the secret lab!" translation="恭喜你！
     <string english="Ukrainian" translation="乌克兰语" explanation=""/>
     <string english="Chinese (Simplified)" translation="简体中文" explanation=""/>
     <string english="Chinese (Traditional)" translation="繁体中文" explanation=""/>
-    <string english="Spanish (ES)" translation="西班牙语" explanation=""/>
-    <string english="Spanish (LATAM)" translation="西班牙语" explanation=""/>
-    <string english="Spanish (ARG.)" translation="西班牙语" explanation=""/>
-    <string english="Persian" translation="" explanation=""/>
+    <string english="Spanish (ES)" translation="西班牙语（西班牙）" explanation=""/>
+    <string english="Spanish (LATAM)" translation="西班牙语（拉丁美洲）" explanation=""/>
+    <string english="Spanish (ARG.)" translation="西班牙语（阿根廷）" explanation=""/>
+    <string english="Persian" translation="波斯语" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
