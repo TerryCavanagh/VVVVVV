@@ -20,6 +20,14 @@ on:
       - "third_party/**"
       - ".github/workflows/ci.yml"
 
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   SRC_DIR_PATH: desktop_version
 
@@ -32,19 +40,42 @@ jobs:
     env:
       CXXFLAGS: -I/usr/local/include/SDL2
       LDFLAGS: -L/usr/local/lib
+      HOMEBREW_NO_ENV_HINTS: 1 # Suppress brew update hints
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
       with:
         submodules: true
 
+    - name: Cache Homebrew packages
+      id: cache-brew
+      uses: actions/cache@v3
+      with:
+        path: |
+          /usr/local/Cellar/ninja
+          /usr/local/Cellar/sdl2
+          /usr/local/opt/sdl2 # Symlink often used
+        key: ${{ runner.os }}-brew-${{ hashFiles('/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/ninja.rb', '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/sdl2.rb') }} # Using hash of formula files if available, or a fixed key for simplicity if not easily determined
+
     - name: Install dependencies
+      if: steps.cache-brew.outputs.cache-hit != 'true'
       run: brew install ninja sdl2
+
+    - name: Cache CMake build folder
+      id: cache-cmake-build
+      uses: actions/cache@v3
+      with:
+        path: ${{ env.SRC_DIR_PATH }}/build
+        key: ${{ runner.os }}-${{ env.container_image_tag }}-cmake-build-${{ hashFiles(format('{0}/CMakeLists.txt', env.SRC_DIR_PATH)) }}
+      # Using a more specific key including a reference to the container if possible
+      # We need to define container_image_tag in the env or find a way to get it
 
     - name: CMake configure (default version)
       run: |
-        mkdir ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
-        cmake -GNinja ..
+        mkdir -p ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
+        # If cache was hit and build dir exists, this cmake might just verify.
+        # If build dir is empty, it will configure.
+        cmake -G Ninja ..
     - name: Build (default version)
       run: ninja -C ${SRC_DIR_PATH}/build
 
@@ -68,15 +99,27 @@ jobs:
 
     runs-on: ubuntu-latest
     container: registry.gitlab.steamos.cloud/steamrt/sniper/sdk:beta
+    env:
+      CONTAINER_IMAGE_TAG: beta
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: true
 
+    - name: Cache CMake build folder
+      id: cache-cmake-build
+      uses: actions/cache@v3
+      with:
+        path: ${{ env.SRC_DIR_PATH }}/build
+        key: ${{ runner.os }}-${{ env.CONTAINER_IMAGE_TAG }}-cmake-build-${{ hashFiles(format('{0}/CMakeLists.txt', env.SRC_DIR_PATH)) }}
+      # Using a more specific key including a reference to the container
+
     - name: CMake configure (default version)
       run: |
-        mkdir ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
+        mkdir -p ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
+        # If cache was hit and build dir exists, this cmake might just verify.
+        # If build dir is empty, it will configure.
         cmake -G Ninja ..
     - name: Build (default version)
       run: ninja -C ${SRC_DIR_PATH}/build
@@ -104,7 +147,7 @@ jobs:
       SDL_VERSION: 2.26.0
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
       with:
         submodules: true
 
