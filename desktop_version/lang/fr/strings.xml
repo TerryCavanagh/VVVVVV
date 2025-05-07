@@ -637,6 +637,8 @@
     <string english="Enemy Type Changed" translation="Type d&apos;ennemis modifié" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Vitesse des plateformes réglée sur {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="ERROR: Nothing to undo" translation="" explanation="level editor, user tried to undo with nothing to undo" max="38*3"/>
+    <string english="ERROR: Nothing to redo" translation="" explanation="level editor, user tried to redo with nothing to redo" max="38*3"/>
     <string english="Reloaded resources" translation="Recharger les ressources" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERREUR : format invalide" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Carte chargée : {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
