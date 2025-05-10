@@ -3439,6 +3439,10 @@ bool scriptclass::loadcustom(const std::string& t)
                 }else { tstring="play("+words[1]+")"; }
             }
             add(tstring);
+        }else if(words[0] == "sound") {
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            tstring="playef("+words[1]+")";
+            add(tstring);
         }else if(words[0] == "playremix"){
             add("play(15)");
         }else if(words[0] == "flash"){
