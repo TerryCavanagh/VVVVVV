@@ -647,6 +647,8 @@
     <string english="Enemy Type Changed" translation="敵人類型已改變" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="25*2"/>
     <string english="Platform speed is now {speed}" translation="平臺速度現在為{speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="25*2"/>
     <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="25*2"/>
+    <string english="ERROR: Nothing to undo" translation="" explanation="level editor, user tried to undo with nothing to undo" max="38*3" max_local="25*2"/>
+    <string english="ERROR: Nothing to redo" translation="" explanation="level editor, user tried to redo with nothing to redo" max="38*3" max_local="25*2"/>
     <string english="Reloaded resources" translation="資源已重新載入" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="25*2"/>
     <string english="ERROR: Invalid format" translation="錯誤：格式不符合" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="25*2"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="已載入地圖：{filename}.vvvvvv" explanation="successfully loaded level file" max="38*3" max_local="25*2"/>
