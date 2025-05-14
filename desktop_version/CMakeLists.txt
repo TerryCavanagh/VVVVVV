@@ -23,6 +23,8 @@ endif()
 
 option(REMOVE_ABSOLUTE_PATHS "If supported by the compiler, replace all absolute paths to source directories compiled into the binary (if any) with relative paths" ON)
 
+option(BUILD_LIBRETRO "Build a libretro core" OFF)
+option(LIBRETRO_STATIC "Statically link the libretro core" OFF)
 
 # Architecture Flags
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
@@ -168,6 +170,30 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "iOS")
         set_property(SOURCE ${REPO_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${REPO_FILE_DIR}")
         source_group("Resources/${REPO_FILE_DIR}" FILES "${REPO_FILE}")
     endforeach()
+elseif(BUILD_LIBRETRO)
+    set(BUNDLE_DEPENDENCIES ON)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    add_subdirectory(libretro)
+    set(SDL2_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/third_party/SDL/include)
+    set(SDL2_LIBRARIES sdl2)
+
+    list(APPEND VVV_SRC libretro/libretro.c libretro/SDL_libretro.c)
+    if (LIBRETRO_STATIC)
+        add_library(VVVVVV STATIC ${VVV_SRC})
+    else()
+        add_library(VVVVVV SHARED ${VVV_SRC})
+    endif()
+
+    # Follow naming conventions for libretro cores
+    set_target_properties(VVVVVV PROPERTIES
+        PREFIX ""
+        OUTPUT_NAME "vvvvvv_libretro"
+    )
+    target_link_options(VVVVVV PRIVATE
+        -Wl,--version-script=${CMAKE_SOURCE_DIR}/libretro/link.T
+        -Wl,--no-undefined
+        -lm -ldl -pthread
+    )
 else()
     add_executable(VVVVVV ${VVV_SRC})
 endif()
