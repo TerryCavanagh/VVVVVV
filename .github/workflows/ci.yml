@@ -61,20 +61,9 @@ jobs:
       if: steps.cache-brew.outputs.cache-hit != 'true'
       run: brew install ninja sdl2
 
-    - name: Cache CMake build folder
-      id: cache-cmake-build
-      uses: actions/cache@v3
-      with:
-        path: ${{ env.SRC_DIR_PATH }}/build
-        key: ${{ runner.os }}-${{ env.container_image_tag }}-cmake-build-${{ hashFiles(format('{0}/CMakeLists.txt', env.SRC_DIR_PATH)) }}
-      # Using a more specific key including a reference to the container if possible
-      # We need to define container_image_tag in the env or find a way to get it
-
     - name: CMake configure (default version)
       run: |
         mkdir -p ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
-        # If cache was hit and build dir exists, this cmake might just verify.
-        # If build dir is empty, it will configure.
         cmake -G Ninja ..
     - name: Build (default version)
       run: ninja -C ${SRC_DIR_PATH}/build
@@ -107,19 +96,9 @@ jobs:
       with:
         submodules: true
 
-    - name: Cache CMake build folder
-      id: cache-cmake-build
-      uses: actions/cache@v3
-      with:
-        path: ${{ env.SRC_DIR_PATH }}/build
-        key: ${{ runner.os }}-${{ env.CONTAINER_IMAGE_TAG }}-cmake-build-${{ hashFiles(format('{0}/CMakeLists.txt', env.SRC_DIR_PATH)) }}
-      # Using a more specific key including a reference to the container
-
     - name: CMake configure (default version)
       run: |
         mkdir -p ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
-        # If cache was hit and build dir exists, this cmake might just verify.
-        # If build dir is empty, it will configure.
         cmake -G Ninja ..
     - name: Build (default version)
       run: ninja -C ${SRC_DIR_PATH}/build
@@ -166,19 +145,7 @@ jobs:
         Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -OutFile C:\SDL.zip
         Expand-Archive C:\SDL.zip -DestinationPath C:\
 
-    - name: Cache build folder for this CMakeLists.txt
-      id: cache-windows-build-folder
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-windows-build-folder-VS2022
-      with:
-        path: |
-          desktop_version/build
-          desktop_version/CMakeLists.txt
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('desktop_version/CMakeLists.txt') }}-SDL${{ env.SDL_VERSION }}
-
-    - if: ${{ steps.cache-windows-build-folder.outputs.cache-hit != 'true' }}
-      name: CMake initial configure/generate
+    - name: CMake initial configure/generate
       run: |
         mkdir $env:SRC_DIR_PATH/build
         cd $env:SRC_DIR_PATH/build
