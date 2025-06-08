@@ -87,9 +87,7 @@ jobs:
     name: Build (Steam Linux Runtime Sniper)
 
     runs-on: ubuntu-latest
-    container: registry.gitlab.steamos.cloud/steamrt/sniper/sdk:beta
-    env:
-      CONTAINER_IMAGE_TAG: beta
+    container: registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest
 
     steps:
     - uses: actions/checkout@v4
