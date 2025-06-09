@@ -64,14 +64,10 @@ jobs:
       run: ninja -C ${SRC_DIR_PATH}/build
 
   build-lin:
-    name: Build (CentOS 7)
+    name: Build (Steam Linux Runtime Sniper)
 
     runs-on: ubuntu-latest
-    container: ghcr.io/infoteddy/vvvvvv-build@sha256:50a2f769db3ca180286e9a76c1bf06b7016544a78e1fc7a9a0cc1144c675ced1
-
-    env:
-      CXXFLAGS: -I/usr/local/include/SDL2
-      LDFLAGS: -L/usr/local/lib
+    container: registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest
 
     steps:
     - uses: actions/checkout@v1
