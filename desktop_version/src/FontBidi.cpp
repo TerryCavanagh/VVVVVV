@@ -1,6 +1,7 @@
 #include "FontBidi.h"
 
 #include <SDL.h>
+#include <SheenBidi/SheenBidi.h>
 
 #include "Alloc.h"
 #include "UTF8.h"
@@ -8,7 +9,6 @@
 extern "C"
 {
 #include <c-hashmap/map.h>
-#include <SheenBidi.h>
 }
 
 namespace font
