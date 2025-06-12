@@ -1,0 +1,32 @@
+# Software Information
+display_name = "VVVVVV"
+display_version = "2.5"
+authors = "Terry Cavanagh"
+categories = "Game"
+license = "Non-commercial"
+permissions = ""
+supported_extensions = "zip"
+
+# Hardware Information
+manufacturer = "Terry Cavanagh"
+systemname = "VVVVVV"
+systemid = "vvvvvv"
+
+# Libretro Features
+supports_no_game = "true"
+single_purpose = "true"
+cheats = "false"
+libretro_saves = "false"
+savestate = "false"
+savestate_features = "null"
+needs_fullpath = "true"
+hw_render = "false"
+disk_control = "false"
+
+# BIOS / Firmware
+firmware_count = 1
+firmware0_desc = "vvvvvv/data.zip (assets)"
+firmware0_path = "vvvvvv/data.zip"
+firmware0_opt = "true"
+
+description = "VVVVVV is a platform game that explores the concept of reversing gravity instead of jumping."
