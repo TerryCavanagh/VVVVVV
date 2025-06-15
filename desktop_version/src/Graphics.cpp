@@ -3402,6 +3402,7 @@ static void commsrelay_textbox(textboxclass* THIS)
     THIS->wrap(11);
     THIS->resize();
     THIS->xp = 224 - THIS->w;
+    THIS->yp = 32 - THIS->h/2;
 }
 
 void Graphics::textboxcommsrelay(const char* text)
