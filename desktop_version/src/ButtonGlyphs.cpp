@@ -178,7 +178,7 @@ bool BUTTONGLYPHS_keyboard_is_available(void)
         return true;
     }
 
-#if defined(__ANDROID__) || defined(TARGET_OS_IPHONE)
+#if defined(__ANDROID__) || TARGET_OS_IPHONE
     return false;
 #else
     return !SDL_GetHintBoolean("SteamDeck", SDL_FALSE);
