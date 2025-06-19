@@ -383,7 +383,7 @@ bool Screen::isForcedFullscreen(void)
      * If you're working on a tenfoot-only build, add a def that always
      * returns true!
      */
-#if defined(__ANDROID__) || defined(TARGET_OS_IPHONE)
+#if defined(__ANDROID__) || TARGET_OS_IPHONE
     return true;
 #else
     return SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
