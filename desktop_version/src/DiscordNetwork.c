@@ -23,6 +23,7 @@
 
 
 #define DISCORD_CLIENT_ID 1315544357532729447
+// #define DISCORD_CLIENT_ID 491427544134975498
 
 // TO TERRY/FLIBIT: You can create your own Discord instance at the Discord Developer Portal. This ID belongs to me, so just be aware that if my account was to get hacked, VVVVVV RPC would too. Use your own!
 
@@ -86,9 +87,8 @@ void DISCORD_shutdown(void)
 
 int32_t DISCORD_init(void)
 {
-#if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
-    return 0;
-#endif
+    // Windows+Mac support is incomplete as I cannot test this on my machine
+#if defined(__linux__)
     libHandle = SDL_LoadObject(DISCORD_LIBRARY);
     if (libHandle == NULL)
     {
@@ -140,6 +140,8 @@ int32_t DISCORD_init(void)
 
     discordDetected = true;
     return 1;
+#endif
+    return 0;
 }
 
 int32_t DISCORD_update(void)
@@ -182,7 +184,6 @@ void DISCORD_setRPC(const char* area, const char* roomname)
 
         app.activityMan->update_activity(app.activityMan, &activity, NULL, NULL);
     }
-
 }
 
 #endif // MakeAndPlay
