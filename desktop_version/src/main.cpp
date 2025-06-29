@@ -1013,7 +1013,7 @@ static enum LoopCode loop_begin(void)
     }
     else
     {
-         char nextArea[RPC_SAFE_BUFFER] = "", nextRoom[RPC_SAFE_BUFFER] = "";
+        char nextArea[RPC_SAFE_BUFFER] = "", nextRoom[RPC_SAFE_BUFFER] = "";
 
         // Dirty fix for custom levels getting the area from Dimension VVVVVV
         if (map.custommode)
@@ -1038,7 +1038,6 @@ static enum LoopCode loop_begin(void)
     // Update network per frame.
     NETWORK_update();
 
-    
     return Loop_continue;
 }
 
