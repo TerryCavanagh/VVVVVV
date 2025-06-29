@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="desbloquear laboratório secreto" explanation="menu option"/>
     <string english="game pad" translation="comando" explanation="menu option"/>
     <string english="Game Pad Options" translation="Comandos" explanation="title" max="20"/>
-    <string english="Game Pad" translation="Comando" explanation="title" max="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="Reconfigura os botões do comando e ajusta a sensibilidade." explanation="" max="38*5"/>
-    <string english="Change controller options." translation="Altera as opções do comando." explanation="" max="38*2"/>
     <string english="language" translation="idioma" explanation="menu option"/>
     <string english="Language" translation="Idioma" explanation="title" max="20"/>
     <string english="Change the language." translation="Altera o idioma." explanation="" max="38*2"/>
@@ -135,19 +133,30 @@
     <string english="disable cutscenes" translation="desativar cenas" explanation="menu option"/>
     <string english="enable cutscenes" translation="ativar cenas" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="sensibilidade do manípulo" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="Sensibilidade" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Ajusta a sensibilidade do manípulo." explanation="" max="38*3"/>
     <string english="Low" translation="Baixa" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Média" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Alta" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="definir inversão" explanation="menu option"/>
+    <string english="Bind Flip" translation="Definir inversão" explanation="title" max="20"/>
     <string english="bind enter" translation="definir entrar" explanation="menu option"/>
+    <string english="Bind Enter" translation="Definir Enter" explanation="title" max="20"/>
     <string english="bind menu" translation="definir menu" explanation="menu option"/>
+    <string english="Bind Menu" translation="Definir menu" explanation="title" max="20"/>
     <string english="bind restart" translation="definir reiniciar" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="Definir reiniciar" explanation="title" max="20"/>
     <string english="bind interact" translation="definir interação" explanation="menu option"/>
+    <string english="Bind Interact" translation="Definir interagir" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Inversão: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Entrar: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menu: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Reiniciar: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Interação: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Prime um botão...|(ou prime ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="Adicionar {button}?|Prime de novo para confirmar" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="Remover {button}?|Prime de novo para confirmar" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Interagir está no Enter!|Ver opções de corrida." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="ERRO: Não há ficheiros de idioma." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Pasta de idioma:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Pasta de repositório de idioma:" explanation="Language folder from the Git repository" max="39"/>
@@ -220,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="AÇÃO" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Botão de Interação: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="carregamento simulado" explanation="menu option"/>
@@ -232,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Define se é possível ver o que está por detrás do nome das salas na parte inferior do ecrã." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Fundo do nome da sala: TRANSPARENTE" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Fundo do nome da sala: OPACO" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="guardar nos pontos de controlo" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Guardar nos pontos" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Liga/desliga a função de guardar nos pontos de controlo." explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Guardar nos pontos de controlo NÃO" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Guardar nos pontos de controlo SIM" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="opções de corrida" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Corrida" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Acede a definições avançadas que poderão ser úteis a quem quiser fazer corridas." explanation="description for speedrunner options" max="38*5"/>
@@ -322,9 +332,9 @@
     <string english="Currently ENABLED!" translation="Inversão: SIM" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Inversão: NÃO" explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="REQUISITO: Concluir o jogo." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Modo Invencibilidade ligado" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Modo Corrida aos Erros ligado ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Modo Inversão ligado" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="De certeza que queres sair?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="PERDESTE" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Conseguiste chegar a:" explanation="you managed to reach the following room" max="40"/>
@@ -441,8 +451,8 @@
     <string english="[Press {button} to return to editor]" translation="[Prime {button} para voltar ao editor]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Prime {button} para avançar o texto -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Prime {button} para continuar" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[Prime {button} para descongelar o jogo]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[Prime {button} para congelar o jogo]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Tempo Atual" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Recorde" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Troféu seguinte aos cinco segundos" explanation="" max="38*2"/>
@@ -627,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Cor de padrão alterada" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Tipo de inimigo alterado" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Velocidade atual da plataforma: {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Velocidade dos inimigos: {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Recursos recarregados" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERRO: Formato inválido" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Mapa carregado: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -770,7 +780,7 @@ Encontraste o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Tipo de letra Pan-European criado por" explanation="" max="40"/>
     <string english="Fonts by" translation="Tipos de letra por" explanation=""/>
     <string english="Other Fonts by" translation="Tipos de letra adicionais por" explanation=""/>
-    <string english="Editing and LQA" translation="agradecemos também a:" explanation=""/>
+    <string english="Editing and LQA" translation="Edição e LQA" explanation=""/>
     <string english="Arabic" translation="Árabe" explanation=""/>
     <string english="Catalan" translation="Catalão" explanation=""/>
     <string english="Welsh" translation="Galês" explanation=""/>
@@ -792,9 +802,10 @@ Encontraste o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ucraniano" explanation=""/>
     <string english="Chinese (Simplified)" translation="Mandarim (simplificado)" explanation=""/>
     <string english="Chinese (Traditional)" translation="Mandarim (tradicional)" explanation=""/>
-    <string english="Spanish (ES)" translation="Castelhano" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Spanish (LATAM)" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Spanish (ARG.)" explanation=""/>
+    <string english="Spanish (ES)" translation="Espanhol (ES)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Espanhol (LAT)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Espanhol (ARG.)" explanation=""/>
+    <string english="Persian" translation="Persa" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

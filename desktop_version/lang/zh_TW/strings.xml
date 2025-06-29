@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="解鎖秘密實驗室" explanation="menu option"/>
     <string english="game pad" translation="遊戲手把" explanation="menu option"/>
     <string english="Game Pad Options" translation="遊戲手把選項" explanation="title" max="20" max_local="13"/>
-    <string english="Game Pad" translation="遊戲手把" explanation="title" max="20" max_local="13"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="重新綁定你的控制器按鈕和調整敏感度。" explanation="" max="38*5" max_local="25*4"/>
-    <string english="Change controller options." translation="改變控制器選項。" explanation="" max="38*2" max_local="25*1"/>
     <string english="language" translation="語言" explanation="menu option"/>
     <string english="Language" translation="語言" explanation="title" max="20" max_local="13"/>
     <string english="Change the language." translation="變更語言。" explanation="" max="38*2" max_local="25*1"/>
@@ -136,19 +134,30 @@
     <string english="disable cutscenes" translation="關閉過場" explanation="menu option"/>
     <string english="enable cutscenes" translation="開啟過場" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="搖桿敏感度" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="搖桿靈敏度" explanation="title" max="20" max_local="13"/>
+    <string english="Change the sensitivity of the analog stick." translation="調整搖桿靈敏度" explanation="" max="38*3" max_local="25*2"/>
     <string english="Low" translation="低" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="中" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="高" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="綁定翻轉" explanation="menu option"/>
+    <string english="Bind Flip" translation="綁定翻轉" explanation="title" max="20" max_local="13"/>
     <string english="bind enter" translation="綁定回車" explanation="menu option"/>
+    <string english="Bind Enter" translation="綁定回車" explanation="title" max="20" max_local="13"/>
     <string english="bind menu" translation="綁定菜單" explanation="menu option"/>
+    <string english="Bind Menu" translation="綁定菜單" explanation="title" max="20" max_local="13"/>
     <string english="bind restart" translation="綁定重開" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="綁定重開" explanation="title" max="20" max_local="13"/>
     <string english="bind interact" translation="綁定交互" explanation="menu option"/>
+    <string english="Bind Interact" translation="綁定交互" explanation="title" max="20" max_local="13"/>
     <string english="Flip is bound to: " translation="翻轉綁定為：" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
     <string english="Enter is bound to: " translation="回車綁定為：" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
     <string english="Menu is bound to: " translation="菜單綁定為：" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
     <string english="Restart is bound to: " translation="重開綁定為：" explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
     <string english="Interact is bound to: " translation="交互綁定為：" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
+    <string english="Press a button...|(or press ↑↓)" translation="按下按鈕……|（或按↑↓）" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2" max_local="25*1"/>
+    <string english="Add {button}?|Press again to confirm" translation="綁定到{button}？|再次按下以確認" explanation="Bind the X button to this action? Press X again to really add it" max="38*2" max_local="25*1"/>
+    <string english="Remove {button}?|Press again to confirm" translation="移除{button}？|再次按下以確認" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2" max_local="25*1"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="目前回車是交互鍵！|請查看競速玩家選項。" explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2" max_local="25*1"/>
     <string english="ERROR: No language files found." translation="錯誤：沒有找到語言檔案。" explanation="" max="38*3" max_local="25*2"/>
     <string english="Language folder:" translation="語言資料夾：" explanation="" max="39" max_local="26"/>
     <string english="Repository language folder:" translation="GitHub語言資料夾：" explanation="Language folder from the Git repository" max="39" max_local="26"/>
@@ -226,6 +235,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="回車" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="行動鍵" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="交互按鈕：{button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2" max_local="25*1"/>
     <string english="fake load screen" translation="虛假載入畫面" explanation="menu option"/>
@@ -238,11 +248,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="讓你可以看見屏幕底端房間名後面的背景。" explanation="" max="38*3" max_local="25*2"/>
     <string english="Room name background is TRANSLUCENT" translation="房間名背景 透明" explanation="" max="38*2" max_local="25*1"/>
     <string english="Room name background is OPAQUE" translation="房間名背景 不透明" explanation="" max="38*2" max_local="25*1"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="13"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="25*2"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="25*1"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="25*1"/>
+    <string english="checkpoint saving" translation="檢查點保存" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="檢查點保存" explanation="title, makes checkpoints save the game" max="20" max_local="13"/>
+    <string english="Toggle if checkpoints should save the game." translation="設置檢查點是否可以保存遊戲。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Checkpoint saving is OFF" translation="檢查點保存已關閉" explanation="makes checkpoints save the game" max="38*2" max_local="25*1"/>
+    <string english="Checkpoint saving is ON" translation="檢查點保存已開啟" explanation="makes checkpoints save the game" max="38*2" max_local="25*1"/>
     <string english="speedrun options" translation="競速選項" explanation="menu option"/>
     <string english="Speedrunner Options" translation="競速玩家選項" explanation="title" max="20" max_local="13"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="競速玩家可能會感興趣的一些高級設定。" explanation="description for speedrunner options" max="38*5" max_local="25*4"/>
@@ -329,9 +339,9 @@
     <string english="Currently ENABLED!" translation="現在開啟中！" explanation="flip mode" max="38*3" max_local="25*2"/>
     <string english="Currently Disabled." translation="現在已關閉。" explanation="flip mode" max="38*3" max_local="25*2"/>
     <string english="TO UNLOCK: Complete the game." translation="解鎖方式：完成遊戲。" explanation="" max="38*3" max_local="25*2"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39" max_local="26"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39" max_local="26"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39" max_local="26"/>
+    <string english="Invincibility mode enabled" translation="無敵模式已開啓" explanation="in-game message" max="39" max_local="26"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Bug競速模式已開啓（{version}）" explanation="in-game message" max="39" max_local="26"/>
+    <string english="Flip Mode enabled" translation="翻轉模式已開啓" explanation="in-game message" max="39" max_local="26"/>
     <string english="Are you sure you want to quit?" translation="你確定想要退出嗎？" explanation="quit the program" max="38*4" max_local="25*3"/>
     <string english="GAME OVER" translation="遊戲結束" explanation="bigger title" max="13" max_local="8"/>
     <string english="You managed to reach:" translation="你成功到達了：" explanation="you managed to reach the following room" max="40" max_local="26"/>
@@ -451,8 +461,8 @@
     <string english="[Press {button} to return to editor]" translation="[按 {button} 返回編輯器]" explanation="`to editor` is sorta redundant" max="40" max_local="26"/>
     <string english="- Press {button} to advance text -" translation="按 {button} 來推進文本 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="26"/>
     <string english="Press {button} to continue" translation="按 {button} 繼續" explanation="Expect `ACTION`" max="34" max_local="22"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="26"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="26"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[按下 {button} 解除遊戲暫停]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39" max_local="26"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[按下 {button} 讓遊戲暫停]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39" max_local="26"/>
     <string english="Current Time" translation="當前時間" explanation="super gravitron, stopwatch time" max="20" max_local="13"/>
     <string english="Best Time" translation="最佳時間" explanation="super gravitron, best stopwatch time" max="20" max_local="13"/>
     <string english="Next Trophy at 5 seconds" translation="5秒時獲得下一個獎盃" explanation="" max="38*2" max_local="25*1"/>
@@ -637,7 +647,7 @@
     <string english="Tileset Colour Changed" translation="Tileset 顏色已改變" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" max_local="25*2"/>
     <string english="Enemy Type Changed" translation="敵人類型已改變" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="25*2"/>
     <string english="Platform speed is now {speed}" translation="平臺速度現在為{speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="25*2"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="25*2"/>
+    <string english="Enemy speed is now {speed}" translation="敵人速度現在爲{speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="25*2"/>
     <string english="Reloaded resources" translation="資源已重新載入" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="25*2"/>
     <string english="ERROR: Invalid format" translation="錯誤：格式不符合" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="25*2"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="已載入地圖：{filename}.vvvvvv" explanation="successfully loaded level file" max="38*3" max_local="25*2"/>
@@ -780,7 +790,7 @@ You have found the secret lab!" translation="恭喜你！
     <string english="Pan-European Font Design by" translation="泛歐洲字體設計" explanation="" max="40" max_local="26"/>
     <string english="Fonts by" translation="字體" explanation=""/>
     <string english="Other Fonts by" translation="其他字體" explanation=""/>
-    <string english="Editing and LQA" translation="此外還要感謝：" explanation=""/>
+    <string english="Editing and LQA" translation="編輯與本地化質保" explanation=""/>
     <string english="Arabic" translation="阿拉伯語" explanation=""/>
     <string english="Catalan" translation="加泰羅尼亞語" explanation=""/>
     <string english="Welsh" translation="威爾士語" explanation=""/>
@@ -802,9 +812,10 @@ You have found the secret lab!" translation="恭喜你！
     <string english="Ukrainian" translation="烏克蘭語" explanation=""/>
     <string english="Chinese (Simplified)" translation="簡體中文" explanation=""/>
     <string english="Chinese (Traditional)" translation="繁體中文" explanation=""/>
-    <string english="Spanish (ES)" translation="西班牙語" explanation=""/>
-    <string english="Spanish (LATAM)" translation="西班牙語" explanation=""/>
-    <string english="Spanish (ARG.)" translation="西班牙語" explanation=""/>
+    <string english="Spanish (ES)" translation="西班牙語（西班牙）" explanation=""/>
+    <string english="Spanish (LATAM)" translation="西班牙語（拉丁美洲）" explanation=""/>
+    <string english="Spanish (ARG.)" translation="西班牙語（阿根廷）" explanation=""/>
+    <string english="Persian" translation="波斯語" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

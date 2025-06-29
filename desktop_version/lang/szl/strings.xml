@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="ôdymknij tajne laboratoriōm" explanation="menu option"/>
     <string english="game pad" translation="kōntroler" explanation="menu option"/>
     <string english="Game Pad Options" translation="Ôpcyje Kōntrolera" explanation="title" max="20"/>
-    <string english="Game Pad" translation="Kōntroler" explanation="title" max="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="Pożyń drugi rŏz knefle kōntrolera|i przipasuj czułoś." explanation="" max="38*5"/>
-    <string english="Change controller options." translation="Pōmiyń ôpcyje kōntrolera." explanation="" max="38*2"/>
     <string english="language" translation="gŏdka" explanation="menu option"/>
     <string english="Language" translation="Gŏdka" explanation="title" max="20"/>
     <string english="Change the language." translation="Pōmiyń gŏdka szpila." explanation="" max="38*2"/>
@@ -124,7 +122,7 @@
     <string english="and also by" translation="a tyż" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="tyż" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
     <string english="GitHub Contributors" translation="Spōłprogramiści:" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
-    <string english="With contributions on GitHub from" translation="Przi użyciu zmian na GitHubie autorstwa" explanation="credits" max="40"/>
+    <string english="With contributions on GitHub from" translation="Przi użyciu zmian na GitHubie ôd" explanation="credits" max="40"/>
     <string english="and thanks also to:" translation="a tyż z podziynkowaniym dlo:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="Cie!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Twoje wsparcie spōmŏgo mi durś wyrobiać take szpile, kere chca, terŏzki i na prziszłoś." explanation="credits" max="38*5"/>
@@ -134,20 +132,31 @@
     <string english="Would you like to disable the cutscenes during the game?" translation="Chcesz wyłōnczyć dialogi|bez czas szpila?" explanation="" max="38*6"/>
     <string english="disable cutscenes" translation="wyłōncz dialogi" explanation="menu option"/>
     <string english="enable cutscenes" translation="załōncz dialogi" explanation="menu option"/>
-    <string english="analog stick sensitivity" translation="czułoś drążka analogowego" explanation="menu option"/>
+    <string english="analog stick sensitivity" translation="czułoś cyplika analogowego" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="Czułoś cyplika" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Nasztaluj czułoś cyplika analogowego." explanation="" max="38*3"/>
     <string english="Low" translation="Mało" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Strzednio" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Wielgo" explanation="analog stick sensitivity, game pad menu"/>
-    <string english="bind flip" translation="przipisz ôdwrōt" explanation="menu option"/>
-    <string english="bind enter" translation="przipisz wchōd" explanation="menu option"/>
-    <string english="bind menu" translation="przipisz menu" explanation="menu option"/>
-    <string english="bind restart" translation="przipisz resztart" explanation="menu option. In-game death key to restart at checkpoint"/>
-    <string english="bind interact" translation="przipisz interakcyje" explanation="menu option"/>
-    <string english="Flip is bound to: " translation="ôdwrōt je przipisany do: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Enter is bound to: " translation="Wchōd je przipisany do: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Menu is bound to: " translation="Menu je przipisane do: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Restart is bound to: " translation="Resztart je przipisany do: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Interact is bound to: " translation="Interakcyje sōm przipisane do: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="bind flip" translation="pożyń ôdwrōt" explanation="menu option"/>
+    <string english="Bind Flip" translation="Pożyń ôdwrōt" explanation="title" max="20"/>
+    <string english="bind enter" translation="pożyń wchōd" explanation="menu option"/>
+    <string english="Bind Enter" translation="Pożyń wchōd" explanation="title" max="20"/>
+    <string english="bind menu" translation="pożyń menu" explanation="menu option"/>
+    <string english="Bind Menu" translation="Pożyń menu" explanation="title" max="20"/>
+    <string english="bind restart" translation="pożyń resztart" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="Pożyń resztart" explanation="title" max="20"/>
+    <string english="bind interact" translation="pożyń interakcyje" explanation="menu option"/>
+    <string english="Bind Interact" translation="Pożyń interakcyjŏ" explanation="title" max="20"/>
+    <string english="Flip is bound to: " translation="ôdwrōt je pożyniōny ze: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Enter is bound to: " translation="Wchōd je pożyniōny ze: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Menu is bound to: " translation="Menu je pożyniōny ze: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Restart is bound to: " translation="Resztart je pożyniōny ze: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Interact is bound to: " translation="Interakcyje sōm pożyniōne ze: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Tyknij knefel...|(abo ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="Przidać {button}?|Tyknij drugi rŏz coby potwierdzić" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="Pociepać {button}?|Tyknij drugi rŏz coby potwierdzić" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Interakcyjŏ to terŏzki Enter!|Ôbocz ôpcyje do speedrunnerōw." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="FELER: Niy wysznupano plikōw ôd gŏdki." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Folder z gŏdkami:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Folder z repozytoriōm:" explanation="Language folder from the Git repository" max="39"/>
@@ -220,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="AKCYJO" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Knefel interakcyji: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="ekran folowanio" explanation="menu option"/>
@@ -232,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Dozwŏlo widzieć, co je za mianami izbōw." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Tło za mianami je PRZEZDZIYRNE" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Tło za mianami je NIYPRZEZDZIYRNE" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="zapis ôd pōnktōw przywrōcynio" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Pōnkty Przywrōcynio" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Nasztaluj, eli szpil bydzie zachowywany bez pōnkty przywrōcynio." explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Zapis ôd pōnktōw przywrōcynio je WYŁŌNCZŌNY" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Zapis ôd pōnktōw przywrōcynio je ZAŁŌNCZŌNY" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="ôpcyje do speedrunnerōw" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Ôpcyje Speedrunnerōw" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Zaawansowane sztalowania|do speedrunnerōw." explanation="description for speedrunner options" max="38*5"/>
@@ -322,9 +332,9 @@
     <string english="Currently ENABLED!" translation="(ZAŁŌŃCZŌNY!)" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="(Wyłōnczōny.)" explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="COBY ÔDYMKNŌŃĆ: Pokōnej szpil." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Niyśmiertelnoś je ZAŁŌNCZŌNO" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Tryb Glitchrunnerōw: ZAŁŌNCZŌNY ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Tryb Na Ôpy je ZAŁŌNCZŌNY" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="Chcesz na zicher wylyź ze szpila?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="KŌNIEC SZPILA" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Podarziło Ci sie dojś do:" explanation="you managed to reach the following room" max="40"/>
@@ -441,8 +451,8 @@
     <string english="[Press {button} to return to editor]" translation="[Tyknij {button}, coby iś nazŏd do edytora]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Przelyź bez dialog: {button} -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Tyknij {button}, coby iś dalij" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[Tyknij {button}, coby wznowić szpil]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[Tyknij {button}, coby sztopnōnć szpil]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Czas" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Nojlepszy Czas" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Dolsze trofeum za 5 sekund" explanation="" max="38*2"/>
@@ -627,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Zmiyniōno Farba Klockōw" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Zmiyniōno Zorta Niyprzŏciela" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Gibkoś platformy: {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Gibkoś ôpacznikōw: {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Nafolowano zasoby drugi rŏz" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="FELER: Felerny format" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Nafolowano poziōm: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -770,7 +780,7 @@ Wysznupano tajne laboratoriōm!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Design Pan-Europyjskij Czciōnki" explanation="" max="40"/>
     <string english="Fonts by" translation="Czciōnki" explanation=""/>
     <string english="Other Fonts by" translation="Inksze czciōnki" explanation=""/>
-    <string english="Editing and LQA" translation="tyż" explanation=""/>
+    <string english="Editing and LQA" translation="Edycja i QA Lokalizacyji" explanation=""/>
     <string english="Arabic" translation="gŏdka arabsko" explanation=""/>
     <string english="Catalan" translation="gŏdka katalońsko" explanation=""/>
     <string english="Welsh" translation="gŏdka walijsko" explanation=""/>
@@ -793,8 +803,9 @@ Wysznupano tajne laboratoriōm!" explanation="" max="34*4"/>
     <string english="Chinese (Simplified)" translation="gŏdka chińsko leko" explanation=""/>
     <string english="Chinese (Traditional)" translation="gŏdka chińsko tradycyjno" explanation=""/>
     <string english="Spanish (ES)" translation="gŏdka hiszpańsko" explanation=""/>
-    <string english="Spanish (LATAM)" translation="gŏdka hiszpańsko" explanation=""/>
-    <string english="Spanish (ARG.)" translation="gŏdka hiszpańsko" explanation=""/>
+    <string english="Spanish (LATAM)" translation="gŏdka hiszpańsko (Am. Łac.)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="gŏdka hiszpańsko (argentyńsko)" explanation=""/>
+    <string english="Persian" translation="gŏdka persko" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

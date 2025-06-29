@@ -3,7 +3,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#if defined(__ANDROID__) || defined(TARGET_OS_IPHONE)
+#if defined(__ANDROID__) || TARGET_OS_IPHONE
 // forward to SDL logging on Android, since stdout/stderr are /dev/null
 // they exist on iOS, but just get forwarded to the system log anyway, so might as well provide proper metadata
 #define VLOG_USE_SDL 1

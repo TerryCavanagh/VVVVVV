@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="розблокувати секретну лабораторію" explanation="menu option"/>
     <string english="game pad" translation="ґеймпад" explanation="menu option"/>
     <string english="Game Pad Options" translation="Налаштувати ґеймпад" explanation="title" max="20"/>
-    <string english="Game Pad" translation="Ґеймпад" explanation="title" max="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="Перепризначити кнопки контролера й змінити чутливість." explanation="" max="38*5"/>
-    <string english="Change controller options." translation="Змінити налаштування контролера." explanation="" max="38*2"/>
     <string english="language" translation="мова" explanation="menu option"/>
     <string english="Language" translation="Мова" explanation="title" max="20"/>
     <string english="Change the language." translation="Змінити мову." explanation="" max="38*2"/>
@@ -135,19 +133,30 @@
     <string english="disable cutscenes" translation="деактивувати вставки" explanation="menu option"/>
     <string english="enable cutscenes" translation="активувати вставки" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="чутливість аналогового стика" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="Чутливість стика" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Змінити чутливість аналогового стика" explanation="" max="38*3"/>
     <string english="Low" translation="Низька" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Середня" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Висока" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="призначити кнопку переверту" explanation="menu option"/>
+    <string english="Bind Flip" translation="Кнопка переверту" explanation="title" max="20"/>
     <string english="bind enter" translation="призначити кнопку введення" explanation="menu option"/>
+    <string english="Bind Enter" translation="Кнопка введення" explanation="title" max="20"/>
     <string english="bind menu" translation="призначити кнопку меню" explanation="menu option"/>
+    <string english="Bind Menu" translation="Кнопка меню" explanation="title" max="20"/>
     <string english="bind restart" translation="призначити кнопку перезапуску" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="Кнопка перезапуску" explanation="title" max="20"/>
     <string english="bind interact" translation="призначити кнопку взаємодії" explanation="menu option"/>
+    <string english="Bind Interact" translation="Кнопка взаємодії" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Переверт призначено на " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Введення призначено на " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Меню призначено на " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Перезапуск призначено на " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Взаємодію призначено на " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Натисніть кнопку...|(або ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="Додати {button}?|Підтвердити - натисніть ще раз" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="Видалити {button}?|Підтвердити - натисніть ще раз" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Зараз взаємодія - це введення!|Відкрийте «Швидкісну гру»." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="ПОМИЛКА: Мовних файлів не знайдено." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Мовна папка:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Мовна папка в сховищі:" explanation="Language folder from the Git repository" max="39"/>
@@ -220,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="КНОПКУ ДІЇ" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Кнопка взаємодії: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="екран завантаження" explanation="menu option"/>
@@ -232,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Дозволяє побачити те, що розташовано за назвою внизу екрана." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Тло назв кімнат ПРОЗОРЕ" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Тло назв кімнат НЕПРОЗОРЕ" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="збереження в чекпоінтах" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="Чекпоінт. Збереження" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Увімкніть для збереження гри в чекпоінтах" explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="Збереження в чекпоінтах ВИМК." explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="Збереження в чекпоінтах УВІМК." explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="швидкісна гра" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Швидкісна гра" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Додаткові налаштування, що можуть бути корисні для швидкісного проходження." explanation="description for speedrunner options" max="38*5"/>
@@ -322,9 +332,9 @@
     <string english="Currently ENABLED!" translation="Режим АКТИВОВАНО!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Режим не активовано." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="РОЗБЛОКУВАТИ: Пройдіть гру." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Увімкнено режим непереможності" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Увімкнено режим з глюками ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Увімкнено обернений режим" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="Ви точно хочете вийти?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="КІНЕЦЬ ГРИ" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Ваші досягнення:" explanation="you managed to reach the following room" max="40"/>
@@ -441,8 +451,8 @@
     <string english="[Press {button} to return to editor]" translation="[Вернутись у редактор: натисніть {button}]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Читати далі: натискайте {button} -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Продовжити: натисніть {button}" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[Запустити гру: {button}]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[Зупинити гру: {button}]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Поточний час" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Найкращий час" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Наступна нагорода через 5 секунд" explanation="" max="38*2"/>
@@ -627,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Колір набору плиток змінено" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Тип ворога змінено" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Тепер швидкість платформи {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Тепер швидкість ворога {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Ресурси перезавантажено" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ПОМИЛКА: Неприпустимий формат" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Завантажено мапу: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -770,7 +780,7 @@ You have found the secret lab!" translation="Поздоровляємо!
     <string english="Pan-European Font Design by" translation="Розробка загальноєвропейського шрифту" explanation="" max="40"/>
     <string english="Fonts by" translation="Автори шрифтів" explanation=""/>
     <string english="Other Fonts by" translation="Автори інших шрифтів" explanation=""/>
-    <string english="Editing and LQA" translation="а також:" explanation=""/>
+    <string english="Editing and LQA" translation="Редагування й тестування" explanation=""/>
     <string english="Arabic" translation="арабська" explanation=""/>
     <string english="Catalan" translation="каталанська" explanation=""/>
     <string english="Welsh" translation="валлійська" explanation=""/>
@@ -792,9 +802,10 @@ You have found the secret lab!" translation="Поздоровляємо!
     <string english="Ukrainian" translation="українська" explanation=""/>
     <string english="Chinese (Simplified)" translation="спрощена китайська" explanation=""/>
     <string english="Chinese (Traditional)" translation="традиційна китайська" explanation=""/>
-    <string english="Spanish (ES)" translation="іспанська" explanation=""/>
-    <string english="Spanish (LATAM)" translation="іспанська" explanation=""/>
-    <string english="Spanish (ARG.)" translation="іспанська" explanation=""/>
+    <string english="Spanish (ES)" translation="Іспанська (Іспанія)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="Іспанська (Латинська Америка)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="Іспанська (Аргентина)" explanation=""/>
+    <string english="Persian" translation="Фарсі" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

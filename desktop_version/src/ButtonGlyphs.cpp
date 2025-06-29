@@ -178,7 +178,7 @@ bool BUTTONGLYPHS_keyboard_is_available(void)
         return true;
     }
 
-#if defined(__ANDROID__) || defined(TARGET_OS_IPHONE)
+#if defined(__ANDROID__) || TARGET_OS_IPHONE
     return false;
 #else
     return !SDL_GetHintBoolean("SteamDeck", SDL_FALSE);
@@ -272,9 +272,9 @@ const char* BUTTONGLYPHS_get_wasd_text(void)
     return loc::gettext("Press left/right to move");
 }
 
-static const char* sdlbutton_to_glyph(const SDL_GameControllerButton button)
+const char* BUTTONGLYPHS_sdlbutton_to_glyph(const SDL_GameControllerButton button)
 {
-    if (button > SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+    if (button < 0 || button > SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
     {
         SDL_assert(0 && "Unhandled button!");
         return glyph[GLYPH_UNKNOWN];
@@ -292,7 +292,7 @@ static const char* glyph_for_vector(
         return NULL;
     }
 
-    return sdlbutton_to_glyph(buttons[index]);
+    return BUTTONGLYPHS_sdlbutton_to_glyph(buttons[index]);
 }
 
 const char* BUTTONGLYPHS_get_button(const ActionSet actionset, const Action action, int binding)

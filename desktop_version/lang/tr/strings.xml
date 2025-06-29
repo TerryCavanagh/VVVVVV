@@ -46,9 +46,7 @@
     <string english="unlock secret lab" translation="gizli laboratuvarı aç" explanation="menu option"/>
     <string english="game pad" translation="kumanda seçenekleri" explanation="menu option"/>
     <string english="Game Pad Options" translation="Kumanda Seçenekleri" explanation="title" max="20"/>
-    <string english="Game Pad" translation="Oyun Kumandası" explanation="title" max="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="Oyun kumandasındaki tuşları tekrar ata|ve hassasiyeti ayarla." explanation="" max="38*5"/>
-    <string english="Change controller options." translation="Oyun kumandası seçeneklerini değiştir." explanation="" max="38*2"/>
     <string english="language" translation="dil" explanation="menu option"/>
     <string english="Language" translation="Dil" explanation="title" max="20"/>
     <string english="Change the language." translation="Dili değiştir." explanation="" max="38*2"/>
@@ -135,19 +133,30 @@
     <string english="disable cutscenes" translation="ara sahneleri devre dışı bırak" explanation="menu option"/>
     <string english="enable cutscenes" translation="ara sahneleri etkinleştir" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="analog çubuk hassasiyeti" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="Çubuk Hassasiyeti" explanation="title" max="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="Analog çubuk hassasiyetini değiştir." explanation="" max="38*3"/>
     <string english="Low" translation="Düşük" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Orta" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Yüksek" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="ata - ters dönme" explanation="menu option"/>
+    <string english="Bind Flip" translation="Ata - Ters Dönme" explanation="title" max="20"/>
     <string english="bind enter" translation="ata - girme" explanation="menu option"/>
+    <string english="Bind Enter" translation="Ata - Girme" explanation="title" max="20"/>
     <string english="bind menu" translation="ata - menü" explanation="menu option"/>
+    <string english="Bind Menu" translation="Ata - Menü" explanation="title" max="20"/>
     <string english="bind restart" translation="ata - yeniden başlatma" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="Ata - Y. Başlatma" explanation="title" max="20"/>
     <string english="bind interact" translation="ata - etkileşim" explanation="menu option"/>
+    <string english="Bind Interact" translation="Ata - Etkileşim" explanation="title" max="20"/>
     <string english="Flip is bound to: " translation="Ters Dönme: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Girme: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menü şuna atandı: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Yeniden Başlatma: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Etkileşim: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="Bir tuşa (veya ↑↓ tuşlarına) bas" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="{button} atansın mı?|Tekrar basarak onayla" explanation="Bind the X button to this action? Press X again to really add it" max="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="{button} kaldırılsın mı?|Tekrar basarak onayla" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="Etkileşim tuşu şu an Enter!|Speedrun seçeneklerine bak." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2"/>
     <string english="ERROR: No language files found." translation="HATA: Dil dosyaları bulunamadı." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Dil klasörü:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Depo dil klasörü:" explanation="Language folder from the Git repository" max="39"/>
@@ -220,6 +229,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="AKSİYON" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Etkileşim düğmesi: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="sahte yükleme ekranı" explanation="menu option"/>
@@ -232,11 +242,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Ekranın altında oda adı yazılı olan|panelin arkasını görmeni sağlar." explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Oda adı arka planı SAYDAM" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Oda adı arka planı OPAK" explanation="" max="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="checkpoint saving" translation="kayıt noktasında kayıt" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="K. Noktasında Kayıt" explanation="title, makes checkpoints save the game" max="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="Kayıt noktaları oyunu kaydetsin/kaydetmesin." explanation="" max="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="K. noktası kaydı KAPALI" explanation="makes checkpoints save the game" max="38*2"/>
+    <string english="Checkpoint saving is ON" translation="K. noktası kaydı AÇIK" explanation="makes checkpoints save the game" max="38*2"/>
     <string english="speedrun options" translation="speedrun seçenekleri" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Speedrun Seçenekleri" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Speedrun seven oyunculara yönelik bazı gelişmiş seçeneklere eriş." explanation="description for speedrunner options" max="38*5"/>
@@ -322,9 +332,9 @@
     <string english="Currently ENABLED!" translation="Şu Anda ETKİN!" explanation="flip mode" max="38*3"/>
     <string english="Currently Disabled." translation="Şu Anda Devre Dışı." explanation="flip mode" max="38*3"/>
     <string english="TO UNLOCK: Complete the game." translation="AÇMAK İÇİN: Oyunu tamamla." explanation="" max="38*3"/>
-    <string english="Invincibility mode enabled" translation="" explanation="in-game message" max="39"/>
-    <string english="Glitchrunner mode enabled ({version})" translation="" explanation="in-game message" max="39"/>
-    <string english="Flip Mode enabled" translation="" explanation="in-game message" max="39"/>
+    <string english="Invincibility mode enabled" translation="Yenilmezlik modu etkin" explanation="in-game message" max="39"/>
+    <string english="Glitchrunner mode enabled ({version})" translation="Hata Avcısı modu etkin ({version})" explanation="in-game message" max="39"/>
+    <string english="Flip Mode enabled" translation="Ters Yüz modu etkin" explanation="in-game message" max="39"/>
     <string english="Are you sure you want to quit?" translation="Çıkmak istediğinden emin misin?" explanation="quit the program" max="38*4"/>
     <string english="GAME OVER" translation="OYUN BİTTİ" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Ulaşabildiğin seviye:" explanation="you managed to reach the following room" max="40"/>
@@ -441,8 +451,8 @@
     <string english="[Press {button} to return to editor]" translation="Düzenleyiciye dönmek için {button} kullan" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press {button} to advance text -" translation="- Metni geçmek için {button} tuşuna bas -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press {button} to continue" translation="Devam etmek için {button} tuşuna bas" explanation="Expect `ACTION`" max="34"/>
-    <string english="[Press {button} to unfreeze gameplay]" translation="" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
-    <string english="[Press {button} to freeze gameplay]" translation="" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
+    <string english="[Press {button} to unfreeze gameplay]" translation="[{button} ile oyunu sürdür]" explanation="in level debugger: {button} makes everything start moving as normal. Limit is treacherous, expect TAB for {button}. Frozen is the initial state, so this is the first string of the two that users will see!" max="39"/>
+    <string english="[Press {button} to freeze gameplay]" translation="[{button} ile oyunu dondur]" explanation="in level debugger: {button} makes everything stop moving. Limit is treacherous, expect TAB for {button}." max="39"/>
     <string english="Current Time" translation="Mevcut Süre" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="En İyi Süre" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Sıradaki Ödüle 5 Saniye" explanation="" max="38*2"/>
@@ -627,7 +637,7 @@
     <string english="Tileset Colour Changed" translation="Kare Renkleri Değişti" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Düşman Türü Değişti" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Platform speed is now {speed}" translation="Platform hızı: {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="Şu anki düşman hızı: {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Kaynaklar tekrar yüklendi" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="HATA: Geçersiz format" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Yüklenen harita: {dosyaadi}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -770,7 +780,7 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Pan-European Font Design by" translation="Pan-European Yazı Tipi Tasarımı" explanation="" max="40"/>
     <string english="Fonts by" translation="Yazı Tipleri" explanation=""/>
     <string english="Other Fonts by" translation="Diğer Yazı Tipleri" explanation=""/>
-    <string english="Editing and LQA" translation="Son olarak da:" explanation=""/>
+    <string english="Editing and LQA" translation="Redaksiyon ve Kontrol" explanation=""/>
     <string english="Arabic" translation="Arapça" explanation=""/>
     <string english="Catalan" translation="Katalanca" explanation=""/>
     <string english="Welsh" translation="Galce" explanation=""/>
@@ -792,9 +802,10 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Ukrainian" translation="Ukraynaca" explanation=""/>
     <string english="Chinese (Simplified)" translation="Basitlestirilmis Çince" explanation=""/>
     <string english="Chinese (Traditional)" translation="Geleneksel Çince" explanation=""/>
-    <string english="Spanish (ES)" translation="Ispanyolca" explanation=""/>
-    <string english="Spanish (LATAM)" translation="Ispanyolca" explanation=""/>
-    <string english="Spanish (ARG.)" translation="Ispanyolca" explanation=""/>
+    <string english="Spanish (ES)" translation="İspanyolca (İSP.)" explanation=""/>
+    <string english="Spanish (LATAM)" translation="İspanyolca (LATAM)" explanation=""/>
+    <string english="Spanish (ARG.)" translation="İspanyolca (ARJ.)" explanation=""/>
+    <string english="Persian" translation="Farsça" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

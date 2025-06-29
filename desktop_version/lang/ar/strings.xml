@@ -46,10 +46,8 @@
     <string english="unlock secret lab" translation="فتح المخبر السري" explanation="menu option"/>
     <string english="game pad" translation="يد التحكم" explanation="menu option"/>
     <string english="Game Pad Options" translation="إعدادات يد التحكم" explanation="title" max="20" max_local="20"/>
-    <string english="Game Pad" translation="يد التحكم" explanation="title" max="20" max_local="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="يمكنك تعيين أزرار يد التحكم
 	وضبط حساسيتها." explanation="" max="38*5" max_local="38*5"/>
-    <string english="Change controller options." translation="تغيير إعدادات يد التحكم." explanation="" max="38*2" max_local="38*2"/>
     <string english="language" translation="اللغة" explanation="menu option"/>
     <string english="Language" translation="اللغة" explanation="title" max="20" max_local="20"/>
     <string english="Change the language." translation="تغيير اللغة." explanation="" max="38*2" max_local="38*2"/>
@@ -139,19 +137,30 @@
     <string english="disable cutscenes" translation="تعطيل المشاهد" explanation="menu option"/>
     <string english="enable cutscenes" translation="تفعيل المشاهد" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="حساسية عصا يد التحكم" explanation="menu option"/>
+    <string english="Stick Sensitivity" translation="حساسية العصا" explanation="title" max="20" max_local="20"/>
+    <string english="Change the sensitivity of the analog stick." translation="تغيير حساسية عصا التحكم." explanation="" max="38*3" max_local="38*3"/>
     <string english="Low" translation="منخفضة" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="متوسطة" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="عالية" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="تعيين العكس" explanation="menu option"/>
+    <string english="Bind Flip" translation="تعيين زر العكس" explanation="title" max="20" max_local="20"/>
     <string english="bind enter" translation="تعيين الدخول" explanation="menu option"/>
+    <string english="Bind Enter" translation="تعيين زر الدخول" explanation="title" max="20" max_local="20"/>
     <string english="bind menu" translation="تعيين القائمة" explanation="menu option"/>
+    <string english="Bind Menu" translation="تعيين زر القائمة" explanation="title" max="20" max_local="20"/>
     <string english="bind restart" translation="تعيين إعادة الغرفة" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="Bind Restart" translation="تعيين زر الإعادة" explanation="title" max="20" max_local="20"/>
     <string english="bind interact" translation="تعيين التفاعل" explanation="menu option"/>
+    <string english="Bind Interact" translation="تعيين زر التفاعل" explanation="title" max="20" max_local="20"/>
     <string english="Flip is bound to: " translation="العكس معين للزر: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="Enter is bound to: " translation="الدخول معين للزر: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="Menu is bound to: " translation="القائمة معينة للزر: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="Restart is bound to: " translation="إعادة الغرفة معينة للزر: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
     <string english="Interact is bound to: " translation="التفاعل معين للزر: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="32"/>
+    <string english="Press a button...|(or press ↑↓)" translation="يرجى ضغط زر...|(أو ضغط ↑↓)" explanation="the arrows represent up/down buttons, or stick movement... So: press a controller button, or navigate away" max="38*2" max_local="38*2"/>
+    <string english="Add {button}?|Press again to confirm" translation="إضافة {button}؟|اضغط ثانية للتأكيد" explanation="Bind the X button to this action? Press X again to really add it" max="38*2" max_local="38*2"/>
+    <string english="Remove {button}?|Press again to confirm" translation="إزالة {button}؟|اضغط ثانية للتأكيد" explanation="Remove the binding of the X button for this action? Press X again to really remove it" max="38*2" max_local="38*2"/>
+    <string english="Interact is currently Enter!|See speedrunner options." translation="زر التفاعل حاليا Enter !|راجع إعدادات التختيم السريع." explanation="the Interact action can&apos;t be configured now because it&apos;s the same as the Enter action. There&apos;s an option in the Speedrunner options to split it off" max="38*2" max_local="38*2"/>
     <string english="ERROR: No language files found." translation="خطأ: لم نجد ملفات اللغة." explanation="" max="38*3" max_local="38*3"/>
     <string english="Language folder:" translation="مجلد اللغة: " explanation="" max="39" max_local="39"/>
     <string english="Repository language folder:" translation="مجلد اللغة في غيتهب: " explanation="Language folder from the Git repository" max="39" max_local="39"/>
@@ -224,6 +233,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="TAB" translation="TAB" explanation="keyboard key TAB"/>
     <string english="ACTION" translation="زر الفعل" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="زر التفاعل: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2" max_local="38*2"/>
     <string english="fake load screen" translation="شاشة التحميل المزيفة" explanation="menu option"/>
@@ -236,11 +246,11 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="وضوح رؤية ما وراء اسم الغرفة أسفل الشاشة." explanation="" max="38*3" max_local="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="خلفية اسم الغرفة شفافة" explanation="" max="38*2" max_local="38*2"/>
     <string english="Room name background is OPAQUE" translation="خلفية اسم الغرفة ليست شفافة" explanation="" max="38*2" max_local="38*2"/>
-    <string english="checkpoint saving" translation="" explanation="menu option"/>
-    <string english="Checkpoint Saving" translation="" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
-    <string english="Toggle if checkpoints should save the game." translation="" explanation="" max="38*3" max_local="38*3"/>
-    <string english="Checkpoint saving is OFF" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
-    <string english="Checkpoint saving is ON" translation="" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
+    <string english="checkpoint saving" translation="تخزين نقطة الحفظ" explanation="menu option"/>
+    <string english="Checkpoint Saving" translation="تخزين نقطة الحفظ" explanation="title, makes checkpoints save the game" max="20" max_local="20"/>
+    <string english="Toggle if checkpoints should save the game." translation="تفعيل تخزين التقدم عند كل نقطة حفظ." explanation="" max="38*3" max_local="38*3"/>
+    <string english="Checkpoint saving is OFF" translation="نقاط الحفظ لا تخزن التقدم" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
+    <string english="Checkpoint saving is ON" translation="نقاط الحفظ تخزن التقدم" explanation="makes checkpoints save the game" max="38*2" max_local="38*2"/>
     <string english="speedrun options" translation="إعدادات التختيم السريع" explanation="menu option"/>
     <string english="Speedrunner Options" translation="إعدادات التختيم السريع" explanation="title" max="20" max_local="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="دخول إعدادات متقدمة قد تحظى باهتمام
@@ -635,7 +645,7 @@
     <string english="Tileset Colour Changed" translation="تغير لون مجموعة الخلايا" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" max_local="38*3"/>
     <string english="Enemy Type Changed" translation="تغير نوع الأعداء" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="38*3"/>
     <string english="Platform speed is now {speed}" translation="تغيرت سرعة المنصات إلى {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="38*3"/>
-    <string english="Enemy speed is now {speed}" translation="" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*3"/>
+    <string english="Enemy speed is now {speed}" translation="تغيرت سرعة الأعداء إلى {speed}" explanation="level editor, user changed speed of enemies for the room" max="38*3" max_local="38*3"/>
     <string english="Reloaded resources" translation="أعيد فتح ملفات الموارد" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="38*3"/>
     <string english="ERROR: Invalid format" translation="خطأ: صيغة المكتوب غير مناسبة" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="فتحت الغرفة: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3" max_local="38*3"/>
@@ -663,7 +673,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="{area} / {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area}‏ / {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="ختمت المستوى!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="Game Complete!" translation="ختمت اللعبة!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="You have rescued a crew member!" translation="أنقذت أحد أفراد طاقمك!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2" max_local="30*2"/>
@@ -778,7 +788,7 @@ You have found the secret lab!" translation="تهانينا!
     <string english="Pan-European Font Design by" translation="تصميم الخط الأوروبي من" explanation="" max="40" max_local="40"/>
     <string english="Fonts by" translation="الخطوط من" explanation=""/>
     <string english="Other Fonts by" translation="الخطوط الأخرى من" explanation=""/>
-    <string english="Editing and LQA" translation="مع شكر خاص كذلك:" explanation=""/>
+    <string english="Editing and LQA" translation="التحرير وضمان الجودة" explanation=""/>
     <string english="Arabic" translation="العربية" explanation=""/>
     <string english="Catalan" translation="الكاتالونية" explanation=""/>
     <string english="Welsh" translation="الويلزية" explanation=""/>
@@ -800,9 +810,10 @@ You have found the secret lab!" translation="تهانينا!
     <string english="Ukrainian" translation="الأوكرانية" explanation=""/>
     <string english="Chinese (Simplified)" translation="الصينية المبسطة" explanation=""/>
     <string english="Chinese (Traditional)" translation="الصينية التقليدية" explanation=""/>
-    <string english="Spanish (ES)" translation="الإسبانية" explanation=""/>
-    <string english="Spanish (LATAM)" translation="الإسبانية" explanation=""/>
-    <string english="Spanish (ARG.)" translation="الإسبانية" explanation=""/>
+    <string english="Spanish (ES)" translation="الإسبانية الأوروبية" explanation=""/>
+    <string english="Spanish (LATAM)" translation="الإسبانية الأمريكية" explanation=""/>
+    <string english="Spanish (ARG.)" translation="الإسبانية الأرجنتينية" explanation=""/>
+    <string english="Persian" translation="الفارسية" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

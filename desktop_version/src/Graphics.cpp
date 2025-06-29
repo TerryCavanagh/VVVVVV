@@ -3402,6 +3402,7 @@ static void commsrelay_textbox(textboxclass* THIS)
     THIS->wrap(11);
     THIS->resize();
     THIS->xp = 224 - THIS->w;
+    THIS->yp = 32 - THIS->h/2;
 }
 
 void Graphics::textboxcommsrelay(const char* text)
@@ -3536,12 +3537,15 @@ void Graphics::get_stretch_info(SDL_Rect* rect)
         break;
     default:
         SDL_assert(0 && "Invalid scaling mode!");
-        /* Width and height should be nonzero to avoid division by zero. */
         rect->x = 0;
         rect->y = 0;
         rect->w = width;
         rect->h = height;
     }
+
+    // In case anything accidentally set the width/height to 0, we'll clamp it to avoid crashing from a division by 0
+    rect->w = SDL_max(1, rect->w);
+    rect->h = SDL_max(1, rect->h);
 }
 
 void Graphics::render(void)

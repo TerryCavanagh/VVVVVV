@@ -4011,7 +4011,11 @@ int entityclass::getcrewman(int t)
         }
     }
 
-    return -1;
+    // Return entity 0 as a fallback
+    // Unfortunately some levels rely on this, where targeting a non-existent crewman returns the first entity...
+    // Which, most of the time, is the player.
+
+    return 0;
 }
 
 int entityclass::getcustomcrewman(int t)

@@ -254,6 +254,10 @@ void Game::init(void)
     levelpage=0;
     playcustomlevel=0;
 
+    gpmenu_lastbutton = SDL_CONTROLLER_BUTTON_INVALID;
+    gpmenu_confirming = false;
+    gpmenu_showremove = false;
+
     silence_settings_error = false;
 
     deathcounts = 0;
@@ -377,7 +381,7 @@ void Game::init(void)
     screenshot_border_timer = 0;
     screenshot_saved_success = false;
 
-#if defined(__ANDROID__) || defined(TARGET_OS_IPHONE)
+#if defined(__ANDROID__) || TARGET_OS_IPHONE
     checkpoint_saving = true;
 #else
     checkpoint_saving = false;
@@ -7009,7 +7013,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("bind restart"));
         option(loc::gettext("bind interact"), separate_interact);
         option(loc::gettext("return"));
-        menuyoff = 0;
+        menuyoff = 12;
         maxspacing = 10;
         break;
     case Menu::language:

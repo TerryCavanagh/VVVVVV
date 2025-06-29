@@ -189,8 +189,15 @@ void UpdateFilter(void)
     }
 }
 
+static bool disabled_filter = false;
+
 void ApplyFilter(SDL_Surface** src, SDL_Surface** dest)
 {
+    if (disabled_filter)
+    {
+        return;
+    }
+
     if (src == NULL || dest == NULL)
     {
         SDL_assert(0 && "NULL src or dest!");
@@ -214,7 +221,9 @@ void ApplyFilter(SDL_Surface** src, SDL_Surface** dest)
     const int result = SDL_RenderReadPixels(gameScreen.m_renderer, NULL, 0, (*src)->pixels, (*src)->pitch);
     if (result != 0)
     {
-        SDL_FreeSurface(*src);
+        disabled_filter = true;
+        VVV_freefunc(SDL_FreeSurface, *src);
+        VVV_freefunc(SDL_FreeSurface, *dest);
         WHINE_ONCE_ARGS(("Could not read pixels from renderer: %s", SDL_GetError()));
         return;
     }

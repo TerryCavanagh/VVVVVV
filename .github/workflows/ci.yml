@@ -20,6 +20,14 @@ on:
       - "third_party/**"
       - ".github/workflows/ci.yml"
 
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   SRC_DIR_PATH: desktop_version
 
@@ -32,19 +40,31 @@ jobs:
     env:
       CXXFLAGS: -I/usr/local/include/SDL2
       LDFLAGS: -L/usr/local/lib
+      HOMEBREW_NO_ENV_HINTS: 1 # Suppress brew update hints
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
       with:
         submodules: true
 
+    - name: Cache Homebrew packages
+      id: cache-brew
+      uses: actions/cache@v3
+      with:
+        path: |
+          /usr/local/Cellar/ninja
+          /usr/local/Cellar/sdl2
+          /usr/local/opt/sdl2 # Symlink often used
+        key: ${{ runner.os }}-brew-${{ hashFiles('/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/ninja.rb', '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/sdl2.rb') }} # Using hash of formula files if available, or a fixed key for simplicity if not easily determined
+
     - name: Install dependencies
+      if: steps.cache-brew.outputs.cache-hit != 'true'
       run: brew install ninja sdl2
 
     - name: CMake configure (default version)
       run: |
-        mkdir ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
-        cmake -GNinja ..
+        mkdir -p ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
+        cmake -G Ninja ..
     - name: Build (default version)
       run: ninja -C ${SRC_DIR_PATH}/build
 
@@ -67,7 +87,7 @@ jobs:
     name: Build (Steam Linux Runtime Sniper)
 
     runs-on: ubuntu-latest
-    container: registry.gitlab.steamos.cloud/steamrt/sniper/sdk:beta
+    container: registry.gitlab.steamos.cloud/steamrt/sniper/sdk:latest
 
     steps:
     - uses: actions/checkout@v4
@@ -76,7 +96,7 @@ jobs:
 
     - name: CMake configure (default version)
       run: |
-        mkdir ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
+        mkdir -p ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
         cmake -G Ninja ..
     - name: Build (default version)
       run: ninja -C ${SRC_DIR_PATH}/build
@@ -101,10 +121,10 @@ jobs:
     runs-on: windows-latest
 
     env:
-      SDL_VERSION: 2.24.0
+      SDL_VERSION: 2.26.0
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
       with:
         submodules: true
 
@@ -123,19 +143,7 @@ jobs:
         Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -OutFile C:\SDL.zip
         Expand-Archive C:\SDL.zip -DestinationPath C:\
 
-    - name: Cache build folder for this CMakeLists.txt
-      id: cache-windows-build-folder
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-windows-build-folder-VS2022
-      with:
-        path: |
-          desktop_version/build
-          desktop_version/CMakeLists.txt
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('desktop_version/CMakeLists.txt') }}-SDL${{ env.SDL_VERSION }}
-
-    - if: ${{ steps.cache-windows-build-folder.outputs.cache-hit != 'true' }}
-      name: CMake initial configure/generate
+    - name: CMake initial configure/generate
       run: |
         mkdir $env:SRC_DIR_PATH/build
         cd $env:SRC_DIR_PATH/build
