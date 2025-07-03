@@ -1237,6 +1237,15 @@ bool customlevelclass::load(std::string _path)
                 edEntityEl->QueryIntAttribute("p5", &entity.p5);
                 edEntityEl->QueryIntAttribute("p6", &entity.p6);
 
+                const char* activitytext = "";
+                const char* activitycolour = "";
+
+                edEntityEl->QueryStringAttribute("activitytext", &activitytext);
+                edEntityEl->QueryStringAttribute("activitycolour", &activitycolour);
+
+                entity.activitytext = activitytext;
+                entity.activitycolour = activitycolour;
+
                 customentities.push_back(entity);
             }
         }
@@ -1598,7 +1607,16 @@ bool customlevelclass::save(const std::string& _path)
         edentityElement->SetAttribute(  "p3", customentities[i].p3);
         edentityElement->SetAttribute( "p4", customentities[i].p4);
         edentityElement->SetAttribute( "p5", customentities[i].p5);
-        edentityElement->SetAttribute(  "p6", customentities[i].p6);
+        edentityElement->SetAttribute( "p6", customentities[i].p6);
+        if (!customentities[i].activitytext.empty())
+        {
+            edentityElement->SetAttribute("activitytext", customentities[i].activitytext.c_str());
+        }
+        if (!customentities[i].activitycolour.empty())
+        {
+            edentityElement->SetAttribute("activitycolour", customentities[i].activitycolour.c_str());
+        }
+
         edentityElement->LinkEndChild( doc.NewText( customentities[i].scriptname.c_str() )) ;
         msg->LinkEndChild( edentityElement );
     }
