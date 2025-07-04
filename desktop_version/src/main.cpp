@@ -1004,14 +1004,14 @@ static enum LoopCode loop_begin(void)
             SDL_strlcpy(rpcArea, "Making a Level", RPC_SAFE_BUFFER-1);
             SDL_strlcpy(rpcRoomname, "", RPC_SAFE_BUFFER-1);
         }
-        else
+        /*else
         {
             SDL_strlcpy(rpcArea, map.currentarea(game.roomx, game.roomy), RPC_SAFE_BUFFER-1);
             SDL_strlcpy(rpcRoomname, map.roomname, RPC_SAFE_BUFFER-1);
-        }
+        }*/
         NETWORK_setRPC(rpcArea, rpcRoomname);
     }
-    else
+    else if (game.gamestate == GAMEMODE)
     {
         char nextArea[RPC_SAFE_BUFFER] = "", nextRoom[RPC_SAFE_BUFFER] = "";
 
