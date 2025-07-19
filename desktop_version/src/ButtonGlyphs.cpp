@@ -71,6 +71,13 @@ typedef enum
     GLYPH_NINTENDO_GAMECUBE_R,
     GLYPH_NINTENDO_GAMECUBE_Z,
 
+    GLYPH_NINTENDO_WII_A,
+    GLYPH_NINTENDO_WII_B,
+    GLYPH_NINTENDO_WII_1,
+    GLYPH_NINTENDO_WII_2,
+    GLYPH_NINTENDO_WII_MINUS,
+    GLYPH_NINTENDO_WII_PLUS,
+
     GLYPH_TOTAL
 }
 ButtonGlyphKey;
@@ -89,6 +96,8 @@ typedef enum
 
     /* Added after 2.4 */
     LAYOUT_GAMECUBE,
+    LAYOUT_WIIMOTE_ON_WII,
+    LAYOUT_WIIMOTE_ON_PC,
 
     LAYOUT_TOTAL
 }
@@ -152,7 +161,21 @@ static const char* glyph_layout[LAYOUT_TOTAL][SDL_CONTROLLER_BUTTON_RIGHTSHOULDE
         glyph[GLYPH_UNKNOWN], glyph[GLYPH_UNKNOWN], "START",
         glyph[GLYPH_UNKNOWN], glyph[GLYPH_UNKNOWN],
         glyph[GLYPH_UNKNOWN], glyph[GLYPH_NINTENDO_GAMECUBE_Z]
-    }
+    },
+    { // WIIMOTE on WII
+        glyph[GLYPH_NINTENDO_WII_1], glyph[GLYPH_NINTENDO_WII_2],
+        glyph[GLYPH_NINTENDO_WII_A], glyph[GLYPH_NINTENDO_WII_B],
+        "HOME", glyph[GLYPH_NINTENDO_WII_MINUS], glyph[GLYPH_NINTENDO_WII_PLUS],
+        glyph[GLYPH_UNKNOWN], glyph[GLYPH_UNKNOWN],
+        glyph[GLYPH_UNKNOWN], glyph[GLYPH_UNKNOWN]
+    },
+    { // WIIMOTE on PC
+        glyph[GLYPH_NINTENDO_WII_A], glyph[GLYPH_NINTENDO_WII_B],
+        glyph[GLYPH_NINTENDO_WII_1], glyph[GLYPH_NINTENDO_WII_2],
+        "HOME", glyph[GLYPH_NINTENDO_WII_MINUS], glyph[GLYPH_NINTENDO_WII_PLUS],
+        glyph[GLYPH_UNKNOWN], glyph[GLYPH_UNKNOWN],
+        glyph[GLYPH_UNKNOWN], glyph[GLYPH_UNKNOWN]
+    },
 };
 
 static bool keyboard_is_active = true;
@@ -232,9 +255,18 @@ void BUTTONGLYPHS_update_layout(SDL_GameController *c)
         {
             layout = LAYOUT_NINTENDO_SWITCH_JOYCON_R;
         }
-        else if (product == 0x0337)
+        else if (product == 0x0337 ||
+                 product == 0x0100)  // First GC controller on a Wii or Gamecube
         {
             layout = LAYOUT_GAMECUBE;
+        }
+        else if (product == 0x0306)
+        {
+            layout = LAYOUT_WIIMOTE_ON_PC;
+        }
+        else if (product == 0x0501)   // First wiimote on Wii
+        {
+            layout = LAYOUT_WIIMOTE_ON_WII;
         }
         else
         {
