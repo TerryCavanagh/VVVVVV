@@ -1995,8 +1995,8 @@ static void menuactionpress(void)
             music.playef(Sound_CRY);
             break;
         case 1:
-            touch::scale += 5;
             music.playef(Sound_VIRIDIAN);
+            touch::scale += 5;
             if (touch::scale > 20)
             {
                 touch::scale = 5;
@@ -2363,6 +2363,8 @@ void titleinput(void)
         SDL_Keycode left, right, a, d;
         bool controller_up = key.controllerWantsUp();
         bool controller_down = key.controllerWantsDown();
+        bool left_tapped;
+        bool right_tapped;
         if (!font::is_rtl(PR_FONT_INTERFACE))
         {
             left = KEYBOARD_LEFT;
@@ -2371,6 +2373,8 @@ void titleinput(void)
             d = KEYBOARD_d;
             controller_up |= key.controllerWantsLeft(false);
             controller_down |= key.controllerWantsRight(false);
+            left_tapped = touch::button_tapped(TOUCH_BUTTON_LEFT);
+            right_tapped = touch::button_tapped(TOUCH_BUTTON_RIGHT);
         }
         else
         {
@@ -2380,13 +2384,15 @@ void titleinput(void)
             d = KEYBOARD_a;
             controller_up |= key.controllerWantsRight(false);
             controller_down |= key.controllerWantsLeft(false);
+            left_tapped = touch::button_tapped(TOUCH_BUTTON_RIGHT);
+            right_tapped = touch::button_tapped(TOUCH_BUTTON_LEFT);
         }
 
-        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w) || controller_up || touch::button_tapped(TOUCH_BUTTON_LEFT))
+        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w) || controller_up || left_tapped)
         {
             game.press_left = true;
         }
-        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN)  || key.isDown(d) ||  key.isDown(KEYBOARD_s) || controller_down || touch::button_tapped(TOUCH_BUTTON_RIGHT))
+        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN)  || key.isDown(d) ||  key.isDown(KEYBOARD_s) || controller_down || right_tapped)
         {
             game.press_right = true;
         }
@@ -2608,17 +2614,17 @@ void gameinput(void)
         game.press_action = false;
         game.press_interact = false;
 
-        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) || touch::buttons[TOUCH_BUTTON_LEFT].down)
+        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) || touch::button_down(TOUCH_BUTTON_LEFT))
         {
             game.press_left = true;
         }
-        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false) || touch::buttons[TOUCH_BUTTON_RIGHT].down)
+        if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false) || touch::button_down(TOUCH_BUTTON_RIGHT))
         {
             game.press_right = true;
         }
         if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v)
             || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_w)
-            || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip) || touch::touching_right())
+            || key.isDown(KEYBOARD_s) || key.isDown(game.controllerButton_flip) || touch::screen_right_down())
         {
             game.press_action = true;
         }
@@ -3134,6 +3140,8 @@ void mapinput(void)
         SDL_Keycode left, right, a, d;
         bool controller_up = key.controllerWantsUp();
         bool controller_down = key.controllerWantsDown();
+        bool tapped_left;
+        bool tapped_right;
         if (!font::is_rtl(PR_FONT_INTERFACE))
         {
             left = KEYBOARD_LEFT;
@@ -3142,6 +3150,8 @@ void mapinput(void)
             d = KEYBOARD_d;
             controller_up |= key.controllerWantsLeft(false);
             controller_down |= key.controllerWantsRight(false);
+            tapped_left = touch::button_tapped(TOUCH_BUTTON_LEFT);
+            tapped_right = touch::button_tapped(TOUCH_BUTTON_RIGHT);
         }
         else
         {
@@ -3151,13 +3161,15 @@ void mapinput(void)
             d = KEYBOARD_a;
             controller_up |= key.controllerWantsRight(false);
             controller_down |= key.controllerWantsLeft(false);
+            tapped_left = touch::button_tapped(TOUCH_BUTTON_RIGHT);
+            tapped_right = touch::button_tapped(TOUCH_BUTTON_LEFT);
         }
 
-        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w)|| controller_up || touch::button_tapped(TOUCH_BUTTON_LEFT))
+        if (key.isDown(left) || key.isDown(KEYBOARD_UP) || key.isDown(a) ||  key.isDown(KEYBOARD_w)|| controller_up || tapped_left)
         {
             game.press_left = true;
         }
-        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN) || key.isDown(d) ||  key.isDown(KEYBOARD_s)|| controller_down || touch::button_tapped(TOUCH_BUTTON_RIGHT))
+        if (key.isDown(right) || key.isDown(KEYBOARD_DOWN) || key.isDown(d) ||  key.isDown(KEYBOARD_s)|| controller_down || tapped_right)
         {
             game.press_right = true;
         }

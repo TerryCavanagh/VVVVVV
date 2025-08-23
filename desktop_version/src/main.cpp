@@ -866,10 +866,12 @@ int main(int argc, char *argv[])
 
     key.isActive = true;
 
-    if (SDL_GetNumTouchDevices() > 0)
-    {
-        key.using_touch = true;
-    }
+    // Enable touch input by default if possible
+#if defined(__ANDROID__) || defined(__IPHONEOS__)
+    key.using_touch = true;
+#else
+    key.using_touch = false;
+#endif
 
     gamestate_funcs = get_gamestate_funcs(game.gamestate, &num_gamestate_funcs);
     loop_assign_active_funcs();

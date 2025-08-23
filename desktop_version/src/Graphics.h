@@ -267,7 +267,6 @@ public:
     int screenshake_y;
 
     void draw_window_background(void);
-    void draw_touch(void);
 
     void get_stretch_info(SDL_Rect* rect);
 

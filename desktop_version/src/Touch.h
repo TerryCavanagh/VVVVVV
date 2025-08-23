@@ -48,15 +48,15 @@ namespace touch
     extern TouchButton buttons[NUM_TOUCH_BUTTONS];
     extern int scale;
 
-    void refresh_buttons(void);
     void reset(void);
     void update_buttons(void);
 
     void init(void);
     void render(void);
 
+    bool button_down(TouchButtonID button);
     bool button_tapped(TouchButtonID button);
-    bool touching_right(void);
+    bool screen_right_down(void);
     bool screen_down(void);
 }
 

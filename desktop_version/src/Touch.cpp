@@ -15,28 +15,8 @@ namespace touch
 {
     std::vector<VVV_Finger> fingers;
     TouchButton buttons[NUM_TOUCH_BUTTONS];
+    // Scale is fixed-point, so a value of 15 is 1.5x scale.
     int scale;
-
-    int get_rect(TouchButton* button, SDL_Rect* rect)
-    {
-        rect->x = button->x;
-        rect->y = button->y;
-        rect->w = button->width;
-        rect->h = button->height;
-
-        return 0;
-    }
-
-    int get_scale(void)
-    {
-        SDL_Rect rect;
-        graphics.get_stretch_info(&rect);
-
-        int scale_x = rect.w / SCREEN_WIDTH_PIXELS;
-        int scale_y = rect.h / SCREEN_HEIGHT_PIXELS;
-
-        return SDL_ceil(SDL_min(scale_x, scale_y) * ((float) scale / 10.f));
-    }
 
     void init(void)
     {
@@ -51,42 +31,66 @@ namespace touch
         }
     }
 
-    void refresh_buttons(void)
+    // Get a button's rectangle (the area you can tap).
+    static int get_button_rect(TouchButton* button, SDL_Rect* rect)
+    {
+        rect->x = button->x;
+        rect->y = button->y;
+        rect->w = button->width;
+        rect->h = button->height;
+
+        return 0;
+    }
+
+    // Get the global UI scale of the touch input system.
+    static int get_ui_scale(void)
+    {
+        SDL_Rect rect;
+        graphics.get_stretch_info(&rect);
+
+        int scale_x = rect.w / SCREEN_WIDTH_PIXELS;
+        int scale_y = rect.h / SCREEN_HEIGHT_PIXELS;
+
+        return SDL_ceil(SDL_min(scale_x, scale_y) * ((float) scale / 10.f));
+    }
+
+    // Update the "static" buttons (positions, whether they're visible or not, etc)
+    static void refresh_buttons(void)
     {
         int width;
         int height;
-        int scale = get_scale();
+        int current_scale = get_ui_scale();
 
         gameScreen.GetScreenSize(&width, &height);
 
         buttons[TOUCH_BUTTON_LEFT].x = 0;
-        buttons[TOUCH_BUTTON_LEFT].y = height - (40 * scale) - 8;
-        buttons[TOUCH_BUTTON_LEFT].width = 40 * scale;
-        buttons[TOUCH_BUTTON_LEFT].height = 40 * scale;
+        buttons[TOUCH_BUTTON_LEFT].y = height - (40 * current_scale) - 8;
+        buttons[TOUCH_BUTTON_LEFT].width = 40 * current_scale;
+        buttons[TOUCH_BUTTON_LEFT].height = 40 * current_scale;
         buttons[TOUCH_BUTTON_LEFT].image = graphics.grphx.im_button_left;
 
-        buttons[TOUCH_BUTTON_RIGHT].x = (40 * scale) + 8;
-        buttons[TOUCH_BUTTON_RIGHT].y = height - (40 * scale) - 8;
-        buttons[TOUCH_BUTTON_RIGHT].width = 40 * scale;
-        buttons[TOUCH_BUTTON_RIGHT].height = 40 * scale;
+        buttons[TOUCH_BUTTON_RIGHT].x = (40 * current_scale) + 8;
+        buttons[TOUCH_BUTTON_RIGHT].y = height - (40 * current_scale) - 8;
+        buttons[TOUCH_BUTTON_RIGHT].width = 40 * current_scale;
+        buttons[TOUCH_BUTTON_RIGHT].height = 40 * current_scale;
         buttons[TOUCH_BUTTON_RIGHT].image = graphics.grphx.im_button_right;
 
-        buttons[TOUCH_BUTTON_MAP].x = width - (35 * scale);
+        buttons[TOUCH_BUTTON_MAP].x = width - (35 * current_scale);
         buttons[TOUCH_BUTTON_MAP].y = 0;
-        buttons[TOUCH_BUTTON_MAP].width = 35 * scale;
-        buttons[TOUCH_BUTTON_MAP].height = 30 * scale;
+        buttons[TOUCH_BUTTON_MAP].width = 35 * current_scale;
+        buttons[TOUCH_BUTTON_MAP].height = 30 * current_scale;
         buttons[TOUCH_BUTTON_MAP].image = graphics.grphx.im_button_map;
 
-        buttons[TOUCH_BUTTON_CANCEL].x = width - (40 * scale);
-        buttons[TOUCH_BUTTON_CANCEL].y = height - (40 * scale * 2) - 16;
-        buttons[TOUCH_BUTTON_CANCEL].width = 40 * scale;
-        buttons[TOUCH_BUTTON_CANCEL].height = 40 * scale;
+        buttons[TOUCH_BUTTON_CANCEL].x = width - (40 * current_scale);
+        buttons[TOUCH_BUTTON_CANCEL].y = height - (40 * current_scale * 2) - 16;
+        buttons[TOUCH_BUTTON_CANCEL].width = 40 * current_scale;
+        buttons[TOUCH_BUTTON_CANCEL].height = 40 * current_scale;
         buttons[TOUCH_BUTTON_CANCEL].image = graphics.grphx.im_button_left;
 
-        buttons[TOUCH_BUTTON_CONFIRM].x = width - (40 * scale);
-        buttons[TOUCH_BUTTON_CONFIRM].y = height - (40 * scale) - 8;
-        buttons[TOUCH_BUTTON_CONFIRM].width = 40 * scale;
-        buttons[TOUCH_BUTTON_CONFIRM].height = 40 * scale;
+        buttons[TOUCH_BUTTON_CONFIRM].x = width - (40 * current_scale);
+        buttons[TOUCH_BUTTON_CONFIRM].y = height - (40 * current_scale) - 8;
+        buttons[TOUCH_BUTTON_CONFIRM].width = 40 * current_scale;
+        buttons[TOUCH_BUTTON_CONFIRM].height = 40 * current_scale;
         buttons[TOUCH_BUTTON_CONFIRM].image = graphics.grphx.im_button_right;
 
         // First, reset all buttons
@@ -148,17 +152,17 @@ namespace touch
             return;
         }
 
-        int scale = get_scale();
+        int current_scale = get_ui_scale();
         refresh_buttons();
 
         for (int i = 0; i < NUM_TOUCH_BUTTONS; i++)
         {
             SDL_Rect rect;
-            get_rect(&buttons[i], &rect);
+            get_button_rect(&buttons[i], &rect);
 
             if (buttons[i].image != NULL && buttons[i].active)
             {
-                graphics.draw_texture(buttons[i].image, rect.x, rect.y + (buttons[i].down ? 2 * scale : 0), scale, scale);
+                graphics.draw_texture(buttons[i].image, rect.x, rect.y + (buttons[i].down ? 2 * current_scale : 0), current_scale, current_scale);
             }
         }
     }
@@ -193,13 +197,18 @@ namespace touch
             TouchButton* button = &buttons[buttonId];
             button->down = false;
 
+            if (!button->active)
+            {
+                continue;
+            }
+
             for (int fingerId = 0; fingerId < fingers.size(); fingerId++)
             {
                 point.x = fingers[fingerId].x;
                 point.y = fingers[fingerId].y;
-                get_rect(button, &rect);
+                get_button_rect(button, &rect);
 
-                if (SDL_PointInRect(&point, &rect) && button->active)
+                if (SDL_PointInRect(&point, &rect))
                 {
                     button->down = true;
                     button->fingerId = fingers[fingerId].id;
@@ -210,11 +219,18 @@ namespace touch
         }
     }
 
+    // Return whether a button is currently pressed down or not.
+    bool button_down(TouchButtonID button)
+    {
+        return (key.using_touch && buttons[button].active && buttons[button].down);
+    }
+
+    // Return whether a button was pressed this frame or not.
     bool button_tapped(TouchButtonID button)
     {
         if (key.using_touch && buttons[button].active && buttons[button].down)
         {
-            for (int i = 0; i < fingers.size(); i++)
+            for (int i = 0; i < (int)fingers.size(); i++)
             {
                 if (fingers[i].id == buttons[button].fingerId)
                 {
@@ -225,7 +241,8 @@ namespace touch
         return false;
     }
 
-    bool touching_right(void)
+    // Return whether the right side of the screen is currently pressed down or not.
+    bool screen_right_down(void)
     {
         int width;
         int height;
@@ -246,6 +263,7 @@ namespace touch
         return false;
     }
 
+    // Return whether the screen is pressed down or not.
     bool screen_down(void)
     {
         for (int i = 0; i < fingers.size(); i++)
