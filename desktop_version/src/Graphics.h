@@ -210,6 +210,8 @@ public:
 
     void draw_texture(SDL_Texture* image, int x, int y);
 
+    void draw_texture(SDL_Texture* image, int x, int y, int scalex, int scaley);
+
     void draw_texture_part(SDL_Texture* image, int x, int y, int x2, int y2, int w, int h, int scalex, int scaley);
 
     void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, int scalex, int scaley);

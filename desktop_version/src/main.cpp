@@ -33,6 +33,7 @@
 #include "RenderFixed.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Touch.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -521,6 +522,10 @@ int main(int argc, char *argv[])
         {
             loc::show_translator_menu = true;
         }
+        else if (ARG("-emutouch"))
+        {
+            SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "1");
+        }
 #ifdef _WIN32
         else if (ARG("-console"))
         {
@@ -657,6 +662,9 @@ int main(int argc, char *argv[])
 
     // Set up screen
     graphics.init();
+
+    // Set up touch input before we load settings
+    touch::init();
 
     game.init();
     game.seed_use_sdl_getticks = seed_use_sdl_getticks;
@@ -857,6 +865,13 @@ int main(int argc, char *argv[])
     SDL_ShowWindow(gameScreen.m_window);
 
     key.isActive = true;
+
+    // Enable touch input by default if possible
+#if defined(__ANDROID__) || defined(__IPHONEOS__)
+    key.using_touch = true;
+#else
+    key.using_touch = false;
+#endif
 
     gamestate_funcs = get_gamestate_funcs(game.gamestate, &num_gamestate_funcs);
     loop_assign_active_funcs();
