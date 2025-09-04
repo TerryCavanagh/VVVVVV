@@ -3043,7 +3043,7 @@ void scriptclass::teleport(void)
     {
         obj.entities[i].xp = 150;
         obj.entities[i].yp = 110;
-        if(game.teleport_to_x==17 && game.teleport_to_y==17) obj.entities[i].xp = 88; //prevent falling!
+        if(game.teleport_to_x==17 && game.teleport_to_y==17 && !map.custommode) obj.entities[i].xp = 88; //prevent falling!
         obj.entities[i].lerpoldxp = obj.entities[i].xp;
         obj.entities[i].lerpoldyp = obj.entities[i].yp;
     }
@@ -3084,7 +3084,11 @@ void scriptclass::teleport(void)
         game.savedir = obj.entities[player].dir;
     }
 
-    if(game.teleport_to_x==0 && game.teleport_to_y==0)
+    if (map.custommode)
+    {
+        game.state = 4100;
+    }
+    else if(game.teleport_to_x==0 && game.teleport_to_y==0)
     {
         game.setstate(4020);
     }
@@ -3130,7 +3134,7 @@ void scriptclass::teleport(void)
     else
     {
         //change music based on location
-        if (game.teleport_to_x == 2 && game.teleport_to_y == 11)
+        if (game.teleport_to_x == 2 && game.teleport_to_y == 11 && !map.custommode)
         {
             /* Special case: Ship music needs to be set here;
              * ship teleporter on music map is -1 for jukebox. */
@@ -3342,6 +3346,7 @@ void scriptclass::hardreset(void)
     int theplayer = obj.getplayer();
     if (INBOUNDS_VEC(theplayer, obj.entities)){
         obj.entities[theplayer].tile = 0;
+        obj.entities[theplayer].pathmaxtime = -1;
     }
 
     /* Disable duplicate player entities */
