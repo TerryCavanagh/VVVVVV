@@ -851,6 +851,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         block.type = ACTIVITY;
         block.wp = w;
         block.hp = h;
+        block.script = script;
         block.rectset(xp, yp, w, h);
 
         //Ok, each and every activity zone in the game is initilised here. "Trig" in this case is a variable that
