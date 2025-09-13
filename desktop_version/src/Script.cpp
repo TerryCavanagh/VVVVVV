@@ -20,6 +20,7 @@
 #include "LocalizationStorage.h"
 #include "Map.h"
 #include "Music.h"
+#include "ReleaseVersion.h"
 #include "Unreachable.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
@@ -335,6 +336,67 @@ void scriptclass::run(void)
                         {
                             obj.disableentity(edi);
                         }
+                    }
+                }
+            }
+            if (words[0] == "ifversion")
+            {
+                // A short for each is SURELY enough
+                unsigned short version[3] = { 0, 0, 0 };
+                bool valid_version = true;
+                int current = 0;
+
+                // Crawl through the string
+                for (int i = 0; i < words[1].size(); i++)
+                {
+                    // If the current character is a number, add it to the current version part
+                    if (words[1][i] >= '0' && words[1][i] <= '9')
+                    {
+                        version[current] = version[current] * 10 + (words[1][i] - '0');
+                    }
+                    else if (words[1][i] == '.')
+                    {
+                        current++;
+                        if (current >= 3)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // Unexpected character
+                        valid_version = false;
+                        break;
+                    }
+                }
+
+                if (valid_version)
+                {
+                    bool version_is_met = false;
+
+                    if (MAJOR_VERSION > version[0])
+                    {
+                        version_is_met = true;
+                    }
+                    else if (MAJOR_VERSION == version[0])
+                    {
+                        if (MINOR_VERSION > version[1])
+                        {
+                            version_is_met = true;
+                        }
+                        else if (MINOR_VERSION == version[1])
+                        {
+                            if (PATCH_VERSION >= version[2])
+                            {
+                                version_is_met = true;
+                            }
+                        }
+                    }
+
+                    if (version_is_met)
+                    {
+                        loadalts("custom_" + words[2], "custom_" + raw_words[2]);
+                        position--;
                     }
                 }
             }
@@ -3560,6 +3622,9 @@ bool scriptclass::loadcustom(const std::string& t)
         }else if(words[0] == "iftrinketsless"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add("custom"+lines[i]);
+        }else if(words[0] == "ifversion"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
         }else if(words[0] == "textcase"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);
