@@ -333,15 +333,35 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         vlog_error("You do not have data.zip!");
         vlog_error("Grab it from your purchased copy of the game,");
         vlog_error("or get it from the free Make and Play Edition.");
+        vlog_error("https://thelettervsixtim.es/makeandplay/");
 
-        SDL_ShowSimpleMessageBox(
-            SDL_MESSAGEBOX_ERROR,
-            "data.zip missing!",
-            "You do not have data.zip!"
-            "\n\nGrab it from your purchased copy of the game,"
-            "\nor get it from the free Make and Play Edition.",
-            NULL
-        );
+        SDL_MessageBoxData messagebox;
+        messagebox.flags = SDL_MESSAGEBOX_ERROR;
+        messagebox.window = NULL;
+        messagebox.title = "data.zip missing!";
+        messagebox.message = "You do not have data.zip!"
+                             "\n\nGrab it from your purchased copy of the game,"
+                             "\nor get it from the free Make and Play Edition.";
+
+        messagebox.numbuttons = 2;
+        SDL_MessageBoxButtonData buttons[2];
+        buttons[0].flags = SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT;
+        buttons[0].flags |= SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT;
+        buttons[0].buttonid = 0;
+        buttons[0].text = "OK";
+        buttons[1].flags = 0;
+        buttons[1].buttonid = 1;
+        buttons[1].text = "Open Download Page";
+        messagebox.buttons = buttons;
+        messagebox.colorScheme = NULL;
+
+        int clicked = 0;
+        SDL_ShowMessageBox(&messagebox, &clicked);
+        if (clicked == 1)
+        {
+            SDL_OpenURL("https://thelettervsixtim.es/makeandplay/");
+        }
+
         VVV_exit(1);
         return 0;
     }
