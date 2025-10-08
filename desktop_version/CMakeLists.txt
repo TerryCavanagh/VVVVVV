@@ -240,7 +240,7 @@ if(APPLE)
     set(PFS_SRC ${PFS_SRC} ../third_party/physfs/src/physfs_platform_apple.m)
 endif()
 set(PNG_SRC src/lodepng_wrapper.c)
-set(PNG_OPT -DLODEPNG_NO_COMPILE_ALLOCATORS -DLODEPNG_NO_COMPILE_DISK)
+set(PNG_DEF -DLODEPNG_NO_COMPILE_ALLOCATORS -DLODEPNG_NO_COMPILE_DISK)
 set(CHM_SRC ../third_party/c-hashmap/map.c)
 set(SBIDI_SRC ../third_party/SheenBidi/Source/SheenBidi.c)
 
