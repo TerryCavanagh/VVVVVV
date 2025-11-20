@@ -429,6 +429,10 @@ void GraphicsResources::init(void)
     im_image10 = LoadImage("graphics/ending.png");
     im_image11 = LoadImage("graphics/site4.png", TEX_WHITE);
 
+    im_button_left = LoadImage("graphics/buttons/button_left.png");
+    im_button_right = LoadImage("graphics/buttons/button_right.png");
+    im_button_map = LoadImage("graphics/buttons/button_map.png");
+
     im_sprites_translated = NULL;
     im_flipsprites_translated = NULL;
 
@@ -508,6 +512,11 @@ void GraphicsResources::destroy(void)
     {
         CLEAR(graphics.customminimaps[i]);
     }
+
+    CLEAR(im_button_left);
+    CLEAR(im_button_right);
+    CLEAR(im_button_map);
+
 #undef CLEAR
 
     VVV_freefunc(SDL_FreeSurface, im_sprites_surf);
