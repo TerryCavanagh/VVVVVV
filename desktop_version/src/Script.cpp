@@ -1982,6 +1982,16 @@ void scriptclass::run(void)
                     }
                 }
             }
+            else if (words[0] == "everybodyhappy")
+            {
+                for (i = 0; i < (int) obj.entities.size(); i++)
+                {
+                    if (obj.entities[i].rule == 6 || obj.entities[i].rule == 0)
+                    {
+                        obj.entities[i].tile = 0;
+                    }
+                }
+            }
             else if (words[0] == "startintermission2")
             {
                 map.finalmode = true; //Enable final level mode
