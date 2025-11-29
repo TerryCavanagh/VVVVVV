@@ -1125,41 +1125,6 @@ void gamelogic(void)
             }
         }
 
-        if (map.warpy && !map.warpx && !map.towermode)
-        {
-            size_t i;
-            for (i = 0; i < obj.entities.size(); ++i)
-            {
-                if ((obj.entities[i].type == EntityType_WARP_LINE_LEFT
-                    || obj.entities[i].type == EntityType_WARP_LINE_RIGHT
-                    || obj.entities[i].type == EntityType_WARP_LINE_TOP
-                    || obj.entities[i].type == EntityType_WARP_LINE_BOTTOM) /* Don't warp warp lines */
-                    || obj.entities[i].rule == 0) /* Don't warp the player */
-                {
-                    continue;
-                }
-
-                if (obj.entities[i].xp <= -30)
-                {
-                    if (obj.entities[i].isplatform)
-                    {
-                        obj.moveblockto(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].xp + 350, obj.entities[i].yp, obj.entities[i].w, obj.entities[i].h);
-                    }
-                    obj.entities[i].xp += 350;
-                    obj.entities[i].lerpoldxp += 350;
-                }
-                else if (obj.entities[i].xp > 320)
-                {
-                    if (obj.entities[i].isplatform)
-                    {
-                        obj.moveblockto(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].xp - 350, obj.entities[i].yp, obj.entities[i].w, obj.entities[i].h);
-                    }
-                    obj.entities[i].xp -= 350;
-                    obj.entities[i].lerpoldxp -= 350;
-                }
-            }
-        }
-
         if (!map.warpy && !map.towermode)
         {
             //Normal! Just change room
