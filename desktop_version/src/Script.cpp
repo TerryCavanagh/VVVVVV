@@ -188,6 +188,8 @@ void scriptclass::run(void)
         return;
     }
 
+    bool apply_two_frame_fix = false;
+
     // This counter here will stop the function when it gets too high
     short execution_counter = 0;
     while(running && scriptdelay<=0 && !game.pausescript)
@@ -551,8 +553,9 @@ void scriptclass::run(void)
             }
             if (words[0] == "gotoposition")
             {
-                //USAGE: gotoposition(x position, y position, gravity position)
+                // USAGE: gotoposition(x,y,gravity)
                 int player = obj.getplayer();
+
                 if (INBOUNDS_VEC(player, obj.entities))
                 {
                     obj.entities[player].xp = ss_toi(words[1]);
@@ -560,13 +563,21 @@ void scriptclass::run(void)
                     obj.entities[player].lerpoldxp = obj.entities[player].xp;
                     obj.entities[player].lerpoldyp = obj.entities[player].yp;
                 }
-                game.gravitycontrol = ss_toi(words[3]);
 
+                game.gravitycontrol = ss_toi(words[3]);
             }
-            if (words[0] == "gotoroom")
+            if (words[0] == "gotoroom" || words[0] == "gotoroomfast")
             {
-                //USAGE: gotoroom(x,y) (manually add 100)
-                map.gotoroom(ss_toi(words[1])+100, ss_toi(words[2])+100);
+                // USAGE: gotoroom(x,y) OR gotoroomfast(x,y)
+
+                // Manually add 100 to the room coordinates, as normal rooms are offset
+                map.gotoroom(ss_toi(words[1]) + 100, ss_toi(words[2]) + 100);
+
+                // gotoroomfast applies the two frame fix, which will rerun scripts after current script executes
+                if (words[0] == "gotoroomfast")
+                {
+                    apply_two_frame_fix = true;
+                }
             }
             if (words[0] == "cutscene")
             {
@@ -2673,6 +2684,11 @@ void scriptclass::run(void)
         }
         else
         {
+            if (!running && apply_two_frame_fix)
+            {
+                map.twoframedelayfix();
+            }
+
             execution_counter++;
         }
     }
