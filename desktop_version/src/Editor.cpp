@@ -398,6 +398,7 @@ void editorclass::reset(void)
     script_offset = 0;
     lines_visible = 25;
     current_script = "null";
+    script_user_scrolled = false;
 
     script_list_offset = 0;
     selected_script = 0;
@@ -1915,7 +1916,10 @@ void editorrender(void)
             // Draw cursor
             if (ed.entframe < 2)
             {
-                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, ed.script_buffer[ed.script_cursor_y].c_str()), 20 + ((ed.script_cursor_y - ed.script_offset) * font_height), "_", 123, 111, 218);
+                if (ed.script_cursor_y >= ed.script_offset && ed.script_cursor_y < ed.script_offset + ed.lines_visible)
+                {
+                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, ed.script_buffer[ed.script_cursor_y].c_str()), 20 + ((ed.script_cursor_y - ed.script_offset) * font_height), "_", 123, 111, 218);
+                }
             }
             break;
         }
@@ -3793,6 +3797,7 @@ void editorinput(void)
                 ed.script_cursor_y = SDL_max(0, ed.script_cursor_y - 1);
 
                 key.keybuffer = ed.script_buffer[ed.script_cursor_y];
+                ed.script_user_scrolled = false;
             }
 
             if (down_pressed && ed.keydelay <= 0)
@@ -3801,6 +3806,36 @@ void editorinput(void)
                 ed.script_cursor_y = SDL_min((int) ed.script_buffer.size() - 1, ed.script_cursor_y + 1);
 
                 key.keybuffer = ed.script_buffer[ed.script_cursor_y];
+                ed.script_user_scrolled = false;
+            }
+
+            // Mouse wheel scrolling and page keys
+            if (key.mousewheel != 0)
+            {
+                int max_offset = SDL_max(0, (int) ed.script_buffer.size() - 1);
+                // Positive wheel.y -> scroll up (decrease offset)
+                ed.script_offset = SDL_clamp(ed.script_offset - key.mousewheel, 0, max_offset);
+                ed.keydelay = 6;
+                ed.script_user_scrolled = true;
+            }
+
+            if (key.isDown(SDLK_PAGEUP) && ed.keydelay <= 0)
+            {
+                ed.keydelay = 6;
+                int max_offset = SDL_max(0, (int) ed.script_buffer.size() - 1);
+                int page = SDL_max(1, ed.lines_visible - (2 * SCRIPT_LINE_PADDING));
+                ed.script_offset = SDL_max(0, ed.script_offset - page);
+                ed.script_offset = SDL_min(ed.script_offset, max_offset);
+                ed.script_user_scrolled = true;
+            }
+
+            if (key.isDown(SDLK_PAGEDOWN) && ed.keydelay <= 0)
+            {
+                ed.keydelay = 6;
+                int max_offset = SDL_max(0, (int) ed.script_buffer.size() - 1);
+                int page = SDL_max(1, ed.lines_visible - (2 * SCRIPT_LINE_PADDING));
+                ed.script_offset = SDL_min(max_offset, ed.script_offset + page);
+                ed.script_user_scrolled = true;
             }
 
             if (key.linealreadyemptykludge)
@@ -3816,6 +3851,7 @@ void editorinput(void)
                 ed.script_cursor_y = SDL_max(0, ed.script_cursor_y - 1);
                 key.keybuffer = ed.script_buffer[ed.script_cursor_y];
                 ed.keydelay = 6;
+                ed.script_user_scrolled = false;
             }
 
             /* Remove all pipes, they are the line separator in the XML
@@ -3828,6 +3864,10 @@ void editorinput(void)
                 }
             }}
 
+            if (key.keybuffer != ed.script_buffer[ed.script_cursor_y])
+            {
+                ed.script_user_scrolled = false;
+            }
             ed.script_buffer[ed.script_cursor_y] = key.keybuffer;
             ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
 
@@ -3840,6 +3880,7 @@ void editorinput(void)
 
                     key.keybuffer = ed.script_buffer[ed.script_cursor_y];
                     ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
+                    ed.script_user_scrolled = false;
                 }
                 else
                 {
@@ -3849,17 +3890,21 @@ void editorinput(void)
                     ed.insert_line(ed.script_cursor_y);
                     key.keybuffer = "";
                     ed.script_cursor_x = 0;
+                    ed.script_user_scrolled = false;
                 }
             }
 
-            if (ed.script_cursor_y < ed.script_offset + SCRIPT_LINE_PADDING)
+            if (!ed.script_user_scrolled)
             {
-                ed.script_offset = SDL_max(0, ed.script_cursor_y - SCRIPT_LINE_PADDING);
-            }
+                if (ed.script_cursor_y < ed.script_offset + SCRIPT_LINE_PADDING)
+                {
+                    ed.script_offset = SDL_max(0, ed.script_cursor_y - SCRIPT_LINE_PADDING);
+                }
 
-            if (ed.script_cursor_y > ed.script_offset + ed.lines_visible - SCRIPT_LINE_PADDING)
-            {
-                ed.script_offset = SDL_min((int) ed.script_buffer.size() - ed.lines_visible + SCRIPT_LINE_PADDING, ed.script_cursor_y - ed.lines_visible + SCRIPT_LINE_PADDING);
+                if (ed.script_cursor_y > ed.script_offset + ed.lines_visible - SCRIPT_LINE_PADDING)
+                {
+                    ed.script_offset = SDL_min((int) ed.script_buffer.size() - 1, ed.script_cursor_y - ed.lines_visible + SCRIPT_LINE_PADDING);
+                }
             }
 
             break;
