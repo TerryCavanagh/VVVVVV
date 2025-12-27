@@ -3815,7 +3815,6 @@ void editorinput(void)
                 int max_offset = SDL_max(0, (int) ed.script_buffer.size() - 1);
                 // Positive wheel.y -> scroll up (decrease offset)
                 ed.script_offset = SDL_clamp(ed.script_offset - key.mousewheel, 0, max_offset);
-                ed.keydelay = 6;
                 ed.script_user_scrolled = true;
             }
 
@@ -3824,9 +3823,15 @@ void editorinput(void)
                 ed.keydelay = 6;
                 int max_offset = SDL_max(0, (int) ed.script_buffer.size() - 1);
                 int page = SDL_max(1, ed.lines_visible - (2 * SCRIPT_LINE_PADDING));
-                ed.script_offset = SDL_max(0, ed.script_offset - page);
-                ed.script_offset = SDL_min(ed.script_offset, max_offset);
-                ed.script_user_scrolled = true;
+                ed.script_offset = SDL_clamp(ed.script_offset - page, 0, max_offset);
+                // Move the caret up a page too so autoscroll keeps it visible
+                {
+                    int max_index = SDL_max(0, (int) ed.script_buffer.size() - 1);
+                    ed.script_cursor_y = SDL_clamp(ed.script_cursor_y - page, 0, max_index);
+                    key.keybuffer = ed.script_buffer[ed.script_cursor_y];
+                    ed.script_cursor_x = UTF8_total_codepoints(key.keybuffer.c_str());
+                    ed.script_user_scrolled = false;
+                }
             }
 
             if (key.isDown(SDLK_PAGEDOWN) && ed.keydelay <= 0)
@@ -3835,7 +3840,14 @@ void editorinput(void)
                 int max_offset = SDL_max(0, (int) ed.script_buffer.size() - 1);
                 int page = SDL_max(1, ed.lines_visible - (2 * SCRIPT_LINE_PADDING));
                 ed.script_offset = SDL_min(max_offset, ed.script_offset + page);
-                ed.script_user_scrolled = true;
+                // Move the caret down a page too so autoscroll keeps it visible
+                {
+                    int max_index = SDL_max(0, (int) ed.script_buffer.size() - 1);
+                    ed.script_cursor_y = SDL_clamp(ed.script_cursor_y + page, 0, max_index);
+                    key.keybuffer = ed.script_buffer[ed.script_cursor_y];
+                    ed.script_cursor_x = UTF8_total_codepoints(key.keybuffer.c_str());
+                    ed.script_user_scrolled = false;
+                }
             }
 
             if (key.linealreadyemptykludge)
