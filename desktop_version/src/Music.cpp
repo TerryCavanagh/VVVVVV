@@ -137,7 +137,7 @@ public:
         format.nSamplesPerSec = spec.freq;
         format.wFormatTag = FAUDIO_FORMAT_PCM;
         format.wBitsPerSample = SDL_AUDIO_BITSIZE(spec.format);
-        format.nBlockAlign = format.nChannels * format.wBitsPerSample;
+        format.nBlockAlign = format.nChannels * (format.wBitsPerSample / 8);
         format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
         format.cbSize = 0;
         valid = true;
@@ -161,7 +161,7 @@ end:
         format.wBitsPerSample = sizeof(float) * 8;
         format.nChannels = vorbis_info.channels;
         format.nSamplesPerSec = vorbis_info.sample_rate;
-        format.nBlockAlign = format.nChannels * format.wBitsPerSample;
+        format.nBlockAlign = format.nChannels * (format.wBitsPerSample / 8);
         format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
         format.cbSize = 0;
 
@@ -214,7 +214,7 @@ end:
                 }
                 FAudioBuffer faudio_buffer = {
                     FAUDIO_END_OF_STREAM, /* Flags */
-                    wav_length * 8, /* AudioBytes */
+                    wav_length, /* AudioBytes */
                     wav_buffer, /* AudioData */
                     0, /* playbegin */
                     0, /* playlength */
@@ -266,7 +266,7 @@ end:
                 format.nSamplesPerSec = audio_rate;
                 format.wFormatTag = FAUDIO_FORMAT_PCM;
                 format.wBitsPerSample = 16;
-                format.nBlockAlign = format.nChannels * format.wBitsPerSample;
+                format.nBlockAlign = format.nChannels * (format.wBitsPerSample / 8);
                 format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
                 format.cbSize = 0;
                 voice_formats[i] = format;
@@ -399,7 +399,7 @@ public:
         format.wBitsPerSample = sizeof(float) * 8;
         format.nChannels = vorbis_info.channels;
         format.nSamplesPerSec = vorbis_info.sample_rate;
-        format.nBlockAlign = format.nChannels * format.wBitsPerSample;
+        format.nBlockAlign = format.nChannels * (format.wBitsPerSample / 8);
         format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
         format.cbSize = 0;
 
