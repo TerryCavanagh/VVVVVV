@@ -1387,6 +1387,10 @@ next:
                     {
                         name.text.push_back(std::string(text));
                     }
+                    else
+                    {
+                        name.text.push_back(std::string(""));
+                    }
                 }
                 else
                 {
@@ -1403,6 +1407,10 @@ next:
                             if (text != NULL)
                             {
                                 name.text.push_back(std::string(text));
+                            }
+                            else
+                            {
+                                name.text.push_back(std::string(""));
                             }
                         }
                     }
