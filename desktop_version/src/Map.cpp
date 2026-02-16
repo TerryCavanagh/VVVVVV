@@ -222,11 +222,11 @@ void mapclass::updateroomnames(void)
         if (rx == roomname->x && ry == roomname->y && (roomname->flag == -1 || (INBOUNDS_ARR(roomname->flag, obj.flags) && obj.flags[roomname->flag])))
         {
             roomname_special = true;
-            if (roomname->type == RoomnameType_STATIC)
+            if (roomname->type == RoomnameType_STATIC && roomname->text.size() >= 1)
             {
                 setroomname(roomname->text[0].c_str());
             }
-            if (roomname->type == RoomnameType_GLITCH)
+            if (roomname->type == RoomnameType_GLITCH && roomname->text.size() >= 2)
             {
                 roomname->delay--;
                 if (roomname->delay <= 0)
@@ -240,7 +240,7 @@ void mapclass::updateroomnames(void)
                 }
                 setroomname(roomname->text[roomname->progress].c_str());
             }
-            if (roomname->type == RoomnameType_TRANSFORM)
+            if (roomname->type == RoomnameType_TRANSFORM && roomname->text.size() >= 1)
             {
                 roomname->delay--;
                 if (roomname->delay <= 0)
