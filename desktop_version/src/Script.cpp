@@ -1346,7 +1346,14 @@ void scriptclass::run(void)
             {
                 // Allow the gamestate command to bypass statelock, at least for now
                 game.state = ss_toi(words[1]);
-                game.statedelay = 0;
+                if (argexists[2])
+                {
+                    game.statedelay = ss_toi(words[2]);
+                }
+                else
+                {
+                    game.statedelay = 0;
+                }
             }
             else if (words[0] == "textboxactive")
             {
