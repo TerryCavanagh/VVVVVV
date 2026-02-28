@@ -57,6 +57,7 @@ KeyPoll::KeyPoll(void)
     leftbutton=0; rightbutton=0; middlebutton=0;
     mousex = 0;
     mousey = 0;
+    mousewheel = 0;
     resetWindow = 0;
     pressedbackspace=false;
 
@@ -233,6 +234,9 @@ void KeyPoll::Poll(void)
     bool should_recompute_textboxes = false;
     bool active_input_device_changed = false;
     bool keyboard_was_active = BUTTONGLYPHS_keyboard_is_active();
+
+    /* Reset wheel delta once per Poll() call; accumulate deltas from events. */
+    mousewheel = 0;
     while (SDL_PollEvent(&evt))
     {
         switch (evt.type)
@@ -346,6 +350,10 @@ void KeyPoll::Poll(void)
         case SDL_MOUSEMOTION:
             raw_mousex = evt.motion.x;
             raw_mousey = evt.motion.y;
+            break;
+        case SDL_MOUSEWHEEL:
+            /* y: positive away from the user (usually scroll up), negative toward user */
+            mousewheel += evt.wheel.y;
             break;
         case SDL_MOUSEBUTTONDOWN:
             switch (evt.button.button)

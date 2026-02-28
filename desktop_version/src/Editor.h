@@ -262,6 +262,7 @@ public:
     int script_cursor_x, script_cursor_y;
     int script_offset;
     int lines_visible;
+    bool script_user_scrolled;
 
     //Functions for interfacing with the script:
     void create_script(const std::string& name, const std::vector<std::string>& contents);
