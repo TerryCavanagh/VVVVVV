@@ -3625,7 +3625,6 @@ void editorinput(void)
                 if (game.currentmenuname == Menu::ed_settings)
                 {
                     ed.state = EditorState_DRAW;
-                    gameScreen.recacheTextures();
                 }
                 else
                 {

@@ -459,6 +459,10 @@ void KeyPoll::Poll(void)
             break;
         }
 
+        case SDL_RENDER_TARGETS_RESET:
+            gameScreen.recacheTextures();
+            break;
+
         /* Window Events */
         case SDL_WINDOWEVENT:
             switch (evt.window.event)
@@ -496,7 +500,6 @@ void KeyPoll::Poll(void)
                     }
                 }
                 SDL_DisableScreenSaver();
-                gameScreen.recacheTextures();
                 break;
             case SDL_WINDOWEVENT_FOCUS_LOST:
                 if (!game.disablepause)

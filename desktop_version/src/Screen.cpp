@@ -5,6 +5,8 @@
 
 #include "Alloc.h"
 #include "Constants.h"
+#include "CustomLevels.h"
+#include "Enums.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
@@ -14,6 +16,7 @@
 #include "GraphicsResources.h"
 #endif
 #include "InterimVersion.h"
+#include "Map.h"
 #include "Render.h"
 #include "Vlogging.h"
 
@@ -152,7 +155,6 @@ void Screen::ResizeScreen(int x, int y)
     if (!isWindowed || isForcedFullscreen())
     {
         int result = SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-        recacheTextures();
         if (result != 0)
         {
             vlog_error("Error: could not set the game to fullscreen mode: %s", SDL_GetError());
@@ -175,7 +177,6 @@ void Screen::ResizeScreen(int x, int y)
                 SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay)
             );
         }
-        recacheTextures();
     }
 }
 
@@ -352,8 +353,6 @@ void Screen::toggleVSync(void)
 {
     vsync = !vsync;
     SDL_RenderSetVSync(m_renderer, (int) vsync);
-
-    recacheTextures();
 }
 
 void Screen::recacheTextures(void)
@@ -366,14 +365,20 @@ void Screen::recacheTextures(void)
     graphics.towerbg.tdrawback = true;
     graphics.titlebg.tdrawback = true;
 
-    if (game.ingame_titlemode)
+    if (game.gamestate == MAPMODE || game.ingame_titlemode)
     {
-        // Redraw the cached gameplay texture if we're in the in-game menu.
+        // Redraw the cached gameplay texture if we're in the map screen.
         // Additionally, reset alpha so things don't jitter when re-entering gameplay.
         float oldAlpha = graphics.alpha;
         graphics.alpha = 0;
         gamerender();
         graphics.alpha = oldAlpha;
+    }
+
+    if (map.custommode)
+    {
+        // If we're in a custom level, regenerate the minimap, which also got cleared.
+        cl.generatecustomminimap();
     }
 }
 
