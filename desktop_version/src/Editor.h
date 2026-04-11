@@ -312,7 +312,7 @@ public:
 
     std::vector<EditorUndoInfo> undo_buffer;
     std::vector<EditorUndoInfo> redo_buffer;
-    bool placing_tiles = false;
+    bool placing_tiles;
     int old_tiles[SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES];
 };
 

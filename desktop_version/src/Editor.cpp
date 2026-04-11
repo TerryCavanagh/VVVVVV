@@ -415,6 +415,8 @@ void editorclass::reset(void)
 
     undo_buffer.clear();
     redo_buffer.clear();
+
+    placing_tiles = false;
 }
 
 void editorclass::show_note(const char* text)
