@@ -17,6 +17,8 @@
 #include "Vlogging.h"
 #include "Xoshiro.h"
 
+#define LERP(a, b, t) ((a) + (t) * ((b) - (a)))
+
 static int getgridpoint( int t )
 {
     return t / 8;
@@ -1256,7 +1258,7 @@ static void entityclonefix(entclass* entity)
     }
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4)
+void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4, int p5, int p6)
 {
     k = entities.size();
 
@@ -1319,6 +1321,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     entity.xp = xp;
     entity.yp = yp;
     entity.type = EntityType_INVALID;
+    entity.pathmaxtime = -1;
     switch(t)
     {
     case 0: //Player
@@ -1631,6 +1634,12 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.onentity = 1;
         entity.animate = 100;
         entity.para = meta2;
+        entity.p1x = p1;
+        entity.p1y = p2;
+        entity.p2x = p3;
+        entity.p2y = p4;
+        entity.p3x = p5;
+        entity.p3y = p6;
         break;
     case 15: // Crew Member (warp zone)
         entity.rule = 6;
@@ -2207,6 +2216,11 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         }
         updateentities(indice);
     }
+}
+
+void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4)
+{
+    createentity(xp, yp, t, meta1, meta2, p1, p2, p3, p4, 320, 240);
 }
 
 void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2)
@@ -3457,6 +3471,33 @@ bool entityclass::updateentities( int i )
         if (entities[i].statedelay < 0)
         {
             entities[i].statedelay = 0;
+        }
+    }
+
+    if ((entities[i].pathmaxtime > -1) && (entities[i].type != 100))
+    {
+        float progress = (float) entities[i].pathtime / entities[i].pathmaxtime;
+
+        float left_line_x = LERP(entities[i].p1x, entities[i].p2x, progress);
+        float left_line_y = LERP(entities[i].p1y, entities[i].p2y, progress);
+        float right_line_x = LERP(entities[i].p2x, entities[i].p3x, progress);
+        float right_line_y = LERP(entities[i].p2y, entities[i].p3y, progress);
+
+        entities[i].xp = LERP(left_line_x, right_line_x, progress);
+        entities[i].yp = LERP(left_line_y, right_line_y, progress);
+
+        entities[i].ax = 0;
+        entities[i].ay = 0;
+        entities[i].vx = 0;
+        entities[i].vy = 0;
+
+        if (entities[i].pathtime == entities[i].pathmaxtime)
+        {
+            entities[i].pathmaxtime = -1;
+        }
+        else
+        {
+            entities[i].pathtime++;
         }
     }
 
