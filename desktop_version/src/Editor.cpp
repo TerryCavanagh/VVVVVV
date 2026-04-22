@@ -3362,6 +3362,11 @@ void process_editor_buffer(const bool undo)
     ed.levx = info.room_x;
     ed.levy = info.room_y;
 
+    ed.updatetiles = true;
+    ed.changeroom = true;
+    graphics.backgrounddrawn = false;
+    graphics.foregrounddrawn = false;
+
     EditorUndoInfo new_info;
 
     new_info.room_x = info.room_x;
@@ -3380,14 +3385,13 @@ void process_editor_buffer(const bool undo)
         }
 
         SDL_memcpy(new_info.tiles, ed.old_tiles, sizeof(ed.old_tiles));
-
-        graphics.foregrounddrawn = false;
         break;
     case EditorUndoType_ENTITY_ADDED:
         // Remove the entity
 
         if (!INBOUNDS_VEC(info.entity_id, customentities))
         {
+            // Not sure how this would happen, but we should just consume it...
             return;
         }
 
@@ -3627,7 +3631,6 @@ void editorinput(void)
 
                     if (old_width != cl.mapwidth || old_height != cl.mapheight)
                     {
-
                         ed.updatetiles = true;
                         ed.changeroom = true;
                         graphics.backgrounddrawn = false;
@@ -3659,8 +3662,14 @@ void editorinput(void)
                 }
                 else
                 {
-                    commit_tiles();
-                    ed.placing_tiles = false;
+                    if (ed.placing_tiles)
+                    {
+                        // We were in the middle of placing tiles. Commit it, since we're done with the previous room.
+                        commit_tiles();
+
+                        // Must be done after every tile commit, as it's responsible for the "old tiles" cache
+                        ed.placing_tiles = false;
+                    }
 
                     ed.updatetiles = true;
                     ed.changeroom = true;
