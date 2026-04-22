@@ -3854,16 +3854,23 @@ void editorinput(void)
 
             if (escape_pressed)
             {
-                // Cancel it, and remove the enemy it's tied to if necessary
+                // Escape was pressed, cancel text entry
                 key.disabletextentry();
+
                 if (ed.current_text_mode >= FIRST_ENTTEXT && ed.current_text_mode <= LAST_ENTTEXT)
                 {
                     *ed.current_text_ptr = ed.old_entity_text;
+
+                    // Looks like we're giving an entity text for the first time, so cancelling should remove the entity
                     if (ed.old_entity_text == "")
                     {
+                        // Remove it.
                         ed.remove_entity(ed.text_entity);
-                        // Uncommit the past two actions
+
+                        // We have to uncommit twice here; once to prevent saving the "remove entity" action...
                         uncommit();
+
+                        // ...and once more to undo the "add entity" action we're cancelling
                         uncommit();
                     }
                 }
