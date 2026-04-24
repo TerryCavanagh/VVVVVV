@@ -2614,7 +2614,7 @@ void editorclass::entity_clicked(const int index)
             // Flip the terminal, but if it's not textured as a terminal leave it alone
             entity->p1 = (entity->p1 + 1) % 2;
         }
-        get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &entity->scriptname);
+        get_input_line(TEXT_SCRIPT, "Enter script name:", &entity->scriptname);
         text_entity = index;
         break;
     case 19:
@@ -3344,7 +3344,7 @@ void editorclass::get_input_line(const enum TextMode mode, const std::string& pr
     old_entity_text = key.keybuffer;
 }
 
-void process_editor_buffer(const bool undo)
+static void handle_undo(const bool undo)
 {
     extern editorclass ed;
 
@@ -3563,11 +3563,11 @@ void editorinput(void)
 
             if (undo_pressed)
             {
-                process_editor_buffer(true);
+                handle_undo(true);
             }
             if (redo_pressed)
             {
-                process_editor_buffer(false);
+                handle_undo(false);
             }
 
             if (escape_pressed)
