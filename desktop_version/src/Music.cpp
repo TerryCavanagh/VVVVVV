@@ -745,7 +745,7 @@ static void add_builtin_sound(const char* id)
 
 void musicclass::init(void)
 {
-    if (FAudioCreate(&faudioctx, 0, FAUDIO_DEFAULT_PROCESSOR))
+    if (FAudioCreate(&faudioctx, FAUDIO_1024_QUANTUM, FAUDIO_DEFAULT_PROCESSOR))
     {
         vlog_error("Unable to initialize FAudio");
         return;
