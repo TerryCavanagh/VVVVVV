@@ -2,8 +2,11 @@
 #define CUSTOMLEVELS_H
 
 #include <SDL3/SDL.h>
+#include <map>
 #include <string>
 #include <vector>
+
+#include "BlockV.h"
 
 class CustomEntity
 {
@@ -172,6 +175,8 @@ public:
     bool onewaycol_override;
 
     int player_colour;
+
+    std::map<int, ActivityZone> custom_activity_zones;
 };
 
 bool translate_title(const std::string& title);
