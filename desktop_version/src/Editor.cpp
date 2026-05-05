@@ -1033,7 +1033,7 @@ static void draw_entities(void)
 
                 if (i == edent_under_cursor)
                 {
-                    text = "(" + help.String(entity->p1 / 40 + 1) + "," + help.String(entity->p2 / 30 + 1) + ")";
+                    text = help.disp_room_coords(entity->p1 / 40, entity->p2 / 30, 1);
                 }
                 else
                 {
@@ -1152,7 +1152,7 @@ static void draw_entities(void)
 
             if (ed.tilex == x / 8 && ed.tiley == y / 8)
             {
-                text = "(" + help.String(entity->rx + 1) + "," + help.String(entity->ry + 1) + ")";
+                text = help.disp_room_coords(entity->rx, entity->ry, 1);
             }
             else
             {
@@ -1622,7 +1622,7 @@ static void draw_main_ui(void)
     const RoomProperty* const room = cl.getroomprop(ed.levx, ed.levy);
 
     char coords[8];
-    SDL_snprintf(coords, sizeof(coords), "(%d,%d)", ed.levx + 1, ed.levy + 1);
+    help.disp_room_coords(coords, sizeof(coords), ed.levx, ed.levy, 1);
 
     if (ed.toolbox_open)
     {
