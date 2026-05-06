@@ -742,6 +742,42 @@ musicclass::musicclass(void)
     usingmmmmmm = false;
 }
 
+static void make_id_from_filename(char* id, size_t id_size, const char* filename)
+{
+    // Create the ID
+    size_t current_char = 0;
+    size_t item_len = SDL_strlen(filename);
+
+    for (size_t i = 0; i < item_len; i++)
+    {
+        // If it's a space, we don't want to include this.
+        if (filename[i] == ' ')
+        {
+            continue;
+        }
+
+        // Otherwise, add it to our ID string, lowered
+        id[current_char] = SDL_tolower(filename[i]);
+
+        current_char++;
+
+        if (current_char >= (id_size - 1))
+        {
+            break;
+        }
+    }
+
+    // Null-terminate the string
+    id[current_char] = '\0';
+
+    // Chop off the extension!
+    char* dot = SDL_strrchr(id, '.');
+    if (dot != NULL)
+    {
+        *dot = '\0';
+    }
+}
+
 static void add_builtin_sound(const char* id)
 {
     char asset_filename[256];
@@ -752,7 +788,8 @@ static void add_builtin_sound(const char* id)
 static void add_builtin_track(SDL_RWops* rw, const char* track_name)
 {
     // Make an ID from the track name
-    char* id = SDL_strdup(track_name);
+    char id[256];
+    SDL_strlcpy(id, track_name, sizeof(id));
 
     // Strip "music/" prefix if it exists
     if (SDL_strncmp(id, "music/", 6) == 0)
@@ -822,36 +859,7 @@ void musicclass::init(void)
         char id[256];
         SDL_snprintf(asset_filename, sizeof(asset_filename), "sounds/%s", item);
 
-        // Create the ID
-        size_t current_char = 0;
-        size_t item_len = SDL_strlen(item);
-        for (size_t i = 0; i < item_len; i++)
-        {
-            // If it's a space, we don't want to include this.
-            if (item[i] == ' ')
-            {
-                continue;
-            }
-            // Otherwise, add it to our ID string, lowered
-            id[current_char] = SDL_tolower(item[i]);
-
-            current_char++;
-
-            if (current_char >= 255)
-            {
-                break;
-            }
-        }
-
-        // Null-terminate the string
-        id[current_char] = '\0';
-
-        // Chop off the extension!
-        char* dot = SDL_strrchr(id, '.');
-        if (dot != NULL)
-        {
-            *dot = '\0';
-        }
+        make_id_from_filename(id, sizeof(id), item);
 
         if (soundidexists(id))
         {
@@ -1001,36 +1009,7 @@ void musicclass::init(void)
         char id[256];
         SDL_snprintf(asset_filename, sizeof(asset_filename), "music/%s", music_item);
 
-        // Create the ID
-        size_t current_char = 0;
-        size_t item_len = SDL_strlen(music_item);
-        for (size_t i = 0; i < item_len; i++)
-        {
-            // If it's a space, we don't want to include this.
-            if (music_item[i] == ' ')
-            {
-                continue;
-            }
-            // Otherwise, add it to our ID string, lowered
-            id[current_char] = SDL_tolower(music_item[i]);
-
-            current_char++;
-
-            if (current_char >= 255)
-            {
-                break;
-            }
-        }
-
-        // Null-terminate the string
-        id[current_char] = '\0';
-
-        // Chop off the extension!
-        char* dot = SDL_strrchr(id, '.');
-        if (dot != NULL)
-        {
-            *dot = '\0';
-        }
+        make_id_from_filename(id, sizeof(id), music_item);
 
         if (idexists(id))
         {
