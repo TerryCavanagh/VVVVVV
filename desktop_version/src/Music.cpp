@@ -381,6 +381,12 @@ public:
     MusicTrack(SDL_RWops *rw, const char* _id, bool _loose_extra)
     {
         SDL_zerop(this);
+        if (rw->size(rw) <= 1)
+        {
+            // Don't bother
+            vlog_debug("Skipping empty music track");
+            goto end;
+        }
         read_buf = (Uint8*) SDL_malloc(rw->size(rw));
         SDL_RWread(rw, read_buf, rw->size(rw), 1);
         int err;
