@@ -529,7 +529,7 @@ void scriptclass::run(void)
             if (words[0] == "play")
             {
                 bool played = false;
-                int song_id = help.Int(words[1].c_str(), -2); // -1 has special behavior, so... -2 is known to be "invalid"
+                int song_id = ss_toi(words[1].c_str());
 
                 if (music.idexists(words[1].c_str()))
                 {

@@ -1,6 +1,7 @@
 #include "FileSystemUtils.h"
 
 #include <physfs.h>
+#include <physfsrwops.h>
 #include <SDL.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -957,6 +958,14 @@ fail:
     {
         *len = 0;
     }
+}
+
+SDL_RWops* FILESYSTEM_loadAssetRWops(const char* name)
+{
+    char path[MAX_PATH];
+
+    getMountedPath(path, sizeof(path), name);
+    return PHYSFSRWOPS_openRead(path);
 }
 
 void FILESYSTEM_loadAssetToMemory(
