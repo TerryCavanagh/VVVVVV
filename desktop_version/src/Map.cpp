@@ -791,7 +791,10 @@ void mapclass::resetplayer(const bool player_died)
     if (game.roomx != game.saverx || game.roomy != game.savery)
     {
         gotoroom(game.saverx, game.savery);
-        twoframedelayfix();
+        if (player_died)
+        {
+            twoframedelayfix();
+        }
     }
 
     int i = obj.getplayer();
