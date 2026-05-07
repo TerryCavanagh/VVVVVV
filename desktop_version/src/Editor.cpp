@@ -1033,7 +1033,7 @@ static void draw_entities(void)
 
                 if (i == edent_under_cursor)
                 {
-                    text = help.disp_room_coords(entity->p1 / 40, entity->p2 / 30, 1);
+                    text = help.disp_room_coords(entity->p1 / 40, entity->p2 / 30, game.coords0 ? 0 : 1);
                 }
                 else
                 {
@@ -1152,7 +1152,7 @@ static void draw_entities(void)
 
             if (ed.tilex == x / 8 && ed.tiley == y / 8)
             {
-                text = help.disp_room_coords(entity->rx, entity->ry, 1);
+                text = help.disp_room_coords(entity->rx, entity->ry, game.coords0 ? 0 : 1);
             }
             else
             {
@@ -1622,7 +1622,7 @@ static void draw_main_ui(void)
     const RoomProperty* const room = cl.getroomprop(ed.levx, ed.levy);
 
     char coords[8];
-    help.disp_room_coords(coords, sizeof(coords), ed.levx, ed.levy, 1);
+    help.disp_room_coords(coords, sizeof(coords), ed.levx, ed.levy, game.coords0 ? 0 : 1);
 
     if (ed.toolbox_open)
     {
@@ -1831,7 +1831,7 @@ void editorrender(void)
                     buf, sizeof(buf), "%c%c%c%c%c",
                     len >= 1 ? key.keybuffer[0] : '_',
                     len >= 2 ? key.keybuffer[1] : '_',
-                    ';',
+                    game.coords0 ? ',' : ';',
                     len >= 3 ? key.keybuffer[2] : '_',
                     len >= 4 ? key.keybuffer[3] : '_'
                 );
@@ -2126,8 +2126,15 @@ static void input_submitted(void)
             break;
         }
 
-        ed.levx = SDL_clamp(SDL_strtol(coord_x, NULL, 10) - 1, 0, cl.mapwidth - 1);
-        ed.levy = SDL_clamp(SDL_strtol(coord_y, NULL, 10) - 1, 0, cl.mapheight - 1);
+        int x = SDL_strtol(coord_x, NULL, 10);
+        int y = SDL_strtol(coord_y, NULL, 10);
+        if (!game.coords0)
+        {
+            x--;
+            y--;
+        }
+        ed.levx = SDL_clamp(x, 0, cl.mapwidth - 1);
+        ed.levy = SDL_clamp(y, 0, cl.mapheight - 1);
         graphics.foregrounddrawn = false;
         graphics.backgrounddrawn = false;
         break;

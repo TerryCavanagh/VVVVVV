@@ -344,6 +344,7 @@ void Game::init(void)
     skipfakeload = false;
 
     ghostsenabled = false;
+    coords0 = false;
 
     cliplaytest = false;
     playx = 0;
@@ -4831,6 +4832,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             ghostsenabled = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "coords0") == 0)
+        {
+            coords0 = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "skipfakeload") == 0)
         {
             skipfakeload = help.Int(pText);
@@ -5133,6 +5139,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     xml::update_tag(dataNode, "usingmmmmmm", music.usingmmmmmm);
 
     xml::update_tag(dataNode, "ghostsenabled", (int) ghostsenabled);
+
+    xml::update_tag(dataNode, "coords0", (int) coords0);
 
     xml::update_tag(dataNode, "skipfakeload", (int) skipfakeload);
 

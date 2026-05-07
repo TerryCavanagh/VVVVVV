@@ -555,6 +555,7 @@ public:
 
     bool skipfakeload;
     bool ghostsenabled;
+    bool coords0;
 
     bool cliplaytest;
     int playx;
