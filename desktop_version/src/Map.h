@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 
 #include "Finalclass.h"
 #include "Labclass.h"
@@ -141,6 +142,11 @@ public:
 
     bool isexplored(const int rx, const int ry);
     void setexplored(const int rx, const int ry, const bool status);
+
+    std::map<int,int> savedwarpdirs;
+
+    void savewarpdir(const int rx, const int ry, const int dir);
+    void unsavewarpdir(const int rx, const int ry);
 
     bool revealmap;
 
