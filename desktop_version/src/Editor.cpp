@@ -1820,23 +1820,44 @@ void editorrender(void)
             break;
         case EditorSubState_DRAW_INPUT:
         {
-            short lines;
-            std::string wrapped = font::string_wordwrap(0, loc::gettext(ed.current_text_desc.c_str()), 312, &lines);
-            short textheight = font::height(0) * lines + font::height(PR_FONT_LEVEL);
-
-            graphics.fill_rect(0, 238 - textheight, 320, 240, graphics.getRGB(32, 32, 32));
-            graphics.fill_rect(0, 239 - textheight, 320, 240, graphics.getRGB(0, 0, 0));
-            font::print_wrap(PR_RTL_XFLIP, 4, 240 - textheight, wrapped.c_str(), 255, 255, 255, 8, 312);
-            std::string input = key.keybuffer;
-            if (ed.entframe < 2)
+            std::string input;
+            uint32_t input_font = PR_FONT_LEVEL;
+            if (ed.current_text_mode == TEXT_GOTOROOM)
             {
-                input += "_";
+                input_font = PR_FONT_INTERFACE;
+                size_t len = key.keybuffer.length();
+                char buf[16];
+                SDL_snprintf(
+                    buf, sizeof(buf), "%c%c%c%c%c",
+                    len >= 1 ? key.keybuffer[0] : '_',
+                    len >= 2 ? key.keybuffer[1] : '_',
+                    ';',
+                    len >= 3 ? key.keybuffer[2] : '_',
+                    len >= 4 ? key.keybuffer[3] : '_'
+                );
+                input = buf;
             }
             else
             {
-                input += " ";
+                input = key.keybuffer;
+                if (ed.entframe < 2)
+                {
+                    input += "_";
+                }
+                else
+                {
+                    input += " ";
+                }
             }
-            font::print(PR_CEN | PR_FONT_LEVEL | PR_CJK_HIGH, -1, 232, input, 196, 196, 255 - help.glow);
+
+            short lines;
+            std::string wrapped = font::string_wordwrap(0, loc::gettext(ed.current_text_desc.c_str()), 312, &lines);
+            short textheight = font::height(0) * lines + font::height(input_font);
+
+            graphics.fill_rect(0, 238 - textheight, 320, 240, graphics.getRGB(32, 32, 32));
+            graphics.fill_rect(0, 239 - textheight, 320, 240, graphics.getRGB(0, 0, 0));
+            font::print_wrap(PR_RTL_XFLIP | PR_CJK_LOW, 4, 240 - textheight, wrapped.c_str(), 255, 255, 255, 8, 312);
+            font::print(PR_CEN | input_font | PR_CJK_HIGH, -1, 232, input, 196, 196, 255 - help.glow);
             break;
         }
         case EditorSubState_DRAW_WARPTOKEN:
@@ -2085,21 +2106,16 @@ static void input_submitted(void)
     {
     case TEXT_GOTOROOM:
     {
-        char coord_x[16];
-        char coord_y[16];
+        char coord_x[3];
+        char coord_y[3];
 
-        const char* comma = SDL_strchr(key.keybuffer.c_str(), ',');
-
-        bool valid_input = comma != NULL;
+        bool valid_input = key.keybuffer.length() >= 3;
 
         if (valid_input)
         {
-            SDL_strlcpy(
-                coord_x,
-                key.keybuffer.c_str(),
-                SDL_min((size_t) (comma - key.keybuffer.c_str() + 1), sizeof(coord_x))
-            );
-            SDL_strlcpy(coord_y, &comma[1], sizeof(coord_y));
+            const char* input = key.keybuffer.c_str();
+            SDL_strlcpy(coord_x, input, sizeof(coord_x));
+            SDL_strlcpy(coord_y, &input[2], sizeof(coord_y));
 
             valid_input = is_number(coord_x) && is_number(coord_y);
         }
@@ -2110,8 +2126,8 @@ static void input_submitted(void)
             break;
         }
 
-        ed.levx = SDL_clamp(help.Int(coord_x) - 1, 0, cl.mapwidth - 1);
-        ed.levy = SDL_clamp(help.Int(coord_y) - 1, 0, cl.mapheight - 1);
+        ed.levx = SDL_clamp(SDL_strtol(coord_x, NULL, 10) - 1, 0, cl.mapwidth - 1);
+        ed.levy = SDL_clamp(SDL_strtol(coord_y, NULL, 10) - 1, 0, cl.mapheight - 1);
         graphics.foregrounddrawn = false;
         graphics.backgrounddrawn = false;
         break;
@@ -3858,6 +3874,34 @@ void editorinput(void)
                     {
                         key.keybuffer.erase(key.keybuffer.begin() + i);
                     }
+                }
+            }
+            else if (ed.current_text_mode == TEXT_GOTOROOM)
+            {
+                // We only want to accept four digits here!
+                // See the loop above for a note on SIZE_MAX.
+                // FIXME: Honestly, I'm not a fan of this overflow juggling,
+                // but it's how two other loops here work, so I'll add my own.
+                // But maybe we should make it signed before someone else
+                // stares at this thinking "wait, won't that underflow badly?"
+                for (size_t i = key.keybuffer.length() - 1; i + 1 > 0; i--)
+                {
+                    char ch = key.keybuffer[i];
+                    if (i == 1 && (ch == ',' || ch == ';'))
+                    {
+                        key.keybuffer.erase(key.keybuffer.begin() + i);
+                        key.keybuffer.insert(key.keybuffer.begin(), '0');
+                        i++;
+                    }
+                    else if (ch < '0' || ch > '9' || i > 3)
+                    {
+                        key.keybuffer.erase(key.keybuffer.begin() + i);
+                    }
+                }
+
+                if (key.keybuffer.length() == 4)
+                {
+                    enter_pressed = true;
                 }
             }
 
