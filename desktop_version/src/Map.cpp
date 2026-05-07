@@ -66,6 +66,7 @@ mapclass::mapclass(void)
     SDL_memset(roomdeaths, 0, sizeof(roomdeaths));
     SDL_memset(roomdeathsfinal, 0, sizeof(roomdeathsfinal));
     resetmap();
+    savedwarpdirs.clear();
 
     setroomname("");
     hiddenname = "";
@@ -726,6 +727,18 @@ int mapclass::area(int _rx, int _ry)
             return 6;
         }
     }
+}
+
+void mapclass::savewarpdir(const int rx, const int ry, const int dir)
+{
+    const int roomnum = rx + ry*20;
+    savedwarpdirs[roomnum] = dir;
+}
+
+void mapclass::unsavewarpdir(const int rx, const int ry)
+{
+    const int roomnum = rx + ry*20;
+    savedwarpdirs.erase(roomnum);
 }
 
 bool mapclass::isexplored(const int rx, const int ry)
