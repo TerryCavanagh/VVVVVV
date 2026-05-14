@@ -347,7 +347,7 @@ void scriptclass::run(void)
                 int current = 0;
 
                 // Crawl through the string
-                for (int i = 0; i < words[1].size(); i++)
+                for (size_t i = 0; i < words[1].size(); i++)
                 {
                     // If the current character is a number, add it to the current version part
                     if (words[1][i] >= '0' && words[1][i] <= '9')
