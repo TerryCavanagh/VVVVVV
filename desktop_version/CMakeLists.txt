@@ -16,9 +16,14 @@ option(OFFICIAL_BUILD "Compile an official build of the game" OFF)
 
 option(MAKEANDPLAY "Compile a version of the game without the main campaign (provided for convenience; consider modifying MakeAndPlay.h instead" OFF)
 
-if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
-    set(STEAM ON)
-    set(GOG ON)
+option(WINXP "Compile with Windows XP support. You must set your toolkit version to v141_xp for this to work." OFF)
+
+if(OFFICIAL_BUILD)
+    set(WINXP ON)
+    if(NOT MAKEANDPLAY)
+        set(STEAM ON)
+        set(GOG ON)
+    endif()
 endif()
 
 option(REMOVE_ABSOLUTE_PATHS "If supported by the compiler, replace all absolute paths to source directories compiled into the binary (if any) with relative paths" ON)
@@ -367,6 +372,11 @@ if(BUNDLE_DEPENDENCIES)
     target_compile_definitions(physfs-static PRIVATE
         -DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1
     )
+
+   if(MSVC AND WINXP)
+        target_compile_definitions(physfs-static PRIVATE -D_WIN32_WINNT=0x0501)
+    endif()
+
     add_library(faudio-static STATIC ${FAUDIO_SRC})
     target_include_directories(
         faudio-static PRIVATE
