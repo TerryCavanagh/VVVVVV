@@ -10,8 +10,8 @@
 
 /* Steamworks interface versions */
 
-#define VVVVVV_STEAMCLIENT "SteamClient017"
-#define VVVVVV_STEAMUSERSTATS "STEAMUSERSTATS_INTERFACE_VERSION011"
+#define VVVVVV_STEAMCLIENT "SteamClient023"
+#define VVVVVV_STEAMUSERSTATS "STEAMUSERSTATS_INTERFACE_VERSION013"
 #define VVVVVV_STEAMSCREENSHOTS "STEAMSCREENSHOTS_INTERFACE_VERSION003"
 
 /* Shared object file name */
@@ -45,8 +45,16 @@ struct SteamAPICallCompleted_t
     uint32_t m_cubParam;
 };
 
+typedef enum ESteamAPIInitResult
+{
+    k_ESteamAPIInitResult_OK = 0,
+    k_ESteamAPIInitResult_FailedGeneric = 1,
+    k_ESteamAPIInitResult_NoSteamClient = 2,
+    k_ESteamAPIInitResult_VersionMismatch = 3,
+} ESteamAPIInitResult;
+
 #define FUNC_LIST \
-    FOREACH_FUNC(uint8_t, SteamAPI_Init, (void)) \
+    FOREACH_FUNC(ESteamAPIInitResult, SteamAPI_InitFlat, (void*)) \
     FOREACH_FUNC(void, SteamAPI_Shutdown, (void)) \
     FOREACH_FUNC(void, SteamAPI_RunCallbacks, (void)) \
     FOREACH_FUNC(struct ISteamClient*, SteamInternal_CreateInterface, (const char*)) \
@@ -58,7 +66,6 @@ struct SteamAPICallCompleted_t
         int32_t, \
         const char* \
     )) \
-    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_RequestCurrentStats, (struct ISteamUserStats*)) \
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_StoreStats, (struct ISteamUserStats*)) \
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_SetAchievement, ( \
         struct ISteamUserStats*, \
@@ -177,7 +184,7 @@ int32_t STEAM_init(void)
     FUNC_LIST
 #undef FOREACH_FUNC
 
-    if (!SteamAPI_Init())
+    if (SteamAPI_InitFlat(NULL) != k_ESteamAPIInitResult_OK)
     {
         vlog_error("Steamworks not initialized!");
         ClearPointers();
@@ -207,7 +214,6 @@ int32_t STEAM_init(void)
         ClearPointers();
         return 0;
     }
-    SteamAPI_ISteamUserStats_RequestCurrentStats(steamUserStats);
     steamScreenshots = SteamAPI_ISteamClient_GetISteamScreenshots(
         steamClient,
         steamUser,
