@@ -72,6 +72,17 @@ static volatile Uint64 f_time = 0;
 static volatile Uint64 f_timePrev = 0;
 #endif
 
+// RPC variables
+
+#define RPC_SAFE_BUFFER 256
+// change to what you want if it suits other languages
+
+static char rpcArea[RPC_SAFE_BUFFER] = "";
+static char rpcRoomname[RPC_SAFE_BUFFER] = "";
+static enum GameGamestate rpcGameState;
+
+
+
 enum FuncType
 {
     Func_null,
@@ -976,6 +987,52 @@ static enum LoopCode loop_begin(void)
     if (game.inputdelay)
     {
         key.Poll();
+    }
+
+    // Discord RPC handling (and maybe later Steam RPC?)
+    if (game.gamestate != rpcGameState)
+    {
+        //printf("gamestate has changed: %d != %d\n", game.gamestate, rpcGameState);
+        rpcGameState = game.gamestate;
+        if (rpcGameState == TITLEMODE)
+        {
+            SDL_strlcpy(rpcArea, "Exploring the Menus", RPC_SAFE_BUFFER-1);
+            SDL_strlcpy(rpcRoomname, "", RPC_SAFE_BUFFER-1);
+        }
+        else if (rpcGameState == EDITORMODE)
+        {
+            SDL_strlcpy(rpcArea, "Making a Level", RPC_SAFE_BUFFER-1);
+            SDL_strlcpy(rpcRoomname, "", RPC_SAFE_BUFFER-1);
+        }
+        /*else
+        {
+            SDL_strlcpy(rpcArea, map.currentarea(game.roomx, game.roomy), RPC_SAFE_BUFFER-1);
+            SDL_strlcpy(rpcRoomname, map.roomname, RPC_SAFE_BUFFER-1);
+        }*/
+        NETWORK_setRPC(rpcArea, rpcRoomname);
+    }
+    else if (game.gamestate == GAMEMODE)
+    {
+        char nextArea[RPC_SAFE_BUFFER] = "", nextRoom[RPC_SAFE_BUFFER] = "";
+
+        // Dirty fix for custom levels getting the area from Dimension VVVVVV
+        if (map.custommode)
+        {
+            SDL_strlcpy(nextArea, game.customleveltitle.c_str(), RPC_SAFE_BUFFER-1);
+        }
+        else
+        {
+            SDL_strlcpy(nextArea, map.currentarea(game.roomx, game.roomy), RPC_SAFE_BUFFER-1);
+        }
+        SDL_strlcpy(nextRoom, map.roomname, RPC_SAFE_BUFFER-1);
+        //printf("room %s == %s, area %s == %s\n", rpcRoomname, nextRoom, rpcArea, nextArea);
+        if ((SDL_strcmp(rpcArea, nextArea) != 0) || (SDL_strcmp(rpcRoomname, nextRoom) != 0))
+        {
+            // FIXME BEFORE PUSHING!!: These pointers aren't safe to use and result in RPC not updating when it needs to.
+            SDL_strlcpy(rpcArea, nextArea, RPC_SAFE_BUFFER-1);
+            SDL_strlcpy(rpcRoomname, nextRoom, RPC_SAFE_BUFFER-1);
+            NETWORK_setRPC(rpcArea, rpcRoomname);
+        }
     }
 
     // Update network per frame.

@@ -10,6 +10,9 @@
     #ifdef GOG_NETWORK
         #undef GOG_NETWORK
     #endif
+    #ifdef DISCORD_NETWORK
+        #undef DISCORD_NETWORK
+    #endif
 #endif
 
 #ifdef STEAM_NETWORK
@@ -22,18 +25,27 @@
 #else
 #define GOG_NUM 0
 #endif
+#ifdef DISCORD_NETWORK
+#define DISCORD_NUM 1
+#else
+#define DISCORD_NUM 0
+#endif
 
-#define NUM_BACKENDS (STEAM_NUM+GOG_NUM)
+#define NUM_BACKENDS (STEAM_NUM+GOG_NUM+DISCORD_NUM)
 #define DECLARE_BACKEND(name) \
     int32_t name##_init(void); \
     void name##_shutdown(void); \
-    void name##_update(void); \
-    void name##_unlockAchievement(const char *name);
+    int32_t name##_update(void); \
+    void name##_unlockAchievement(const char* name); \
+    void name##_setRPC(const char* area, const char* roomname);
 #ifdef STEAM_NETWORK
 DECLARE_BACKEND(STEAM)
 #endif
 #ifdef GOG_NETWORK
 DECLARE_BACKEND(GOG)
+#endif
+#ifdef DISCORD_NETWORK
+DECLARE_BACKEND(DISCORD)
 #endif
 #undef DECLARE_BACKEND
 
@@ -42,8 +54,9 @@ typedef struct NetworkBackend
     int32_t IsInit;
     int32_t (*Init)(void);
     void (*Shutdown)(void);
-    void (*Update)(void);
+    int32_t (*Update)(void);
     void (*UnlockAchievement)(const char*);
+    void (*SetRPC)(const char*, const char*);
 } NetworkBackend;
 
 #if NUM_BACKENDS > 0
@@ -57,12 +70,17 @@ int NETWORK_init(void)
         backends[index].Init = name##_init; \
         backends[index].Shutdown = name##_shutdown; \
         backends[index].Update = name##_update; \
-        backends[index].UnlockAchievement = name##_unlockAchievement;
+        backends[index].UnlockAchievement = name##_unlockAchievement; \
+        backends[index].SetRPC = name##_setRPC;
+
     #ifdef STEAM_NETWORK
     ASSIGN_BACKEND(STEAM, 0)
     #endif
     #ifdef GOG_NETWORK
     ASSIGN_BACKEND(GOG, STEAM_NUM)
+    #endif
+    #ifdef DISCORD_NETWORK
+    ASSIGN_BACKEND(DISCORD, STEAM_NUM+GOG_NUM)
     #endif
     #undef ASSIGN_BACKEND
     #if NUM_BACKENDS > 0
@@ -89,19 +107,25 @@ void NETWORK_shutdown(void)
     #endif
 }
 
-void NETWORK_update(void)
+
+int32_t NETWORK_update(void)
 {
+    int32_t result = 0;
     #if NUM_BACKENDS > 0
     int32_t i;
     for (i = 0; i < NUM_BACKENDS; i += 1)
     if (backends[i].IsInit)
     {
-        backends[i].Update();
+        if ( backends[i].Update() )
+        {
+            result |= (1 << i);
+        }
     }
     #endif
+    return result;
 }
 
-void NETWORK_unlockAchievement(const char *name)
+void NETWORK_unlockAchievement(const char* name)
 {
     #if NUM_BACKENDS > 0
     int32_t i;
@@ -114,3 +138,16 @@ void NETWORK_unlockAchievement(const char *name)
     UNUSED(name);
     #endif
 }
+
+void NETWORK_setRPC(const char* area, const char* roomname)
+{
+    #if NUM_BACKENDS > 0
+    int32_t i;
+    for (i = 0; i < NUM_BACKENDS; i += 1)
+    if (backends[i].IsInit)
+    {
+        backends[i].SetRPC(area, roomname);
+    }
+    #endif
+}
+
