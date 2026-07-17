@@ -1,7 +1,7 @@
 #define GRAPHICS_DEFINITION
 #include "Graphics.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Alloc.h"
 #include "Constants.h"
@@ -157,7 +157,7 @@ void Graphics::destroy(void)
 #define CLEAR_ARRAY(name) \
     for (size_t i = 0; i < name.size(); i += 1) \
     { \
-        VVV_freefunc(SDL_FreeSurface, name[i]); \
+        VVV_freefunc(SDL_DestroySurface, name[i]); \
     } \
     name.clear();
 
@@ -200,12 +200,12 @@ void Graphics::create_buffers(void)
 
     SDL_SetTextureScaleMode(
         gameTexture,
-        gameScreen.isFiltered ? SDL_ScaleModeLinear : SDL_ScaleModeNearest
+        gameScreen.isFiltered ? SDL_SCALEMODE_LINEAR : SDL_SCALEMODE_NEAREST
     );
 
     SDL_SetTextureScaleMode(
         tempShakeTexture,
-        gameScreen.isFiltered ? SDL_ScaleModeLinear : SDL_ScaleModeNearest
+        gameScreen.isFiltered ? SDL_SCALEMODE_LINEAR : SDL_SCALEMODE_NEAREST
     );
 }
 
@@ -221,10 +221,10 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_DestroyTexture, tempScrollingTexture);
     VVV_freefunc(SDL_DestroyTexture, towerbg.texture);
     VVV_freefunc(SDL_DestroyTexture, titlebg.texture);
-    VVV_freefunc(SDL_FreeSurface, tempFilterSrc);
-    VVV_freefunc(SDL_FreeSurface, tempFilterDest);
-    VVV_freefunc(SDL_FreeSurface, tempScreenshot);
-    VVV_freefunc(SDL_FreeSurface, tempScreenshot2x);
+    VVV_freefunc(SDL_DestroySurface, tempFilterSrc);
+    VVV_freefunc(SDL_DestroySurface, tempFilterDest);
+    VVV_freefunc(SDL_DestroySurface, tempScreenshot);
+    VVV_freefunc(SDL_DestroySurface, tempScreenshot2x);
 }
 
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
@@ -446,79 +446,98 @@ void Graphics::print_level_creator(
     font::print(print_flags, text_x, y, creator, r, g, b);
 }
 
-int Graphics::set_render_target(SDL_Texture* texture)
+bool Graphics::set_render_target(SDL_Texture* texture)
 {
-    const int result = SDL_SetRenderTarget(gameScreen.m_renderer, texture);
-    if (result != 0)
+    const bool result = SDL_SetRenderTarget(gameScreen.m_renderer, texture);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not set render target: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::set_texture_color_mod(SDL_Texture* texture, const Uint8 r, const Uint8 g, const Uint8 b)
+bool Graphics::set_texture_color_mod(SDL_Texture* texture, const Uint8 r, const Uint8 g, const Uint8 b)
 {
-    const int result = SDL_SetTextureColorMod(texture, r, g, b);
-    if (result != 0)
+    const bool result = SDL_SetTextureColorMod(texture, r, g, b);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not set texture color mod: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::set_texture_alpha_mod(SDL_Texture* texture, const Uint8 alpha)
+bool Graphics::set_texture_alpha_mod(SDL_Texture* texture, const Uint8 alpha)
 {
-    const int result = SDL_SetTextureAlphaMod(texture, alpha);
-    if (result != 0)
+    const bool result = SDL_SetTextureAlphaMod(texture, alpha);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not set texture alpha mod: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::query_texture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h)
+bool Graphics::query_texture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h)
 {
-    const int result = SDL_QueryTexture(texture, format, access, w, h);
-    if (result != 0)
+    SDL_PropertiesID props = SDL_GetTextureProperties(texture);
+
+    if (props == 0)
     {
         WHINE_ONCE_ARGS(("Could not query texture: %s", SDL_GetError()));
+        return false;
     }
-    return result;
+
+    if (format) {
+        *format =  SDL_GetNumberProperty(props, SDL_PROP_TEXTURE_FORMAT_NUMBER, 0);
+    }
+
+    if (access) {
+        *access = SDL_GetNumberProperty(props, SDL_PROP_TEXTURE_ACCESS_NUMBER, 0);
+    }
+
+    if (w) {
+        *w = SDL_GetNumberProperty(props, SDL_PROP_TEXTURE_WIDTH_NUMBER, 0);
+    }
+
+    if (h) {
+        *h = SDL_GetNumberProperty(props, SDL_PROP_TEXTURE_HEIGHT_NUMBER, 0);
+    }
+
+    return true;
 }
 
-int Graphics::set_blendmode(const SDL_BlendMode blendmode)
+bool Graphics::set_blendmode(const SDL_BlendMode blendmode)
 {
-    const int result = SDL_SetRenderDrawBlendMode(gameScreen.m_renderer, blendmode);
-    if (result != 0)
+    const bool result = SDL_SetRenderDrawBlendMode(gameScreen.m_renderer, blendmode);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not set draw mode: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::set_blendmode(SDL_Texture* texture, const SDL_BlendMode blendmode)
+bool Graphics::set_blendmode(SDL_Texture* texture, const SDL_BlendMode blendmode)
 {
-    const int result = SDL_SetTextureBlendMode(texture, blendmode);
-    if (result != 0)
+    const bool result = SDL_SetTextureBlendMode(texture, blendmode);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not set texture blend mode: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::clear(const int r, const int g, const int b, const int a)
+bool Graphics::clear(const int r, const int g, const int b, const int a)
 {
     set_color(r, g, b, a);
 
-    const int result = SDL_RenderClear(gameScreen.m_renderer);
-    if (result != 0)
+    const bool result = SDL_RenderClear(gameScreen.m_renderer);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not clear current render target: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::clear(void)
+bool Graphics::clear(void)
 {
     return clear(0, 0, 0, 255);
 }
@@ -566,12 +585,12 @@ void Graphics::post_substitute(SDL_Texture* subst)
     set_texture_alpha_mod(subst, 255);
 }
 
-int Graphics::copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest)
+bool Graphics::copy_texture(SDL_Texture* texture, const SDL_FRect* src, const SDL_FRect* dest)
 {
     bool is_substituted = substitute(&texture);
 
-    const int result = SDL_RenderCopy(gameScreen.m_renderer, texture, src, dest);
-    if (result != 0)
+    const bool result = SDL_RenderTexture(gameScreen.m_renderer, texture, src, dest);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not copy texture: %s", SDL_GetError()));
     }
@@ -584,12 +603,12 @@ int Graphics::copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_
     return result;
 }
 
-int Graphics::copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, const double angle, const SDL_Point* center, const SDL_RendererFlip flip)
+bool Graphics::copy_texture(SDL_Texture* texture, const SDL_FRect* src, const SDL_FRect* dest, const double angle, const SDL_FPoint* center, const SDL_FlipMode flip)
 {
     bool is_substituted = substitute(&texture);
 
-    const int result = SDL_RenderCopyEx(gameScreen.m_renderer, texture, src, dest, angle, center, flip);
-    if (result != 0)
+    const bool result = SDL_RenderTextureRotated(gameScreen.m_renderer, texture, src, dest, angle, center, flip);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not copy texture: %s", SDL_GetError()));
     }
@@ -602,141 +621,151 @@ int Graphics::copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_
     return result;
 }
 
-int Graphics::set_color(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a)
+bool Graphics::set_color(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a)
 {
-    const int result = SDL_SetRenderDrawColor(gameScreen.m_renderer, r, g, b, a);
-    if (result != 0)
+    const bool result = SDL_SetRenderDrawColor(gameScreen.m_renderer, r, g, b, a);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not set draw color: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::set_color(const Uint8 r, const Uint8 g, const Uint8 b)
+bool Graphics::set_color(const Uint8 r, const Uint8 g, const Uint8 b)
 {
     return set_color(r, g, b, 255);
 }
 
-int Graphics::set_color(const SDL_Color color)
+bool Graphics::set_color(const SDL_Color color)
 {
     return set_color(color.r, color.g, color.b, color.a);
 }
 
-int Graphics::fill_rect(const SDL_Rect* rect)
+bool Graphics::fill_rect(const SDL_FRect* rect)
 {
-    const int result = SDL_RenderFillRect(gameScreen.m_renderer, rect);
-    if (result != 0)
+    const bool result = SDL_RenderFillRect(gameScreen.m_renderer, rect);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not draw filled rectangle: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+bool Graphics::fill_rect(const SDL_FRect* rect, const int r, const int g, const int b, const int a)
 {
     set_color(r, g, b, a);
     return fill_rect(rect);
 }
 
-int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b)
+bool Graphics::fill_rect(const SDL_FRect* rect, const int r, const int g, const int b)
 {
     return fill_rect(rect, r, g, b, 255);
 }
 
-int Graphics::fill_rect(const int r, const int g, const int b)
+bool Graphics::fill_rect(const int r, const int g, const int b)
 {
     return fill_rect(NULL, r, g, b, 255);
 }
 
-int Graphics::fill_rect(const SDL_Rect* rect, const SDL_Color color)
+bool Graphics::fill_rect(const SDL_FRect* rect, const SDL_Color color)
 {
     return fill_rect(rect, color.r, color.g, color.b, color.a);
 }
 
-int Graphics::fill_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b, const int a)
+bool Graphics::fill_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b, const int a)
 {
-    const SDL_Rect rect = {x, y, w, h};
+    const SDL_FRect rect = {
+        static_cast<float>(x),
+        static_cast<float>(y),
+        static_cast<float>(w),
+        static_cast<float>(h)
+    };
     return fill_rect(&rect, r, g, b, a);
 }
 
-int Graphics::fill_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b)
+bool Graphics::fill_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b)
 {
     return fill_rect(x, y, w, h, r, g, b, 255);
 }
 
-int Graphics::fill_rect(const SDL_Color color)
+bool Graphics::fill_rect(const SDL_Color color)
 {
     return fill_rect(NULL, color);
 }
 
-int Graphics::fill_rect(const int x, const int y, const int w, const int h, const SDL_Color color)
+bool Graphics::fill_rect(const int x, const int y, const int w, const int h, const SDL_Color color)
 {
     return fill_rect(x, y, w, h, color.r, color.g, color.b, color.a);
 }
 
-int Graphics::draw_rect(const SDL_Rect* rect)
+bool Graphics::draw_rect(const SDL_FRect* rect)
 {
-    const int result = SDL_RenderDrawRect(gameScreen.m_renderer, rect);
-    if (result != 0)
+    const bool result = SDL_RenderRect(gameScreen.m_renderer, rect);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not draw rectangle: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+bool Graphics::draw_rect(const SDL_FRect* rect, const int r, const int g, const int b, const int a)
 {
     set_color(r, g, b, a);
     return draw_rect(rect);
 }
 
-int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b)
+bool Graphics::draw_rect(const SDL_FRect* rect, const int r, const int g, const int b)
 {
     return draw_rect(rect, r, g, b, 255);
 }
 
-int Graphics::draw_rect(const SDL_Rect* rect, const SDL_Color color)
+bool Graphics::draw_rect(const SDL_FRect* rect, const SDL_Color color)
 {
     return draw_rect(rect, color.r, color.g, color.b, color.a);
 }
 
-int Graphics::draw_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b, const int a)
+bool Graphics::draw_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b, const int a)
 {
-    const SDL_Rect rect = {x, y, w, h};
+    const SDL_FRect rect = {
+        static_cast<float>(x),
+        static_cast<float>(y),
+        static_cast<float>(w),
+        static_cast<float>(h)
+    };
     return draw_rect(&rect, r, g, b, a);
 }
 
-int Graphics::draw_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b)
+bool Graphics::draw_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b)
 {
     return draw_rect(x, y, w, h, r, g, b, 255);
 }
 
-int Graphics::draw_rect(const int x, const int y, const int w, const int h, const SDL_Color color)
+bool Graphics::draw_rect(const int x, const int y, const int w, const int h, const SDL_Color color)
 {
     return draw_rect(x, y, w, h, color.r, color.g, color.b, color.a);
 }
 
-int Graphics::draw_line(const int x, const int y, const int x2, const int y2)
+bool Graphics::draw_line(const int x, const int y, const int x2, const int y2)
 {
-    const int result = SDL_RenderDrawLine(gameScreen.m_renderer, x, y, x2, y2);
-    if (result != 0)
+    const bool result = SDL_RenderLine(gameScreen.m_renderer, x, y, x2, y2);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not draw line: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::draw_points(const SDL_Point* points, const int count)
+bool Graphics::draw_points(const SDL_FPoint* points, const int count)
 {
-    const int result = SDL_RenderDrawPoints(gameScreen.m_renderer, points, count);
-    if (result != 0)
+    const bool result = SDL_RenderPoints(gameScreen.m_renderer, points, count);
+    if (!result)
     {
         WHINE_ONCE_ARGS(("Could not draw points: %s", SDL_GetError()));
     }
     return result;
 }
 
-int Graphics::draw_points(const SDL_Point* points, const int count, const int r, const int g, const int b)
+bool Graphics::draw_points(const SDL_FPoint* points, const int count, const int r, const int g, const int b)
 {
     set_color(r, g, b);
     return draw_points(points, count);
@@ -761,10 +790,20 @@ void Graphics::scroll_texture(SDL_Texture* texture, SDL_Texture* temp, const int
 {
     SDL_Texture* target = SDL_GetRenderTarget(gameScreen.m_renderer);
     SDL_Rect texture_rect = {0, 0, 0, 0};
-    SDL_QueryTexture(texture, NULL, NULL, &texture_rect.w, &texture_rect.h);
+    query_texture(texture, NULL, NULL, &texture_rect.w, &texture_rect.h);
 
-    const SDL_Rect src = {0, 0, texture_rect.w, texture_rect.h};
-    const SDL_Rect dest = {x, y, texture_rect.w, texture_rect.h};
+    const SDL_FRect src = {
+        0.0f,
+        0.0f,
+        static_cast<float>(texture_rect.w),
+        static_cast<float>(texture_rect.h)
+    };
+    const SDL_FRect dest = {
+        static_cast<float>(x),
+        static_cast<float>(y),
+        static_cast<float>(texture_rect.w),
+        static_cast<float>(texture_rect.h)
+    };
 
     set_render_target(temp);
     clear();
@@ -813,7 +852,7 @@ void Graphics::drawtile3(int x, int y, int t, int off, int height_subtract /*= 0
     // so do the logic ourselves (except include height_subtract in the final call)
 
     int width;
-    if (query_texture(grphx.im_tiles3, NULL, NULL, &width, NULL) != 0)
+    if (!query_texture(grphx.im_tiles3, NULL, NULL, &width, NULL))
     {
         return;
     }
@@ -1120,7 +1159,7 @@ void Graphics::drawimagecol( int t, int xp, int yp, const SDL_Color ct, bool cen
     trect.x = xp;
     trect.y = yp;
 
-    if (query_texture(images[t], NULL, NULL, &trect.w, &trect.h) != 0)
+    if (!query_texture(images[t], NULL, NULL, &trect.w, &trect.h))
     {
         return;
     }
@@ -1147,7 +1186,7 @@ void Graphics::drawimage( int t, int xp, int yp, bool cent/*=false*/ )
     trect.x = xp;
     trect.y = yp;
 
-    if (query_texture(images[t], NULL, NULL, &trect.w, &trect.h) != 0)
+    if (!query_texture(images[t], NULL, NULL, &trect.w, &trect.h))
     {
         return;
     }
@@ -1173,19 +1212,29 @@ void Graphics::draw_texture(SDL_Texture* image, const int x, const int y)
 {
     int w, h;
 
-    if (query_texture(image, NULL, NULL, &w, &h) != 0)
+    if (!query_texture(image, NULL, NULL, &w, &h))
     {
         return;
     }
 
-    const SDL_Rect dstrect = {x, y, w, h};
+    const SDL_FRect dstrect = {
+        static_cast<float>(x),
+        static_cast<float>(y),
+        static_cast<float>(w),
+        static_cast<float>(h)
+    };
 
     copy_texture(image, NULL, &dstrect);
 }
 
 void Graphics::draw_texture_part(SDL_Texture* image, const int x, const int y, const int x2, const int y2, const int w, const int h, const int scalex, const int scaley)
 {
-    const SDL_Rect srcrect = {x2, y2, w, h};
+    const SDL_FRect srcrect = {
+        static_cast<float>(x2),
+        static_cast<float>(y2),
+        static_cast<float>(w),
+        static_cast<float>(h)
+    };
 
     int flip = SDL_FLIP_NONE;
 
@@ -1198,16 +1247,21 @@ void Graphics::draw_texture_part(SDL_Texture* image, const int x, const int y, c
         flip |= SDL_FLIP_VERTICAL;
     }
 
-    const SDL_Rect dstrect = {x, y, w * SDL_abs(scalex), h * SDL_abs(scaley)};
+    const SDL_FRect dstrect = {
+        static_cast<float>(x),
+        static_cast<float>(y),
+        static_cast<float>(w * SDL_abs(scalex)),
+        static_cast<float>(h * SDL_abs(scaley))
+    };
 
-    copy_texture(image, &srcrect, &dstrect, 0, NULL, (SDL_RendererFlip) flip);
+    copy_texture(image, &srcrect, &dstrect, 0, NULL, (SDL_FlipMode) flip);
 }
 
 void Graphics::draw_grid_tile(SDL_Texture* texture, const int t, const int x, const int y, const int width, const int height, const int scalex, const int scaley)
 {
     int tex_width;
 
-    if (query_texture(texture, NULL, NULL, &tex_width, NULL) != 0)
+    if (!query_texture(texture, NULL, NULL, &tex_width, NULL))
     {
         return;
     }
@@ -2323,7 +2377,8 @@ void Graphics::drawbackground( int t )
         fill_rect(0, 0, 0);
         for (int i = 0; i < numstars; i++)
         {
-            SDL_Rect star_rect = stars[i];
+            SDL_FRect star_rect = {0};
+            SDL_RectToFRect(&stars[i], &star_rect);
             star_rect.x = lerp(star_rect.x + starsspeed[i], star_rect.x);
             if (starsspeed[i] <= 6)
             {
@@ -2476,7 +2531,8 @@ void Graphics::drawbackground( int t )
                 break;
             }
 
-            SDL_Rect backboxrect = backboxes[i];
+            SDL_FRect backboxrect = {0};
+            SDL_RectToFRect(&backboxes[i], &backboxrect);
             backboxrect.x = lerp(backboxes[i].x - backboxvx[i], backboxes[i].x);
             backboxrect.y = lerp(backboxes[i].y - backboxvy[i], backboxes[i].y);
 
@@ -2494,7 +2550,12 @@ void Graphics::drawbackground( int t )
         clear();
 
         const int offset = (int) lerp(-3, 0);
-        const SDL_Rect srcRect = {8 + offset, 0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS};
+        const SDL_FRect srcRect = {
+            8.0f + offset,
+            0.0f,
+            static_cast<float>(SCREEN_WIDTH_PIXELS),
+            static_cast<float>(SCREEN_HEIGHT_PIXELS)
+        };
 
         copy_texture(backgroundTexture, &srcRect, NULL);
         break;
@@ -2504,7 +2565,12 @@ void Graphics::drawbackground( int t )
         clear();
 
         const int offset = (int) lerp(-3, 0);
-        const SDL_Rect srcRect = {0, 8 + offset, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS};
+        const SDL_FRect srcRect = {
+            0.0f,
+            8.0f + offset,
+            static_cast<float>(SCREEN_WIDTH_PIXELS),
+            static_cast<float>(SCREEN_HEIGHT_PIXELS)
+        };
 
         copy_texture(backgroundTexture, &srcRect, NULL);
         break;
@@ -2554,7 +2620,12 @@ void Graphics::drawbackground( int t )
         for (int i = 10; i >= 0; i--)
         {
             const int temp = (i * 16) + backoffset;
-            const SDL_Rect warprect = {160 - temp, 120 - temp, temp * 2, temp * 2};
+            const SDL_FRect warprect = {
+                160.0f - temp,
+                120.0f - temp,
+                temp * 2.0f,
+                temp * 2.0f
+            };
             if (i % 2 == warpskip)
             {
                 fill_rect(&warprect, warpbcol);
@@ -2571,7 +2642,8 @@ void Graphics::drawbackground( int t )
         fill_rect(0, 0, 0);
         for (int i = 0; i < numstars; i++)
         {
-            SDL_Rect star_rect = stars[i];
+            SDL_FRect star_rect = {0};
+            SDL_RectToFRect(&stars[i], &star_rect);
             star_rect.y = lerp(star_rect.y + starsspeed[i], star_rect.y);
             if (starsspeed[i] <= 8)
             {
@@ -2903,7 +2975,12 @@ void Graphics::drawtowerbackground(const TowerBG& bg_obj)
     clear();
 
     const int offset = (int) lerp(-bg_obj.bscroll, 0);
-    const SDL_Rect srcRect = {0, 8 + offset, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS};
+    const SDL_FRect srcRect = {
+        0.0f,
+        8.0f + offset,
+        static_cast<float>(SCREEN_WIDTH_PIXELS),
+        static_cast<float>(SCREEN_HEIGHT_PIXELS)
+    };
 
     copy_texture(bg_obj.texture, &srcRect, NULL);
 }
@@ -3184,15 +3261,20 @@ SDL_Color Graphics::getcol( int t )
 
 void Graphics::menuoffrender(void)
 {
-    if (copy_texture(gameplayTexture, NULL, NULL) != 0)
+    if (copy_texture(gameplayTexture, NULL, NULL) == 0)
     {
         return;
     }
 
     const int offset = (int) lerp(oldmenuoffset, menuoffset);
-    const SDL_Rect offsetRect = {0, offset, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS};
+    const SDL_FRect offsetRect = {
+        0.0f,
+        static_cast<float>(offset),
+        static_cast<float>(SCREEN_WIDTH_PIXELS),
+        static_cast<float>(SCREEN_HEIGHT_PIXELS)
+    };
 
-    if (copy_texture(menuTexture, NULL, &offsetRect) != 0)
+    if (copy_texture(menuTexture, NULL, &offsetRect) == 0)
     {
         return;
     }
@@ -3458,7 +3540,12 @@ void Graphics::screenshake(void)
     set_blendmode(SDL_BLENDMODE_NONE);
     clear();
 
-    const SDL_Rect shake = {screenshake_x, screenshake_y, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS};
+    const SDL_FRect shake = {
+        static_cast<float>(screenshake_x),
+        static_cast<float>(screenshake_y),
+        static_cast<float>(SCREEN_WIDTH_PIXELS),
+        static_cast<float>(SCREEN_HEIGHT_PIXELS)
+    };
 
     copy_texture(gameTexture, NULL, &shake);
 
@@ -3478,7 +3565,7 @@ void Graphics::screenshake(void)
     set_blendmode(SDL_BLENDMODE_NONE);
     draw_window_background();
 
-    SDL_Rect rect;
+    SDL_FRect rect;
     get_stretch_info(&rect);
 
     copy_texture(tempShakeTexture, NULL, &rect, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
@@ -3495,7 +3582,7 @@ void Graphics::draw_window_background(void)
     clear();
 }
 
-void Graphics::get_stretch_info(SDL_Rect* rect)
+void Graphics::get_stretch_info(SDL_FRect* rect)
 {
     int width;
     int height;
@@ -3563,7 +3650,7 @@ void Graphics::render(void)
 
     draw_window_background();
 
-    SDL_Rect stretch_info;
+    SDL_FRect stretch_info;
     get_stretch_info(&stretch_info);
 
     ime_set_rect(&stretch_info);
@@ -3637,7 +3724,12 @@ void Graphics::draw_screenshot_border(void)
         return;
     }
 
-    const SDL_Rect rect_inner = {1, 1, width - 2, height - 2};
+    const SDL_FRect rect_inner = {
+        1.0f,
+        1.0f,
+        width - 2.0f,
+        height - 2.0f
+    };
 
     if (game.screenshot_saved_success)
     {
@@ -3699,7 +3791,7 @@ bool Graphics::checktexturesize(
 ) {
     int texturewidth;
     int textureheight;
-    if (query_texture(texture, NULL, NULL, &texturewidth, &textureheight) != 0)
+    if (!query_texture(texture, NULL, NULL, &texturewidth, &textureheight))
     {
         /* Just give it the benefit of the doubt. */
         vlog_warn(

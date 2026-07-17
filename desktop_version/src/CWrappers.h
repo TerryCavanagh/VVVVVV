@@ -1,7 +1,7 @@
 #ifndef CWRAPPERS_H
 #define CWRAPPERS_H
 
-#include <SDL_surface.h>
+#include <SDL3/SDL_surface.h>
 #include <stdint.h>
 
 #ifdef __cplusplus

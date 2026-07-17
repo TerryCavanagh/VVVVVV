@@ -1,7 +1,7 @@
 #define GAMESCREEN_DEFINITION
 #include "Screen.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Alloc.h"
 #include "Constants.h"
@@ -12,7 +12,7 @@
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
-#ifndef __APPLE__
+#ifndef SDL_PLATFORM_APPLE
 #include "GraphicsResources.h"
 #endif
 #include "InterimVersion.h"
@@ -50,11 +50,9 @@ void Screen::init(const struct ScreenSettings* settings)
 
     m_window = SDL_CreateWindow(
         "VVVVVV",
-        SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
-        SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
         SCREEN_WIDTH_PIXELS * 2,
         SCREEN_HEIGHT_PIXELS * 2,
-        SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI
+        SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY
     );
 
     if (m_window == NULL)
@@ -63,7 +61,13 @@ void Screen::init(const struct ScreenSettings* settings)
         VVV_exit(1);
     }
 
-    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+    SDL_SetWindowPosition(
+        m_window,
+        SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
+        SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay)
+    );
+
+    m_renderer = SDL_CreateRenderer(m_window, NULL);
 
     if (m_renderer == NULL)
     {
@@ -71,7 +75,9 @@ void Screen::init(const struct ScreenSettings* settings)
         VVV_exit(1);
     }
 
-    SDL_RenderSetVSync(m_renderer, (int) vsync);
+    SDL_SetDefaultTextureScaleMode(m_renderer, SDL_SCALEMODE_NEAREST);
+
+    SDL_SetRenderVSync(m_renderer, (int) vsync);
 
 #ifdef INTERIM_VERSION_EXISTS
     /* Branch name limits are ill-defined but on GitHub it's ~256 chars
@@ -100,7 +106,7 @@ void Screen::destroy(void)
 
 void Screen::GetSettings(struct ScreenSettings* settings)
 {
-    windowDisplay = SDL_GetWindowDisplayIndex(m_window);
+    windowDisplay = SDL_GetDisplayForWindow(m_window);
     if (windowDisplay < 0)
     {
         vlog_error("Error: could not get display index: %s", SDL_GetError());
@@ -117,7 +123,7 @@ void Screen::GetSettings(struct ScreenSettings* settings)
     settings->badSignal = badSignalEffect;
 }
 
-#ifdef __APPLE__
+#ifdef SDL_PLATFORM_APPLE
 /* Apple doesn't like icons anymore... */
 void Screen::LoadIcon(void)
 {
@@ -132,13 +138,13 @@ void Screen::LoadIcon(void)
         return;
     }
     SDL_SetWindowIcon(m_window, icon);
-    VVV_freefunc(SDL_FreeSurface, icon);
+    VVV_freefunc(SDL_DestroySurface, icon);
 }
-#endif /* __APPLE__ */
+#endif /* SDL_PLATFORM_APPLE */
 
 void Screen::ResizeScreen(int x, int y)
 {
-    windowDisplay = SDL_GetWindowDisplayIndex(m_window);
+    windowDisplay = SDL_GetDisplayForWindow(m_window);
     if (windowDisplay < 0)
     {
         vlog_error("Error: could not get display index: %s", SDL_GetError());
@@ -154,8 +160,7 @@ void Screen::ResizeScreen(int x, int y)
 
     if (!isWindowed || isForcedFullscreen())
     {
-        int result = SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-        if (result != 0)
+        if (!SDL_SetWindowFullscreen(m_window, true))
         {
             vlog_error("Error: could not set the game to fullscreen mode: %s", SDL_GetError());
             return;
@@ -163,8 +168,7 @@ void Screen::ResizeScreen(int x, int y)
     }
     else
     {
-        int result = SDL_SetWindowFullscreen(m_window, 0);
-        if (result != 0)
+        if (!SDL_SetWindowFullscreen(m_window, false))
         {
             vlog_error("Error: could not set the game to windowed mode: %s", SDL_GetError());
         }
@@ -182,15 +186,14 @@ void Screen::ResizeScreen(int x, int y)
 
 static void constrain_to_desktop(int display_index, int* width, int* height)
 {
-    SDL_DisplayMode display_mode = {};
-    int success = SDL_GetDesktopDisplayMode(display_index, &display_mode);
-    if (success != 0)
+    const SDL_DisplayMode *display_mode = SDL_GetDesktopDisplayMode(display_index);
+    if (display_mode == NULL)
     {
         vlog_error("Could not get desktop display mode: %s", SDL_GetError());
         return;
     }
 
-    while ((*width > display_mode.w || *height > display_mode.h)
+    while ((*width > display_mode->w || *height > display_mode->h)
     && *width > SCREEN_WIDTH_PIXELS && *height > SCREEN_HEIGHT_PIXELS)
     {
         // We are too big, take away one multiple
@@ -257,7 +260,7 @@ void Screen::ResizeToNearestMultiple(void)
         h = final_dimension;
     }
 
-    windowDisplay = SDL_GetWindowDisplayIndex(m_window);
+    windowDisplay = SDL_GetDisplayForWindow(m_window);
     if (windowDisplay < 0)
     {
         vlog_error("Could not get display index: %s", SDL_GetError());
@@ -271,7 +274,7 @@ void Screen::ResizeToNearestMultiple(void)
 
 void Screen::GetScreenSize(int* x, int* y)
 {
-    if (SDL_GetRendererOutputSize(m_renderer, x, y) != 0)
+    if (!SDL_GetCurrentRenderOutputSize(m_renderer, x, y))
     {
         vlog_error("Could not get window size: %s", SDL_GetError());
         /* Initialize to safe defaults */
@@ -340,19 +343,19 @@ void Screen::toggleLinearFilter(void)
 
     SDL_SetTextureScaleMode(
         graphics.gameTexture,
-        isFiltered ? SDL_ScaleModeLinear : SDL_ScaleModeNearest
+        isFiltered ? SDL_SCALEMODE_LINEAR : SDL_SCALEMODE_NEAREST
     );
 
     SDL_SetTextureScaleMode(
         graphics.tempShakeTexture,
-        isFiltered ? SDL_ScaleModeLinear : SDL_ScaleModeNearest
+        isFiltered ? SDL_SCALEMODE_LINEAR : SDL_SCALEMODE_NEAREST
     );
 }
 
 void Screen::toggleVSync(void)
 {
     vsync = !vsync;
-    SDL_RenderSetVSync(m_renderer, (int) vsync);
+    SDL_SetRenderVSync(m_renderer, (int) vsync);
 }
 
 void Screen::recacheTextures(void)
@@ -388,9 +391,9 @@ bool Screen::isForcedFullscreen(void)
      * If you're working on a tenfoot-only build, add a def that always
      * returns true!
      */
-#if defined(__ANDROID__) || TARGET_OS_IPHONE
+#if defined(SDL_PLATFORM_ANDROID) || TARGET_OS_IPHONE
     return true;
 #else
-    return SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
+    return SDL_GetHintBoolean("SteamTenfoot", false);
 #endif
 }

@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -10,10 +10,15 @@
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
-
-
-
 void setRect( SDL_Rect& _r, int x, int y, int w, int h )
+{
+    _r.x = x;
+    _r.y = y;
+    _r.w = w;
+    _r.h = h;
+}
+
+void setRect( SDL_FRect& _r, int x, int y, int w, int h )
 {
     _r.x = x;
     _r.y = y;
@@ -34,15 +39,10 @@ static SDL_Surface* RecreateSurfaceWithDimensions(
         return NULL;
     }
 
-    retval = SDL_CreateRGBSurface(
-        surface->flags,
+    retval = SDL_CreateSurface(
         width,
         height,
-        surface->format->BitsPerPixel,
-        surface->format->Rmask,
-        surface->format->Gmask,
-        surface->format->Bmask,
-        surface->format->Amask
+        surface->format
     );
 
     if (retval == NULL)
@@ -95,8 +95,9 @@ void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_Color c
         return;
     }
 
-    const SDL_PixelFormat* fmt = surface->format;
-    const int bpp = fmt->BytesPerPixel;
+    const SDL_PixelFormat fmt = surface->format;
+    const SDL_PixelFormatDetails *fmt_details = SDL_GetPixelFormatDetails(fmt);
+    const int bpp = fmt_details->bytes_per_pixel;
     Uint8* pixel = (Uint8*) surface->pixels + y * surface->pitch + x * bpp;
     Uint32* pixel32 = (Uint32*) pixel;
 
@@ -109,7 +110,7 @@ void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_Color c
 
     case 3:
     {
-        const Uint32 single = SDL_MapRGB(fmt, color.r, color.g, color.b);
+        const Uint32 single = SDL_MapSurfaceRGB(surface, color.r, color.g, color.b);
         pixel[0] = (single & 0xFF0000) >> 16;
         pixel[1] = (single & 0x00FF00) >> 8;
         pixel[2] = (single & 0x0000FF) >> 0;
@@ -117,7 +118,7 @@ void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_Color c
     }
 
     case 4:
-        *pixel32 = SDL_MapRGBA(fmt, color.r, color.g, color.b, color.a);
+        *pixel32 = SDL_MapSurfaceRGBA(surface, color.r, color.g, color.b, color.a);
     }
 }
 
@@ -138,8 +139,9 @@ SDL_Color ReadPixel(const SDL_Surface* surface, const int x, const int y)
         return color;
     }
 
-    const SDL_PixelFormat* fmt = surface->format;
-    const int bpp = surface->format->BytesPerPixel;
+    const SDL_PixelFormat fmt = surface->format;
+    const SDL_PixelFormatDetails *fmt_details = SDL_GetPixelFormatDetails(fmt);
+    const int bpp = fmt_details->bytes_per_pixel;
     const Uint8* pixel = (Uint8*) surface->pixels + y * surface->pitch + x * bpp;
     const Uint32* pixel32 = (Uint32*) pixel;
 
@@ -153,13 +155,13 @@ SDL_Color ReadPixel(const SDL_Surface* surface, const int x, const int y)
     case 3:
     {
         const Uint32 single = (pixel[0] << 16) | (pixel[1] << 8) | (pixel[2] << 0);
-        SDL_GetRGB(single, fmt, &color.r, &color.g, &color.b);
+        SDL_GetRGB(single, fmt_details, SDL_GetSurfacePalette((SDL_Surface *) surface), &color.r, &color.g, &color.b);
         color.a = 255;
         break;
     }
 
     case 4:
-        SDL_GetRGBA(*pixel32, fmt, &color.r, &color.g, &color.b, &color.a);
+        SDL_GetRGBA(*pixel32, fmt_details, SDL_GetSurfacePalette((SDL_Surface *) surface), &color.r, &color.g, &color.b, &color.a);
     }
 
     return color;
@@ -206,11 +208,11 @@ void ApplyFilter(SDL_Surface** src, SDL_Surface** dest)
 
     if (*src == NULL)
     {
-        *src = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
+        *src = SDL_CreateSurface(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, SDL_GetPixelFormatForMasks(32, 0, 0, 0, 0));
     }
     if (*dest == NULL)
     {
-        *dest = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
+        *dest = SDL_CreateSurface(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, SDL_GetPixelFormatForMasks(32, 0, 0, 0, 0));
     }
     if (*src == NULL || *dest == NULL)
     {
@@ -218,15 +220,18 @@ void ApplyFilter(SDL_Surface** src, SDL_Surface** dest)
         return;
     }
 
-    const int result = SDL_RenderReadPixels(gameScreen.m_renderer, NULL, 0, (*src)->pixels, (*src)->pitch);
-    if (result != 0)
+    SDL_Surface *read_pixels = SDL_RenderReadPixels(gameScreen.m_renderer, NULL);
+    if (read_pixels == NULL)
     {
         disabled_filter = true;
-        VVV_freefunc(SDL_FreeSurface, *src);
-        VVV_freefunc(SDL_FreeSurface, *dest);
+        VVV_freefunc(SDL_DestroySurface, *src);
+        VVV_freefunc(SDL_DestroySurface, *dest);
         WHINE_ONCE_ARGS(("Could not read pixels from renderer: %s", SDL_GetError()));
         return;
     }
+
+    SDL_BlitSurface(read_pixels, NULL, *src, NULL);
+    SDL_DestroySurface(read_pixels);
 
     const int red_offset = rand() % 4;
 
@@ -294,17 +299,14 @@ bool TakeScreenshot(SDL_Surface** surface)
 
     int width = 0;
     int height = 0;
-    int result = graphics.query_texture(
-        graphics.gameTexture, NULL, NULL, &width, &height
-    );
-    if (result != 0)
-    {
-        return false;
+    if (!graphics.query_texture(graphics.gameTexture, NULL, NULL, &width,
+                                &height)) {
+      return false;
     }
 
     if (*surface == NULL)
     {
-        *surface = SDL_CreateRGBSurface(0, width, height, 24, 0, 0, 0, 0);
+        *surface = SDL_CreateSurface(width, height, SDL_PIXELFORMAT_RGB24);
         if (*surface == NULL)
         {
             WHINE_ONCE_ARGS(
@@ -320,23 +322,22 @@ bool TakeScreenshot(SDL_Surface** surface)
         return false;
     }
 
-    result = graphics.set_render_target(graphics.gameTexture);
-    if (result != 0)
+    if (!graphics.set_render_target(graphics.gameTexture))
     {
         return false;
     }
 
-    result = SDL_RenderReadPixels(
-        gameScreen.m_renderer, NULL, SDL_PIXELFORMAT_RGB24,
-        (*surface)->pixels, (*surface)->pitch
-    );
-    if (result != 0)
+    SDL_Surface *read_pixels = SDL_RenderReadPixels(gameScreen.m_renderer, NULL);
+    if (read_pixels == NULL)
     {
         WHINE_ONCE_ARGS(
             ("Could not read pixels from renderer: %s", SDL_GetError())
         );
         return false;
     }
+
+    SDL_BlitSurface(read_pixels, NULL, *surface, NULL);
+    SDL_DestroySurface(read_pixels);
 
     /* Need to manually vertically reverse pixels in Flip Mode. */
     if (graphics.flipmode)
@@ -371,9 +372,7 @@ bool UpscaleScreenshot2x(SDL_Surface* src, SDL_Surface** dest)
 
     if (*dest == NULL)
     {
-        *dest = SDL_CreateRGBSurface(
-            0, src->w * 2, src->h * 2, src->format->BitsPerPixel, 0, 0, 0, 0
-        );
+        *dest = SDL_CreateSurface(src->w * 2, src->h * 2, src->format);
         if (*dest == NULL)
         {
             WHINE_ONCE_ARGS(
@@ -383,8 +382,8 @@ bool UpscaleScreenshot2x(SDL_Surface* src, SDL_Surface** dest)
         }
     }
 
-    int result = SDL_BlitScaled(src, NULL, *dest, NULL);
-    if (result != 0)
+    int result = SDL_BlitSurfaceScaled(src, NULL, *dest, NULL, SDL_SCALEMODE_PIXELART);
+    if (result == 0)
     {
         WHINE_ONCE_ARGS(("Could not blit surface: %s", SDL_GetError()));
         return false;

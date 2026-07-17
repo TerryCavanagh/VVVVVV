@@ -1,7 +1,7 @@
 #ifndef LEVELDEBUGGER_H
 #define LEVELDEBUGGER_H
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 namespace level_debugger
 {

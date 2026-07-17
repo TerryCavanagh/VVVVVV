@@ -3,6 +3,8 @@
 
 cmake_minimum_required(VERSION 2.8.12...3.5)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # CMake Options
 option(ENABLE_WARNINGS "Enable compilation warnings" ON)
 option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
@@ -27,7 +29,6 @@ if(OFFICIAL_BUILD)
 endif()
 
 option(REMOVE_ABSOLUTE_PATHS "If supported by the compiler, replace all absolute paths to source directories compiled into the binary (if any) with relative paths" ON)
-
 
 # Architecture Flags
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
@@ -131,7 +132,7 @@ set(VVV_C_SRC
     src/VFormat.c
     src/Vlogging.c
     src/Xoshiro.c
-    ../third_party/physfs/extras/physfsrwops.c
+    ../third_party/physfs/extras/physfssdl3.c
 )
 if(STEAM)
     list(APPEND VVV_C_SRC src/SteamNetwork.c)
@@ -225,7 +226,7 @@ set(FAUDIO_SRC
     ../third_party/FAudio/src/FAudio_internal.c
     ../third_party/FAudio/src/FAudio_internal_simd.c
     ../third_party/FAudio/src/FAudio_operationset.c
-    ../third_party/FAudio/src/FAudio_platform_sdl2.c
+    ../third_party/FAudio/src/FAudio_platform_sdl3.c
 )
 set(PFS_SRC
     ../third_party/physfs/src/physfs.c
@@ -383,15 +384,19 @@ if(BUNDLE_DEPENDENCIES)
         ../third_party/FAudio/include
     )
     # Disable FAudio debug stuff in release mode. This needs a generator expression for CMake reasons(TM)
-    target_compile_definitions(faudio-static PRIVATE $<$<CONFIG:Release>:FAUDIO_DISABLE_DEBUGCONFIGURATION>)
+    target_compile_definitions(faudio-static
+        PRIVATE
+            $<$<CONFIG:Release>:FAUDIO_DISABLE_DEBUGCONFIGURATION>
+            -DFAUDIO_SDL3_PLATFORM
+    )
 
-    target_link_libraries(VVVVVV ${STATIC_LIBRARIES})
+    target_link_libraries(VVVVVV PUBLIC ${STATIC_LIBRARIES})
 else()
     target_compile_definitions(VVVVVV PRIVATE
         ${PNG_DEF}
         -DSYSTEM_LODEPNG
     )
-    target_link_libraries(VVVVVV ${STATIC_LIBRARIES} physfs tinyxml2 FAudio lodepng)
+    target_link_libraries(VVVVVV PUBLIC ${STATIC_LIBRARIES} physfs tinyxml2 FAudio lodepng)
 endif()
 
 
@@ -444,54 +449,54 @@ foreach(static_library IN LISTS STATIC_LIBRARIES)
 endforeach(static_library)
 
 
-# SDL2 Dependency (Detection pulled from FAudio)
-if(DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
-    message(STATUS "Using pre-defined SDL2 variables SDL2_INCLUDE_DIRS and SDL2_LIBRARIES")
-    target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
-    target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
+# SDL3 Dependency (Detection pulled from FAudio)
+if(DEFINED SDL3_INCLUDE_DIRS AND DEFINED SDL3_LIBRARIES)
+    message(STATUS "Using pre-defined SDL3 variables SDL3_INCLUDE_DIRS and SDL3_LIBRARIES")
+    target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL3_INCLUDE_DIRS}>")
+    target_link_libraries(VVVVVV PUBLIC ${SDL3_LIBRARIES})
     if(BUNDLE_DEPENDENCIES)
-        target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
-        target_link_libraries(faudio-static ${SDL2_LIBRARIES})
+        target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL3_INCLUDE_DIRS}>")
+        target_link_libraries(faudio-static ${SDL3_LIBRARIES})
     endif()
 elseif (EMSCRIPTEN)
-    message(STATUS "Using Emscripten SDL2")
-    target_compile_options(VVVVVV PUBLIC -sUSE_SDL=2)
-    target_link_libraries(VVVVVV -sUSE_SDL=2)
+    message(STATUS "Using Emscripten SDL3")
+    target_compile_options(VVVVVV PUBLIC -sUSE_SDL=3)
+    target_link_libraries(VVVVVV PUBLIC -sUSE_SDL=3)
     if(BUNDLE_DEPENDENCIES)
-        target_compile_options(faudio-static PUBLIC -sUSE_SDL=2)
-        target_link_libraries(faudio-static -sUSE_SDL=2)
+        target_compile_options(faudio-static PUBLIC -sUSE_SDL=3)
+        target_link_libraries(faudio-static PUBLIC -sUSE_SDL=3)
     endif()
-elseif(DEFINED SDL2_FRAMEWORK)
-    message(STATUS "Using pre-defined SDL2 variable SDL2_FRAMEWORK")
-    target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_FRAMEWORK}/Headers>")
-    target_link_libraries(VVVVVV ${SDL2_FRAMEWORK})
+elseif(DEFINED SDL3_FRAMEWORK)
+    message(STATUS "Using pre-defined SDL3 variable SDL3_FRAMEWORK")
+    target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL3_FRAMEWORK}/Headers>")
+    target_link_libraries(VVVVVV PUBLIC ${SDL3_FRAMEWORK})
     if(BUNDLE_DEPENDENCIES)
-        target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_FRAMEWORK}/Headers>")
-        target_link_libraries(faudio-static ${SDL2_FRAMEWORK})
+        target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL3_FRAMEWORK}/Headers>")
+        target_link_libraries(faudio-static PUBLIC ${SDL3_FRAMEWORK})
     endif()
-    set_target_properties(VVVVVV PROPERTIES XCODE_EMBED_FRAMEWORKS ${SDL2_FRAMEWORK})
+    set_target_properties(VVVVVV PROPERTIES XCODE_EMBED_FRAMEWORKS ${SDL3_FRAMEWORK})
 else()
-    # Only try to autodetect if both SDL2 variables aren't explicitly set
-    find_package(SDL2 CONFIG)
-    if(TARGET SDL2::SDL2)
-        message(STATUS "Using TARGET SDL2::SDL2")
-        target_link_libraries(VVVVVV SDL2::SDL2)
+    # Only try to autodetect if both SDL3 variables aren't explicitly set
+    find_package(SDL3 CONFIG)
+    if(TARGET SDL3::SDL3)
+        message(STATUS "Using TARGET SDL3::SDL3")
+        target_link_libraries(VVVVVV PUBLIC SDL3::SDL3)
         if(BUNDLE_DEPENDENCIES)
-            target_link_libraries(faudio-static SDL2::SDL2)
+            target_link_libraries(faudio-static PUBLIC SDL3::SDL3)
         endif()
-    elseif(TARGET SDL2)
-        message(STATUS "Using TARGET SDL2")
-        target_link_libraries(VVVVVV SDL2)
+    elseif(TARGET SDL3)
+        message(STATUS "Using TARGET SDL3")
+        target_link_libraries(VVVVVV PUBLIC SDL3)
         if(BUNDLE_DEPENDENCIES)
-            target_link_libraries(faudio-static SDL2)
+            target_link_libraries(faudio-static PUBLIC SDL3)
         endif()
     else()
-        message(STATUS "No TARGET SDL2::SDL2, or SDL2, using variables")
-        target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
-        target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
+        message(STATUS "No TARGET SDL3::SDL3, or SDL3, using variables")
+        target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL3_INCLUDE_DIRS}>")
+        target_link_libraries(VVVVVV PUBLIC ${SDL3_LIBRARIES})
         if(BUNDLE_DEPENDENCIES)
-            target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
-            target_link_libraries(faudio-static ${SDL2_LIBRARIES})
+            target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL3_INCLUDE_DIRS}>")
+            target_link_libraries(faudio-static PUBLIC ${SDL3_LIBRARIES})
         endif()
     endif()
 endif()
@@ -500,15 +505,15 @@ endif()
 if(APPLE)
     find_library(FOUNDATION NAMES Foundation)
     find_library(IOKIT NAMES IOKit)
-    target_link_libraries(VVVVVV objc ${IOKIT} ${FOUNDATION})
+    target_link_libraries(VVVVVV PUBLIC objc ${IOKIT} ${FOUNDATION})
 endif()
 # But hey, also some Haiku crap
 if(HAIKU)
     find_library(BE_LIBRARY be)
     find_library(ROOT_LIBRARY root)
-    target_link_libraries(VVVVVV ${BE_LIBRARY} ${ROOT_LIBRARY})
+    target_link_libraries(VVVVVV PUBLIC ${BE_LIBRARY} ${ROOT_LIBRARY})
 endif()
 if(EMSCRIPTEN)
     # 256MB is enough for everybody
-    target_link_libraries(VVVVVV -sFORCE_FILESYSTEM=1 -sTOTAL_MEMORY=256MB)
+    target_link_libraries(VVVVVV PUBLIC -sFORCE_FILESYSTEM=1 -sTOTAL_MEMORY=256MB)
 endif()

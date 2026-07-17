@@ -3,9 +3,9 @@
 */
 
 /* Include the SDL main definition header */
-#include "SDL_main.h"
+#include <SDL3/SDL_main.h>
 
-#if defined(__IPHONEOS__) || defined(__TVOS__)
+#if defined(SDL_PLATFORM_IOS) || defined(SDL_PLATFORM_TVOS)
 
 #ifndef SDL_MAIN_HANDLED
 #ifdef main
@@ -14,10 +14,10 @@
 
 int main(int argc, char *argv[])
 {
-    return SDL_UIKitRunApp(argc, argv, SDL_main);
+    return SDL_RunApp(argc, argv, SDL_main, NULL);
 }
 #endif /* !SDL_MAIN_HANDLED */
 
-#endif /* __IPHONEOS__ || __TVOS__ */
+#endif /* SDL_PLATFORM_IOS || SDL_PLATFORM_TVOS */
 
 /* vi: set ts=4 sw=4 expandtab: */

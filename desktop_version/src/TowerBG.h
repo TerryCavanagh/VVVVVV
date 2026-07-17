@@ -1,7 +1,7 @@
 #ifndef TOWERBG_H
 #define TOWERBG_H
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 struct TowerBG
 {

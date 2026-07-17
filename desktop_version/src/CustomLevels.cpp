@@ -1337,7 +1337,7 @@ next:
 
                     if (name != NULL)
                     {
-                        SDL_Colour colour;
+                        SDL_Color colour;
                         colour.r = r;
                         colour.g = g;
                         colour.b = b;
@@ -1726,8 +1726,8 @@ void customlevelclass::generatecustomminimap(void)
     {
         for (int i2 = data.startx; i2 < data.startx + data.width; i2++)
         {
-            std::vector<SDL_Point> dark_points;
-            std::vector<SDL_Point> light_points;
+            std::vector<SDL_FPoint> dark_points;
+            std::vector<SDL_FPoint> light_points;
 
             bool dark = getroomprop(i2, j2)->tileset == 1;
 
@@ -1762,7 +1762,10 @@ void customlevelclass::generatecustomminimap(void)
                     if (tile >= 1)
                     {
                         // Add this pixel
-                        SDL_Point point = { ((i2 - data.startx) * 12 * data.zoom) + i, ((j2 - data.starty) * 9 * data.zoom) + j };
+                        SDL_FPoint point = {
+                            static_cast<float>(((i2 - data.startx) * 12 * data.zoom) + i),
+                            static_cast<float>(((j2 - data.starty) * 9 * data.zoom) + j)
+                        };
                         if (dark)
                         {
                             dark_points.push_back(point);

@@ -323,7 +323,7 @@ namespace roomname_translator
 
         if (help_screen)
         {
-            if ((key.isDown(SDLK_LCTRL) || key.isDown(SDLK_RCTRL)) && key_pressed_once(SDLK_e, &held_e))
+            if ((key.isDown(SDLK_LCTRL) || key.isDown(SDLK_RCTRL)) && key_pressed_once(SDLK_E, &held_e))
             {
                 expl_mode = !expl_mode;
             }
@@ -386,7 +386,7 @@ namespace roomname_translator
             edit_mode = !edit_mode;
         }
 
-        if (key_pressed_once(SDLK_i, &held_i))
+        if (key_pressed_once(SDLK_I, &held_i))
         {
             if (game.intimetrial)
             {
@@ -412,13 +412,13 @@ namespace roomname_translator
                 return true;
             }
 
-            if ((key.isDown(SDLK_LCTRL) || key.isDown(SDLK_RCTRL)) && key_pressed_once(SDLK_e, &held_e))
+            if ((key.isDown(SDLK_LCTRL) || key.isDown(SDLK_RCTRL)) && key_pressed_once(SDLK_E, &held_e))
             {
                 expl_mode = !expl_mode;
                 return true;
             }
 
-            if (key_pressed_once(SDLK_RETURN, &held_return) || key_pressed_once(SDLK_e, &held_e))
+            if (key_pressed_once(SDLK_RETURN, &held_return) || key_pressed_once(SDLK_E, &held_e))
             {
                 if (map.roomname_special || map.roomname[0] == '\0')
                 {

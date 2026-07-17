@@ -41,13 +41,13 @@ editorclass::editorclass(void)
     register_tool(EditorTool_MOVING_PLATFORMS, "Moving Platforms", "8", SDLK_8, false);
     register_tool(EditorTool_ENEMIES, "Enemies", "9", SDLK_9, false);
     register_tool(EditorTool_GRAVITY_LINES, "Gravity Lines", "0", SDLK_0, false);
-    register_tool(EditorTool_ROOMTEXT, "Roomtext", "R", SDLK_r, false);
-    register_tool(EditorTool_TERMINALS, "Terminals", "T", SDLK_t, false);
-    register_tool(EditorTool_SCRIPTS, "Script Boxes", "Y", SDLK_y, false);
-    register_tool(EditorTool_WARP_TOKENS, "Warp Tokens", "U", SDLK_u, false);
-    register_tool(EditorTool_WARP_LINES, "Warp Lines", "I", SDLK_i, false);
-    register_tool(EditorTool_CREWMATES, "Crewmates", "O", SDLK_o, false);
-    register_tool(EditorTool_START_POINT, "Start Point", "P", SDLK_p, false);
+    register_tool(EditorTool_ROOMTEXT, "Roomtext", "R", SDLK_R, false);
+    register_tool(EditorTool_TERMINALS, "Terminals", "T", SDLK_T, false);
+    register_tool(EditorTool_SCRIPTS, "Script Boxes", "Y", SDLK_Y, false);
+    register_tool(EditorTool_WARP_TOKENS, "Warp Tokens", "U", SDLK_U, false);
+    register_tool(EditorTool_WARP_LINES, "Warp Lines", "I", SDLK_I, false);
+    register_tool(EditorTool_CREWMATES, "Crewmates", "O", SDLK_O, false);
+    register_tool(EditorTool_START_POINT, "Start Point", "P", SDLK_P, false);
 
     static const short basic[] = {
         121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121,
@@ -425,7 +425,7 @@ void editorclass::show_note(const char* text)
     note = text;
 }
 
-void editorclass::register_tool(EditorTools tool, const char* name, const char* keychar, const SDL_KeyCode key, const bool shift)
+void editorclass::register_tool(EditorTools tool, const char* name, const char* keychar, const SDL_Keycode key, const bool shift)
 {
     tool_names[tool] = name;
     tool_key_chars[tool] = keychar;
@@ -1313,35 +1313,35 @@ static void draw_cursor(void)
                 {
                     top_left = false;
                     bottom_left = false;
-                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8, x * 8, y * 8 + 7);
+                    SDL_RenderLine(gameScreen.m_renderer, x * 8, y * 8, x * 8, y * 8 + 7);
                 }
                 if (!check_point(connected, x + 1, y))
                 {
                     top_right = false;
                     bottom_right = false;
-                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8 + 7, y * 8, x * 8 + 7, y * 8 + 7);
+                    SDL_RenderLine(gameScreen.m_renderer, x * 8 + 7, y * 8, x * 8 + 7, y * 8 + 7);
                 }
                 if (!check_point(connected, x, y - 1))
                 {
                     top_left = false;
                     top_right = false;
-                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8, x * 8 + 7, y * 8);
+                    SDL_RenderLine(gameScreen.m_renderer, x * 8, y * 8, x * 8 + 7, y * 8);
                 }
                 if (!check_point(connected, x, y + 1))
                 {
                     bottom_left = false;
                     bottom_right = false;
-                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8 + 7, x * 8 + 7, y * 8 + 7);
+                    SDL_RenderLine(gameScreen.m_renderer, x * 8, y * 8 + 7, x * 8 + 7, y * 8 + 7);
                 }
 
                 if (!check_point(connected, x - 1, y - 1) && top_left)
-                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8, y * 8);
+                    SDL_RenderPoint(gameScreen.m_renderer, x * 8, y * 8);
                 if (!check_point(connected, x - 1, y + 1) && top_right)
-                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8, y * 8 + 7);
+                    SDL_RenderPoint(gameScreen.m_renderer, x * 8, y * 8 + 7);
                 if (!check_point(connected, x + 1, y - 1) && bottom_left)
-                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8 + 7, y * 8);
+                    SDL_RenderPoint(gameScreen.m_renderer, x * 8 + 7, y * 8);
                 if (!check_point(connected, x + 1, y + 1) && bottom_right)
-                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8 + 7, y * 8 + 7);
+                    SDL_RenderPoint(gameScreen.m_renderer, x * 8 + 7, y * 8 + 7);
             }
         }
         else if (ed.b_modifier) graphics.draw_rect(x, 0, 8, 240, blue); // Vertical
@@ -1414,7 +1414,7 @@ static void draw_tile_drawer(int tileset)
         int texturewidth;
         int textureheight;
 
-        if (graphics.query_texture(graphics.grphx.im_tiles, NULL, NULL, &texturewidth, &textureheight) != 0)
+        if (!graphics.query_texture(graphics.grphx.im_tiles, NULL, NULL, &texturewidth, &textureheight))
         {
             return;
         }
@@ -3201,20 +3201,20 @@ static void handle_draw_input()
             }
         }
 
-        if (key.keymap[SDLK_w])
+        if (key.keymap[SDLK_W])
         {
             commit_roomdata_change();
             ed.switch_warpdir(shift_down);
             ed.keydelay = 6;
         }
-        if (key.keymap[SDLK_e])
+        if (key.keymap[SDLK_E])
         {
             commit_roomdata_change();
             ed.keydelay = 6;
             ed.get_input_line(TEXT_ROOMNAME, "Enter new room name:", const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
             game.mapheld = true;
         }
-        if (key.keymap[SDLK_g])
+        if (key.keymap[SDLK_G])
         {
             ed.keydelay = 6;
             ed.get_input_line(TEXT_GOTOROOM, "Enter room coordinates x,y:", NULL);
@@ -3222,27 +3222,27 @@ static void handle_draw_input()
         }
 
         //Save and load
-        if (key.keymap[SDLK_s])
+        if (key.keymap[SDLK_S])
         {
             ed.keydelay = 6;
             ed.get_input_line(TEXT_SAVE, "Enter map filename to save as:", &(ed.filename));
             game.mapheld = true;
         }
 
-        if (key.keymap[SDLK_l])
+        if (key.keymap[SDLK_L])
         {
             ed.keydelay = 6;
             ed.get_input_line(TEXT_LOAD, "Enter map filename to load:", &(ed.filename));
             game.mapheld = true;
         }
 
-        ed.f_modifier = key.keymap[SDLK_f];
-        ed.h_modifier = key.keymap[SDLK_h];
-        ed.v_modifier = key.keymap[SDLK_v];
-        ed.b_modifier = key.keymap[SDLK_b];
-        ed.c_modifier = key.keymap[SDLK_c];
-        ed.x_modifier = key.keymap[SDLK_x];
-        ed.z_modifier = key.keymap[SDLK_z];
+        ed.f_modifier = key.keymap[SDLK_F];
+        ed.h_modifier = key.keymap[SDLK_H];
+        ed.v_modifier = key.keymap[SDLK_V];
+        ed.b_modifier = key.keymap[SDLK_B];
+        ed.c_modifier = key.keymap[SDLK_C];
+        ed.x_modifier = key.keymap[SDLK_X];
+        ed.z_modifier = key.keymap[SDLK_Z];
 
         const int room = ed.levx + ed.levy * cl.maxwidth;
         const int plat_speed = cl.roomproperties[room].platv;
@@ -3486,10 +3486,10 @@ void editorinput(void)
     ed.tilex = SDL_clamp(key.mousex, 0, SCREEN_WIDTH_PIXELS - 1) / 8;
     ed.tiley = SDL_clamp(key.mousey, 0, SCREEN_HEIGHT_PIXELS - 1) / 8;
 
-    bool up_pressed = key.isDown(SDLK_UP) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_UP);
-    bool down_pressed = key.isDown(SDLK_DOWN) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN);
-    bool left_pressed = key.isDown(SDLK_LEFT) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT);
-    bool right_pressed = key.isDown(SDLK_RIGHT) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
+    bool up_pressed = key.isDown(SDLK_UP) || key.isDown(SDL_GAMEPAD_BUTTON_DPAD_UP);
+    bool down_pressed = key.isDown(SDLK_DOWN) || key.isDown(SDL_GAMEPAD_BUTTON_DPAD_DOWN);
+    bool left_pressed = key.isDown(SDLK_LEFT) || key.isDown(SDL_GAMEPAD_BUTTON_DPAD_LEFT);
+    bool right_pressed = key.isDown(SDLK_RIGHT) || key.isDown(SDL_GAMEPAD_BUTTON_DPAD_RIGHT);
 
     game.press_left = false;
     game.press_right = false;
@@ -3516,7 +3516,7 @@ void editorinput(void)
         undo_pressed = true;
     }
 
-    if (key.isDown(SDLK_y) && ctrl_down && (ed.keydelay == 0))
+    if (key.isDown(SDLK_Y) && ctrl_down && (ed.keydelay == 0))
     {
         ed.keydelay = 6;
         redo_pressed = true;
@@ -3604,7 +3604,7 @@ void editorinput(void)
 
                     bool tiles1 = (cl.getroomprop(ed.levx, ed.levy)->tileset == 0);
 
-                    if (graphics.query_texture(tiles1 ? graphics.grphx.im_tiles : graphics.grphx.im_tiles2, NULL, NULL, &texturewidth, &textureheight) != 0)
+                    if (!graphics.query_texture(tiles1 ? graphics.grphx.im_tiles : graphics.grphx.im_tiles2, NULL, NULL, &texturewidth, &textureheight))
                         return;
 
                     const int numtiles = (int)(texturewidth / 8) * (textureheight / 8);

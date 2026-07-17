@@ -1,7 +1,7 @@
 #define HELP_DEFINITION
 #include "UtilityClass.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <sstream>
 
 #include "Constants.h"
@@ -216,7 +216,7 @@ std::string UtilityClass::number_words(int _t, const char* number_class)
 
 bool UtilityClass::intersects( SDL_Rect A, SDL_Rect B )
 {
-    return (SDL_HasIntersection(&A, &B) == SDL_TRUE);
+    return (SDL_HasRectIntersection(&A, &B) == true);
 }
 
 void UtilityClass::updateglow(void)

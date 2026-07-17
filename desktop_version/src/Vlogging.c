@@ -3,18 +3,18 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#if defined(__ANDROID__) || TARGET_OS_IPHONE
+#if defined(SDL_PLATFORM_ANDROID) || TARGET_OS_IPHONE
 // forward to SDL logging on Android, since stdout/stderr are /dev/null
 // they exist on iOS, but just get forwarded to the system log anyway, so might as well provide proper metadata
 #define VLOG_USE_SDL 1
 #endif
 
 #ifdef VLOG_USE_SDL
-#   include <SDL_log.h>
+#   include <SDL3/SDL_log.h>
 #elif defined(_WIN32)
 #   define WIN32_LEAN_AND_MEAN
 #   include <windows.h>
-#elif defined(__unix__) || defined(__APPLE__)
+#elif defined(SDL_PLATFORM_UNI) || defined(SDL_PLATFORM_APPLE)
 #   include <unistd.h>
 #endif
 
@@ -26,7 +26,7 @@
 #define Color_BOLD_RED COLOR("\x1b[1;31m")
 #define Color_BOLD_GRAY COLOR("\x1b[1;90m")
 
-#ifdef __ANDROID__
+#ifdef SDL_PLATFORM_ANDROID
 const int color_supported = 0;
 #else
 static int color_supported = 0;
@@ -44,7 +44,7 @@ static void check_color_support(void);
 void vlog_init(void)
 {
 #ifdef VLOG_USE_SDL
-    SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_VERBOSE);
+    SDL_SetLogPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_VERBOSE);
 #endif
     check_color_support();
 }
@@ -285,7 +285,7 @@ static void check_color_support(void)
     }
 
     color_supported = 1;
-#elif (defined(__unix__) || defined(__APPLE__)) && !defined(VLOG_USE_SDL)
+#elif (defined(SDL_PLATFORM_UNI) || defined(SDL_PLATFORM_APPLE)) && !defined(VLOG_USE_SDL)
     if (isatty(STDOUT_FILENO) && isatty(STDERR_FILENO))
     {
         color_supported = 1;

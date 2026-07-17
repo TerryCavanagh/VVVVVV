@@ -1,7 +1,7 @@
 #define OBJ_DEFINITION
 #include "Entity.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "CustomLevels.h"
 #include "Font.h"

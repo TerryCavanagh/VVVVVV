@@ -1,6 +1,6 @@
 #include "ButtonGlyphs.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Game.h"
 #include "Localization.h"
@@ -96,7 +96,7 @@ ButtonGlyphLayout;
 
 /* SDL provides Xbox buttons, we'd like to show the correct
  * (controller-specific) glyphs or labels for those... */
-static const char* glyph_layout[LAYOUT_TOTAL][SDL_CONTROLLER_BUTTON_RIGHTSHOULDER + 1] = {
+static const char* glyph_layout[LAYOUT_TOTAL][SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER + 1] = {
     { // NINTENDO_SWITCH_PRO
         glyph[GLYPH_NINTENDO_DECK_B], glyph[GLYPH_NINTENDO_DECK_A],
         glyph[GLYPH_NINTENDO_DECK_Y], glyph[GLYPH_NINTENDO_DECK_X],
@@ -178,10 +178,10 @@ bool BUTTONGLYPHS_keyboard_is_available(void)
         return true;
     }
 
-#if defined(__ANDROID__) || TARGET_OS_IPHONE
+#if defined(SDL_PLATFORM_ANDROID) || TARGET_OS_IPHONE
     return false;
 #else
-    return !SDL_GetHintBoolean("SteamDeck", SDL_FALSE);
+    return !SDL_GetHintBoolean("SteamDeck", false);
 #endif
 }
 
@@ -197,10 +197,10 @@ void BUTTONGLYPHS_keyboard_set_active(bool active)
     keyboard_is_active = active;
 }
 
-void BUTTONGLYPHS_update_layout(SDL_GameController *c)
+void BUTTONGLYPHS_update_layout(SDL_Gamepad *c)
 {
-    Uint16 vendor = SDL_GameControllerGetVendor(c);
-    Uint16 product = SDL_GameControllerGetProduct(c);
+    Uint16 vendor = SDL_GetGamepadVendor(c);
+    Uint16 product = SDL_GetGamepadProduct(c);
 
     if (vendor == 0x054c)
     {
@@ -210,10 +210,10 @@ void BUTTONGLYPHS_update_layout(SDL_GameController *c)
     {
         /* Steam Virtual Gamepads can hypothetically tell us that the physical
          * device is a PlayStation controller, so try to catch that scenario */
-        SDL_GameControllerType gct = SDL_GameControllerGetType(c);
-        if ( gct == SDL_CONTROLLER_TYPE_PS3 ||
-             gct == SDL_CONTROLLER_TYPE_PS4 ||
-             gct == SDL_CONTROLLER_TYPE_PS5 )
+        SDL_GamepadType gct = SDL_GetGamepadType(c);
+        if ( gct == SDL_GAMEPAD_TYPE_PS3 ||
+             gct == SDL_GAMEPAD_TYPE_PS4 ||
+             gct == SDL_GAMEPAD_TYPE_PS5 )
         {
             layout = LAYOUT_PLAYSTATION;
         }
@@ -272,9 +272,9 @@ const char* BUTTONGLYPHS_get_wasd_text(void)
     return loc::gettext("Press left/right to move");
 }
 
-const char* BUTTONGLYPHS_sdlbutton_to_glyph(const SDL_GameControllerButton button)
+const char* BUTTONGLYPHS_sdlbutton_to_glyph(const SDL_GamepadButton button)
 {
-    if (button < 0 || button > SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+    if (button < 0 || button > SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER)
     {
         SDL_assert(0 && "Unhandled button!");
         return glyph[GLYPH_UNKNOWN];
@@ -284,7 +284,7 @@ const char* BUTTONGLYPHS_sdlbutton_to_glyph(const SDL_GameControllerButton butto
 }
 
 static const char* glyph_for_vector(
-    const std::vector<SDL_GameControllerButton>& buttons,
+    const std::vector<SDL_GamepadButton>& buttons,
     const int index
 ) {
     if (index < 0 || index >= (int) buttons.size())

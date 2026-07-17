@@ -1,6 +1,6 @@
 #include "Textbox.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Font.h"
 #include "Localization.h"

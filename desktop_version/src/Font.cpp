@@ -438,7 +438,7 @@ static uint8_t load_font(FontContainer* container, const char* name)
                 add_glyphinfo(f, codepoint, codepoint);
             }
 
-            VVV_freefunc(SDL_FreeSurface, temp_surface);
+            VVV_freefunc(SDL_DestroySurface, temp_surface);
         }
     }
 

@@ -1,19 +1,21 @@
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Constants.h"
 #include "Font.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "UTF8.h"
+#include "Screen.h"
+#include "GraphicsUtil.h"
 
 static bool render_done = false;
-static SDL_Rect imebox;
+static SDL_FRect imebox;
 
 void ime_render(void)
 {
     render_done = false;
 
-    if (!SDL_IsTextInputActive() || key.imebuffer == "")
+    if (!SDL_TextInputActive(gameScreen.m_window) || key.imebuffer == "")
     {
         return;
     }
@@ -24,7 +26,7 @@ void ime_render(void)
     imebox.w = font::len(PR_FONT_LEVEL, key.imebuffer.c_str()) + 1;
     imebox.h = fontheight + 1;
 
-    SDL_Rect imebox_border = imebox;
+    SDL_FRect imebox_border = imebox;
     imebox_border.x -= 1;
     imebox_border.y -= 1;
     imebox_border.w += 2;
@@ -74,7 +76,7 @@ void ime_render(void)
                 in_sel_pixels += 1;
             }
 
-            SDL_Rect selrect = imebox;
+            SDL_FRect selrect = imebox;
             selrect.x += before_sel_pixels + 1;
             selrect.w = in_sel_pixels;
             graphics.fill_rect(&selrect, 128, 64, 0);
@@ -88,14 +90,19 @@ void ime_render(void)
     render_done = true;
 }
 
-void ime_set_rect(SDL_Rect* stretch_info)
+void ime_set_rect(SDL_FRect* stretch_info)
 {
     if (!render_done)
     {
         return;
     }
 
-    SDL_Rect imebox_scaled = imebox;
+    SDL_Rect imebox_scaled = {
+        static_cast<int>(imebox.x),
+        static_cast<int>(imebox.y),
+        static_cast<int>(imebox.w),
+        static_cast<int>(imebox.h)
+    };
     float x_scale = (float) stretch_info->w / SCREEN_WIDTH_PIXELS;
     float y_scale = (float) stretch_info->h / SCREEN_HEIGHT_PIXELS;
     imebox_scaled.x *= x_scale;
@@ -105,5 +112,5 @@ void ime_set_rect(SDL_Rect* stretch_info)
     imebox_scaled.x += stretch_info->x;
     imebox_scaled.y += stretch_info->y;
 
-    SDL_SetTextInputRect(&imebox_scaled);
+    SDL_SetTextInputArea(gameScreen.m_window, &imebox_scaled, 0);
 }

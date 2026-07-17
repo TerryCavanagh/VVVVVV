@@ -34,76 +34,76 @@
 #include "Vlogging.h"
 #include "XMLUtils.h"
 
-static bool GetButtonFromString(const char *pText, SDL_GameControllerButton *button)
+static bool GetButtonFromString(const char *pText, SDL_GamepadButton *button)
 {
     if (*pText == '0' ||
         *pText == 'a' ||
         *pText == 'A')
     {
-        *button = SDL_CONTROLLER_BUTTON_A;
+        *button = SDL_GAMEPAD_BUTTON_SOUTH;
         return true;
     }
     if (SDL_strcmp(pText, "1") == 0 ||
         *pText == 'b' ||
         *pText == 'B')
     {
-        *button = SDL_CONTROLLER_BUTTON_B;
+        *button = SDL_GAMEPAD_BUTTON_EAST;
         return true;
     }
     if (*pText == '2' ||
         *pText == 'x' ||
         *pText == 'X')
     {
-        *button = SDL_CONTROLLER_BUTTON_X;
+        *button = SDL_GAMEPAD_BUTTON_WEST;
         return true;
     }
     if (*pText == '3' ||
         *pText == 'y' ||
         *pText == 'Y')
     {
-        *button = SDL_CONTROLLER_BUTTON_Y;
+        *button = SDL_GAMEPAD_BUTTON_NORTH;
         return true;
     }
     if (*pText == '4' ||
         SDL_strcasecmp(pText, "BACK") == 0)
     {
-        *button = SDL_CONTROLLER_BUTTON_BACK;
+        *button = SDL_GAMEPAD_BUTTON_BACK;
         return true;
     }
     if (*pText == '5' ||
         SDL_strcasecmp(pText, "GUIDE") == 0)
     {
-        *button = SDL_CONTROLLER_BUTTON_GUIDE;
+        *button = SDL_GAMEPAD_BUTTON_GUIDE;
         return true;
     }
     if (*pText == '6' ||
         SDL_strcasecmp(pText, "START") == 0)
     {
-        *button = SDL_CONTROLLER_BUTTON_START;
+        *button = SDL_GAMEPAD_BUTTON_START;
         return true;
     }
     if (*pText == '7' ||
         SDL_strcasecmp(pText, "LS") == 0)
     {
-        *button = SDL_CONTROLLER_BUTTON_LEFTSTICK;
+        *button = SDL_GAMEPAD_BUTTON_LEFT_STICK;
         return true;
     }
     if (*pText == '8' ||
         SDL_strcasecmp(pText, "RS") == 0)
     {
-        *button = SDL_CONTROLLER_BUTTON_RIGHTSTICK;
+        *button = SDL_GAMEPAD_BUTTON_RIGHT_STICK;
         return true;
     }
     if (*pText == '9' ||
         SDL_strcasecmp(pText, "LB") == 0)
     {
-        *button = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
+        *button = SDL_GAMEPAD_BUTTON_LEFT_SHOULDER;
         return true;
     }
     if (SDL_strcmp(pText, "10") == 0 ||
         SDL_strcasecmp(pText, "RB") == 0)
     {
-        *button = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
+        *button = SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER;
         return true;
     }
     return false;
@@ -254,7 +254,7 @@ void Game::init(void)
     levelpage=0;
     playcustomlevel=0;
 
-    gpmenu_lastbutton = SDL_CONTROLLER_BUTTON_INVALID;
+    gpmenu_lastbutton = SDL_GAMEPAD_BUTTON_INVALID;
     gpmenu_confirming = false;
     gpmenu_showremove = false;
 
@@ -381,7 +381,7 @@ void Game::init(void)
     screenshot_border_timer = 0;
     screenshot_saved_success = false;
 
-#if defined(__ANDROID__) || TARGET_OS_IPHONE
+#if defined(SDL_PLATFORM_ANDROID) || TARGET_OS_IPHONE
     checkpoint_saving = true;
 #else
     checkpoint_saving = false;
@@ -394,23 +394,23 @@ void Game::setdefaultcontrollerbuttons(void)
 {
     if (controllerButton_flip.size() < 1)
     {
-        controllerButton_flip.push_back(SDL_CONTROLLER_BUTTON_A);
+        controllerButton_flip.push_back(SDL_GAMEPAD_BUTTON_SOUTH);
     }
     if (controllerButton_map.size() < 1)
     {
-        controllerButton_map.push_back(SDL_CONTROLLER_BUTTON_Y);
+        controllerButton_map.push_back(SDL_GAMEPAD_BUTTON_NORTH);
     }
     if (controllerButton_esc.size() < 1)
     {
-        controllerButton_esc.push_back(SDL_CONTROLLER_BUTTON_B);
+        controllerButton_esc.push_back(SDL_GAMEPAD_BUTTON_EAST);
     }
     if (controllerButton_restart.size() < 1)
     {
-        controllerButton_restart.push_back(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
+        controllerButton_restart.push_back(SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER);
     }
     if (controllerButton_interact.size() < 1)
     {
-        controllerButton_interact.push_back(SDL_CONTROLLER_BUTTON_X);
+        controllerButton_interact.push_back(SDL_GAMEPAD_BUTTON_WEST);
     }
 
     /* If one of the arrays was empty, and others weren't, we might now have conflicts...
@@ -4898,7 +4898,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 
         if (SDL_strcmp(pKey, "flipButton") == 0)
         {
-            SDL_GameControllerButton newButton;
+            SDL_GamepadButton newButton;
             if (GetButtonFromString(pText, &newButton))
             {
                 controllerButton_flip.push_back(newButton);
@@ -4907,7 +4907,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 
         if (SDL_strcmp(pKey, "enterButton") == 0)
         {
-            SDL_GameControllerButton newButton;
+            SDL_GamepadButton newButton;
             if (GetButtonFromString(pText, &newButton))
             {
                 controllerButton_map.push_back(newButton);
@@ -4916,7 +4916,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 
         if (SDL_strcmp(pKey, "escButton") == 0)
         {
-            SDL_GameControllerButton newButton;
+            SDL_GamepadButton newButton;
             if (GetButtonFromString(pText, &newButton))
             {
                 controllerButton_esc.push_back(newButton);
@@ -4925,7 +4925,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 
         if (SDL_strcmp(pKey, "restartButton") == 0)
         {
-            SDL_GameControllerButton newButton;
+            SDL_GamepadButton newButton;
             if (GetButtonFromString(pText, &newButton))
             {
                 controllerButton_restart.push_back(newButton);
@@ -4934,7 +4934,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 
         if (SDL_strcmp(pKey, "interactButton") == 0)
         {
-            SDL_GameControllerButton newButton;
+            SDL_GamepadButton newButton;
             if (GetButtonFromString(pText, &newButton))
             {
                 controllerButton_interact.push_back(newButton);
@@ -7985,7 +7985,7 @@ int Game::get_timestep(void)
     if ((gamestate == GAMEMODE || (gamestate == TELEPORTERMODE && !useteleporter)) &&
     level_debugger::is_active() &&
     !level_debugger::is_pausing() &&
-    key.isDown(SDLK_f))
+    key.isDown(SDLK_F))
     {
         return 1;
     }

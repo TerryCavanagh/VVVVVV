@@ -1,6 +1,6 @@
 #include "CWrappers.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Graphics.h"
 #include "GraphicsUtil.h"

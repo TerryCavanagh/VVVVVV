@@ -1,31 +1,26 @@
-FROM centos:7
+FROM rockylinux:9
 
-# run first to improve caching (other things update more often than SDL2)
+# run first to improve caching (other things update more often than SDL3)
 WORKDIR /tmp
-RUN curl -LJO https://github.com/libsdl-org/SDL/releases/download/release-2.24.0/SDL2-2.24.0.tar.gz
-RUN tar -xf SDL2-2.24.0.tar.gz
-RUN mkdir SDL2-2.24.0/build
-
-# add EPEL (for SDL2)
-RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN curl -LJO https://github.com/libsdl-org/SDL/releases/download/release-3.4.12/SDL3-3.4.12.tar.gz
+RUN tar -xf SDL3-3.4.12.tar.gz
+RUN mkdir SDL3-3.4.12/build
 
 # install dependencies
-RUN yum -y install \
-    # used below
-    yum-utils \
-    # VVVVVV dependencies
-    gcc-c++ cmake make
+RUN dnf --assumeyes upgrade --refresh
+RUN dnf --assumeyes group install development
+RUN dnf --assumeyes install cmake
+RUN dnf --assumeyes install libX11-devel libICE-devel libSM-devel \
+    libXScrnSaver-devel libXext-devel libXft-devel libXi-devel \
+    libXinerama-devel libXmu-devel libXp-devel libXpm-devel \
+    libXrandr-devel libXrender-devel libXt-devel libXtst-devel \
+    libXv-devel libXxf86dga-devel libxkbcommon-devel libXcursor-devel
 
-RUN yum-builddep -y SDL2
-
-RUN yum clean all
-
-WORKDIR /tmp/SDL2-2.24.0/build
-RUN ../configure
-RUN make -j $(nproc)
-RUN make install
+WORKDIR /tmp/SDL3-3.4.12/build
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr ..
+RUN cmake --build . --target install -- -j $(nproc)
 
 WORKDIR /tmp
-RUN rm -rf SDL2-2.24.0.tar.gz SDL2-2.24.0/
+RUN rm -rf SDL3-3.4.12.tar.gz SDL3-3.4.12/
 
 WORKDIR /

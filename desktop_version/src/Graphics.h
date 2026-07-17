@@ -248,52 +248,52 @@ public:
         uint8_t b
     );
 
-    int set_render_target(SDL_Texture* texture);
+    bool set_render_target(SDL_Texture* texture);
 
-    int set_texture_color_mod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b);
+    bool set_texture_color_mod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b);
 
-    int set_texture_alpha_mod(SDL_Texture* texture, Uint8 alpha);
+    bool set_texture_alpha_mod(SDL_Texture* texture, Uint8 alpha);
 
-    int query_texture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h);
+    bool query_texture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h);
 
-    int set_blendmode(SDL_BlendMode blendmode);
-    int set_blendmode(SDL_Texture* texture, SDL_BlendMode blendmode);
+    bool set_blendmode(SDL_BlendMode blendmode);
+    bool set_blendmode(SDL_Texture* texture, SDL_BlendMode blendmode);
 
-    int clear(int r, int g, int b, int a);
-    int clear(void);
+    bool clear(int r, int g, int b, int a);
+    bool clear(void);
 
     bool substitute(SDL_Texture** texture);
     void post_substitute(SDL_Texture* subst);
 
-    int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest);
-    int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, double angle, const SDL_Point* center, SDL_RendererFlip flip);
+    bool copy_texture(SDL_Texture* texture, const SDL_FRect* src, const SDL_FRect* dest);
+    bool copy_texture(SDL_Texture* texture, const SDL_FRect* src, const SDL_FRect* dest, double angle, const SDL_FPoint* center, SDL_FlipMode flip);
 
-    int set_color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-    int set_color(Uint8 r, Uint8 g, Uint8 b);
-    int set_color(SDL_Color color);
+    bool set_color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    bool set_color(Uint8 r, Uint8 g, Uint8 b);
+    bool set_color(SDL_Color color);
 
-    int fill_rect(const SDL_Rect* rect);
-    int fill_rect(const SDL_Rect* rect, int r, int g, int b, int a);
-    int fill_rect(int x, int y, int w, int h, int r, int g, int b, int a);
-    int fill_rect(int x, int y, int w, int h, int r, int g, int b);
-    int fill_rect(const SDL_Rect* rect, int r, int g, int b);
-    int fill_rect(int r, int g, int b);
-    int fill_rect(const SDL_Rect* rect, SDL_Color color);
-    int fill_rect(int x, int y, int w, int h, SDL_Color color);
-    int fill_rect(SDL_Color color);
+    bool fill_rect(const SDL_FRect* rect);
+    bool fill_rect(const SDL_FRect* rect, int r, int g, int b, int a);
+    bool fill_rect(int x, int y, int w, int h, int r, int g, int b, int a);
+    bool fill_rect(int x, int y, int w, int h, int r, int g, int b);
+    bool fill_rect(const SDL_FRect* rect, int r, int g, int b);
+    bool fill_rect(int r, int g, int b);
+    bool fill_rect(const SDL_FRect* rect, SDL_Color color);
+    bool fill_rect(int x, int y, int w, int h, SDL_Color color);
+    bool fill_rect(SDL_Color color);
 
-    int draw_rect(const SDL_Rect* rect);
-    int draw_rect(const SDL_Rect* rect, int r, int g, int b, int a);
-    int draw_rect(int x, int y, int w, int h, int r, int g, int b, int a);
-    int draw_rect(int x, int y, int w, int h, int r, int g, int b);
-    int draw_rect(const SDL_Rect* rect, int r, int g, int b);
-    int draw_rect(const SDL_Rect* rect, SDL_Color color);
-    int draw_rect(int x, int y, int w, int h, SDL_Color color);
+    bool draw_rect(const SDL_FRect* rect);
+    bool draw_rect(const SDL_FRect* rect, int r, int g, int b, int a);
+    bool draw_rect(int x, int y, int w, int h, int r, int g, int b, int a);
+    bool draw_rect(int x, int y, int w, int h, int r, int g, int b);
+    bool draw_rect(const SDL_FRect* rect, int r, int g, int b);
+    bool draw_rect(const SDL_FRect* rect, SDL_Color color);
+    bool draw_rect(int x, int y, int w, int h, SDL_Color color);
 
-    int draw_line(int x, int y, int x2, int y2);
+    bool draw_line(int x, int y, int x2, int y2);
 
-    int draw_points(const SDL_Point* points, int count);
-    int draw_points(const SDL_Point* points, int count, int r, int g, int b);
+    bool draw_points(const SDL_FPoint* points, int count);
+    bool draw_points(const SDL_FPoint* points, int count, int r, int g, int b);
 
     void map_tab(int opt, const char* text, bool selected = false);
 
@@ -311,7 +311,7 @@ public:
 
     void draw_window_background(void);
 
-    void get_stretch_info(SDL_Rect* rect);
+    void get_stretch_info(SDL_FRect* rect);
 
     void render(void);
     void renderwithscreeneffects(void);
@@ -412,7 +412,7 @@ public:
     SDL_Rect sprites_rect;
     SDL_Rect tele_rect;
 
-    SDL_Rect footerrect;
+    SDL_FRect footerrect;
 
     int linestate, linedelay;
     int backoffset;

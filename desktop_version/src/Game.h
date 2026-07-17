@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <map>
 #include <string>
 #include <vector>
@@ -404,7 +404,7 @@ public:
     int creditposx, creditposy, creditposdelay;
     int oldcreditposx;
 
-    SDL_GameControllerButton gpmenu_lastbutton;
+    SDL_GamepadButton gpmenu_lastbutton;
     bool gpmenu_confirming;
     bool gpmenu_showremove;
 
@@ -547,11 +547,11 @@ public:
     std::map<std::string, int> customlevelstats;
 
 
-    std::vector<SDL_GameControllerButton> controllerButton_map;
-    std::vector<SDL_GameControllerButton> controllerButton_flip;
-    std::vector<SDL_GameControllerButton> controllerButton_esc;
-    std::vector<SDL_GameControllerButton> controllerButton_restart;
-    std::vector<SDL_GameControllerButton> controllerButton_interact;
+    std::vector<SDL_GamepadButton> controllerButton_map;
+    std::vector<SDL_GamepadButton> controllerButton_flip;
+    std::vector<SDL_GamepadButton> controllerButton_esc;
+    std::vector<SDL_GamepadButton> controllerButton_restart;
+    std::vector<SDL_GamepadButton> controllerButton_interact;
 
     bool skipfakeload;
     bool ghostsenabled;

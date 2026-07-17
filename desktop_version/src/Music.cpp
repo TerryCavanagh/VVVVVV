@@ -1,7 +1,7 @@
 #define MUSIC_DEFINITION
 #include "Music.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <FAudio.h>
 
 #include "Alloc.h"
@@ -45,7 +45,7 @@
 
 #define assert SDL_assert
 
-#define FILE SDL_RWops
+#define FILE SDL_IOStream
 #ifdef SEEK_SET
 #undef SEEK_SET
 #endif
@@ -58,16 +58,16 @@
 #ifdef EOF
 #undef EOF
 #endif
-#define SEEK_SET 0
-#define SEEK_CUR 1
-#define SEEK_END 2
+#define SEEK_SET SDL_IO_SEEK_SET
+#define SEEK_CUR SDL_IO_SEEK_CUR
+#define SEEK_END SDL_IO_SEEK_END
 #define EOF -1
-#define fopen(path, mode) SDL_RWFromFile(path, mode)
+#define fopen(path, mode) SDL_IOFromFile(path, mode)
 #define fopen_s(io, path, mode) (!(*io = fopen(path, mode)))
-#define fclose(io) SDL_RWclose(io)
-#define fread(dst, size, count, io) SDL_RWread(io, dst, size, count)
-#define fseek(io, offset, whence) SDL_RWseek(io, offset, whence)
-#define ftell(io) SDL_RWtell(io)
+#define fclose(io) SDL_CloseIO(io)
+#define fread(dst, size, count, io) SDL_ReadIO(io, dst, ((size) * (count)))
+#define fseek(io, offset, whence) SDL_SeekIO(io, offset, whence)
+#define ftell(io) SDL_TellIO(io)
 
 #define FAudio_alloca(x) SDL_stack_alloc(uint8_t, x)
 #define FAudio_dealloca(x) SDL_stack_free(x)
@@ -125,9 +125,9 @@ public:
     void LoadWAV(const char* fileName, unsigned char* mem, const size_t length)
     {
         SDL_AudioSpec spec;
-        SDL_RWops *fileIn;
-        fileIn = SDL_RWFromConstMem(mem, length);
-        if (SDL_LoadWAV_RW(fileIn, 1, &spec, &wav_buffer, &wav_length) == NULL)
+        SDL_IOStream *fileIn;
+        fileIn = SDL_IOFromConstMem(mem, length);
+        if (!SDL_LoadWAV_IO(fileIn, 1, &spec, &wav_buffer, &wav_length))
         {
             vlog_error("Unable to load WAV file %s", fileName);
             goto end;
@@ -378,26 +378,26 @@ float SoundTrack::volume = 0.0f;
 class MusicTrack
 {
 public:
-    MusicTrack(SDL_RWops *rw, const char* _id, bool _loose_extra)
+    MusicTrack(SDL_IOStream *rw, const char* _id, bool _loose_extra)
     {
         SDL_zerop(this);
 
         id = SDL_strdup(_id);
         loose_extra = _loose_extra;
 
-        if (rw->size(rw) <= 1)
+        if (SDL_GetIOSize(rw) <= 1)
         {
             // Don't bother
             vlog_debug("Skipping empty music track");
             goto end;
         }
-        read_buf = (Uint8*) SDL_malloc(rw->size(rw));
-        SDL_RWread(rw, read_buf, rw->size(rw), 1);
+        read_buf = (Uint8*) SDL_malloc(SDL_GetIOSize(rw));
+        SDL_ReadIO(rw, read_buf, SDL_GetIOSize(rw));
         int err;
         stb_vorbis_info vorbis_info;
         stb_vorbis_comment vorbis_comment;
 
-        vorbis = stb_vorbis_open_memory(read_buf, rw->size(rw), &err, NULL);
+        vorbis = stb_vorbis_open_memory(read_buf, SDL_GetIOSize(rw), &err, NULL);
         if (vorbis == NULL)
         {
             vlog_error("Unable to create Vorbis handle, error %d", err);
@@ -426,7 +426,7 @@ public:
         valid = true;
 
 end:
-        SDL_RWclose(rw);
+        SDL_CloseIO(rw);
     }
 
     void Dispose(void)
@@ -792,7 +792,7 @@ static void add_builtin_sound(const char* id)
     soundTracks.push_back(SoundTrack(asset_filename, id, false));
 }
 
-static void add_builtin_track(SDL_RWops* rw, const char* track_name)
+static void add_builtin_track(SDL_IOStream* rw, const char* track_name)
 {
     // Make an ID from the track name
     char id[256];
@@ -896,7 +896,7 @@ void musicclass::init(void)
     {
         // If mmmmmm.vvv is invalid, or doesn't exist...
 
-        SDL_RWops* rw;
+        SDL_IOStream* rw;
 
         if (pppppp_blob.unPackBinary("vvvvvvmusic.vvv"))
         {
@@ -920,7 +920,7 @@ void musicclass::init(void)
         index = blob.getIndex("data/" track_name); \
         if (index >= 0 && index < blob.max_headers) \
         { \
-            rw = SDL_RWFromConstMem(blob.getAddress(index), blob.getSize(index)); \
+            rw = SDL_IOFromConstMem(blob.getAddress(index), blob.getSize(index)); \
             if (rw == NULL) \
             { \
                 vlog_error("Unable to read music file header: %s", SDL_GetError()); \
@@ -968,7 +968,7 @@ void musicclass::init(void)
 
         mmmmmm = true;
         int index;
-        SDL_RWops* rw;
+        SDL_IOStream* rw;
 
 #define FOREACH_TRACK(blob, track_name) TRACK_LOAD_BLOB(blob, track_name)
 
@@ -979,7 +979,7 @@ void musicclass::init(void)
         size_t index_ = 0;
         while (mmmmmm_blob.nextExtra(&index_))
         {
-            rw = SDL_RWFromConstMem(mmmmmm_blob.getAddress(index_), mmmmmm_blob.getSize(index_));
+            rw = SDL_IOFromConstMem(mmmmmm_blob.getAddress(index_), mmmmmm_blob.getSize(index_));
             add_builtin_track(rw, mmmmmm_blob.m_headers[index_].name);
 
             num_mmmmmm_tracks++;
@@ -997,11 +997,11 @@ void musicclass::init(void)
 
     num_pppppp_tracks += musicTracks.size() - num_mmmmmm_tracks;
 
-    SDL_RWops* rw;
+    SDL_IOStream* rw;
     size_t index_ = 0;
     while (pppppp_blob.nextExtra(&index_))
     {
-        rw = SDL_RWFromConstMem(pppppp_blob.getAddress(index_), pppppp_blob.getSize(index_));
+        rw = SDL_IOFromConstMem(pppppp_blob.getAddress(index_), pppppp_blob.getSize(index_));
         add_builtin_track(rw, pppppp_blob.m_headers[index_].name);
 
         num_pppppp_tracks++;
@@ -1035,7 +1035,7 @@ void musicclass::init(void)
         }
         else
         {
-            rw = SDL_RWFromConstMem(mem, len);
+            rw = SDL_IOFromConstMem(mem, len);
             if (rw == NULL)
             {
                 vlog_error("Unable to read loose extra music file from memory: %s", SDL_GetError());

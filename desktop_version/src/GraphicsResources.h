@@ -1,7 +1,7 @@
 #ifndef GRAPHICSRESOURCES_H
 #define GRAPHICSRESOURCES_H
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 enum TextureLoadType
 {

@@ -3,7 +3,7 @@
 #ifndef MAKEANDPLAY
 
 #include <stdint.h>
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "CWrappers.h"
 #include "Vlogging.h"
@@ -18,9 +18,9 @@
 
 #if defined(_WIN32)
 #define STEAM_LIBRARY "steam_api.dll"
-#elif defined(__APPLE__)
+#elif defined(SDL_PLATFORM_APPLE)
 #define STEAM_LIBRARY "libsteam_api.dylib"
-#elif defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
+#elif defined(SDL_PLATFORM_LINUX) || defined(SDL_PLATFORM_FREEBSD) || defined(SDL_PLATFORM_OPENBSD) || defined(SDL_PLATFORM_HAIKU) || defined(__DragonFly__)
 #define STEAM_LIBRARY "libsteam_api.so"
 #else
 #error STEAM_LIBRARY: Unrecognized platform!
@@ -145,10 +145,12 @@ static void run_screenshot()
         return;
     }
 
+    const SDL_PixelFormatDetails* details = SDL_GetPixelFormatDetails(surface2x->format);
+
     SteamAPI_ISteamScreenshots_WriteScreenshot(
         steamScreenshots,
         surface2x->pixels,
-        surface2x->w * surface2x->h * surface2x->format->BytesPerPixel,
+        surface2x->w * surface2x->h * details->bytes_per_pixel,
         surface2x->w,
         surface2x->h
     );
@@ -160,7 +162,7 @@ static int32_t steamPipe = 0;
 
 int32_t STEAM_init(void)
 {
-#if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
+#if defined(SDL_PLATFORM_FREEBSD) || defined(SDL_PLATFORM_OPENBSD) || defined(SDL_PLATFORM_HAIKU) || defined(__DragonFly__)
     return 0;
 #endif
     struct ISteamClient *steamClient;

@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "ActionSets.h"
 #include "ButtonGlyphs.h"
@@ -1873,7 +1873,7 @@ static void menurender(void)
         {
             if (game.currentmenuoption == 1)
             {
-                if (SDL_GetHintBoolean("SteamDeck", SDL_FALSE))
+                if (SDL_GetHintBoolean("SteamDeck", false))
                 {
                     font::print_wrap(PR_CEN, -1, 180, loc::gettext("The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use."), tr, tg, tb);
                 }

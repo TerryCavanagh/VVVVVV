@@ -63,7 +63,7 @@ namespace level_debugger
             return;
         }
 
-        if (key.isDown(SDLK_y))
+        if (key.isDown(SDLK_Y))
         {
             if (!debug_held)
             {
@@ -314,7 +314,7 @@ namespace level_debugger
 
         int line = 0;
 
-        if (key.isDown(SDLK_u))
+        if (key.isDown(SDLK_U))
         {
             SDL_Color on = graphics.getRGB(220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
             SDL_Color off = graphics.getRGB(220 / 1.5 - (help.glow), 220 / 1.5 - (help.glow), 255 / 1.5 - (help.glow / 2));

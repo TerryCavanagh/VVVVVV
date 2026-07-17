@@ -26,7 +26,7 @@
 #ifndef FONT_H
 #define FONT_H
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <stdint.h>
 #include <string>
 

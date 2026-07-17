@@ -59,17 +59,13 @@ static SDL_Surface* LoadImageRaw(const char* filename, unsigned char** data)
         return NULL;
     }
 
-    loadedImage = SDL_CreateRGBSurfaceWithFormatFrom(
-        *data,
-        width,
-        height,
-        32,
-        width * 4,
+    loadedImage = SDL_CreateSurfaceFrom(width, height,
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
         SDL_PIXELFORMAT_RGBA8888
 #else
         SDL_PIXELFORMAT_ABGR8888
 #endif
+        , *data, width * 4
     );
 
     return loadedImage;
@@ -77,10 +73,9 @@ static SDL_Surface* LoadImageRaw(const char* filename, unsigned char** data)
 
 static SDL_Surface* LoadSurfaceFromRaw(SDL_Surface* loadedImage)
 {
-    SDL_Surface* optimizedImage = SDL_ConvertSurfaceFormat(
+    SDL_Surface* optimizedImage = SDL_ConvertSurface(
         loadedImage,
-        SDL_PIXELFORMAT_ARGB8888,
-        0
+        SDL_PIXELFORMAT_ARGB8888
     );
     SDL_SetSurfaceBlendMode(optimizedImage, SDL_BLENDMODE_BLEND);
     return optimizedImage;
@@ -95,7 +90,7 @@ SDL_Surface* LoadImageSurface(const char* filename)
     SDL_Surface* optimizedImage = LoadSurfaceFromRaw(loadedImage);
     if (loadedImage != NULL)
     {
-        VVV_freefunc(SDL_FreeSurface, loadedImage);
+        VVV_freefunc(SDL_DestroySurface, loadedImage);
     }
 
     VVV_free(data);
@@ -185,7 +180,7 @@ SDL_Texture* LoadImage(const char *filename, const TextureLoadType loadtype)
 
     if (loadedImage != NULL)
     {
-        VVV_freefunc(SDL_FreeSurface, loadedImage);
+        VVV_freefunc(SDL_DestroySurface, loadedImage);
     }
 
     VVV_free(data);
@@ -242,7 +237,7 @@ static void LoadVariants(const char* filename, SDL_Texture** colored, SDL_Textur
 
     if (loadedImage != NULL)
     {
-        VVV_freefunc(SDL_FreeSurface, loadedImage);
+        VVV_freefunc(SDL_DestroySurface, loadedImage);
     }
 
     VVV_free(data);
@@ -270,7 +265,7 @@ static void LoadSprites(const char* filename, SDL_Texture** texture, SDL_Surface
 
     if (loadedImage != NULL)
     {
-        VVV_freefunc(SDL_FreeSurface, loadedImage);
+        VVV_freefunc(SDL_DestroySurface, loadedImage);
     }
 
     VVV_free(data);
@@ -308,7 +303,7 @@ static void LoadSpritesTranslation(
         SDL_Surface* loaded_image = LoadImageRaw(filename, &data);
         translated = LoadSurfaceFromRaw(loaded_image);
 
-        VVV_freefunc(SDL_FreeSurface, loaded_image);
+        VVV_freefunc(SDL_DestroySurface, loaded_image);
         VVV_free(data);
     }
     SDL_SetSurfaceBlendMode(translated, SDL_BLENDMODE_NONE);
@@ -344,8 +339,8 @@ static void LoadSpritesTranslation(
 
     *texture = LoadTextureFromRaw(filename, working, TEX_WHITE);
 
-    VVV_freefunc(SDL_FreeSurface, translated);
-    VVV_freefunc(SDL_FreeSurface, working);
+    VVV_freefunc(SDL_DestroySurface, translated);
+    VVV_freefunc(SDL_DestroySurface, working);
 }
 
 void GraphicsResources::init_translations(void)
@@ -510,8 +505,8 @@ void GraphicsResources::destroy(void)
     }
 #undef CLEAR
 
-    VVV_freefunc(SDL_FreeSurface, im_sprites_surf);
-    VVV_freefunc(SDL_FreeSurface, im_flipsprites_surf);
+    VVV_freefunc(SDL_DestroySurface, im_sprites_surf);
+    VVV_freefunc(SDL_DestroySurface, im_flipsprites_surf);
 }
 
 bool SaveImage(const SDL_Surface* surface, const char* filename)

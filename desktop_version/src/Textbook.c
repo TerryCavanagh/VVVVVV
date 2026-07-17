@@ -1,6 +1,6 @@
 #include "Textbook.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Alloc.h"
 #include "Vlogging.h"

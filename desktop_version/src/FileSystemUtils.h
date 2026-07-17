@@ -5,7 +5,7 @@
 class binaryBlob;
 
 #include <stddef.h>
-#include <SDL_rwops.h>
+#include <SDL3/SDL.h>
 
 // Forward declaration, including the entirety of tinyxml2.h across all files this file is included in is unnecessary
 namespace tinyxml2 { class XMLDocument; }
@@ -37,7 +37,7 @@ bool FILESYSTEM_saveFile(const char* name, const unsigned char* data, size_t len
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
                                  size_t *len);
 
-SDL_RWops* FILESYSTEM_loadAssetRWops(const char* name);
+SDL_IOStream* FILESYSTEM_loadAssetRWops(const char* name);
 void FILESYSTEM_loadAssetToMemory(
     const char* name,
     unsigned char** mem,

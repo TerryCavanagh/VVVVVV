@@ -1,6 +1,6 @@
 #include "Script.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 bool scriptclass::load(const std::string& name)
 {

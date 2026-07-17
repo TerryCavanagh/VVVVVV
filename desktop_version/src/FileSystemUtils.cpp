@@ -1,8 +1,8 @@
 #include "FileSystemUtils.h"
 
 #include <physfs.h>
-#include <physfsrwops.h>
-#include <SDL.h>
+#include <physfssdl3.h>
+#include <SDL3/SDL.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml2.h>
@@ -31,12 +31,12 @@ static int mkdir(char* path, int mode)
     MultiByteToWideChar(CP_UTF8, 0, path, -1, utf16_path, MAX_PATH);
     return CreateDirectoryW(utf16_path, NULL);
 }
-#elif defined(__EMSCRIPTEN__)
+#elif defined(SDL_PLATFORM_EMSCRIPTEN)
 #include <limits.h>
 #include <sys/stat.h>
 #include <emscripten.h>
 #define MAX_PATH PATH_MAX
-#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__) || defined(__unix__)
+#elif defined(SDL_PLATFORM_LINUX) || defined(SDL_PLATFORM_APPLE) || defined(SDL_PLATFORM_FREEBSD) || defined(SDL_PLATFORM_OPENBSD) || defined(SDL_PLATFORM_HAIKU) || defined(__DragonFly__) || defined(SDL_PLATFORM_UNI)
 #include <limits.h>
 #include <sys/stat.h>
 #define MAX_PATH PATH_MAX
@@ -45,7 +45,7 @@ static int mkdir(char* path, int mode)
 static bool isInit = false;
 
 static const char* pathSep = NULL;
-static char* basePath = NULL;
+static const char* basePath = NULL;
 static char writeDir[MAX_PATH] = {'\0'};
 static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
@@ -78,7 +78,7 @@ static const PHYSFS_Allocator allocator = {
     SDL_free
 };
 
-#ifndef __ANDROID__
+#ifndef SDL_PLATFORM_ANDROID
 static bool mount_pre_datazip(
     char* out_path,
     const char* real_dirname,
@@ -188,10 +188,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     PHYSFS_setAllocator(&allocator);
 
     // Yes, this is actually how you're supposed to use PhysFS on Android.
-#ifdef __ANDROID__
+#ifdef SDL_PLATFORM_ANDROID
     PHYSFS_AndroidInit androidInit;
-    androidInit.jnienv = SDL_AndroidGetJNIEnv();
-    androidInit.context = SDL_AndroidGetActivity();
+    androidInit.jnienv = SDL_GetAndroidJNIEnv();
+    androidInit.context = SDL_GetAndroidActivity();
     argvZero = (char*) &androidInit;
 #endif
 
@@ -292,7 +292,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         basePath = SDL_strdup("./");
     }
 
-#ifdef __ANDROID__
+#ifdef SDL_PLATFORM_ANDROID
     // This is kind of a mess, but that's not really solvable unless we expect the user to download the data.zip manually.
     if (!PHYSFS_mount(PHYSFS_getBaseDir(), "/apk", 1))
     {
@@ -348,10 +348,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         SDL_MessageBoxButtonData buttons[2];
         buttons[0].flags = SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT;
         buttons[0].flags |= SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT;
-        buttons[0].buttonid = 0;
+        buttons[0].buttonID = 0;
         buttons[0].text = "OK";
         buttons[1].flags = 0;
-        buttons[1].buttonid = 1;
+        buttons[1].buttonID = 1;
         buttons[1].text = "Open Download Page";
         messagebox.buttons = buttons;
         messagebox.colorScheme = NULL;
@@ -368,7 +368,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     }
 
     SDL_snprintf(output, sizeof(output), "%s%s", basePath, "gamecontrollerdb.txt");
-    if (SDL_GameControllerAddMappingsFromFile(output) < 0)
+    if (SDL_AddGamepadMappingsFromFile(output) < 0)
     {
         vlog_info("gamecontrollerdb.txt not found!");
     }
@@ -392,7 +392,6 @@ void FILESYSTEM_deinit(void)
         PHYSFS_deinit();
     }
     VVV_free(stdin_buffer);
-    VVV_free(basePath);
     isInit = false;
 }
 
@@ -960,12 +959,12 @@ fail:
     }
 }
 
-SDL_RWops* FILESYSTEM_loadAssetRWops(const char* name)
+SDL_IOStream* FILESYSTEM_loadAssetRWops(const char* name)
 {
     char path[MAX_PATH];
 
     getMountedPath(path, sizeof(path), name);
-    return PHYSFSRWOPS_openRead(path);
+    return PHYSFSSDL3_openRead(path);
 }
 
 void FILESYSTEM_loadAssetToMemory(
@@ -1120,7 +1119,7 @@ bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc,
     PHYSFS_writeBytes(handle, printer.CStr(), printer.CStrSize() - 1); // subtract one because CStrSize includes terminating null
     PHYSFS_close(handle);
 
-#ifdef __EMSCRIPTEN__
+#ifdef SDL_PLATFORM_EMSCRIPTEN
     if (sync)
     {
         EM_ASM(FS.syncfs(false, function(err)
@@ -1348,8 +1347,8 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
     SDL_strlcat(output, "\\VVVVVV\\", MAX_PATH);
     mkdir(output, 0777);
     return 1;
-#elif defined(__ANDROID__)
-    const char* externalStoragePath = SDL_AndroidGetExternalStoragePath();
+#elif defined(SDL_PLATFORM_ANDROID)
+    const char* externalStoragePath = SDL_GetAndroidExternalStoragePath();
     if (externalStoragePath == NULL)
     {
         vlog_error(
@@ -1393,7 +1392,7 @@ bool FILESYSTEM_openDirectoryEnabled(void)
     return !gameScreen.isForcedFullscreen();
 }
 
-#if defined(__EMSCRIPTEN__)
+#if defined(SDL_PLATFORM_EMSCRIPTEN)
 bool FILESYSTEM_openDirectory(const char *dname)
 {
     return false;
@@ -1403,7 +1402,7 @@ bool FILESYSTEM_openDirectory(const char *dname)
 {
     char url[MAX_PATH];
     SDL_snprintf(url, sizeof(url), "file://%s", dname);
-    if (SDL_OpenURL(url) == -1)
+    if (!SDL_OpenURL(url))
     {
         vlog_error("Error opening directory: %s", SDL_GetError());
         return false;

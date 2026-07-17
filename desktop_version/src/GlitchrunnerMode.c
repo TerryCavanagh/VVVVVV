@@ -1,7 +1,7 @@
 #include "GlitchrunnerMode.h"
 
-#include <SDL_assert.h>
-#include <SDL_stdinc.h>
+#include <SDL3/SDL_assert.h>
+#include <SDL3/SDL_stdinc.h>
 
 #define LOOKUP_TABLE \
     FOREACH_ENUM(GlitchrunnerNone, "") \

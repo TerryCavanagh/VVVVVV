@@ -1,7 +1,7 @@
 #ifndef BUTTONGLYPHS_H
 #define BUTTONGLYPHS_H
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <stdbool.h>
 
 #include "ActionSets.h"
@@ -17,10 +17,10 @@ bool BUTTONGLYPHS_keyboard_is_available(void);
 bool BUTTONGLYPHS_keyboard_is_active(void);
 void BUTTONGLYPHS_keyboard_set_active(bool active);
 
-void BUTTONGLYPHS_update_layout(SDL_GameController *c);
+void BUTTONGLYPHS_update_layout(SDL_Gamepad *c);
 
 const char* BUTTONGLYPHS_get_wasd_text(void);
-const char* BUTTONGLYPHS_sdlbutton_to_glyph(SDL_GameControllerButton button);
+const char* BUTTONGLYPHS_sdlbutton_to_glyph(SDL_GamepadButton button);
 const char* BUTTONGLYPHS_get_button(ActionSet actionset, Action action, int binding);
 
 char* BUTTONGLYPHS_get_all_gamepad_buttons(

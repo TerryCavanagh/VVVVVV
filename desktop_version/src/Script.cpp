@@ -2,7 +2,7 @@
 #include "Script.h"
 
 #include <limits.h>
-#include <SDL_timer.h>
+#include <SDL3/SDL_timer.h>
 
 #include "Alloc.h"
 #include "Constants.h"
@@ -3256,7 +3256,7 @@ void scriptclass::hardreset(void)
     if (game.seed_use_sdl_getticks)
     {
         /* The RNG is 32-bit. We don't _really_ need 64-bit... */
-        xoshiro_seed((Uint32) SDL_GetTicks64());
+        xoshiro_seed((Uint32) SDL_GetTicks());
     }
     else
     {

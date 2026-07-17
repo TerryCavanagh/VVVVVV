@@ -2,7 +2,7 @@
 #define KEYPOLL_H
 
 #include <map> // FIXME: I should feel very bad for using C++ -flibit
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <string>
 #include <vector>
 
@@ -15,16 +15,16 @@ enum Kybrd
     KEYBOARD_ENTER = SDLK_RETURN,
     KEYBOARD_SPACE = SDLK_SPACE,
 
-    KEYBOARD_w = SDLK_w,
-    KEYBOARD_s = SDLK_s,
-    KEYBOARD_a = SDLK_a,
-    KEYBOARD_d = SDLK_d,
-    KEYBOARD_e = SDLK_e,
-    KEYBOARD_m = SDLK_m,
-    KEYBOARD_n = SDLK_n,
+    KEYBOARD_w = SDLK_W,
+    KEYBOARD_s = SDLK_S,
+    KEYBOARD_a = SDLK_A,
+    KEYBOARD_d = SDLK_D,
+    KEYBOARD_e = SDLK_E,
+    KEYBOARD_m = SDLK_M,
+    KEYBOARD_n = SDLK_N,
 
-    KEYBOARD_v = SDLK_v,
-    KEYBOARD_z = SDLK_z,
+    KEYBOARD_v = SDLK_V,
+    KEYBOARD_z = SDLK_Z,
 
     KEYBOARD_BACKSPACE = SDLK_BACKSPACE
 };
@@ -54,8 +54,8 @@ public:
 
     bool isDown(SDL_Keycode key);
 
-    bool isDown(std::vector<SDL_GameControllerButton> buttons);
-    bool isDown(SDL_GameControllerButton button);
+    bool isDown(std::vector<SDL_GamepadButton> buttons);
+    bool isDown(SDL_GamepadButton button);
     bool controllerButtonDown(void);
     bool controllerWantsLeft(bool includeVert);
     bool controllerWantsRight(bool includeVert);
@@ -76,8 +76,8 @@ public:
     bool linealreadyemptykludge;
 
 private:
-    std::map<SDL_JoystickID, SDL_GameController*> controllers;
-    std::map<SDL_GameControllerButton, bool> buttonmap;
+    std::map<SDL_JoystickID, SDL_Gamepad*> controllers;
+    std::map<SDL_GamepadButton, bool> buttonmap;
     int xVel, yVel;
     Uint32 wasFullscreen;
 };

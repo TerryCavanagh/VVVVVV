@@ -1,7 +1,7 @@
 #ifndef ROOMNAMETRANSLATOR_H
 #define ROOMNAMETRANSLATOR_H
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 namespace roomname_translator
 {

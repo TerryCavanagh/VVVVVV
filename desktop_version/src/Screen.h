@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "ScreenSettings.h"
 
