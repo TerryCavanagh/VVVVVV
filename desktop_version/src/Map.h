@@ -230,6 +230,8 @@ public:
     int regionwidth, regionheight;
 
     MapRenderData get_render_data(void);
+
+    int tempscriptbox;
 };
 
 #ifndef MAP_DEFINITION

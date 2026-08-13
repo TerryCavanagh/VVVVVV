@@ -7,6 +7,7 @@
 #include <tinyxml2.h>
 
 #include "Alloc.h"
+#include "BlockV.h"
 #include "Constants.h"
 #include "Editor.h"
 #include "Enums.h"
@@ -406,6 +407,8 @@ void customlevelclass::reset(void)
     map.specialroomnames.clear();
 
     player_colour = 0;
+
+    custom_activity_zones.clear();
 }
 
 const int* customlevelclass::loadlevel( int rxi, int ryi )
@@ -1429,6 +1432,49 @@ next:
         {
             player_colour = help.Int(pText);
             game.savecolour = player_colour;
+        }
+
+        if (SDL_strcmp(pKey, "ActivityZones") == 0)
+        {
+            for (tinyxml2::XMLElement* activityZoneElement = pElem->FirstChildElement(); activityZoneElement; activityZoneElement = activityZoneElement->NextSiblingElement())
+            {
+                if (SDL_strcmp(activityZoneElement->Value(), "activityZone") == 0)
+                {
+                    int id = -1;
+
+                    activityZoneElement->QueryIntAttribute("id", &id);
+
+                    if (id < 0)
+                    {
+                        continue;
+                    }
+
+                    const char* colour = activityZoneElement->Attribute("colour");
+                    const char* text = activityZoneElement->GetText();
+
+                    ActivityZone zone;
+
+                    if (colour != NULL)
+                    {
+                        zone.colour = std::string(colour);
+                    }
+                    else
+                    {
+                        zone.colour = "";
+                    }
+
+                    if (text != NULL)
+                    {
+                        zone.text = std::string(text);
+                    }
+                    else
+                    {
+                        zone.text = "";
+                    }
+
+                    custom_activity_zones[id] = zone;
+                }
+            }
         }
     }
 

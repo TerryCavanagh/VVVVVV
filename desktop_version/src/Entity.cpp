@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 
+#include "BlockV.h"
 #include "CustomLevels.h"
 #include "Font.h"
 #include "Game.h"
@@ -776,7 +777,7 @@ void entityclass::generateswnwave( int t )
     }
 }
 
-void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/, const std::string& script /*= ""*/, bool custom /*= false*/)
+void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/, const std::string& script /*= ""*/, ActivityContext context /*= ActivityContext_NORMAL*/)
 {
     k = blocks.size();
 
@@ -852,6 +853,8 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         block.wp = w;
         block.hp = h;
         block.rectset(xp, yp, w, h);
+
+        int original_trig = trig;
 
         //Ok, each and every activity zone in the game is initilised here. "Trig" in this case is a variable that
         //assigns all the details.
@@ -1068,7 +1071,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
             trig=0;
             break;
         case 35:
-            if (custom)
+            if (context != ActivityContext_NORMAL)
             {
                 block.prompt = "Press {button} to interact";
             }
@@ -1076,39 +1079,65 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
             {
                 block.prompt = "Press {button} to activate terminal";
             }
-            block.script = "custom_"+customscript;
+            block.script = "custom_" + customscript;
             block.setblockcolour("orange");
             trig=0;
             break;
+        default:
+            block.script = "custom_" + customscript;
+            block.prompt = "Press {button} to interact";
+            block.setblockcolour("orange");
+            break;
         }
-        break;
-    }
 
-    if (customactivitytext != "")
-    {
-        block.prompt = customactivitytext;
-        block.gettext = false;
-        customactivitytext = "";
-    }
-    else
-    {
         block.gettext = true;
-    }
 
-    if (customactivitycolour != "")
-    {
-        block.setblockcolour(customactivitycolour.c_str());
-        customactivitycolour = "";
-    }
+        if (context == ActivityContext_CUSTOM)
+        {
+            block.script = "custom_" + customscript;
+        }
 
-    if (customactivitypositiony != -1)
-    {
-        block.activity_y = customactivitypositiony;
-        customactivitypositiony = -1;
-    }
-    else
-    {
-        block.activity_y = 0;
+        // Handle custom-defined activity zones
+        if (cl.custom_activity_zones.count(original_trig) > 0)
+        {
+            ActivityZone zone = cl.custom_activity_zones[original_trig];
+
+            if (zone.colour != "")
+            {
+                block.setblockcolour(zone.colour.c_str());
+            }
+
+            if (zone.text != "")
+            {
+                block.prompt = zone.text;
+                block.gettext = false;
+            }
+        }
+
+        if (customactivitytext != "")
+        {
+            block.prompt = customactivitytext;
+            block.gettext = false;
+            customactivitytext = "";
+        }
+
+        if (customactivitycolour != "")
+        {
+            block.setblockcolour(customactivitycolour.c_str());
+            customactivitycolour = "";
+        }
+
+        if (customactivitypositiony != -1)
+        {
+            block.activity_y = customactivitypositiony;
+            customactivitypositiony = -1;
+        }
+        else
+        {
+            block.activity_y = 0;
+        }
+
+        break;
     }
 
     if (!reuse)

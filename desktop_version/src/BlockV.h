@@ -5,6 +5,12 @@
 #include <stdint.h>
 #include <string>
 
+struct ActivityZone
+{
+    std::string colour;
+    std::string text;
+};
+
 class blockclass
 {
 public:
