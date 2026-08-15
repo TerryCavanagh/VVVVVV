@@ -65,6 +65,7 @@ public:
     int leftbutton, rightbutton, middlebutton;
     int mousex;
     int mousey;
+    int mousewheel;
 
     bool textentry(void);
     bool pressedbackspace;
