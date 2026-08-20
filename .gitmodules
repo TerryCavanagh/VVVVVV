@@ -16,3 +16,6 @@
 [submodule "third_party/SheenBidi"]
 	path = third_party/SheenBidi
 	url = https://github.com/Tehreer/SheenBidi
+[submodule "third_party/SDL"]
+	path = third_party/SDL
+	url = https://github.com/libsdl-org/SDL.git
