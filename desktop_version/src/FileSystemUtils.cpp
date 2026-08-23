@@ -36,7 +36,7 @@ static int mkdir(char* path, int mode)
 #include <sys/stat.h>
 #include <emscripten.h>
 #define MAX_PATH PATH_MAX
-#elif defined(SDL_PLATFORM_LINUX) || defined(SDL_PLATFORM_APPLE) || defined(SDL_PLATFORM_FREEBSD) || defined(SDL_PLATFORM_OPENBSD) || defined(SDL_PLATFORM_HAIKU) || defined(__DragonFly__) || defined(SDL_PLATFORM_UNI)
+#elif defined(SDL_PLATFORM_LINUX) || defined(SDL_PLATFORM_APPLE) || defined(SDL_PLATFORM_FREEBSD) || defined(SDL_PLATFORM_OPENBSD) || defined(SDL_PLATFORM_HAIKU) || defined(__DragonFly__) || defined(SDL_PLATFORM_UNIX)
 #include <limits.h>
 #include <sys/stat.h>
 #define MAX_PATH PATH_MAX
