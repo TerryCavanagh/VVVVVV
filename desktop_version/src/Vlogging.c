@@ -14,7 +14,7 @@
 #elif defined(_WIN32)
 #   define WIN32_LEAN_AND_MEAN
 #   include <windows.h>
-#elif defined(SDL_PLATFORM_UNI) || defined(SDL_PLATFORM_APPLE)
+#elif defined(SDL_PLATFORM_UNIX) || defined(SDL_PLATFORM_APPLE)
 #   include <unistd.h>
 #endif
 
@@ -285,7 +285,7 @@ static void check_color_support(void)
     }
 
     color_supported = 1;
-#elif (defined(SDL_PLATFORM_UNI) || defined(SDL_PLATFORM_APPLE)) && !defined(VLOG_USE_SDL)
+#elif (defined(SDL_PLATFORM_UNIX) || defined(SDL_PLATFORM_APPLE)) && !defined(VLOG_USE_SDL)
     if (isatty(STDOUT_FILENO) && isatty(STDERR_FILENO))
     {
         color_supported = 1;
