@@ -382,7 +382,12 @@ bool UpscaleScreenshot2x(SDL_Surface* src, SDL_Surface** dest)
         }
     }
 
-    int result = SDL_BlitSurfaceScaled(src, NULL, *dest, NULL, SDL_SCALEMODE_PIXELART);
+    /* PIXELART scaling would be cool here, but that's usually done in a shader while
+     * this is just a sw blit. SDL_surface.c currently just aliases this to NEAREST,
+     * so let's use that to improve 3.2 compatibility for now.
+     * -flibit
+     */
+    int result = SDL_BlitSurfaceScaled(src, NULL, *dest, NULL, SDL_SCALEMODE_NEAREST);
     if (result == 0)
     {
         WHINE_ONCE_ARGS(("Could not blit surface: %s", SDL_GetError()));
