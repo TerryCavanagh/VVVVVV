@@ -214,6 +214,24 @@ std::string UtilityClass::number_words(int _t, const char* number_class)
     }
 }
 
+void UtilityClass::disp_room_coords(char* buffer, const size_t buffer_size, int x, int y, int offset)
+{
+    // Takes room coordinates and display them as [0,0] or (1;1).
+    vformat_buf(
+        buffer, buffer_size,
+        offset == 1 ? "({x};{y})" : "[{x},{y}]",
+        "x:int, y:int",
+        x+offset, y+offset
+    );
+}
+
+std::string UtilityClass::disp_room_coords(int x, int y, int offset)
+{
+    char coords[8];
+    disp_room_coords(coords, sizeof(coords), x, y, offset);
+    return std::string(coords);
+}
+
 bool UtilityClass::intersects( SDL_Rect A, SDL_Rect B )
 {
     return (SDL_HasRectIntersection(&A, &B) == true);
