@@ -7,7 +7,6 @@ The following is a list of projects which have been given permission by Terry to
 
 Exceptions granted to the VVVVVV source code license
 -------
-Last updated on January 23rd, 2024.
 
 | Project | Creator | Description | Conditions | Link |
 |---|---|---|---|---|
