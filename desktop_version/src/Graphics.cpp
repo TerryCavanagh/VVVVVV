@@ -3718,8 +3718,7 @@ void Graphics::draw_screenshot_border(void)
 
     int width = 0;
     int height = 0;
-    int result = query_texture(gameTexture, NULL, NULL, &width, &height);
-    if (result != 0)
+    if (!query_texture(gameTexture, NULL, NULL, &width, &height))
     {
         return;
     }
