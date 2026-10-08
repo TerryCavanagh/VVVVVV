@@ -387,8 +387,7 @@ bool UpscaleScreenshot2x(SDL_Surface* src, SDL_Surface** dest)
      * so let's use that to improve 3.2 compatibility for now.
      * -flibit
      */
-    int result = SDL_BlitSurfaceScaled(src, NULL, *dest, NULL, SDL_SCALEMODE_NEAREST);
-    if (result == 0)
+    if (!SDL_BlitSurfaceScaled(src, NULL, *dest, NULL, SDL_SCALEMODE_NEAREST))
     {
         WHINE_ONCE_ARGS(("Could not blit surface: %s", SDL_GetError()));
         return false;
