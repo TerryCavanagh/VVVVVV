@@ -3703,15 +3703,15 @@ void Graphics::renderfixedpost(void)
     game.old_screenshot_border_timer = game.screenshot_border_timer;
     if (game.screenshot_border_timer > 0)
     {
-        game.screenshot_border_timer -= 15;
+        game.screenshot_border_timer -= 1;
     }
 }
 
 void Graphics::draw_screenshot_border(void)
 {
-    const int border_alpha = lerp(game.old_screenshot_border_timer, game.screenshot_border_timer);
+    const int border_size = lerp(game.old_screenshot_border_timer, game.screenshot_border_timer) / 2;
 
-    if (border_alpha <= 100)
+    if (border_size <= 0)
     {
         return;
     }
@@ -3723,26 +3723,21 @@ void Graphics::draw_screenshot_border(void)
         return;
     }
 
-    const SDL_FRect rect_inner = {
-        1.0f,
-        1.0f,
-        width - 2.0f,
-        height - 2.0f
-    };
+    SDL_Color color;
 
     if (game.screenshot_saved_success)
     {
-        set_color(196, 196, 20, border_alpha);
+		color = getRGB(255, 255, 255);
     }
     else
     {
-        set_color(196, 20, 20, border_alpha);
+        color = getRGB(196, 20, 20);
     }
 
-    set_blendmode(SDL_BLENDMODE_BLEND);
-    draw_rect(NULL);
-    draw_rect(&rect_inner);
-    set_blendmode(SDL_BLENDMODE_NONE);
+    fill_rect(0, 0, border_size, height, color);
+    fill_rect(0, 0, width, border_size, color);
+    fill_rect(width - border_size, 0, border_size, height, color);
+    fill_rect(0, height - border_size, width, border_size, color);
 }
 
 void Graphics::drawtele(int x, int y, int t, const SDL_Color color)
