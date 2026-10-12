@@ -6,7 +6,7 @@ public class VVVVVV extends SDLActivity {
     @Override
     protected String[] getLibraries() {
         return new String[] {
-            "SDL2",
+            "SDL3",
             "VVVVVV"
         };
     }

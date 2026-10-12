@@ -2,7 +2,7 @@
 #ifdef SDL_PLATFORM_EMSCRIPTEN
 #include <emscripten.h>
 #include <emscripten/html5.h>
-#elif defined(SDL_PLATFORM_WINDOWS)
+#elif defined(SDL_PLATFORM_WINDOWS) || defined(SDL_PLATFORM_ANDROID)
 #include <SDL3/SDL_main.h>
 #endif
 
