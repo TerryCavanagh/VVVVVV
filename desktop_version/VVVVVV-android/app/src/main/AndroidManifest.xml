@@ -37,8 +37,8 @@
         android:name="android.hardware.microphone"
         android:required="false" /> -->
 
-    <!-- Allow downloading to the external storage on Android 5.1 and older -->
-    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="22" /> -->
+    <!-- Allow downloading to the external storage on Android 9 and older -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
 
     <!-- Allow access to Bluetooth devices -->
     <!-- Currently this is just for Steam Controller support and requires setting SDL_HINT_JOYSTICK_HIDAPI_STEAM -->
