@@ -1,0 +1,75 @@
+name: CI (Android)
+
+# Only trigger workflow when Android-specific code could have changed.
+# This includes C/C++ files that have __ANDROID__ ifdefs.
+# If adding new ifdefs, make sure to update these lists.
+on:
+  push:
+    paths:
+      - "desktop_version/CMakeLists.txt"
+      - "desktop_version/src/ButtonGlyphs.cpp"
+      - "desktop_version/src/FileSystemUtils.cpp"
+      - "desktop_version/src/Screen.cpp"
+      - "desktop_version/src/Vlogging.c"
+      - "desktop_version/VVVVVV-android/gradlew"
+      - "desktop_version/VVVVVV-android/gradlew.bat"
+      - "desktop_version/VVVVVV-android/**/CMakeLists.txt"
+      - "desktop_version/VVVVVV-android/**.java"
+      - "desktop_version/VVVVVV-android/**.xml"
+      - "desktop_version/VVVVVV-android/**.pro"
+      - "desktop_version/VVVVVV-android/**.mk"
+      - "desktop_version/VVVVVV-android/**.gradle"
+      - "desktop_version/VVVVVV-android/**.jar"
+      - "desktop_version/VVVVVV-android/**.properties"
+      - ".github/workflows/android.yml"
+  pull_request:
+    paths:
+      - "desktop_version/CMakeLists.txt"
+      - "desktop_version/src/ButtonGlyphs.cpp"
+      - "desktop_version/src/FileSystemUtils.cpp"
+      - "desktop_version/src/Screen.cpp"
+      - "desktop_version/src/Vlogging.c"
+      - "desktop_version/VVVVVV-android/gradlew"
+      - "desktop_version/VVVVVV-android/gradlew.bat"
+      - "desktop_version/VVVVVV-android/**/CMakeLists.txt"
+      - "desktop_version/VVVVVV-android/**.java"
+      - "desktop_version/VVVVVV-android/**.xml"
+      - "desktop_version/VVVVVV-android/**.pro"
+      - "desktop_version/VVVVVV-android/**.mk"
+      - "desktop_version/VVVVVV-android/**.gradle"
+      - "desktop_version/VVVVVV-android/**.jar"
+      - "desktop_version/VVVVVV-android/**.properties"
+      - ".github/workflows/android.yml"
+
+env:
+  SRC_DIR_PATH: VVVVVV/desktop_version/VVVVVV-android
+  SDL_VERSION: 3.4.18
+
+jobs:
+  build:
+    name: Build (Android)
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+        path: 'VVVVVV'
+
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'gradle'
+
+    - name: Get SDL3-${SDL_VERSION}.aar
+      run: |
+        cd ${SRC_DIR_PATH}/app/libs
+        wget https://github.com/libsdl-org/SDL/releases/download/release-${SDL_VERSION}/SDL3-devel-${SDL_VERSION}-android.zip
+        unzip SDL3-devel-${SDL_VERSION}-android.zip SDL3-${SDL_VERSION}.aar
+
+    - name: Build
+      run: |
+        cd ${SRC_DIR_PATH}
+        ./gradlew build
