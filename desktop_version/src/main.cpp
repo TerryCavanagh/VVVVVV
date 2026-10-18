@@ -554,15 +554,11 @@ int main(int argc, char *argv[])
 
     if (invalid_arg > 0)
     {
-        vlog_error("Error: invalid option: %s", argv[invalid_arg]);
-        keep_console_open(open_console);
-        VVV_exit(1);
+        vlog_warn("Warning: invalid option: %s", argv[invalid_arg]);
     }
     else if (invalid_partial_arg > 0)
     {
-        vlog_error("%s option requires one argument.", argv[invalid_partial_arg]);
-        keep_console_open(open_console);
-        VVV_exit(1);
+        vlog_warn("%s option requires one argument.", argv[invalid_partial_arg]);
     }
 
     if (print_version)
