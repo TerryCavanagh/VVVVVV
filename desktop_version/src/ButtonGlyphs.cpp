@@ -155,7 +155,7 @@ static const char* glyph_layout[LAYOUT_TOTAL][SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER 
     }
 };
 
-static bool keyboard_is_active = true;
+static bool keyboard_is_active;
 static ButtonGlyphLayout layout = LAYOUT_GENERIC;
 
 void BUTTONGLYPHS_init(void)
@@ -165,6 +165,12 @@ void BUTTONGLYPHS_init(void)
     {
         SDL_strlcpy(glyph[i], UTF8_encode(0xEB00+i).bytes, sizeof(glyph[i]));
     }
+
+#if defined(SDL_PLATFORM_ANDROID) || TARGET_OS_IPHONE
+    keyboard_is_active = false;
+#else
+    keyboard_is_active = !SDL_GetHintBoolean("SteamDeck", false);
+#endif
 }
 
 bool BUTTONGLYPHS_keyboard_is_available(void)
