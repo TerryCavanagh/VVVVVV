@@ -5994,6 +5994,38 @@ void Game::customloadquick(const std::string& savfile)
                 map.setregion(thisid, thisrx, thisry, thisrx2, thisry2);
             }
         }
+        else if (SDL_strcmp(pKey, "savedwarpdirs") == 0)
+        {
+            char buffer[16]; 
+            size_t start = 0; 
+            size_t i = 0; 
+                
+            while (next_split_s(buffer, sizeof(buffer), &start, pText, ',')) 
+            {
+                // Use array size from map.explored, since savedwarpdirs doesn't have a fixed size
+                if (i >= SDL_arraysize(map.explored)) 
+                {
+                    break;
+                }
+                
+                // If empty, ignore line
+                if (buffer[0] == '\0')
+                {
+                    ++i;
+                    continue;
+                }
+
+                int warpdir = help.Int(buffer);
+                map.savedwarpdirs[i] = warpdir;
+
+                int temprx = i % 20;
+                int tempry = i / 20;
+
+                cl.setroomwarpdir(temprx, tempry, warpdir);
+
+                ++i; 
+            } 
+        }
     }
 }
 
@@ -6355,6 +6387,21 @@ bool Game::customsavequick(const std::string& savfile)
         customcollect += help.String((int) obj.customcollect[i]) + ",";
     }
     xml::update_tag(msgs, "customcollect", customcollect.c_str());
+
+    std::string savedwarpdirs;
+    // savedwarpdirs won't contain values for each room. Reuse room count from map.explored instead
+    for (size_t i = 0; i < SDL_arraysize(map.explored); i++)
+    {
+        if (map.savedwarpdirs.count(i) == 0)
+        {
+            savedwarpdirs += ",";
+        }
+        else
+        {
+            savedwarpdirs += help.String(map.savedwarpdirs[i]) + ",";
+        }
+    }
+    xml::update_tag(msgs, "savedwarpdirs", savedwarpdirs.c_str());
 
     //Position
 

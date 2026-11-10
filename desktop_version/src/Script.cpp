@@ -289,6 +289,21 @@ void scriptclass::run(void)
                     position--;
                 }
             }
+            if (words[0] == "savewarpdir")
+            {
+                int temprx = ss_toi(words[1]) - 1;
+                int tempry = ss_toi(words[2]) - 1;
+
+                const RoomProperty* const room = cl.getroomprop(temprx, tempry);
+                map.savewarpdir(temprx, tempry, room->warpdir);
+            }
+            if (words[0] == "unsavewarpdir")
+            {
+                int temprx = ss_toi(words[1]) - 1;
+                int tempry = ss_toi(words[2]) - 1;
+
+                map.unsavewarpdir(temprx, tempry);
+            }
             if (words[0] == "destroy")
             {
                 if (words[1] == "gravitylines")
@@ -3427,6 +3442,7 @@ void scriptclass::hardreset(void)
     SDL_memset(map.roomdeaths, 0, sizeof(map.roomdeaths));
     SDL_memset(map.roomdeathsfinal, 0, sizeof(map.roomdeathsfinal));
     map.resetmap();
+    map.savedwarpdirs.clear();
     map.currentregion = 0;
     SDL_zeroa(map.region);
     //entityclass
@@ -3658,6 +3674,12 @@ bool scriptclass::loadcustom(const std::string& t)
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);
         }else if(words[0] == "ifwarp"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
+        }else if(words[0] == "savewarpdir"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
+        }else if(words[0] == "unsavewarpdir"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);
         }else if(words[0] == "iftrinkets"){
