@@ -1131,12 +1131,35 @@ static void draw_entities(void)
                 break;
             case 22: // Damage Boxes
             {
+                int draw_y = y;
+                int height = entity->p2 * 8;
+
+                switch (entity->p3)
+                {
+                default:
+                    break;
+                case 1:
+                    // Top Spikes
+                    draw_y += 4;
+                    height -= 4;
+                    break;
+                case 2:
+                    // Bottom Spikes
+                    height -= 4;
+                    break;
+                case 3:
+                    // Side Spikes
+                    draw_y += 3;
+                    height -= 6;
+                    break;
+                }
+
                 int skull_x = x + (entity->p1 - 1) * 4;
-                int skull_y = y + (entity->p2 - 1) * 4;
+                int skull_y = draw_y + (height - 8) / 2;
 
-                font::print(PR_FONT_8X8 | PR_BOR, skull_x, skull_y, "\xE2\x98\xA0", 255, 192, 192);
+                font::print(PR_FONT_8X8 | PR_BOR, skull_x, skull_y, "\xE2\x98\xA0", 255, 255, 255);
 
-                graphics.draw_rect(x, y, entity->p1 * 8, entity->p2 * 8, graphics.getRGB(255, 164, 164));
+                graphics.draw_rect(x, draw_y, entity->p1 * 8, height, graphics.getRGB(255, 164, 164));
                 graphics.draw_rect(x, y, 8, 8, graphics.getRGB(255, 255, 255));
                 break;
             }

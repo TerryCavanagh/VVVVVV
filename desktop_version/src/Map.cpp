@@ -1966,8 +1966,33 @@ void mapclass::loadlevel(int rx, int ry)
                 obj.createblock(BLOCK, ex, ey, ent.p1 * 8, ent.p2 * 8);
                 break;
             case 22: // Damage Box
-                obj.createblock(DAMAGE, ex, ey, ent.p1 * 8, ent.p2 * 8);
+            {
+                int y = ey;
+                int height = ent.p2 * 8;
+
+                switch (ent.p3)
+                {
+                default:
+                    break;
+                case 1:
+                    // Top Spikes
+                    y += 4;
+                    height -= 4;
+                    break;
+                case 2:
+                    // Bottom Spikes
+                    height -= 4;
+                    break;
+                case 3:
+                    // Side Spikes
+                    y += 3;
+                    height -= 6;
+                    break;
+                }
+
+                obj.createblock(DAMAGE, ex, y, ent.p1 * 8, height);
                 break;
+            }
             case 23: // Directional Box
                 obj.createblock(DIRECTIONAL, ex, ey, ent.p1 * 8, ent.p2 * 8, ent.p3);
                 break;
