@@ -272,9 +272,14 @@ void KeyPoll::Poll(void)
             if (evt.key.key == SDLK_F6 && !evt.key.repeat)
             {
                 const bool success = SaveScreenshot();
-                game.old_screenshot_border_timer = 255;
-                game.screenshot_border_timer = 255;
+                game.old_screenshot_border_timer = 8;
+                game.screenshot_border_timer = 8;
                 game.screenshot_saved_success = success;
+
+                if (!success)
+                {
+                    music.playef(Sound_CRY);
+                }
             }
 
             BUTTONGLYPHS_keyboard_set_active(true);
