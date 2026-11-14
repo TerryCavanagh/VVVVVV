@@ -109,6 +109,9 @@ public:
 
     std::string number_words(int _t, const char* number_class);
 
+    void disp_room_coords(char* buffer, const size_t buffer_size, int x, int y, int offset);
+    std::string disp_room_coords(int x, int y, int offset);
+
 
     static bool intersects( SDL_Rect A, SDL_Rect B );
 

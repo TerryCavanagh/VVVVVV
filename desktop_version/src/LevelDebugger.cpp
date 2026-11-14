@@ -241,7 +241,7 @@ namespace level_debugger
     void render_coords(int y, const char* text, int first, int second)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(buffer, sizeof(buffer), "{text}: ({first},{second})", "text:str, first:int, second:int", text, first, second);
+        vformat_buf(buffer, sizeof(buffer), "{text}: [{first},{second}]", "text:str, first:int, second:int", text, first, second);
         render_info(y, buffer);
     }
 
