@@ -48,6 +48,8 @@ editorclass::editorclass(void)
     register_tool(EditorTool_WARP_LINES, "Warp Lines", "I", SDLK_I, false);
     register_tool(EditorTool_CREWMATES, "Crewmates", "O", SDLK_O, false);
     register_tool(EditorTool_START_POINT, "Start Point", "P", SDLK_P, false);
+    register_tool(EditorTool_DAMAGE_BOXES, "Damage Boxes", "D", SDLK_D, false);
+    register_tool(EditorTool_COLLISION_BOXES, "Collision Boxes", "K", SDLK_K, false);
 
     static const short basic[] = {
         121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121,
@@ -1128,29 +1130,40 @@ static void draw_entities(void)
             case 21: // Collision Boxes
                 graphics.draw_rect(x, y, entity->p1 * 8, entity->p2 * 8, graphics.getRGB(255, 255, 255));
                 graphics.draw_rect(x, y, 8, 8, graphics.getRGB(255, 255, 255));
+                if (i == edent_under_cursor)
+                {
+                    int length = font::len(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, loc::gettext("Solid Collision"));
+                    int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
+                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text_x, y - 8, loc::gettext("Solid Collision"), 210, 210, 255);
+                }
                 break;
             case 22: // Damage Boxes
             {
                 int draw_y = y;
                 int height = entity->p2 * 8;
+                const char* text;
 
                 switch (entity->p3)
                 {
                 default:
+                    text = loc::gettext("Damage");
                     break;
                 case 1:
                     // Top Spikes
                     draw_y += 4;
                     height -= 4;
+                    text = loc::gettext("Damage: Top Spikes");
                     break;
                 case 2:
                     // Bottom Spikes
                     height -= 4;
+                    text = loc::gettext("Damage: Bottom Spikes");
                     break;
                 case 3:
                     // Side Spikes
                     draw_y += 3;
                     height -= 6;
+                    text = loc::gettext("Damage: Side Spikes");
                     break;
                 }
 
@@ -1159,8 +1172,35 @@ static void draw_entities(void)
 
                 font::print(PR_FONT_8X8 | PR_BOR, skull_x, skull_y, "\xE2\x98\xA0", 255, 255, 255);
 
+                // Draw indication spikes
+                switch (entity->p3)
+                {
+                default:
+                    break;
+                case 1:
+                    // Top Spikes
+                    font::print(PR_FONT_8X8 | PR_BOR, skull_x, skull_y - 8, "\xE2\x96\xB2", 255, 255, 255);
+                    break;
+                case 2:
+                    // Bottom Spikes
+                    font::print(PR_FONT_8X8 | PR_BOR, skull_x, skull_y + 8, "\xE2\x96\xBC", 255, 255, 255);
+                    break;
+                case 3:
+                    // Side Spikes
+                    font::print(PR_FONT_8X8 | PR_BOR, skull_x - 8, skull_y, "\xE2\x97\x80", 255, 255, 255);
+                    font::print(PR_FONT_8X8 | PR_BOR, skull_x + 8, skull_y, "\xE2\x96\xB6", 255, 255, 255);
+                    break;
+                }
+
                 graphics.draw_rect(x, draw_y, entity->p1 * 8, height, graphics.getRGB(255, 164, 164));
                 graphics.draw_rect(x, y, 8, 8, graphics.getRGB(255, 255, 255));
+
+                if (i == edent_under_cursor)
+                {
+                    int length = font::len(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text);
+                    int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
+                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text_x, y - 8, text, 210, 210, 255);
+                }
                 break;
             }
             case 23: // Directional Boxes
@@ -1169,42 +1209,76 @@ static void draw_entities(void)
                 int arrow_x = x + (entity->p1 - 1) * 4;
                 int arrow_y = y + (entity->p2 - 1) * 4;
 
+                const char* text = NULL;
+
                 if (customentities[i].p3 == 0)
                 {
                     // UP ARROW
                     font::print(PR_FONT_8X8 | PR_BOR, arrow_x, arrow_y, "\xE2\x86\x91", 255, 255, 255);
+                    text = loc::gettext("Directional: UP");
                 }
                 else if (customentities[i].p3 == 1)
                 {
                     // DOWN ARROW
                     font::print(PR_FONT_8X8 | PR_BOR, arrow_x, arrow_y, "\xE2\x86\x93", 255, 255, 255);
+                    text = loc::gettext("Directional: DOWN");
                 }
                 else if (customentities[i].p3 == 2)
                 {
                     // LEFT ARROW
                     font::print(PR_FONT_8X8 | PR_BOR, arrow_x, arrow_y, "\xE2\x86\x90", 255, 255, 255);
+                    text = loc::gettext("Directional: LEFT");
                 }
                 else if (customentities[i].p3 == 3)
                 {
                     // RIGHT ARROW
                     font::print(PR_FONT_8X8 | PR_BOR, arrow_x, arrow_y, "\xE2\x86\x92", 255, 255, 255);
+                    text = loc::gettext("Directional: RIGHT");
                 }
+
                 graphics.draw_rect(x, y, entity->p1 * 8, entity->p2 * 8, graphics.getRGB(255, 255, 164));
+                graphics.draw_rect(x, y, 8, 8, graphics.getRGB(255, 255, 255));
+
+                if (i == edent_under_cursor)
+                {
+                    int length = font::len(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text);
+                    int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
+                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text_x, y - 8, text, 210, 210, 255);
+                }
                 break;
             }
             case 24: // Safe Boxes
                 graphics.draw_rect(x, y, entity->p1 * 8, entity->p2 * 8, graphics.getRGB(164, 255, 255));
                 graphics.draw_rect(x, y, 8, 8, graphics.getRGB(255, 255, 255));
+
+                if (i == edent_under_cursor)
+                {
+                    int length = font::len(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, loc::gettext("Enemy-Only"));
+                    int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
+                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text_x, y - 8, loc::gettext("Enemy-Only"), 210, 210, 255);
+                }
                 break;
             case 25: // Gamestate Triggers
             {
                 graphics.draw_rect(x, y, entity->p1 * 8, entity->p2 * 8, graphics.getRGB(164, 255, 164));
                 graphics.draw_rect(x, y, 8, 8, graphics.getRGB(255, 255, 255));
 
-                int arrow_x = x + (entity->p1 - 1) * 4;
-                int arrow_y = y + (entity->p2 - 1) * 4;
+                int id_x = x + (entity->p1 - 1) * 4;
+                int id_y = y + (entity->p2 - 1) * 4;
 
-                font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, arrow_x, arrow_y, help.String(entity->p3), 255, 255, 255);
+                font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, id_x, id_y, help.String(entity->p3), 255, 255, 255);
+
+                if (i == edent_under_cursor)
+                {
+                    char buffer[SCREEN_WIDTH_CHARS + 1];
+                    vformat_buf(buffer, sizeof(buffer),
+                        loc::gettext("Gamestate: {id}"),
+                        "id:int",
+                        entity->p3
+                    );
+
+                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, x, y - 8, buffer, 210, 210, 255);
+                }
                 break;
             }
             case 50: // Warp Lines
@@ -1445,6 +1519,8 @@ static void draw_cursor(void)
     case EditorTool_GRAVITY_LINES:
     case EditorTool_ROOMTEXT:
     case EditorTool_SCRIPTS:
+    case EditorTool_DAMAGE_BOXES:
+    case EditorTool_COLLISION_BOXES:
         // 1x1
         graphics.draw_rect(x, y, 8, 8, blue);
         break;
@@ -1587,6 +1663,15 @@ static void draw_box_placer()
         case BoxType_PLATFORM:
             message = loc::gettext("PLATFORM BOUNDS: Click on the first corner");
             break;
+        case BoxType_ACTIVITY_ZONE:
+            message = loc::gettext("ACTIVITY ZONE: Click on the first corner");
+            break;
+        case BoxType_COLLISION_BOXES:
+            message = loc::gettext("COLLISION BOX: Click on the first corner");
+            break;
+        case BoxType_DAMAGE_BOXES:
+            message = loc::gettext("DAMAGE BOX: Click on the first corner");
+            break;
         default:
             message = loc::gettext("Click on the first corner");
             break;
@@ -1604,6 +1689,15 @@ static void draw_box_placer()
             break;
         case BoxType_PLATFORM:
             message = loc::gettext("PLATFORM BOUNDS: Click on the last corner");
+            break;
+        case BoxType_ACTIVITY_ZONE:
+            message = loc::gettext("ACTIVITY ZONE: Click on the last corner");
+            break;
+        case BoxType_COLLISION_BOXES:
+            message = loc::gettext("COLLISION BOX: Click on the last corner");
+            break;
+        case BoxType_DAMAGE_BOXES:
+            message = loc::gettext("DAMAGE BOX: Click on the last corner");
             break;
         default:
             message = loc::gettext("Click on the last corner");
@@ -1851,6 +1945,13 @@ void editorclass::draw_tool(EditorTools tool, int x, int y)
         break;
     case EditorTool_START_POINT:
         graphics.draw_sprite(x, y, 184, graphics.col_crewcyan);
+        break;
+    case EditorTool_DAMAGE_BOXES:
+        graphics.draw_rect(x + 2, y + 2, 12, 12, graphics.getRGB(255, 164, 164));
+        font::print(PR_FONT_8X8 | PR_BOR, x + 4, y + 4, "\xE2\x98\xA0", 255, 255, 255);
+        break;
+    case EditorTool_COLLISION_BOXES:
+        graphics.draw_rect(x + 2, y + 2, 12, 12, graphics.getRGB(255, 255, 255));
         break;
     default:
         break;
@@ -2713,6 +2814,41 @@ void editorclass::entity_clicked(const int index)
         get_input_line(TEXT_SCRIPT, "Enter script name:", &entity->scriptname);
         text_entity = index;
         break;
+    case 20:
+        // Activity Zones
+        commit_entity(index);
+        get_input_line(TEXT_SCRIPT, "Enter script name:", &entity->scriptname);
+        text_entity = index;
+        break;
+    case 22:
+        // Damage Boxes
+        commit_entity(index);
+        entity->p3 = (entity->p3 + 1) % 4;
+        break;
+
+    // Cycle here: Collision box -> all direction boxes -> safe box -> collision box
+    case 21:
+        // Collision Boxes
+        commit_entity(index);
+        entity->t = 23; // Turn it into directional boxes
+        entity->p3 = 0;
+        break;
+    case 23:
+        // Directional Boxes
+        commit_entity(index);
+        entity->p3 = (entity->p3 + 1);
+
+        if (entity->p3 == 4)
+        {
+            entity->t = 24; // Turn it into a safe box
+            entity->p3 = 0;
+        }
+        break;
+    case 24:
+        // Safe Boxes
+        commit_entity(index);
+        entity->t = 21; // Turn it into a collision box
+        break;
     }
 }
 
@@ -2813,7 +2949,7 @@ void editorclass::tool_place()
     case EditorTool_SCRIPTS:
         substate = EditorSubState_DRAW_BOX;
         box_corner = BoxCorner_LAST;
-        box_type = BoxType_SCRIPT;
+        box_type = (z_modifier) ? BoxType_ACTIVITY_ZONE : BoxType_SCRIPT;
         box_point.x = tilex * 8;
         box_point.y = tiley * 8;
 
@@ -2877,6 +3013,24 @@ void editorclass::tool_place()
             }
         }
         add_entity(levx, levy, tilex, tiley, 16, 0);
+        break;
+    case EditorTool_DAMAGE_BOXES:
+        substate = EditorSubState_DRAW_BOX;
+        box_corner = BoxCorner_LAST;
+        box_type = BoxType_DAMAGE_BOXES;
+        box_point.x = tilex * 8;
+        box_point.y = tiley * 8;
+
+        lclickdelay = 1;
+        break;
+    case EditorTool_COLLISION_BOXES:
+        substate = EditorSubState_DRAW_BOX;
+        box_corner = BoxCorner_LAST;
+        box_type = BoxType_COLLISION_BOXES;
+        box_point.x = tilex * 8;
+        box_point.y = tiley * 8;
+
+        lclickdelay = 1;
         break;
     default:
         break;
@@ -3852,6 +4006,13 @@ void editorinput(void)
 
                         ed.get_input_line(TEXT_SCRIPT, "Enter script name:", &(customentities[ed.text_entity].scriptname));
                         break;
+                    case BoxType_ACTIVITY_ZONE:
+                        ed.text_entity = customentities.size();
+
+                        ed.add_entity(ed.levx, ed.levy, left / 8, top / 8, 20, (right - left) / 8, (bottom - top) / 8, 35);
+
+                        ed.get_input_line(TEXT_SCRIPT, "Enter script name:", &(customentities[ed.text_entity].scriptname));
+                        break;
                     case BoxType_ENEMY:
                         cl.setroomenemyx1(ed.levx, ed.levy, left);
                         cl.setroomenemyy1(ed.levx, ed.levy, top);
@@ -3863,6 +4024,15 @@ void editorinput(void)
                         cl.setroomplaty1(ed.levx, ed.levy, top);
                         cl.setroomplatx2(ed.levx, ed.levy, right);
                         cl.setroomplaty2(ed.levx, ed.levy, bottom);
+                        break;
+                    case BoxType_DAMAGE_BOXES:
+                        ed.add_entity(ed.levx, ed.levy, left / 8, top / 8, 22, (right - left) / 8, (bottom - top) / 8);
+                        break;
+                    case BoxType_COLLISION_BOXES:
+                        ed.add_entity(ed.levx, ed.levy, left / 8, top / 8, 21, (right - left) / 8, (bottom - top) / 8);
+                        break;
+                    case BoxType_DIRECTIONAL_BOXES:
+                        ed.add_entity(ed.levx, ed.levy, left / 8, top / 8, 23, (right - left) / 8, (bottom - top) / 8);
                         break;
                     case BoxType_COPY:
                         // Unused
