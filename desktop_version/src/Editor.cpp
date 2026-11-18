@@ -1132,9 +1132,9 @@ static void draw_entities(void)
                 graphics.draw_rect(x, y, 8, 8, graphics.getRGB(255, 255, 255));
                 if (i == edent_under_cursor)
                 {
-                    int length = font::len(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, loc::gettext("Solid Collision"));
+                    int length = font::len(PR_BOR | PR_CJK_HIGH, loc::gettext("Solid Collision"));
                     int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
-                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text_x, y - 8, loc::gettext("Solid Collision"), 210, 210, 255);
+                    font::print(PR_BOR | PR_CJK_HIGH, text_x, y - 8, loc::gettext("Solid Collision"), 210, 210, 255);
                 }
                 break;
             case 22: // Damage Boxes
@@ -1197,9 +1197,9 @@ static void draw_entities(void)
 
                 if (i == edent_under_cursor)
                 {
-                    int length = font::len(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text);
+                    int length = font::len(PR_BOR | PR_CJK_HIGH, text);
                     int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
-                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text_x, y - 8, text, 210, 210, 255);
+                    font::print(PR_BOR | PR_CJK_HIGH, text_x, y - 8, text, 210, 210, 255);
                 }
                 break;
             }
@@ -1209,31 +1209,31 @@ static void draw_entities(void)
                 int arrow_x = x + (entity->p1 - 1) * 4;
                 int arrow_y = y + (entity->p2 - 1) * 4;
 
-                const char* text = NULL;
+                const char* text = "?";
 
                 if (customentities[i].p3 == 0)
                 {
                     // UP ARROW
                     font::print(PR_FONT_8X8 | PR_BOR, arrow_x, arrow_y, "\xE2\x86\x91", 255, 255, 255);
-                    text = loc::gettext("Directional: UP");
+                    text = loc::gettext("One-Way: UP");
                 }
                 else if (customentities[i].p3 == 1)
                 {
                     // DOWN ARROW
                     font::print(PR_FONT_8X8 | PR_BOR, arrow_x, arrow_y, "\xE2\x86\x93", 255, 255, 255);
-                    text = loc::gettext("Directional: DOWN");
+                    text = loc::gettext("One-Way: DOWN");
                 }
                 else if (customentities[i].p3 == 2)
                 {
                     // LEFT ARROW
                     font::print(PR_FONT_8X8 | PR_BOR, arrow_x, arrow_y, "\xE2\x86\x90", 255, 255, 255);
-                    text = loc::gettext("Directional: LEFT");
+                    text = loc::gettext("One-Way: LEFT");
                 }
                 else if (customentities[i].p3 == 3)
                 {
                     // RIGHT ARROW
                     font::print(PR_FONT_8X8 | PR_BOR, arrow_x, arrow_y, "\xE2\x86\x92", 255, 255, 255);
-                    text = loc::gettext("Directional: RIGHT");
+                    text = loc::gettext("One-Way: RIGHT");
                 }
 
                 graphics.draw_rect(x, y, entity->p1 * 8, entity->p2 * 8, graphics.getRGB(255, 255, 164));
@@ -1241,9 +1241,9 @@ static void draw_entities(void)
 
                 if (i == edent_under_cursor)
                 {
-                    int length = font::len(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text);
+                    int length = font::len(PR_BOR | PR_CJK_HIGH, text);
                     int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
-                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text_x, y - 8, text, 210, 210, 255);
+                    font::print(PR_BOR | PR_CJK_HIGH, text_x, y - 8, text, 210, 210, 255);
                 }
                 break;
             }
@@ -1253,9 +1253,9 @@ static void draw_entities(void)
 
                 if (i == edent_under_cursor)
                 {
-                    int length = font::len(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, loc::gettext("Enemy-Only"));
+                    int length = font::len(PR_BOR | PR_CJK_HIGH, loc::gettext("Solid For Enemies"));
                     int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
-                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, text_x, y - 8, loc::gettext("Enemy-Only"), 210, 210, 255);
+                    font::print(PR_BOR | PR_CJK_HIGH, text_x, y - 8, loc::gettext("Solid For Enemies"), 210, 210, 255);
                 }
                 break;
             case 25: // Gamestate Triggers
@@ -1266,7 +1266,7 @@ static void draw_entities(void)
                 int id_x = x + (entity->p1 - 1) * 4;
                 int id_y = y + (entity->p2 - 1) * 4;
 
-                font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, id_x, id_y, help.String(entity->p3), 255, 255, 255);
+                font::print(PR_BOR | PR_CJK_HIGH, id_x, id_y, help.String(entity->p3), 255, 255, 255);
 
                 if (i == edent_under_cursor)
                 {
@@ -1277,7 +1277,9 @@ static void draw_entities(void)
                         entity->p3
                     );
 
-                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, x, y - 8, buffer, 210, 210, 255);
+                    int length = font::len(PR_BOR | PR_CJK_HIGH, buffer);
+                    int text_x = SDL_clamp(x, 0, (SCREEN_WIDTH_PIXELS - length));
+                    font::print(PR_BOR | PR_CJK_HIGH, text_x, y - 8, buffer, 210, 210, 255);
                 }
                 break;
             }
