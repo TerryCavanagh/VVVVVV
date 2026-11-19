@@ -49,6 +49,8 @@ enum EditorTools
     EditorTool_WARP_LINES,
     EditorTool_CREWMATES,
     EditorTool_START_POINT,
+    EditorTool_DAMAGE_BOXES,
+    EditorTool_COLLISION_BOXES,
 
     NUM_EditorTools
 };
@@ -85,7 +87,11 @@ enum BoxTypes
     BoxType_SCRIPT,
     BoxType_ENEMY,
     BoxType_PLATFORM,
-    BoxType_COPY
+    BoxType_COPY,
+    BoxType_ACTIVITY_ZONE,
+    BoxType_DAMAGE_BOXES,
+    BoxType_COLLISION_BOXES,
+    BoxType_DIRECTIONAL_BOXES
 };
 
 enum BoxCorner

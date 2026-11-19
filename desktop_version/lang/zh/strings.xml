@@ -588,6 +588,12 @@
     <string english="Tile:" translation="地块：" explanation="editor, selected " max="34" max_local="22"/>
     <string english="SCRIPT BOX: Click on the first corner" translation="脚本盒：点击开始角落" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="26*2"/>
     <string english="SCRIPT BOX: Click on the last corner" translation="脚本盒：点击结束角落" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="26*2"/>
+    <string english="ACTIVITY ZONE: Click on the first corner" translation="" explanation="editor, an activity zone is an invisible box that runs a script when the user presses enter" max="39*3" max_local="26*2"/>
+    <string english="ACTIVITY ZONE: Click on the last corner" translation="" explanation="editor, an activity zone is an invisible box that runs a script when the user presses enter" max="39*3" max_local="26*2"/>
+    <string english="COLLISION BOX: Click on the first corner" translation="" explanation="editor, a collision box is an invisible box that is solid to the player" max="39*3" max_local="26*2"/>
+    <string english="COLLISION BOX: Click on the last corner" translation="" explanation="editor, a collision box is an invisible box that is solid to the player" max="39*3" max_local="26*2"/>
+    <string english="DAMAGE BOX: Click on the first corner" translation="" explanation="editor, a damage box is an invisible box that kills the player when they touch it" max="39*3" max_local="26*2"/>
+    <string english="DAMAGE BOX: Click on the last corner" translation="" explanation="editor, a damage box is an invisible box that kills the player when they touch it" max="39*3" max_local="26*2"/>
     <string english="ENEMY BOUNDS: Click on the first corner" translation="敌人边界：点击开始角落" explanation="editor, invisible box which enemies always stay inside of" max="39*3" max_local="26*2"/>
     <string english="ENEMY BOUNDS: Click on the last corner" translation="敌人边界：点击结束角落" explanation="editor, invisible box which enemies always stay inside of" max="39*3" max_local="26*2"/>
     <string english="PLATFORM BOUNDS: Click on the first corner" translation="平台边界：点击开始角落" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3" max_local="26*2"/>
@@ -619,6 +625,8 @@
     <string english="I: Warp Lines" translation="I：转移线" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32" max_local="21"/>
     <string english="O: Crewmates" translation="O：船员" explanation="editor tool. Crewmate that can be rescued" max="32" max_local="21"/>
     <string english="P: Start Point" translation="P：开始点" explanation="editor tool" max="32" max_local="21"/>
+    <string english="D: Damage Boxes" translation="" explanation="editor tool. Invisible box that kills the player when touched" max="32" max_local="21"/>
+    <string english="K: Collision Boxes" translation="" explanation="editor tool. Invisible box that is solid" max="32" max_local="21"/>
     <string english="START" translation="开始" explanation="start point in level editor" max="10" max_local="6"/>
     <string english="SPACE ^  SHIFT ^" translation="空格 ^ SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32" max_local="21"/>
     <string english="F1: Change Tileset" translation="F1：变更Tileset" explanation="editor shortcut, switch to different tileset" max="25" max_local="16"/>
@@ -671,6 +679,17 @@
     <string english="Level completed" translation="关卡已完成" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3" max_local="25*2"/>
     <string english="Rolled credits" translation="制作名单已播放" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3" max_local="25*2"/>
     <string english="Time trial completed" translation="时间挑战已完成" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3" max_local="25*2"/>
+    <string english="Solid Collision" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box is solid to the player" max="39" max_local="26"/>
+    <string english="Damage" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box kills the player when touched" max="39" max_local="26"/>
+    <string english="Damage: Top Spikes" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box kills the player when touched, and is shaped like upwards spike hitboxes" max="39" max_local="26"/>
+    <string english="Damage: Bottom Spikes" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box kills the player when touched, and is shaped like downwards spike hitboxes" max="39" max_local="26"/>
+    <string english="Damage: Side Spikes" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box kills the player when touched, and is shaped like horizontal spike hitboxes" max="39" max_local="26"/>
+    <string english="One-Way: UP" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box is one-way collision. the top is solid" max="39" max_local="26"/>
+    <string english="One-Way: DOWN" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box is one-way collision. the bottom is solid" max="39" max_local="26"/>
+    <string english="One-Way: LEFT" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box is one-way collision. the left side is solid" max="39" max_local="26"/>
+    <string english="One-Way: RIGHT" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box is one-way collision. the right side is solid" max="39" max_local="26"/>
+    <string english="Solid For Enemies" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box is only solid to enemies" max="39" max_local="26"/>
+    <string english="Gamestate: {id}" translation="" explanation="editor, this describes the type of the box you&apos;re currently hovering over. this box runs a gamestate when touched, which is an advanced concept that is probably best left untranslated" max="39" max_local="26"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
