@@ -2267,18 +2267,28 @@ void mapclass::twoframedelayfix(void)
     int block_idx = -1;
     // obj.checktrigger() sets block_idx
     int activetrigger = obj.checktrigger(&block_idx);
-    if (activetrigger <= -1
-        || !INBOUNDS_VEC(block_idx, obj.blocks)
-        || activetrigger < 300)
+
+    if (!INBOUNDS_VEC(block_idx, obj.blocks) || activetrigger <= -1)
     {
         return;
     }
 
-    game.newscript = obj.blocks[block_idx].script;
-    obj.removetrigger(activetrigger);
-    game.setstate(0);
+    // Load the block's script if exists
+    // No range check, because we want to run scripts either way
+    if (obj.blocks[block_idx].script != "")
+    {
+        game.newscript = obj.blocks[block_idx].script;
+        obj.removetrigger(activetrigger);
+        game.setstate(0);
+        script.load(game.newscript);
+    }
+    else
+    {
+        // Just a trigger, so run its gamestate
+        game.setstate(activetrigger);
+    }
+
     game.setstatedelay(0);
-    script.load(game.newscript);
 }
 
 MapRenderData mapclass::get_render_data(void)
