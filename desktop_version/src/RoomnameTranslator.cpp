@@ -154,7 +154,7 @@ namespace roomname_translator
         }
 
         vformat_buf(buffer, sizeof(buffer),
-            "({x|digits=2|spaces},{y|digits=2|spaces})",
+            "[{x|digits=2|spaces},{y|digits=2|spaces}]",
             "x:int, y:int",
             game.roomx % 100, game.roomy % 100
         );
