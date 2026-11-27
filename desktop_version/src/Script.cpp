@@ -2813,6 +2813,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
         textbox_colours.clear();
         add_default_colours();
         cl.onewaycol_override = false;
+        cl.textboxlimit_fix = true;
         cl.player_colour = 0;
         cl.custom_activity_zones.clear();
         break;

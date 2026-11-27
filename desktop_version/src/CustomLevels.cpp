@@ -401,6 +401,7 @@ void customlevelclass::reset(void)
     script.clearcustom();
 
     onewaycol_override = false;
+    textboxlimit_fix = true;
 
     script.textbox_colours.clear();
     script.add_default_colours();
@@ -1128,6 +1129,16 @@ bool customlevelclass::load(std::string _path)
                 {
                     rtl = help.Int(pText_);
                 }
+
+                if (SDL_strcmp(pKey_, "textboxlimit_fix") == 0)
+                {
+                    textboxlimit_fix = help.Int(pText_);
+                }
+                else
+                {
+                    // If it doesn't exist, default to false.
+                    textboxlimit_fix = false;
+                }
             }
         }
 
@@ -1615,6 +1626,20 @@ bool customlevelclass::save(const std::string& _path)
         // Also get rid of this one...
         tinyxml2::XMLElement* element;
         while ((element = msg->FirstChildElement("rtl")) != NULL)
+        {
+            doc.DeleteNode(element);
+        }
+    }
+
+    if (textboxlimit_fix)
+    {
+        xml::update_tag(msg, "textboxlimit_fix", textboxlimit_fix);
+    }
+    else
+    {
+        // This one as well.
+        tinyxml2::XMLElement* element;
+        while ((element = msg->FirstChildElement("textboxlimit_fix")) != NULL)
         {
             doc.DeleteNode(element);
         }
