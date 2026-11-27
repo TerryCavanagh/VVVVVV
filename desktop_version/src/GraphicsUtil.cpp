@@ -206,13 +206,16 @@ void ApplyFilter(SDL_Surface** src, SDL_Surface** dest)
         return;
     }
 
+    SDL_PropertiesID props = SDL_GetTextureProperties(graphics.gameTexture);
+    SDL_PixelFormat format = (SDL_PixelFormat)SDL_GetNumberProperty(props, SDL_PROP_TEXTURE_FORMAT_NUMBER, SDL_PIXELFORMAT_UNKNOWN);
+
     if (*src == NULL)
     {
-        *src = SDL_CreateSurface(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, SDL_GetPixelFormatForMasks(32, 0, 0, 0, 0));
+        *src = SDL_CreateSurface(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, format);
     }
     if (*dest == NULL)
     {
-        *dest = SDL_CreateSurface(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, SDL_GetPixelFormatForMasks(32, 0, 0, 0, 0));
+        *dest = SDL_CreateSurface(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, format);
     }
     if (*src == NULL || *dest == NULL)
     {
