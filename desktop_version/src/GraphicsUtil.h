@@ -10,7 +10,7 @@ SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, i
 
 void DrawPixel(SDL_Surface* surface, int x, int y, SDL_Color color);
 
-SDL_Color ReadPixel(const SDL_Surface* surface, int x, int y);
+SDL_Color ReadPixel(SDL_Surface* surface, int x, int y);
 
 void UpdateFilter(void);
 void ApplyFilter(SDL_Surface** src, SDL_Surface** dest);
