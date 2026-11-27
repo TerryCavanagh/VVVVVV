@@ -95,34 +95,10 @@ void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_Color c
         return;
     }
 
-    const SDL_PixelFormat fmt = surface->format;
-    const SDL_PixelFormatDetails *fmt_details = SDL_GetPixelFormatDetails(fmt);
-    const int bpp = fmt_details->bytes_per_pixel;
-    Uint8* pixel = (Uint8*) surface->pixels + y * surface->pitch + x * bpp;
-    Uint32* pixel32 = (Uint32*) pixel;
-
-    switch (bpp)
-    {
-    case 1:
-    case 2:
-        SDL_assert(0 && "Colors other than 24- or 32- bit unsupported!");
-        break;
-
-    case 3:
-    {
-        const Uint32 single = SDL_MapSurfaceRGB(surface, color.r, color.g, color.b);
-        pixel[0] = (single & 0xFF0000) >> 16;
-        pixel[1] = (single & 0x00FF00) >> 8;
-        pixel[2] = (single & 0x0000FF) >> 0;
-        break;
-    }
-
-    case 4:
-        *pixel32 = SDL_MapSurfaceRGBA(surface, color.r, color.g, color.b, color.a);
-    }
+    SDL_WriteSurfacePixel(surface, x, y, color.r, color.g, color.b, color.a);
 }
 
-SDL_Color ReadPixel(const SDL_Surface* surface, const int x, const int y)
+SDL_Color ReadPixel(SDL_Surface* surface, const int x, const int y)
 {
     SDL_Color color = {0, 0, 0, 0};
     const SDL_Point point = {x, y};
@@ -139,30 +115,7 @@ SDL_Color ReadPixel(const SDL_Surface* surface, const int x, const int y)
         return color;
     }
 
-    const SDL_PixelFormat fmt = surface->format;
-    const SDL_PixelFormatDetails *fmt_details = SDL_GetPixelFormatDetails(fmt);
-    const int bpp = fmt_details->bytes_per_pixel;
-    const Uint8* pixel = (Uint8*) surface->pixels + y * surface->pitch + x * bpp;
-    const Uint32* pixel32 = (Uint32*) pixel;
-
-    switch (bpp)
-    {
-    case 1:
-    case 2:
-        SDL_assert(0 && "Colors other than 24- or 32- bit unsupported!");
-        break;
-
-    case 3:
-    {
-        const Uint32 single = (pixel[0] << 16) | (pixel[1] << 8) | (pixel[2] << 0);
-        SDL_GetRGB(single, fmt_details, SDL_GetSurfacePalette((SDL_Surface *) surface), &color.r, &color.g, &color.b);
-        color.a = 255;
-        break;
-    }
-
-    case 4:
-        SDL_GetRGBA(*pixel32, fmt_details, SDL_GetSurfacePalette((SDL_Surface *) surface), &color.r, &color.g, &color.b, &color.a);
-    }
+    SDL_ReadSurfacePixel(surface, x, y, &color.r, &color.g, &color.b, &color.a);
 
     return color;
 }
