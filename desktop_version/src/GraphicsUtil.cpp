@@ -220,6 +220,15 @@ void ApplyFilter(SDL_Surface** src, SDL_Surface** dest)
     if (*src == NULL || *dest == NULL)
     {
         WHINE_ONCE_ARGS(("Could not create temporary surfaces: %s", SDL_GetError()));
+
+        if (*src != NULL)
+        {
+            VVV_freefunc(SDL_DestroySurface, *src);
+        }
+        if (*dest != NULL)
+        {
+            VVV_freefunc(SDL_DestroySurface, *dest);
+        }
         return;
     }
 
