@@ -173,6 +173,7 @@ public:
     SDL_Color getonewaycol(int rx, int ry);
     SDL_Color getonewaycol(void);
     bool onewaycol_override;
+    bool textboxlimit_fix;
 
     int player_colour;
 

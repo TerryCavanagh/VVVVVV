@@ -1628,7 +1628,7 @@ void Graphics::createtextboxreal(
 ) {
     m = textboxes.size();
 
-    if (m < 20)
+    if (m < 20 || (map.custommode && cl.textboxlimit_fix))
     {
         textboxclass text(getlinegap());
         text.lines.push_back(t);
