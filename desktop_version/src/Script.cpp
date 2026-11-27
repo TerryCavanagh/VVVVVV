@@ -1060,10 +1060,10 @@ void scriptclass::run(void)
             {
                 if (INBOUNDS_ARR(map.tempscriptbox, game.customscript))
                 {
-                    game.customscript[map.tempscriptbox] = words[5];
+                    game.customscript[map.tempscriptbox] = raw_words[5];
                 }
 
-                obj.createblock(TRIGGER, ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]), ss_toi(words[4]), 300 + map.tempscriptbox, "custom_" + words[5]);
+                obj.createblock(TRIGGER, ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]), ss_toi(words[4]), 300 + map.tempscriptbox, "custom_" + raw_words[5]);
                 map.tempscriptbox++;
             }
             else if (words[0] == "createdamage")
@@ -1087,7 +1087,7 @@ void scriptclass::run(void)
                 }
 
                 obj.customscript = words[5];
-                obj.createblock(ACTIVITY, ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]), ss_toi(words[4]), id, words[5], ActivityContext_CUSTOM);
+                obj.createblock(ACTIVITY, ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]), ss_toi(words[4]), id, raw_words[5], ActivityContext_CUSTOM);
             }
             else if (words[0] == "createcrewman")
             {
